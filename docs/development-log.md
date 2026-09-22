@@ -2,7 +2,27 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
-## 2026-09-22 — Cape route removed, label collision fixed, Cesium rendering investigated (unresolved)
+## 2026-09-22 — Cesium rendering bug SOLVED: duplicate `@cesium/engine` in the dependency tree
+
+**Root cause: two copies of `@cesium/engine` were installed, producing two `ContextLimits` singletons.**
+
+`cesium@1.138.0` depends on `@cesium/engine@^22.3.0` *and* `@cesium/widgets@^14.3.0`. npm resolved `@cesium/widgets@14.5.0`, which requires `@cesium/engine@^24.0.0` — an incompatible major. npm therefore hoisted engine **22.3.0** for `cesium` and nested engine **24.0.0** inside `@cesium/widgets/node_modules/`. `Viewer` (from widgets) wrote `ContextLimits._maximumTextureSize = 16384` into one copy; `ImageryLayer`/`Texture` (from the hoisted copy, reached via `cesium`) read `0` from the other copy's untouched initial value. Hence `DeveloperError: Width must be less than or equal to the maximum texture size (0)` while the live WebGL context was perfectly healthy.
+
+**Fix**: `"overrides": { "@cesium/widgets": "14.3.0" }` in `apps/web/package.json` — 14.3.0 requires engine `^22.3.0`, matching the hoisted copy. This is the same resolution God's Eye View has. Verified: dep bundle dropped 19.3 MB → 10.2 MB, `_maximumTextureSize` occurrences 6 → 3, and exactly one `ContextLimits.js` module marker remains. **The Esri satellite globe now renders**; the Natural Earth fallback is no longer triggered. Watch for regression whenever Cesium is upgraded — check for a nested `node_modules/@cesium/widgets/node_modules/@cesium/engine`.
+
+**How it was found**, after a long unsuccessful stretch of guessing at Cesium `Viewer` options:
+1. A bare, React-free HTML+Cesium page reproduced the bug with zero Nexus code — ruling out React, our component, effect lifecycle and container sizing.
+2. Running that *same probe file* inside the God's Eye View project survived, while it failed in Nexus — proving the problem was the project environment, not our Cesium usage.
+3. Bisecting the environment ruled out the React plugin, the tsconfig, Cesium's static worker assets, `vite-plugin-cesium`, and the Vite major version (6 vs 7 both fail).
+4. Comparing the two served dep bundles showed Nexus's was ~2× the size with exactly 2× the occurrences of `_maximumTextureSize` — which located the duplicate module immediately.
+
+Things previously suspected and now definitively **not** the cause: GPU/driver (the user's real Edge reported a healthy 16384 context), network reachability to tile servers, `msaaSamples`, `contextOptions`/`preserveDrawingBuffer`, `requestRenderMode`, `globe.show` sequencing, Vite's dep cache, and the Cesium version itself.
+
+Also in this change: removed `import "cesium/Build/Cesium/Widgets/widgets.css"`. It was not the cause, but it is redundant — `vite-plugin-cesium` injects `/cesium/Widgets/widgets.css` in both dev and production (verified in `dist/index.html`, asset copied to `dist/cesium/`), and God's Eye does not import it either. This also removes a second entry point into `cesium/Build/*`.
+
+Validation: 38 backend tests, 8/8 browser workflows, `tsc --noEmit`, production build and Prettier all pass.
+
+## 2026-09-22 — Cape route removed, label collision fixed, Cesium rendering investigated (was unresolved, see entry above)
 
 User review of the geography tab (screenshots, not just automated checks) surfaced three real problems the parallel agents' own tests hadn't caught.
 

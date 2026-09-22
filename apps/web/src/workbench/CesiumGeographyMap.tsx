@@ -22,7 +22,6 @@ import {
   VerticalOrigin,
   Viewer,
 } from "cesium";
-import "cesium/Build/Cesium/Widgets/widgets.css";
 import type { Investigation } from "../api";
 
 type Geography = NonNullable<Investigation["geography"]>;
@@ -216,6 +215,7 @@ export function CesiumGeographyMap({
       setStatus("local");
       setRenderer("svg");
     });
+    viewer.scene.globe.show = false;
     viewer.scene.globe.baseColor = Color.fromCssColorString("#d7dfd1");
     viewer.scene.backgroundColor = Color.fromCssColorString("#dce8e5");
     if (viewer.scene.skyBox) viewer.scene.skyBox.show = false;
@@ -303,6 +303,7 @@ export function CesiumGeographyMap({
       .then((provider) => {
         if (disposed) return;
         viewer.imageryLayers.add(new ImageryLayer(provider), 0);
+        viewer.scene.globe.show = true;
         setStatus("satellite");
         viewer.scene.requestRender();
       })
@@ -314,8 +315,10 @@ export function CesiumGeographyMap({
             credit: "© OpenStreetMap contributors",
           });
           viewer.imageryLayers.add(new ImageryLayer(provider), 0);
+          viewer.scene.globe.show = true;
           setStatus("streets");
         } catch {
+          viewer.scene.globe.show = true;
           setStatus("globe-only");
         }
         viewer.scene.requestRender();
