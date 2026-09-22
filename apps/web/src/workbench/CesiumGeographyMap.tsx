@@ -138,17 +138,20 @@ function NaturalEarthMap({
               if (event.key === "Enter" || event.key === " ") onSelect(stop.id);
             }}
           >
+            <title>{stop.label}</title>
             <circle cx={point[0]} cy={point[1]} r={selected ? 9 : 7} />
             <text className="geo-local-number" x={point[0]} y={point[1] + 3}>
               {index + 1}
             </text>
-            <text
-              className="geo-local-label"
-              x={point[0] + 12}
-              y={point[1] + 4}
-            >
-              {stop.label}
-            </text>
+            {selected && (
+              <text
+                className="geo-local-label"
+                x={point[0] + 12}
+                y={point[1] + 4}
+              >
+                {stop.label}
+              </text>
+            )}
           </g>
         );
       })}
@@ -206,9 +209,7 @@ export function CesiumGeographyMap({
       infoBox: false,
       baseLayer: false,
       creditContainer,
-      requestRenderMode: true,
-      maximumRenderTimeChange: Number.POSITIVE_INFINITY,
-      msaaSamples: 4,
+      contextOptions: { webgl: { preserveDrawingBuffer: true } },
     });
     viewerRef.current = viewer;
     viewer.scene.renderError.addEventListener(() => {
@@ -243,6 +244,7 @@ export function CesiumGeographyMap({
         },
         label: {
           text: stop.label,
+          show: selected,
           font: "600 13px system-ui",
           fillColor: Color.fromCssColorString("#26362c"),
           outlineColor: Color.fromCssColorString("#f7f5ed"),
@@ -342,6 +344,9 @@ export function CesiumGeographyMap({
         entity.point.color = new ConstantProperty(markerColor(selected));
         entity.point.pixelSize = new ConstantProperty(selected ? 15 : 11);
         entity.point.outlineWidth = new ConstantProperty(selected ? 4 : 3);
+      }
+      if (entity?.label) {
+        entity.label.show = new ConstantProperty(selected);
       }
     }
     const stop = stops.find((candidate) => candidate.id === selectedId);

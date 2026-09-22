@@ -105,22 +105,6 @@
       "checked_on": "2026-09-22"
     },
     {
-      "id": "O-R02",
-      "entity_id": "oil-cape-good-hope",
-      "label": "Cape of Good Hope route",
-      "points": [
-        {"latitude": 12.583333, "longitude": 43.333333},
-        {"latitude": -34.358056, "longitude": 18.471944}
-      ],
-      "precision": "illustrative_bypass_corridor",
-      "role": "Long alternative avoiding the Red Sea chokepoints",
-      "why_it_matters": "The brief records the Cape of Good Hope as a longer alternative some vessels use to avoid Bab el-Mandeb and Suez, without quantifying diverted volume.",
-      "caveat": "This line pairs the Bab el-Mandeb anchor (this file's O-G02, reused to show which chokepoint the route substitutes for) with the sourced Cape of Good Hope point. Vessels taking this alternative do not sail through Bab el-Mandeb; the straight segment is an illustrative pairing, not the vessel track around the African coastline, and implies no capacity, cost or actual-use figure.",
-      "source_title": "Wikidata Q4092 — Cape of Good Hope coordinate location; EIA Suez, SUMED, Bab el-Mandeb and Cape routing note supplies the alternative-route context",
-      "source_url": "https://www.wikidata.org/wiki/Q4092",
-      "checked_on": "2026-09-22"
-    },
-    {
       "id": "O-R03",
       "entity_id": "oil-myanmar-china-pipeline",
       "label": "Myanmar–China crude oil pipeline",

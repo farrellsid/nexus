@@ -170,7 +170,6 @@ def test_oil_brief_is_discoverable_and_keeps_measurement_statuses_distinct():
     )
     assert {route.entity_id for route in oil.geography.routes} == {
         "oil-suez-sumed",
-        "oil-cape-good-hope",
         "oil-myanmar-china-pipeline",
     }
     assert all(len(route.points) >= 2 for route in oil.geography.routes)
@@ -197,10 +196,9 @@ def test_oil_brief_is_discoverable_and_keeps_measurement_statuses_distinct():
     assert response.status_code == 200
     assert response.json()["pack"]["briefing"]["metrics"][0]["id"] == "O-M01"
     assert len(response.json()["geography"]["stops"]) == 6
-    assert len(response.json()["geography"]["routes"]) == 3
+    assert len(response.json()["geography"]["routes"]) == 2
     assert {route["id"] for route in response.json()["geography"]["routes"]} == {
         "O-R01",
-        "O-R02",
         "O-R03",
     }
     graph = client.get(
