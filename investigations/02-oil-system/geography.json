@@ -1,0 +1,62 @@
+{
+  "title": "Four places that organize the current oil brief",
+  "framing": "These are sourced label anchors for guided reading, not boundaries, pipeline routes, shipping tracks or cargo locations.",
+  "stops": [
+    {
+      "id": "O-G01",
+      "entity_id": "oil-hormuz",
+      "label": "Strait of Hormuz",
+      "latitude": 26.6,
+      "longitude": 56.5,
+      "precision": "representative_label_point",
+      "role": "Persian Gulf exit",
+      "why_it_matters": "The brief's central disruption measure is the estimated change in oil flow through Hormuz.",
+      "caveat": "A strait is an area, not a point. This anchor must not be read as a route or vessel position.",
+      "source_title": "Wikidata Q79883 — coordinate location; EIA Figure 4 supplies geographic context",
+      "source_url": "https://www.wikidata.org/wiki/Q79883",
+      "checked_on": "2026-09-22"
+    },
+    {
+      "id": "O-G02",
+      "entity_id": "oil-bab",
+      "label": "Bab el-Mandeb",
+      "latitude": 12.583333,
+      "longitude": 43.333333,
+      "precision": "representative_label_point",
+      "role": "Red Sea southern entrance",
+      "why_it_matters": "Its aggregate flow rose in the brief window, providing evidence of changed route use without proving one-for-one rerouting.",
+      "caveat": "A strait is an area, not a point. Aggregate movement cannot identify displaced Hormuz cargoes.",
+      "source_title": "Wikidata Q83318 — coordinate location; EIA Figure 6 supplies geographic context",
+      "source_url": "https://www.wikidata.org/wiki/Q83318",
+      "checked_on": "2026-09-22"
+    },
+    {
+      "id": "O-G03",
+      "entity_id": "oil-malacca",
+      "label": "Strait of Malacca",
+      "latitude": 2.833056,
+      "longitude": 101.036944,
+      "precision": "representative_label_point",
+      "role": "Indian–Pacific connection",
+      "why_it_matters": "It connects the global chokepoint view to East Asian import demand and the China evidence in this brief.",
+      "caveat": "A single label point cannot represent the roughly 930-kilometre strait or any individual voyage.",
+      "source_title": "Wikidata Q48359 — coordinate location; EIA Figure 2 supplies geographic context",
+      "source_url": "https://www.wikidata.org/wiki/Q48359",
+      "checked_on": "2026-09-22"
+    },
+    {
+      "id": "O-G04",
+      "entity_id": "oil-yanbu",
+      "label": "King Fahd Industrial Port, Yanbu",
+      "latitude": 23.950833,
+      "longitude": 38.2225,
+      "precision": "facility_point",
+      "role": "Red Sea export outlet",
+      "why_it_matters": "Yanbu is the export-side destination of Saudi Arabia's East-West crude pipeline in the current graph.",
+      "caveat": "The fixture's broader Yanbu terminal entity is anchored to the named industrial port; pipeline route geometry is still absent.",
+      "source_title": "Wikidata Q12246916 — GNS-referenced coordinate location",
+      "source_url": "https://www.wikidata.org/wiki/Q12246916",
+      "checked_on": "2026-09-22"
+    }
+  ]
+}

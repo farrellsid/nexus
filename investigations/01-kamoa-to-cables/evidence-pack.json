@@ -1,0 +1,784 @@
+{
+  "schema_version": "0.1-research-fixture",
+  "case_id": "kamoa-to-cables",
+  "checked_on": "2026-09-15",
+  "scope": "Historical disclosures from 2024-04 through 2026-04; not a complete current supply chain.",
+  "verdict": "Feasible for evidence-backed relationship exploration; not end-to-end material traceability or quantified disruption prediction.",
+  "sources": [
+    {
+      "id": "S01",
+      "title": "Ivanhoe: January 2025 production guidance and offtake",
+      "publisher": "Ivanhoe Mines",
+      "published_on": "2025-01-08",
+      "language": "en",
+      "url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-provides-2024-production-results-2025-production-guidance/",
+      "locator": "Offtake section, opening paragraphs",
+      "excerpt": "for a combined 80% of the smelter’s anode production",
+      "format": "HTML",
+      "origin_group": "ivanhoe-2025-01",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S02",
+      "title": "Ivanhoe: western Kakula restart",
+      "publisher": "Ivanhoe Mines",
+      "published_on": "2025-06-11",
+      "language": "en",
+      "url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-announces-restart-of-underground-mining-operations-on-western-side-of-kakula-mine-on-june-7-2025/",
+      "locator": "Opening operational update",
+      "excerpt": "with first anode expected in October 2025",
+      "format": "HTML",
+      "origin_group": "ivanhoe-2025-06",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S03",
+      "title": "Zijin: flooding and production guidance",
+      "publisher": "Zijin Mining",
+      "published_on": "2025-06-13",
+      "language": "en",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2025/0613/2025061301243.pdf",
+      "locator": "PDF page 1, paragraphs 2-3",
+      "excerpt": "resulting in substantial flooding of the eastern side of the Kakula Mine",
+      "format": "PDF",
+      "origin_group": "zijin-2025-06",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S04",
+      "title": "Ivanhoe: Q2 2025 production and third offtaker",
+      "publisher": "Ivanhoe Mines",
+      "published_on": "2025-07-08",
+      "language": "en",
+      "url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-reports-112009-tonnes-of-copper-produced-by-kamoa-kakula-in-q2-2025/",
+      "locator": "Offtake section, paragraph beginning In June",
+      "excerpt": "with Trafigura Asia Trading Pte Ltd.",
+      "format": "HTML",
+      "origin_group": "ivanhoe-2025-07",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S05",
+      "title": "Ivanhoe: first anode production",
+      "publisher": "Ivanhoe Mines",
+      "published_on": "2026-01-02",
+      "language": "en",
+      "url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-announces-first-anode-production-from-kamoa-kakula-copper-smelter/",
+      "locator": "Opening dated announcement",
+      "excerpt": "on December 29, 2025",
+      "format": "HTML",
+      "origin_group": "ivanhoe-2026-01",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S06",
+      "title": "Trafigura: sale of Kamoa anodes to Aurubis",
+      "publisher": "Trafigura",
+      "published_on": "2026-02-19",
+      "language": "en",
+      "url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-aurubis-and-kamoa-copper-complete-first-sale-of-low-carbon-refined-copper-via-the-lobito-atlantic-railway/",
+      "locator": "Opening transaction and logistics paragraphs",
+      "excerpt": "to the Aurubis Group",
+      "format": "HTML",
+      "origin_group": "kamoa-aurubis-joint-2026-02",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S07",
+      "title": "Lobito Atlantic Railway: Portuguese transaction announcement",
+      "publisher": "Lobito Atlantic Railway",
+      "published_on": "2026-02-19",
+      "language": "pt",
+      "url": "https://www.lobitoatlantic.com/pt/noticias-recursos/noticias/trafigura-aurubis-and-kamoa-copper-complete-first-sale-of-low-carbon-refined-copper-via-the-lobito-atlantic-railway/",
+      "locator": "Opening paragraph",
+      "excerpt": "para refinação nas suas instalações na Europa",
+      "format": "HTML",
+      "origin_group": "kamoa-aurubis-joint-2026-02",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S08",
+      "title": "Ivanhoe: Q1 2026 operations and export progress",
+      "publisher": "Ivanhoe Mines",
+      "published_on": "2026-04-13",
+      "language": "en",
+      "url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-reports-71417-tonnes-of-copper-in-anode-produced-by-kamoa-kakula-in-q1-2026-recovery-efforts-advancing/",
+      "locator": "Logistics paragraph beginning The first shipment",
+      "excerpt": "are expected to arrive in May",
+      "format": "HTML",
+      "origin_group": "ivanhoe-2026-04",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S09",
+      "title": "Prysmian: Aurubis wire rod contract",
+      "publisher": "Prysmian",
+      "published_on": "2024-04-23",
+      "language": "en",
+      "url": "https://www.prysmian.com/en/media/press-releases/prysmian-and-aurubis-contract-for-copper-wire-rod",
+      "locator": "Opening two paragraphs",
+      "excerpt": "particularly in Prysmian European plants",
+      "format": "HTML",
+      "origin_group": "aurubis-prysmian-joint-2024-04",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S10",
+      "title": "Aurubis: joint wire rod contract release",
+      "publisher": "Aurubis",
+      "published_on": "2024-04-23",
+      "language": "en",
+      "url": "https://www.aurubis.com/dam/jcr:3d203743-a866-456a-b09c-b28a83f6d0e8/Aurubis_Press%20Release_Prysmian%20supply%20contract_20240423.pdf",
+      "locator": "PDF page 1, opening two paragraphs",
+      "excerpt": "long-term contract for the supply of copper wire rod",
+      "format": "PDF",
+      "origin_group": "aurubis-prysmian-joint-2024-04",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S11",
+      "title": "Prysmian: Italian wire rod contract release",
+      "publisher": "Prysmian",
+      "published_on": "2024-04-23",
+      "language": "it",
+      "url": "https://www.prysmian.com/it/comunicati-stampa/prysmian-e-aurubis-siglano-un-contratto-per-la-fornitura-di-rame-in-vergelle",
+      "locator": "Opening paragraphs",
+      "excerpt": "hanno siglato un contratto pluriennale per la fornitura di vergelle in rame",
+      "format": "HTML",
+      "origin_group": "aurubis-prysmian-joint-2024-04",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S12",
+      "title": "Aurubis: company portrait 2022/23",
+      "publisher": "Aurubis",
+      "published_on": null,
+      "language": "en",
+      "url": "https://annualreport2022-23.aurubis.com/at-a-glance/company-portrait",
+      "locator": "Company portrait paragraph; reporting period 2022/23",
+      "excerpt": "copper cathodes",
+      "format": "HTML",
+      "origin_group": "aurubis-2022-23",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S13",
+      "title": "Aurubis: wire rod product explanation",
+      "publisher": "Aurubis",
+      "published_on": null,
+      "language": "en",
+      "url": "https://www.aurubis.com/en/olen/products/wire-rod",
+      "locator": "Basis for sophisticated applications",
+      "excerpt": "almost every cable or enameled wire",
+      "format": "HTML",
+      "origin_group": "aurubis-product",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    },
+    {
+      "id": "S14",
+      "title": "Ivanhoe: Kamoa-Kakula operations profile",
+      "publisher": "Ivanhoe Mines",
+      "published_on": null,
+      "language": "en",
+      "url": "https://www.ivanhoemines.com/operations/kamoa-kakula-mining-complex/",
+      "locator": "Ownership header and location paragraph",
+      "excerpt": "approximately 25 kilometres west of the town of Kolwezi",
+      "format": "HTML",
+      "origin_group": "ivanhoe-profile",
+      "checked_on": "2026-09-15",
+      "review_status": "primary_document_read_via_web",
+      "rights": "Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
+      "independence": "Commercial participant or industry producer; not independent physical verification."
+    }
+  ],
+  "entities": [
+    {
+      "id": "kamoa-copper",
+      "name": "Kamoa Copper",
+      "type": "organization",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "complex",
+      "name": "Kamoa-Kakula Copper Complex",
+      "type": "site_complex",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "kakula",
+      "name": "Kakula Mine",
+      "type": "facility",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "concentrators",
+      "name": "Kamoa-Kakula concentrators (Phases 1–3)",
+      "type": "facility_group",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "smelter",
+      "name": "Kamoa-Kakula smelter",
+      "type": "facility",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "citic",
+      "name": "CITIC Metal Limited",
+      "type": "organization",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "gold-mountains",
+      "name": "Gold Mountains International Mining Company Limited",
+      "type": "organization",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "trafigura-asia",
+      "name": "Trafigura Asia Trading Pte Ltd",
+      "type": "organization",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "trafigura",
+      "name": "Trafigura (group-level disclosure)",
+      "type": "organization",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "aurubis",
+      "name": "Aurubis Group",
+      "type": "organization",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "prysmian",
+      "name": "Prysmian (group-level disclosure)",
+      "type": "organization",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "dry-port",
+      "name": "Trafigura dry port, Kolwezi",
+      "type": "facility",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "lobito-port",
+      "name": "Port of Lobito",
+      "type": "facility",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "rail",
+      "name": "Lobito Atlantic Railway corridor",
+      "type": "infrastructure",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "concentrate",
+      "name": "Copper concentrate",
+      "type": "material",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "anodes",
+      "name": "Copper anodes",
+      "type": "material",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "cathodes",
+      "name": "Copper cathodes",
+      "type": "material",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "rod",
+      "name": "Copper wire rod",
+      "type": "material",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "cables",
+      "name": "Energy and telecom cable systems",
+      "type": "product_category",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    },
+    {
+      "id": "acid",
+      "name": "Sulphuric acid",
+      "type": "material",
+      "coordinates": null,
+      "location_note": "No geocoding or facility geometry validated in this pilot. Organization headquarters must not be used as a facility location."
+    }
+  ],
+  "claims": [
+    {
+      "id": "C01",
+      "subject": "kamoa-copper",
+      "predicate": "operates",
+      "object": "complex",
+      "evidence_ids": [
+        "S06"
+      ],
+      "kind": "reported_structure",
+      "source_as_of": "2026-02-19",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Kamoa Copper operates the complex.",
+      "caveat": "Group/JV structure is not a customer link.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C02",
+      "subject": "kakula",
+      "predicate": "part_of",
+      "object": "complex",
+      "evidence_ids": [
+        "S02",
+        "S03"
+      ],
+      "kind": "reported_structure",
+      "source_as_of": "2025-06-13",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Kakula is a mine within the broader complex.",
+      "caveat": "Do not assign its shutdown to every operation.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C03",
+      "subject": "concentrators",
+      "predicate": "produce",
+      "object": "concentrate",
+      "evidence_ids": [
+        "S08"
+      ],
+      "kind": "reported_operation",
+      "source_as_of": "2026-04-13",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "The three concentrators report output as copper in concentrate.",
+      "caveat": "Contained metal, gross concentrate, anode and sales are different measures.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C04",
+      "subject": "concentrators",
+      "predicate": "planned_feed_to",
+      "object": "smelter",
+      "evidence_ids": [
+        "S05"
+      ],
+      "kind": "operating_plan",
+      "source_as_of": "2026-01-02",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Management planned to prioritize on-site smelting of their concentrate.",
+      "caveat": "Not proof every tonne follows this route.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C05",
+      "subject": "smelter",
+      "predicate": "produced",
+      "object": "anodes",
+      "evidence_ids": [
+        "S05"
+      ],
+      "kind": "reported_event",
+      "source_as_of": "2026-01-02",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "First anodes were produced on 2025-12-29.",
+      "caveat": "The reporting date is later than the event date.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C06",
+      "subject": "smelter",
+      "predicate": "produces_byproduct",
+      "object": "acid",
+      "evidence_ids": [
+        "S05",
+        "S08"
+      ],
+      "kind": "reported_operation",
+      "source_as_of": "2026-04-13",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "The smelter produces sulphuric acid.",
+      "caveat": "Six acid offtakers are reported in April but not named there.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C07",
+      "subject": "kamoa-copper",
+      "predicate": "anode_offtake_with",
+      "object": "citic",
+      "evidence_ids": [
+        "S01"
+      ],
+      "kind": "reported_contract",
+      "source_as_of": "2025-01-08",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "CITIC has an anode offtake agreement.",
+      "caveat": "Combined 80% with Gold Mountains; no equal split inferred; signed contracts not archived.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C08",
+      "subject": "kamoa-copper",
+      "predicate": "anode_offtake_with",
+      "object": "gold-mountains",
+      "evidence_ids": [
+        "S01"
+      ],
+      "kind": "reported_contract",
+      "source_as_of": "2025-01-08",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Gold Mountains has an anode offtake agreement.",
+      "caveat": "Combined 80% with CITIC; exact start/end dates not established.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C09",
+      "subject": "kamoa-copper",
+      "predicate": "anode_offtake_with",
+      "object": "trafigura-asia",
+      "evidence_ids": [
+        "S04"
+      ],
+      "kind": "reported_contract",
+      "source_as_of": "2025-07-08",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "A June 2025 agreement allocates the remaining 20% to Trafigura Asia for three years.",
+      "caveat": "Day and expiry not specified; group-level Trafigura is a separate entity record.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C10",
+      "subject": "trafigura",
+      "predicate": "sold_anodes_to",
+      "object": "aurubis",
+      "evidence_ids": [
+        "S06",
+        "S07"
+      ],
+      "kind": "reported_transaction",
+      "source_as_of": "2026-02-19",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Trafigura announced its first sale of Kamoa anodes to Aurubis.",
+      "caveat": "Sale completion does not establish refinery arrival or named receiving plant.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C11",
+      "subject": "anodes",
+      "predicate": "reported_delivered_to",
+      "object": "dry-port",
+      "evidence_ids": [
+        "S06"
+      ],
+      "kind": "reported_event",
+      "source_as_of": "2026-02-19",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "The announced cargo had reached the Kolwezi dry port.",
+      "caveat": "Refers to this transaction, not all Kamoa anodes.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C12",
+      "subject": "dry-port",
+      "predicate": "planned_route_via",
+      "object": "rail",
+      "evidence_ids": [
+        "S06",
+        "S07"
+      ],
+      "kind": "reported_plan",
+      "source_as_of": "2026-02-19",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Rail movement toward Lobito was planned in the following days.",
+      "caveat": "Do not render it as completed on the publication date.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C13",
+      "subject": "anodes",
+      "predicate": "reported_arrived_at",
+      "object": "lobito-port",
+      "evidence_ids": [
+        "S08"
+      ],
+      "kind": "reported_event",
+      "source_as_of": "2026-04-13",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "The first anode shipment arrived at Lobito during Q1 2026.",
+      "caveat": "Quarter resolution; no exact arrival day or cargo ID established.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C14",
+      "subject": "aurubis",
+      "predicate": "produces",
+      "object": "cathodes",
+      "evidence_ids": [
+        "S12"
+      ],
+      "kind": "reported_capability",
+      "source_as_of": "FY2022/23",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Aurubis describes cathode production.",
+      "caveat": "Historical group capability; not a batch-level trace.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C15",
+      "subject": "aurubis",
+      "predicate": "produces",
+      "object": "rod",
+      "evidence_ids": [
+        "S12",
+        "S13"
+      ],
+      "kind": "reported_capability",
+      "source_as_of": "FY2022/23 plus undated product page",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Aurubis describes wire rod production from cathodes.",
+      "caveat": "Does not identify the plant processing the Kamoa cargo.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C16",
+      "subject": "aurubis",
+      "predicate": "wire_rod_contract_with",
+      "object": "prysmian",
+      "evidence_ids": [
+        "S09",
+        "S10",
+        "S11"
+      ],
+      "kind": "reported_contract",
+      "source_as_of": "2024-04-23",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "A long-term rod supply agreement particularly serves Prysmian European plants.",
+      "caveat": "Exact quantities, expiry, named plants and continued fulfilment are not established.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C17",
+      "subject": "prysmian",
+      "predicate": "manufactures",
+      "object": "cables",
+      "evidence_ids": [
+        "S09"
+      ],
+      "kind": "reported_capability",
+      "source_as_of": "2024-04-23",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Prysmian describes energy and telecom cable systems operations.",
+      "caveat": "Not evidence that this Kamoa batch entered any particular cable.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    },
+    {
+      "id": "C18",
+      "subject": "rod",
+      "predicate": "generic_input_for",
+      "object": "cables",
+      "evidence_ids": [
+        "S13"
+      ],
+      "kind": "generic_process",
+      "source_as_of": null,
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15",
+      "statement": "Wire rod is a precursor for copper wire and cable.",
+      "caveat": "Educational relation only; no customer or shipment identity.",
+      "review_status": "manually_source_checked_candidate",
+      "ground_truth": false
+    }
+  ],
+  "events": [
+    {
+      "id": "E01",
+      "event_time": "2025-05",
+      "precision": "month",
+      "source_ids": [
+        "S03"
+      ],
+      "kind": "reported_disruption",
+      "description": "Seismic activity, pumping damage and flooding interrupted portions of Kakula."
+    },
+    {
+      "id": "E02",
+      "event_time": "2025-06-07",
+      "precision": "day",
+      "published_on": "2025-06-11",
+      "source_ids": [
+        "S02"
+      ],
+      "kind": "reported_restart",
+      "description": "Western-side mining restarted; not a full-complex restart."
+    },
+    {
+      "id": "E03",
+      "event_time": "2025-10",
+      "precision": "month",
+      "published_on": "2025-06-11",
+      "source_ids": [
+        "S02"
+      ],
+      "kind": "forecast",
+      "description": "First anode expected in October. Preserve as a forecast."
+    },
+    {
+      "id": "E04",
+      "event_time": "2025-12-29",
+      "precision": "day",
+      "published_on": "2026-01-02",
+      "source_ids": [
+        "S05"
+      ],
+      "kind": "reported_actual",
+      "description": "First anode production reported."
+    },
+    {
+      "id": "E05",
+      "event_time": null,
+      "precision": "not_reported",
+      "published_on": "2026-02-19",
+      "source_ids": [
+        "S06"
+      ],
+      "kind": "reported_sale_and_partial_delivery",
+      "description": "Sale completed and cargo at Kolwezi dry port; onward rail/ocean steps still planned."
+    },
+    {
+      "id": "E06",
+      "event_time": "2026-Q1",
+      "precision": "quarter",
+      "published_on": "2026-04-13",
+      "source_ids": [
+        "S08"
+      ],
+      "kind": "reported_actual",
+      "description": "Arrival at Lobito reported; Europe arrival still expected in May."
+    }
+  ],
+  "excluded_assertions": [
+    "Kamoa copper was physically incorporated into Prysmian cables.",
+    "The May 2025 disruption reduced Prysmian output by a known amount.",
+    "Aurubis received this cargo at Hamburg, Olen or Pirdop specifically.",
+    "All three Kamoa offtakers have equal shares.",
+    "The smelter operated in October 2025 because the June release predicted it.",
+    "The title 'refined copper' means the February shipment was cathode rather than anode.",
+    "A third-party independent investigation corroborated all participant statements."
+  ]
+}

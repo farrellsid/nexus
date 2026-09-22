@@ -1,0 +1,116 @@
+[
+  {
+    "id": "Q01",
+    "question": "Who are the named anode offtakers?",
+    "expected_answer": "CITIC Metal, Gold Mountains, and Trafigura Asia; distinguish 80% combined from the remaining 20%.",
+    "claim_ids": [
+      "C07",
+      "C08",
+      "C09"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q02",
+    "question": "Can we connect the mine to a cable manufacturer?",
+    "expected_answer": "Yes as a dated network of disclosed commercial relationships via Trafigura and Aurubis; no proof of the same material lot reaching Prysmian.",
+    "claim_ids": [
+      "C10",
+      "C16",
+      "C17"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q03",
+    "question": "Which Aurubis refinery received the cargo?",
+    "expected_answer": "Unknown in the pilot corpus; Europe is stated, no named refinery.",
+    "claim_ids": [
+      "C10"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q04",
+    "question": "Did the entire complex stop operating?",
+    "expected_answer": "No such conclusion is supported. Kakula disruption and western restart must be separated from the broader complex.",
+    "claim_ids": [
+      "C02"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q05",
+    "question": "Was the smelter operating in October 2025?",
+    "expected_answer": "June's October expectation is a forecast. First anodes were later reported for December 29.",
+    "claim_ids": [
+      "C05"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q06",
+    "question": "Does the February sale mean delivery to Europe was complete?",
+    "expected_answer": "No. February reports cargo at Kolwezi and onward transport planned; April still forecasts European arrival.",
+    "claim_ids": [
+      "C10",
+      "C11",
+      "C12",
+      "C13"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q07",
+    "question": "What percentage of Prysmian output was lost?",
+    "expected_answer": "Unknown; the corpus lacks dependence shares, inventory, substitutes and attributable production effects.",
+    "claim_ids": [],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q08",
+    "question": "Do Portuguese and English releases provide independent corroboration?",
+    "expected_answer": "They are related participant announcements; preserve language and group them by origin.",
+    "claim_ids": [
+      "C10"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q09",
+    "question": "Is wire rod the same as anode?",
+    "expected_answer": "No; keep copper product forms distinct. Aurubis describes cathodes and subsequent rod production.",
+    "claim_ids": [
+      "C05",
+      "C14",
+      "C15",
+      "C18"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q10",
+    "question": "Can the UI zoom to the receiving refinery?",
+    "expected_answer": "Not yet: the identity is unresolved and no geocoding has been validated.",
+    "claim_ids": [],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q11",
+    "question": "Are the January 80% contracts evidence of January smelter output?",
+    "expected_answer": "No. Contract announcements and physical production are separate states.",
+    "claim_ids": [
+      "C05",
+      "C07",
+      "C08"
+    ],
+    "status": "authored_acceptance_case_not_executed"
+  },
+  {
+    "id": "Q12",
+    "question": "Can we replay what the app knew in June 2025?",
+    "expected_answer": "Only publication-time reconstruction is possible from these documents; the app actually recorded them in September 2026.",
+    "claim_ids": [],
+    "status": "authored_acceptance_case_not_executed"
+  }
+]

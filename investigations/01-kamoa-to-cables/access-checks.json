@@ -1,0 +1,61 @@
+{
+  "scope": "Read-only retrieval; full response bodies not retained; not permission or data-accuracy verification.",
+  "checks": [
+    {
+      "source_id": "S02",
+      "url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-announces-restart-of-underground-mining-operations-on-western-side-of-kakula-mine-on-june-7-2025/",
+      "checked_at_utc": "2026-09-15T13:43:26.323300+00:00",
+      "limit_bytes": 2000000,
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-announces-restart-of-underground-mining-operations-on-western-side-of-kakula-mine-on-june-7-2025/",
+      "bytes": 82077,
+      "sha256": "b6c74b1809155654195d23a8d114a8c8e6e16b63b44938068a85b0fcb74ff65e",
+      "anchor_found": true,
+      "status": "fetch_and_anchor_ok",
+      "scope": "Bounded HTML fetch and short anchor check only; no production parser tested."
+    },
+    {
+      "source_id": "S03",
+      "url": "https://www.hkexnews.hk/listedco/listconews/sehk/2025/0613/2025061301243.pdf",
+      "checked_at_utc": "2026-09-15T13:43:26.325393+00:00",
+      "limit_bytes": 2000000,
+      "http_status": 200,
+      "content_type": "application/pdf",
+      "final_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2025/0613/2025061301243.pdf",
+      "bytes": 166945,
+      "sha256": "9108ec48d4a53a9bf311172daec5643308c0346e28a4ff08129d916f5d020bd2",
+      "pdf_signature_ok": true,
+      "status": "fetch_ok",
+      "scope": "PDF header checked; local PDF text extraction not tested. Web tool PDF text was separately reviewed."
+    },
+    {
+      "source_id": "S06",
+      "url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-aurubis-and-kamoa-copper-complete-first-sale-of-low-carbon-refined-copper-via-the-lobito-atlantic-railway/",
+      "checked_at_utc": "2026-09-15T13:43:26.326165+00:00",
+      "limit_bytes": 2000000,
+      "http_status": 200,
+      "content_type": "text/html; charset=utf-8",
+      "final_url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-aurubis-and-kamoa-copper-complete-first-sale-of-low-carbon-refined-copper-via-the-lobito-atlantic-railway/",
+      "bytes": 38486,
+      "sha256": "2b66a481d6f1ec92919d4540c8d46fefb31ab47bbbd5c721a10bd2aec30de966",
+      "anchor_found": true,
+      "status": "fetch_and_anchor_ok",
+      "scope": "Bounded HTML fetch and short anchor check only; no production parser tested."
+    },
+    {
+      "source_id": "S09",
+      "url": "https://www.prysmian.com/en/media/press-releases/prysmian-and-aurubis-contract-for-copper-wire-rod",
+      "checked_at_utc": "2026-09-15T13:43:26.326923+00:00",
+      "limit_bytes": 2000000,
+      "http_status": 200,
+      "content_type": "text/html; charset=UTF-8",
+      "final_url": "https://www.prysmian.com/en/media/press-releases/prysmian-and-aurubis-contract-for-copper-wire-rod",
+      "bytes": 190681,
+      "sha256": "c4169637c040369f2f415c203aaa8e399056fbcf415f679ffef834e9d0756347",
+      "anchor_found": true,
+      "status": "fetch_and_anchor_ok",
+      "scope": "Bounded HTML fetch and short anchor check only; no production parser tested."
+    }
+  ]
+}

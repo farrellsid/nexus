@@ -1,0 +1,76 @@
+name: Workbench checks
+on: [push, pull_request]
+jobs:
+  postgres-domain:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: nexus
+          POSTGRES_PASSWORD: nexus_ci
+          POSTGRES_DB: nexus
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U nexus"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      NEXUS_DATABASE_URL: postgresql://nexus:nexus_ci@127.0.0.1:5432/nexus
+      NEXUS_PG_BIN: /usr/bin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install -r backend/requirements.lock
+          .venv/bin/python -m pip install --no-deps -e backend
+          .venv/bin/python -m pytest backend/tests -q
+  workbench:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: apps/web/package-lock.json
+      - name: Install Python dependencies
+        run: |
+          python -m venv .venv
+          .venv/Scripts/python -m pip install -r backend/requirements.lock
+          .venv/Scripts/python -m pip install --no-deps -e backend
+      - name: Backend rules and tests
+        run: |
+          .venv/Scripts/python -m ruff check backend scripts
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          .venv/Scripts/python -m ruff format --check backend scripts
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          .venv/Scripts/python -m pytest backend/tests -q
+      - name: Install frontend dependencies
+        working-directory: apps/web
+        run: npm ci
+      - name: Check generated contract
+        run: |
+          .venv/Scripts/python scripts/export_openapi.py
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          npm --prefix apps/web run generate:api
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          git diff --exit-code -- contracts/openapi.json apps/web/src/generated/api.ts
+      - name: Frontend format and build
+        working-directory: apps/web
+        run: |
+          npm run format:check
+          if ($LASTEXITCODE) { exit $LASTEXITCODE }
+          npm run build
+      - name: Browser workflows
+        working-directory: apps/web
+        run: npm run test:e2e
