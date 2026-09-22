@@ -27,3 +27,7 @@ Nexus remains responsible for entity IDs, evidence, review state and geographic 
 - Extract the tested map-stack controller if Nexus adds user-selectable imagery or terrain.
 - Add sourced GeoJSON route and area layers through a separate geography review contract.
 - Evaluate optional photorealistic 3D only after credentials, costs, terms and a clear product need are agreed.
+
+## User decision, 2026-09-22: the visual base should come from God's Eye View, not be rebuilt
+
+The user reviewed the current oil geography view and judged it a generic, from-scratch look rather than the God's Eye View identity they want Nexus built on. `CesiumGeographyMap.tsx` currently reuses only the Cesium/imagery-provider mechanics; its dark tactical-HUD design system — `foundation.css`, `cockpit.css`, `command-dock*.css`, `overlays.css`, and the JS-driven chrome in `hud.js`, `splitFlap.js`, `scopeMask.js`, `panelStackLayout.js` (see the local clone at `.local/references/gods-eye-view`) — was excluded, not adapted. The user's direction: when visual work on the geography view resumes, the base look and feel should be pulled from that design system and pared down to what Nexus needs, not reinvented. This is a decision to act on when visual work is actually scheduled — not authorization to restructure the geography layer now. Current milestones (`docs/development-status.md` "Next increments") are route/area geometry and the geographic review model, not the visual base.

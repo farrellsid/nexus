@@ -2,6 +2,12 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-22 — Repo initialized; geography visual-base decision recorded
+
+- Initialized the git repository (no prior history existed despite substantial implementation work); made one root commit bundling the existing tree. The user will make their own commits going forward so authorship shows under their account.
+- Reviewed the running oil brief in a browser: matches `development-status.md` — 21 entities, 22 assertions, six metric cards, evidence inspector, geography tab. The geography tab's Natural Earth fallback triggered because the test browser reported `MAX_TEXTURE_SIZE` 0 (no usable WebGL), consistent with the already-documented Codex in-app browser case, not necessarily a real-browser regression — unconfirmed in the user's own desktop browser.
+- User decision (see `docs/gods-eye-integration.md`): the geography view's visual base, when visual work resumes, should come from God's Eye View's actual dark tactical-HUD design system rather than the current from-scratch minimal styling. Not authorization to restructure the geography layer now — current priority remains route/area geometry and the geographic review model.
+
 ## 2026-09-22 — Oil brief and graph integrity
 
 Completed:
