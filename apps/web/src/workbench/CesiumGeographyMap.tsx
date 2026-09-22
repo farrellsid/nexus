@@ -17,6 +17,7 @@ import {
   LabelStyle,
   Math as CesiumMath,
   OpenStreetMapImageryProvider,
+  PolylineDashMaterialProperty,
   ScreenSpaceEventType,
   VerticalOrigin,
   Viewer,
@@ -26,11 +27,14 @@ import type { Investigation } from "../api";
 
 type Geography = NonNullable<Investigation["geography"]>;
 type GeoStop = Geography["stops"][number];
+type GeoRoute = Geography["routes"][number];
 
 const ESRI_WORLD_IMAGERY =
   "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer";
 const OSM_TILES = "https://tile.openstreetmap.org/";
 const MARKER_PREFIX = "nexus-geography:";
+const ROUTE_PREFIX = "nexus-geography-route:";
+const ROUTE_COLOR = "#5c7fa6";
 
 type MapStatus = "loading" | "satellite" | "streets" | "globe-only" | "local";
 type MapRenderer = "cesium" | "svg";
@@ -61,16 +65,22 @@ function stopEntityId(stop: GeoStop) {
   return `${MARKER_PREFIX}${stop.id}`;
 }
 
+function routeEntityId(route: GeoRoute) {
+  return `${ROUTE_PREFIX}${route.id}`;
+}
+
 function markerColor(selected: boolean) {
   return Color.fromCssColorString(selected ? "#c17b3d" : "#557a58");
 }
 
 function NaturalEarthMap({
   stops,
+  routes,
   selectedId,
   onSelect,
 }: {
   stops: GeoStop[];
+  routes: GeoRoute[];
   selectedId: string;
   onSelect: (id: string) => void;
 }) {
@@ -87,11 +97,31 @@ function NaturalEarthMap({
       className="geo-map geo-map-fallback"
       viewBox={`0 0 ${LOCAL_MAP_WIDTH} ${LOCAL_MAP_HEIGHT}`}
       role="img"
-      aria-label="Interactive Natural Earth world map with four sourced oil geography anchors"
+      aria-label={`Interactive Natural Earth world map with ${stops.length} sourced oil geography anchors and ${routes.length} sourced illustrative corridors`}
     >
       <rect className="geo-local-ocean" width="100%" height="100%" rx="8" />
       <path className="geo-local-graticule" d={path(geoGraticule10()) ?? ""} />
       <path className="geo-local-land" d={path(land) ?? ""} />
+      {routes.map((route) => {
+        const line = path({
+          type: "LineString",
+          coordinates: route.points.map((point) => [
+            point.longitude,
+            point.latitude,
+          ]),
+        });
+        if (!line) return null;
+        return (
+          <path
+            className="geo-local-route"
+            key={route.id}
+            d={line}
+            aria-label={`${route.label} (illustrative sourced corridor)`}
+          >
+            <title>{route.label}</title>
+          </path>
+        );
+      })}
       {stops.map((stop, index) => {
         const point = projection([stop.longitude, stop.latitude]);
         if (!point) return null;
@@ -133,10 +163,12 @@ function NaturalEarthMap({
  */
 export function CesiumGeographyMap({
   stops,
+  routes,
   selectedId,
   onSelect,
 }: {
   stops: GeoStop[];
+  routes: GeoRoute[];
   selectedId: string;
   onSelect: (id: string) => void;
 }) {
@@ -224,6 +256,27 @@ export function CesiumGeographyMap({
       });
     }
 
+    // Routes are dashed, unpicked polylines: visually distinct from the solid
+    // point-stop markers above and architecturally separate from the
+    // schematic relationship graph (RelationshipGraph.tsx), which never
+    // renders on this map.
+    for (const route of routes) {
+      viewer.entities.add({
+        id: routeEntityId(route),
+        polyline: {
+          positions: Cartesian3.fromDegreesArray(
+            route.points.flatMap((point) => [point.longitude, point.latitude]),
+          ),
+          width: 2.5,
+          material: new PolylineDashMaterialProperty({
+            color: Color.fromCssColorString(ROUTE_COLOR),
+            dashLength: 14,
+          }),
+          clampToGround: false,
+        },
+      });
+    }
+
     viewer.screenSpaceEventHandler.setInputAction(
       (movement: { position: Cartesian2 }) => {
         const picked = viewer.scene.pick(movement.position) as
@@ -277,7 +330,7 @@ export function CesiumGeographyMap({
         }
       }
     };
-  }, [renderer, stops]);
+  }, [renderer, stops, routes]);
 
   useEffect(() => {
     const viewer = viewerRef.current;
@@ -327,21 +380,35 @@ export function CesiumGeographyMap({
         ref={containerRef}
         role="img"
         aria-hidden={renderer !== "cesium"}
-        aria-label="Interactive world globe with four sourced oil geography anchors"
+        aria-label={`Interactive world globe with ${stops.length} sourced oil geography anchors and ${routes.length} sourced illustrative corridors`}
       />
       {renderer === "svg" && (
         <NaturalEarthMap
           stops={stops}
+          routes={routes}
           selectedId={selectedId}
           onSelect={onSelect}
         />
       )}
       <div className="geo-map-meta">
         <p className="graph-caption">
-          Interactive world globe · sourced anchors only · no route geometry
+          Interactive world globe · {stops.length} sourced anchors ·{" "}
+          {routes.length} sourced illustrative corridors
         </p>
         <span className={`geo-map-status ${status}`}>{statusText}</span>
       </div>
+      {routes.length > 0 && (
+        <div className="geo-map-legend" aria-hidden="true">
+          <span className="geo-map-legend-item">
+            <i className="geo-map-legend-swatch geo-map-legend-point" />
+            Sourced anchor point
+          </span>
+          <span className="geo-map-legend-item">
+            <i className="geo-map-legend-swatch geo-map-legend-route" />
+            Sourced illustrative corridor — not a vessel track or as-built route
+          </span>
+        </div>
+      )}
       <div
         className="geo-map-credits"
         ref={creditRef}

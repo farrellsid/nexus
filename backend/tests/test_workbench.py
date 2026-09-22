@@ -1,12 +1,14 @@
 """Synthetic invariant checks and separate integration checks against the research fixture."""
 
+import json
 from copy import deepcopy
 
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
-from app.investigation import load_investigations
+from app.geography import GeoRoute
+from app.investigation import load_investigation, load_investigations
 from app.knowledge import EvidencePack, neighborhood
 from app.main import INVESTIGATIONS, app
 
@@ -159,13 +161,23 @@ def test_oil_brief_is_discoverable_and_keeps_measurement_statuses_distinct():
         "oil-bab",
         "oil-malacca",
         "oil-yanbu",
+        "oil-sunda",
+        "oil-lombok",
     }
     assert all(
         stop.precision in {"representative_label_point", "facility_point"}
         for stop in oil.geography.stops
     )
+    assert {route.entity_id for route in oil.geography.routes} == {
+        "oil-suez-sumed",
+        "oil-cape-good-hope",
+        "oil-myanmar-china-pipeline",
+    }
+    assert all(len(route.points) >= 2 for route in oil.geography.routes)
+    assert all(route.caveat for route in oil.geography.routes)
+    assert all(str(route.source_url) for route in oil.geography.routes)
     assert oil.pack.briefing.window_end.isoformat() == "2026-06-30"
-    assert len(oil.pack.briefing.metrics) == 6
+    assert len(oil.pack.briefing.metrics) == 11
     assert {point.status for metric in oil.pack.briefing.metrics for point in metric.points} == {
         "estimate",
         "reported",
@@ -184,7 +196,13 @@ def test_oil_brief_is_discoverable_and_keeps_measurement_statuses_distinct():
     response = client.get("/api/investigation", params={"case_id": "oil-system-2025q3-2026q2"})
     assert response.status_code == 200
     assert response.json()["pack"]["briefing"]["metrics"][0]["id"] == "O-M01"
-    assert len(response.json()["geography"]["stops"]) == 4
+    assert len(response.json()["geography"]["stops"]) == 6
+    assert len(response.json()["geography"]["routes"]) == 3
+    assert {route["id"] for route in response.json()["geography"]["routes"]} == {
+        "O-R01",
+        "O-R02",
+        "O-R03",
+    }
     graph = client.get(
         "/api/entities/oil-hormuz/neighborhood",
         params={"case_id": "oil-system-2025q3-2026q2"},
@@ -254,3 +272,56 @@ def test_published_brief_rejects_isolated_entities(synthetic):
     }
     with pytest.raises(ValidationError, match="isolated entities: isolated"):
         EvidencePack.model_validate(synthetic)
+
+
+def _synthetic_route(**overrides):
+    route = {
+        "id": "synthetic-route",
+        "entity_id": "mine",
+        "label": "Synthetic corridor",
+        "points": [
+            {"latitude": 0.0, "longitude": 0.0},
+            {"latitude": 1.0, "longitude": 1.0},
+        ],
+        "precision": "illustrative_corridor_endpoints",
+        "role": "Synthetic only",
+        "why_it_matters": "Synthetic only",
+        "caveat": "Synthetic only — a straight line between two invented points.",
+        "source_title": "Synthetic fixture — not real evidence",
+        "source_url": "https://example.com/synthetic-route",
+        "checked_on": "2026-01-02",
+    }
+    route.update(overrides)
+    return route
+
+
+def test_route_needs_at_least_two_points():
+    with pytest.raises(ValidationError, match="at least two points"):
+        GeoRoute.model_validate(_synthetic_route(points=[{"latitude": 0.0, "longitude": 0.0}]))
+
+
+def test_geography_route_validation_rejects_unknown_entities_and_duplicates(tmp_path, synthetic):
+    (tmp_path / "evidence-pack.json").write_text(json.dumps(synthetic), encoding="utf-8")
+    (tmp_path / "acceptance-cases.json").write_text("[]", encoding="utf-8")
+    geography = {
+        "title": "Synthetic geography",
+        "framing": "Synthetic only",
+        "stops": [],
+        "routes": [_synthetic_route()],
+    }
+    (tmp_path / "geography.json").write_text(json.dumps(geography), encoding="utf-8")
+    loaded = load_investigation(tmp_path)
+    assert loaded.geography is not None
+    assert loaded.geography.routes[0].entity_id == "mine"
+
+    unknown_entity = deepcopy(geography)
+    unknown_entity["routes"][0]["entity_id"] = "not-a-real-entity"
+    (tmp_path / "geography.json").write_text(json.dumps(unknown_entity), encoding="utf-8")
+    with pytest.raises(ValueError, match="unknown entity"):
+        load_investigation(tmp_path)
+
+    duplicate_ids = deepcopy(geography)
+    duplicate_ids["routes"].append(deepcopy(duplicate_ids["routes"][0]))
+    (tmp_path / "geography.json").write_text(json.dumps(duplicate_ids), encoding="utf-8")
+    with pytest.raises(ValueError, match="Duplicate geography route IDs"):
+        load_investigation(tmp_path)

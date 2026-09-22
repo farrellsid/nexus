@@ -967,6 +967,70 @@ input[type="search"] {
   font-size: 9px;
   line-height: 1.5;
 }
+.geo-local-route {
+  fill: none;
+  stroke: #5c7fa6;
+  stroke-width: 1.6;
+  stroke-dasharray: 5 4;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+.geo-map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 6px;
+  font-size: 9px;
+  color: #697a6c;
+}
+.geo-map-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.geo-map-legend-swatch {
+  display: inline-block;
+  width: 16px;
+  height: 0;
+  border-top: 3px solid transparent;
+}
+.geo-map-legend-point {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border-top: none;
+  background: #557a58;
+}
+.geo-map-legend-route {
+  border-top: 2px dashed #5c7fa6;
+}
+.geo-routes {
+  margin-top: 26px;
+}
+.geo-routes > p {
+  margin: 6px 0 16px;
+  max-width: 640px;
+}
+.geo-route-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  gap: 24px;
+  padding: 18px 22px;
+  margin-bottom: 12px;
+  border: 1px solid #d9e2d2;
+  border-radius: 5px;
+  background: #f6f8f2;
+}
+.geo-route-card h4 {
+  margin: 8px 0;
+  font-family: Georgia, serif;
+  font-size: 17px;
+  font-weight: 400;
+}
+.geo-route-card p {
+  font-size: 12px;
+  line-height: 1.7;
+}
 footer {
   display: flex;
   justify-content: space-between;
@@ -1021,7 +1085,8 @@ footer span {
   .metric-grid {
     grid-template-columns: 1fr;
   }
-  .geo-explanation {
+  .geo-explanation,
+  .geo-route-card {
     grid-template-columns: 1fr;
   }
 }

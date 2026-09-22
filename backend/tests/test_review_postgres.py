@@ -85,7 +85,7 @@ def test_multiple_investigations_are_imported_and_filtered_independently(store):
         if item.pack.case_id == "oil-system-2025q3-2026q2"
     )
     store.initialize(oil)
-    assert len(store.current_claims([claim.id for claim in oil.pack.claims])) == 22
+    assert len(store.current_claims([claim.id for claim in oil.pack.claims])) == 26
     assert {claim.id for claim in store.current_claims(["C10", "O-C02"])} == {
         "C10",
         "O-C02",
@@ -96,7 +96,7 @@ def test_multiple_investigations_are_imported_and_filtered_independently(store):
         "/api/investigation", params={"case_id": "oil-system-2025q3-2026q2"}
     ).json()
     assert len(copper["pack"]["claims"]) == 18
-    assert len(oil_data["pack"]["claims"]) == 22
+    assert len(oil_data["pack"]["claims"]) == 26
 
 
 def test_correction_changes_baseline_only_on_acceptance_and_preserves_history(store):

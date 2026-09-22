@@ -1,6 +1,6 @@
 {
-  "title": "Four places that organize the current oil brief",
-  "framing": "These are sourced label anchors for guided reading, not boundaries, pipeline routes, shipping tracks or cargo locations.",
+  "title": "Places and corridors that organize the current oil brief",
+  "framing": "Stops are sourced label anchors for guided reading, not boundaries, pipeline routes, shipping tracks or cargo locations. Routes are sourced illustrative lines built from anchor-point coordinates, not vessel tracks, pipeline as-built paths, precise canal centerlines or capacity/flow claims; each route's caveat says exactly what it approximates.",
   "stops": [
     {
       "id": "O-G01",
@@ -56,6 +56,84 @@
       "caveat": "The fixture's broader Yanbu terminal entity is anchored to the named industrial port; pipeline route geometry is still absent.",
       "source_title": "Wikidata Q12246916 — GNS-referenced coordinate location",
       "source_url": "https://www.wikidata.org/wiki/Q12246916",
+      "checked_on": "2026-09-22"
+    },
+    {
+      "id": "O-G05",
+      "entity_id": "oil-sunda",
+      "label": "Sunda Strait",
+      "latitude": -5.970278,
+      "longitude": 105.769722,
+      "precision": "representative_label_point",
+      "role": "Smaller Pacific-side alternative to Malacca",
+      "why_it_matters": "The brief records Sunda as a smaller alternative route around the Strait of Malacca, without established capacity or use in the observation window.",
+      "caveat": "A strait is an area, not a point. This anchor must not be read as a route, a capacity claim or evidence that any cargo actually used Sunda instead of Malacca.",
+      "source_title": "Wikidata Q192790 — coordinate location (Geographic Names Server); EIA Figure 2 supplies alternative-route context",
+      "source_url": "https://www.wikidata.org/wiki/Q192790",
+      "checked_on": "2026-09-22"
+    },
+    {
+      "id": "O-G06",
+      "entity_id": "oil-lombok",
+      "label": "Lombok Strait",
+      "latitude": -8.5,
+      "longitude": 115.833333,
+      "precision": "representative_label_point",
+      "role": "Smaller Pacific-side alternative to Malacca",
+      "why_it_matters": "The brief records Lombok as a second smaller alternative route around the Strait of Malacca, without established capacity or use in the observation window.",
+      "caveat": "A strait is an area, not a point. This anchor must not be read as a route, a capacity claim or evidence that any cargo actually used Lombok instead of Malacca.",
+      "source_title": "Wikidata Q745025 — coordinate location (Geographic Names Server); EIA Figure 2 supplies alternative-route context",
+      "source_url": "https://www.wikidata.org/wiki/Q745025",
+      "checked_on": "2026-09-22"
+    }
+  ],
+  "routes": [
+    {
+      "id": "O-R01",
+      "entity_id": "oil-suez-sumed",
+      "label": "Suez Canal / SUMED corridor",
+      "points": [
+        {"latitude": 29.92, "longitude": 32.55},
+        {"latitude": 31.26, "longitude": 32.35}
+      ],
+      "precision": "canal_terminus_line",
+      "role": "Red Sea to Mediterranean corridor",
+      "why_it_matters": "The brief describes this combined canal-and-pipeline corridor as the Red Sea's connection to the Mediterranean, an alternative to routing around the Cape of Good Hope.",
+      "caveat": "This line joins the Suez Canal's sourced southern (Red Sea) and northern (Mediterranean) terminus coordinates in a straight segment; the canal itself curves through the Bitter Lakes and does not run straight. The SUMED pipeline (Ain Sokhna, Wikidata Q405881, to Sidi Kerir, Wikidata Q16121570) runs a separate, roughly parallel corridor that is not drawn here. Neither line is a vessel track, a pipeline as-built route or a flow/capacity claim.",
+      "source_title": "Wikidata Q899 — Suez Canal coordinate location (southern/northern terminus); EIA Suez, SUMED, Bab el-Mandeb and Cape routing note supplies the corridor context",
+      "source_url": "https://www.wikidata.org/wiki/Q899",
+      "checked_on": "2026-09-22"
+    },
+    {
+      "id": "O-R02",
+      "entity_id": "oil-cape-good-hope",
+      "label": "Cape of Good Hope route",
+      "points": [
+        {"latitude": 12.583333, "longitude": 43.333333},
+        {"latitude": -34.358056, "longitude": 18.471944}
+      ],
+      "precision": "illustrative_bypass_corridor",
+      "role": "Long alternative avoiding the Red Sea chokepoints",
+      "why_it_matters": "The brief records the Cape of Good Hope as a longer alternative some vessels use to avoid Bab el-Mandeb and Suez, without quantifying diverted volume.",
+      "caveat": "This line pairs the Bab el-Mandeb anchor (this file's O-G02, reused to show which chokepoint the route substitutes for) with the sourced Cape of Good Hope point. Vessels taking this alternative do not sail through Bab el-Mandeb; the straight segment is an illustrative pairing, not the vessel track around the African coastline, and implies no capacity, cost or actual-use figure.",
+      "source_title": "Wikidata Q4092 — Cape of Good Hope coordinate location; EIA Suez, SUMED, Bab el-Mandeb and Cape routing note supplies the alternative-route context",
+      "source_url": "https://www.wikidata.org/wiki/Q4092",
+      "checked_on": "2026-09-22"
+    },
+    {
+      "id": "O-R03",
+      "entity_id": "oil-myanmar-china-pipeline",
+      "label": "Myanmar–China crude oil pipeline",
+      "points": [
+        {"latitude": 19.359, "longitude": 93.6552},
+        {"latitude": 25.043333, "longitude": 102.706111}
+      ],
+      "precision": "illustrative_corridor_endpoints",
+      "role": "Overland alternative to the Malacca sea route",
+      "why_it_matters": "The brief records this pipeline as an alternative that moves Middle Eastern crude to southwest China without transiting Malacca, without establishing its operating throughput or spare capacity.",
+      "caveat": "This line joins the sourced Kyaukphyu-area terminal point (Maday Island) with the sourced Kunming endpoint in a straight segment. The pipeline's actual path runs overland through Mandalay and the Ruili border crossing, not a straight line, and this geometry makes no throughput or capacity claim.",
+      "source_title": "Wikidata Q117253729 — Maday Island/Kyaukphyu terminal coordinate location; Wikidata Q182852 — Kunming coordinate location; EIA alternatives-to-Malacca note supplies the corridor context",
+      "source_url": "https://www.wikidata.org/wiki/Q117253729",
       "checked_on": "2026-09-22"
     }
   ]

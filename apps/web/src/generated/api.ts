@@ -307,6 +307,56 @@ export interface components {
             excluded_assertions: string[];
             briefing?: components["schemas"]["Briefing"] | null;
         };
+        /**
+         * GeoPoint
+         * @description One ordered vertex of a route/corridor line. Not itself a separately sourced record.
+         */
+        GeoPoint: {
+            /** Latitude */
+            latitude: number;
+            /** Longitude */
+            longitude: number;
+        };
+        /**
+         * GeoRoute
+         * @description A sourced illustrative line between anchor points.
+         *
+         *     Unlike GeoStop, a route never claims to be an exact centerline, vessel
+         *     track or as-built path unless the caveat says so explicitly. Where a
+         *     source only describes a corridor in prose, the points are built from
+         *     separately sourced anchor coordinates (strait mouths, ports, reused
+         *     stops) and the caveat must say the line is an approximation.
+         */
+        GeoRoute: {
+            /** Id */
+            id: string;
+            /** Entity Id */
+            entity_id: string;
+            /** Label */
+            label: string;
+            /** Points */
+            points: components["schemas"]["GeoPoint"][];
+            /** Precision */
+            precision: string;
+            /** Role */
+            role: string;
+            /** Why It Matters */
+            why_it_matters: string;
+            /** Caveat */
+            caveat: string;
+            /** Source Title */
+            source_title: string;
+            /**
+             * Source Url
+             * Format: uri
+             */
+            source_url: string;
+            /**
+             * Checked On
+             * Format: date
+             */
+            checked_on: string;
+        };
         /** GeoStop */
         GeoStop: {
             /** Id */
@@ -348,6 +398,11 @@ export interface components {
             framing: string;
             /** Stops */
             stops: components["schemas"]["GeoStop"][];
+            /**
+             * Routes
+             * @default []
+             */
+            routes: components["schemas"]["GeoRoute"][];
         };
         /** HTTPValidationError */
         HTTPValidationError: {

@@ -46,6 +46,13 @@ def load_investigation(directory: Path) -> Investigation:
             raise ValueError("Duplicate geography stop IDs")
         if any(stop.entity_id not in entity_ids for stop in geography.stops):
             raise ValueError("Geography references an unknown entity")
+        route_ids = [route.id for route in geography.routes]
+        if len(route_ids) != len(set(route_ids)):
+            raise ValueError("Duplicate geography route IDs")
+        if set(route_ids) & set(stop_ids):
+            raise ValueError("Geography route IDs must not collide with stop IDs")
+        if any(route.entity_id not in entity_ids for route in geography.routes):
+            raise ValueError("Geography references an unknown entity")
     return Investigation(pack=pack, questions=questions, geography=geography)
 
 

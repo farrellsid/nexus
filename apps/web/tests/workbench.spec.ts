@@ -123,7 +123,7 @@ test("oil brief opens with sourced metrics and preserves status labels", async (
   await expect(
     page.getByRole("img", { name: /Interactive (world globe|Natural Earth world map)/ }),
   ).toBeVisible();
-  await expect(page.getByText(/no route geometry/)).toBeVisible();
+  await expect(page.getByText(/sourced illustrative corridors/).first()).toBeVisible();
   await expect(page.locator(".geo-map-status")).toContainText(
     /Esri satellite globe|OpenStreetMap globe fallback|Natural Earth local map/,
   );
@@ -132,7 +132,16 @@ test("oil brief opens with sourced metrics and preserves status labels", async (
     .getByRole("button", { name: /Strait of Malacca/ })
     .click();
   await expect(page.getByText(/roughly 930-kilometre strait/)).toBeVisible();
-  await page.getByRole("button", { name: "Explore relationships" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Suez Canal / SUMED corridor" }),
+  ).toBeVisible();
+  await expect(
+    page.getByText(/does not run straight/),
+  ).toBeVisible();
+  await page
+    .locator(".geo-explanation")
+    .getByRole("button", { name: "Explore relationships" })
+    .click();
   await expect(
     page.getByRole("img", {
       name: /Relationship overview for Strait of Malacca/,

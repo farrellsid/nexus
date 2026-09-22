@@ -763,6 +763,98 @@
         ],
         "title": "EvidencePack"
       },
+      "GeoPoint": {
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "number",
+            "title": "Longitude"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "latitude",
+          "longitude"
+        ],
+        "title": "GeoPoint",
+        "description": "One ordered vertex of a route/corridor line. Not itself a separately sourced record."
+      },
+      "GeoRoute": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "entity_id": {
+            "type": "string",
+            "title": "Entity Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/GeoPoint"
+            },
+            "type": "array",
+            "title": "Points"
+          },
+          "precision": {
+            "type": "string",
+            "title": "Precision"
+          },
+          "role": {
+            "type": "string",
+            "title": "Role"
+          },
+          "why_it_matters": {
+            "type": "string",
+            "title": "Why It Matters"
+          },
+          "caveat": {
+            "type": "string",
+            "title": "Caveat"
+          },
+          "source_title": {
+            "type": "string",
+            "title": "Source Title"
+          },
+          "source_url": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Source Url"
+          },
+          "checked_on": {
+            "type": "string",
+            "format": "date",
+            "title": "Checked On"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "entity_id",
+          "label",
+          "points",
+          "precision",
+          "role",
+          "why_it_matters",
+          "caveat",
+          "source_title",
+          "source_url",
+          "checked_on"
+        ],
+        "title": "GeoRoute",
+        "description": "A sourced illustrative line between anchor points.\n\nUnlike GeoStop, a route never claims to be an exact centerline, vessel\ntrack or as-built path unless the caveat says so explicitly. Where a\nsource only describes a corridor in prose, the points are built from\nseparately sourced anchor coordinates (strait mouths, ports, reused\nstops) and the caveat must say the line is an approximation."
+      },
       "GeoStop": {
         "properties": {
           "id": {
@@ -852,6 +944,14 @@
             },
             "type": "array",
             "title": "Stops"
+          },
+          "routes": {
+            "items": {
+              "$ref": "#/components/schemas/GeoRoute"
+            },
+            "type": "array",
+            "title": "Routes",
+            "default": []
           }
         },
         "additionalProperties": false,

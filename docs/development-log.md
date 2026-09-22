@@ -2,6 +2,36 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-22 — Route/area geometry and a deepened oil baseline (parallel agents)
+
+Two independent background agents worked concurrently on disjoint files, then their combined output was independently re-verified (not just taken on their word): `pytest backend/tests -q` (38 passed), `ruff check`/`ruff format --check` (clean), `npm run format:check` and `npm run build` (clean), and the full `npm run test:e2e` suite (8/8) all pass against the final combined state.
+
+**Route/area geometry** (`backend/app/geography.py`, `investigation.py`, `investigations/02-oil-system/geography.json`, `CesiumGeographyMap.tsx`, `GuidedGeographyView.tsx`):
+
+- Added a `routes` geometry type alongside the existing point `stops`, each with its own source, precision and an explicit "approximate illustrative corridor, not an as-built route" caveat. Kept architecturally and visually distinct from the separate relationship graph.
+- Closed the geography gap for entities that already existed in the knowledge graph but had no map anchor: two new point stops (Sunda Strait, Lombok Strait) and three sourced corridors (Suez Canal/SUMED, Cape of Good Hope, Myanmar-China pipeline). All coordinates came from Wikidata pages fetched and read directly, not invented.
+- Both the Cesium renderer and the Natural Earth SVG fallback draw the same route geometry, rendered dashed and distinct from point markers.
+- Regenerated `contracts/openapi.json` and `apps/web/src/generated/api.ts` through the documented commands rather than hand-editing them.
+
+**Deepened oil baseline** (`investigations/02-oil-system/evidence-pack.json`, `acceptance-cases.json`, `README.md`, migration `005_deepen_oil_baseline.sql`):
+
+- Added five new metric groups (O-M07–O-M11): U.S. commercial crude stocks, U.S. refinery capacity, U.S. refinery utilization, India crude imports, and per-country OPEC+ August 2026 production (Saudi Arabia, Iraq, Russia, Iran individually, not just the aggregate group).
+- Diversified sourcing beyond EIA: added IEA's Oil Market Report and India's PPAC monthly reckoner as new source categories, with excerpts fetched and read directly (the PPAC table came from a scanned PDF, read via table extraction, not estimated).
+- Added two new entities (India, Iraq) and four new claims so nothing is graph-isolated, plus two new events, three new acceptance-case questions, and generated the additive migration via `scripts/generate-additive-migration.py`.
+- Oil pack now: 20 sources, 23 entities, 26 claims, 8 events, 11 metric groups, 14 authored questions.
+
+**Known pre-existing issue surfaced, not fixed:** `scripts/start-local.ps1`'s readiness probe timed out twice against already-healthy uvicorn/vite processes during this work (likely too tight under concurrent load), causing the script to kill healthy processes. Worked around manually; the script itself still needs a longer or more tolerant readiness check.
+
+**Leads for later** (sourced but not pursued, to avoid overscoping this pass):
+
+- Saudi East-West and UAE Abu Dhabi (Habshan-Fujairah) pipelines are likely sourceable the same way the new routes were.
+- SUMED could become its own entity/route — Ain Sokhna and Sidi Kerir coordinates are already sourced from this pass.
+- Permian Basin could get a real boundary polygon (not just a point) from Wikidata/EIA — a genuine "area" geometry candidate.
+- IHO's Limits of Oceans and Seas publishes actual strait boundary polygons, which could upgrade Hormuz/Bab el-Mandeb/Malacca from label points to sourced areas.
+- PPAC Table 8 has India refinery-level capacity by company; IEA's OMR preview likely has more OPEC+ members freely readable than the four pulled; OPEC's own MOMR is paywalled (HTTP 402) so was not used as a primary source; EIA has a dedicated China/US/Japan strategic-reserve article distinct from the commercial-stocks series added here; EIA STEO has a global (not just U.S.) inventory series but as a draw rate rather than an absolute level.
+
+Next: the geographic review model (docs/gods-eye-integration.md "Later candidates") can now build on a settled geometry schema. The God's Eye View visual-base decision recorded below remains for whenever visual work is scheduled, not now.
+
 ## 2026-09-22 — Repo initialized; geography visual-base decision recorded
 
 - Initialized the git repository (no prior history existed despite substantial implementation work); made one root commit bundling the existing tree. The user will make their own commits going forward so authorship shows under their account.

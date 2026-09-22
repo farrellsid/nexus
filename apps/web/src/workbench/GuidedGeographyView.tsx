@@ -23,6 +23,7 @@ export function GuidedGeographyView({
       <p className="muted">{geography.framing}</p>
       <CesiumGeographyMap
         stops={geography.stops}
+        routes={geography.routes}
         selectedId={selected.id}
         onSelect={setSelectedId}
       />
@@ -57,6 +58,40 @@ export function GuidedGeographyView({
           <small>{selected.source_title}</small>
         </div>
       </article>
+      {geography.routes.length > 0 && (
+        <section
+          className="geo-routes"
+          aria-label="Sourced illustrative corridors"
+        >
+          <div className="eyebrow">Sourced illustrative corridors</div>
+          <p className="muted">
+            Lines built from sourced anchor points, not vessel tracks, pipeline
+            as-built routes or precise canal centerlines. Each corridor's caveat
+            states what it approximates.
+          </p>
+          {geography.routes.map((route) => (
+            <article className="geo-route-card" key={route.id}>
+              <div>
+                <span className="eyebrow">
+                  {route.role} · {route.precision.replaceAll("_", " ")}
+                </span>
+                <h4>{route.label}</h4>
+                <p>{route.why_it_matters}</p>
+                <p className="caveat">{route.caveat}</p>
+              </div>
+              <div className="geo-actions">
+                <button onClick={() => onExplore(route.entity_id)}>
+                  Explore relationships →
+                </button>
+                <a href={route.source_url} target="_blank" rel="noreferrer">
+                  Coordinate source ↗
+                </a>
+                <small>{route.source_title}</small>
+              </div>
+            </article>
+          ))}
+        </section>
+      )}
     </div>
   );
 }

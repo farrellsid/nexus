@@ -212,6 +212,118 @@
       "review_status": "government_analysis_read_via_web",
       "rights": "U.S. government publication; short anchor and authored notes retained.",
       "independence": "Same EIA analysis as O-S10 through O-S12; alternative availability does not establish capacity, use or cargo routing."
+    },
+    {
+      "id": "O-S14",
+      "title": "EIA: Summary of Weekly Petroleum Data for the week ending September 11, 2026",
+      "publisher": "U.S. Energy Information Administration",
+      "published_on": "2026-09-16",
+      "language": "en",
+      "url": "https://ir.eia.gov/wpsr/wpsrsummary.pdf",
+      "locator": "Commercial crude oil inventories and refinery utilization paragraphs",
+      "excerpt": "Commercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased 0.6 million barrels to 423.4 million barrels, 1% above the five-year average.",
+      "format": "PDF",
+      "origin_group": "eia-wpsr-2026-09-11",
+      "checked_on": "2026-09-22",
+      "review_status": "government_statistics_read_via_web",
+      "rights": "U.S. government publication; short anchor and authored notes retained.",
+      "independence": "Official weekly survey data; this one-page summary URL is overwritten each release and reflects only the most recent week."
+    },
+    {
+      "id": "O-S15",
+      "title": "EIA: U.S. commercial crude oil inventories have decreased in June",
+      "publisher": "U.S. Energy Information Administration",
+      "published_on": "2026-06-24",
+      "language": "en",
+      "url": "https://www.eia.gov/todayinenergy/detail.php?id=67805",
+      "locator": "Opening inventory and refinery processing discussion",
+      "excerpt": "Commercial crude oil inventories (excluding the Strategic Petroleum Reserve) decreased by 6.1 million barrels to 412.1 million barrels.",
+      "format": "HTML",
+      "origin_group": "eia-us-stocks-2026-06-24",
+      "checked_on": "2026-09-22",
+      "review_status": "government_statistics_read_via_web",
+      "rights": "U.S. government publication; short anchor and authored notes retained.",
+      "independence": "Weekly survey-based figure for the week ending June 19, 2026, reported 7% below the five-year (2021-2025) average; a single-week snapshot, not a period average."
+    },
+    {
+      "id": "O-S16",
+      "title": "EIA: Commercial crude oil inventories increased by 2.0 million barrels",
+      "publisher": "U.S. Energy Information Administration",
+      "published_on": "2026-07-22",
+      "language": "en",
+      "url": "https://www.eia.gov/todayinenergy/detail.php?id=67868",
+      "locator": "Opening inventory discussion",
+      "excerpt": "For the week ending July 17, 2026, commercial crude oil inventories (excluding the Strategic Petroleum Reserve) increased 2.0 million barrels to 411.7 million barrels, 6% below the previous five-year (2021-2025) average.",
+      "format": "HTML",
+      "origin_group": "eia-us-stocks-2026-07-22",
+      "checked_on": "2026-09-22",
+      "review_status": "government_statistics_read_via_web",
+      "rights": "U.S. government publication; short anchor and authored notes retained.",
+      "independence": "Weekly survey-based figure; a single-week snapshot, not a period average."
+    },
+    {
+      "id": "O-S17",
+      "title": "EIA: U.S. refining capacity decreased during 2025",
+      "publisher": "U.S. Energy Information Administration",
+      "published_on": "2026-06-29",
+      "language": "en",
+      "url": "https://www.eia.gov/todayinenergy/detail.php?id=67807",
+      "locator": "Opening capacity summary; Refinery Capacity Report data as of January 1, 2026",
+      "excerpt": "U.S. operable atmospheric distillation capacity, the primary measure of refinery capacity, totaled 18.2 million barrels per calendar day (b/cd) on January 1, 2026—down over 250,000 b/cd (about 1%) compared with January 1, 2025.",
+      "format": "HTML",
+      "origin_group": "eia-refining-capacity-2026-06-29",
+      "checked_on": "2026-09-22",
+      "review_status": "government_statistics_read_via_web",
+      "rights": "U.S. government publication; short anchor and authored notes retained.",
+      "independence": "Annual government survey report; operable/nameplate capacity is not the same as actual period throughput. 130 operable refineries, down two from 2025."
+    },
+    {
+      "id": "O-S18",
+      "title": "EIA: U.S. refining capacity largely unchanged as of January 2025",
+      "publisher": "U.S. Energy Information Administration",
+      "published_on": "2025-06-30",
+      "language": "en",
+      "url": "https://www.eia.gov/todayinenergy/detail.php?id=65624",
+      "locator": "Opening capacity summary",
+      "excerpt": "U.S. operable atmospheric distillation capacity, the primary measure of refinery capacity, totaled 18.4 million barrels per calendar day (b/cd) on January 1, 2025—essentially flat compared with last year.",
+      "format": "HTML",
+      "origin_group": "eia-refining-capacity-2025-06-30",
+      "checked_on": "2026-09-22",
+      "review_status": "government_statistics_read_via_web",
+      "rights": "U.S. government publication; short anchor and authored notes retained.",
+      "independence": "Same annual government survey series as O-S17, prior-year edition, recorded separately to preserve a structural comparison point."
+    },
+    {
+      "id": "O-S19",
+      "title": "PPAC: Snapshot of India's Oil and Gas Data — Monthly Ready Reckoner, September 2026 (data for August 2026)",
+      "publisher": "Petroleum Planning and Analysis Cell, Ministry of Petroleum and Natural Gas, Government of India",
+      "published_on": null,
+      "language": "en",
+      "url": "https://ppac.gov.in/download.php?file=rep_studies/1789735879_Final__Snapshot_of_Indias_Oil_Gas_data_Aug_2026_V3.pdf",
+      "locator": "Table 6, Quantity and value of crude oil imports",
+      "excerpt": "2026-27 (Apr-Aug'26) (P): Quantity 100.7 MMT, $74,849 million, Rs. 7,03,161 crore.",
+      "format": "PDF",
+      "origin_group": "ppac-snapshot-2026-08",
+      "checked_on": "2026-09-22",
+      "review_status": "official_statistics_read_via_web",
+      "rights": "Public Government of India statistical publication; short table excerpt and authored notes retained. Bulk redistribution terms not separately audited.",
+      "independence": "Official Ministry of Petroleum and Natural Gas data compiled by PPAC from customs and industry sources; the 2026-27 figure is explicitly marked provisional (P) and the report itself notes reported data may change on receipt of actuals. Quantities are in metric tonnes, not barrels."
+    },
+    {
+      "id": "O-S20",
+      "title": "IEA: Oil Market Report — September 2026",
+      "publisher": "International Energy Agency",
+      "published_on": "2026-09-11",
+      "language": "en",
+      "url": "https://www.iea.org/reports/oil-market-report-september-2026",
+      "locator": "OPEC+ crude oil production table and August 2026 supply summary",
+      "excerpt": "Global oil production fell by 1.6 mb/d m-o-m to 100.1 mb/d in August, as more than 10 mb/d of Gulf output remained shut in amid heightened security risks.",
+      "format": "HTML",
+      "origin_group": "iea-omr-2026-09",
+      "checked_on": "2026-09-22",
+      "review_status": "intergovernmental_analysis_read_via_web",
+      "rights": "Publicly readable summary table on the report landing page; the full analytical report requires a paid subscription. Short table excerpt and authored notes retained.",
+      "independence": "IEA's own supply estimate, compiled independently of OPEC's secondary-source estimates in its Monthly Oil Market Report; country totals from the two organizations can differ for the same month."
     }
   ],
   "entities": [
@@ -235,7 +347,9 @@
     {"id":"oil-cape-good-hope","name":"Cape of Good Hope route","type":"maritime_route","coordinates":null,"location_note":"Broad alternative route, not a single point or validated track.","location_precision":"unresolved_route"},
     {"id":"oil-sunda","name":"Sunda Strait","type":"maritime_chokepoint","coordinates":null,"location_note":"Geographic geometry has not yet been imported.","location_precision":"unresolved_geometry"},
     {"id":"oil-lombok","name":"Lombok Strait","type":"maritime_chokepoint","coordinates":null,"location_note":"Geographic geometry has not yet been imported.","location_precision":"unresolved_geometry"},
-    {"id":"oil-myanmar-china-pipeline","name":"Myanmar–China crude oil pipeline","type":"infrastructure","coordinates":null,"location_note":"Route geometry and operating throughput have not yet been imported.","location_precision":"unresolved_route"}
+    {"id":"oil-myanmar-china-pipeline","name":"Myanmar–China crude oil pipeline","type":"infrastructure","coordinates":null,"location_note":"Route geometry and operating throughput have not yet been imported.","location_precision":"unresolved_route"},
+    {"id":"oil-india","name":"India","type":"country","coordinates":null,"location_note":"Imports are represented at country resolution.","location_precision":"country"},
+    {"id":"oil-iraq","name":"Iraq","type":"country","coordinates":null,"location_note":"Production is represented at country resolution.","location_precision":"country"}
   ],
   "claims": [
     {"id":"O-C01","subject":"oil-crude","predicate":"refined_into","object":"oil-products","evidence_ids":["O-S09"],"kind":"generic_process","source_as_of":"2024 structural baseline","valid_from":null,"valid_to":null,"recorded_on":"2026-09-22","statement":"Crude oil is processed by refineries into petroleum products.","caveat":"A generic transformation, not a claim about a particular barrel or refinery.","review_status":"manually_source_checked_candidate","ground_truth":false},
@@ -259,7 +373,11 @@
     {"id":"O-C19","subject":"oil-cape-good-hope","predicate":"alternative_to","object":"oil-bab","evidence_ids":["O-S12"],"kind":"reported_alternative_route","source_as_of":"2025-H1 baseline","valid_from":null,"valid_to":null,"recorded_on":"2026-09-22","statement":"EIA identifies the Cape of Good Hope as a longer alternative used by some vessels avoiding Bab el-Mandeb and Suez.","caveat":"The graph records route availability, not a vessel track, capacity guarantee or quantified diverted volume.","review_status":"manually_source_checked_candidate","ground_truth":false},
     {"id":"O-C20","subject":"oil-sunda","predicate":"alternative_to","object":"oil-malacca","evidence_ids":["O-S13"],"kind":"reported_alternative_route","source_as_of":"2025-H1 baseline","valid_from":null,"valid_to":null,"recorded_on":"2026-09-22","statement":"EIA identifies the Sunda Strait as a smaller alternative route around the Strait of Malacca.","caveat":"Alternative status does not establish practical capacity, vessel suitability or actual use in this window.","review_status":"manually_source_checked_candidate","ground_truth":false},
     {"id":"O-C21","subject":"oil-lombok","predicate":"alternative_to","object":"oil-malacca","evidence_ids":["O-S13"],"kind":"reported_alternative_route","source_as_of":"2025-H1 baseline","valid_from":null,"valid_to":null,"recorded_on":"2026-09-22","statement":"EIA identifies the Lombok Strait as a smaller alternative route around the Strait of Malacca.","caveat":"Alternative status does not establish practical capacity, vessel suitability or actual use in this window.","review_status":"manually_source_checked_candidate","ground_truth":false},
-    {"id":"O-C22","subject":"oil-myanmar-china-pipeline","predicate":"provides_alternative_supply_route_to","object":"oil-china","evidence_ids":["O-S13"],"kind":"reported_infrastructure","source_as_of":"2025-H1 baseline","valid_from":null,"valid_to":null,"recorded_on":"2026-09-22","statement":"EIA identifies the Myanmar–China oil pipeline as an alternative that transports Middle Eastern crude to southwest China outside the Malacca sea route.","caveat":"The source establishes the corridor, not its operating throughput, spare capacity or use for a particular cargo.","review_status":"manually_source_checked_candidate","ground_truth":false}
+    {"id":"O-C22","subject":"oil-myanmar-china-pipeline","predicate":"provides_alternative_supply_route_to","object":"oil-china","evidence_ids":["O-S13"],"kind":"reported_infrastructure","source_as_of":"2025-H1 baseline","valid_from":null,"valid_to":null,"recorded_on":"2026-09-22","statement":"EIA identifies the Myanmar–China oil pipeline as an alternative that transports Middle Eastern crude to southwest China outside the Malacca sea route.","caveat":"The source establishes the corridor, not its operating throughput, spare capacity or use for a particular cargo.","review_status":"manually_source_checked_candidate","ground_truth":false},
+    {"id":"O-C23","subject":"oil-us","predicate":"held_commercial_stocks_of","object":"oil-crude","evidence_ids":["O-S14"],"kind":"official_statistic","source_as_of":"week ending 2026-09-11","valid_from":"2026-09-05","valid_to":"2026-09-11","recorded_on":"2026-09-22","statement":"EIA reported U.S. commercial crude oil stocks (excluding the Strategic Petroleum Reserve) at 423.4 million barrels for the week ending September 11, 2026, 1% above the five-year average.","caveat":"A single weekly survey snapshot, not a period average; the five-year comparison set is 2021-2025.","review_status":"manually_source_checked_candidate","ground_truth":false},
+    {"id":"O-C24","subject":"oil-us","predicate":"operates_refining_capacity_of","object":"oil-crude","evidence_ids":["O-S17","O-S18"],"kind":"official_statistic","source_as_of":"2026-01-01","valid_from":"2026-01-01","valid_to":"2026-01-01","recorded_on":"2026-09-22","statement":"EIA reported U.S. operable atmospheric crude oil distillation capacity at 18.2 million barrels per calendar day as of January 1, 2026, down about 1% from 18.4 million b/cd on January 1, 2025 after two refinery closures.","caveat":"Nameplate/operable capacity is not the same as actual utilized throughput in a given week.","review_status":"manually_source_checked_candidate","ground_truth":false},
+    {"id":"O-C25","subject":"oil-india","predicate":"imports","object":"oil-crude","evidence_ids":["O-S19"],"kind":"official_statistic","source_as_of":"2026-27 (Apr-Aug, provisional)","valid_from":"2026-04-01","valid_to":"2026-08-31","recorded_on":"2026-09-22","statement":"PPAC reported India's crude oil imports at 100.7 million tonnes for April-August of fiscal year 2026-27, provisional and subject to revision.","caveat":"A five-month provisional fiscal-year-to-date figure, not a full-year total; quantities are in tonnes and are not converted to barrels.","review_status":"manually_source_checked_candidate","ground_truth":false},
+    {"id":"O-C26","subject":"oil-iraq","predicate":"produces","object":"oil-crude","evidence_ids":["O-S20"],"kind":"reported_estimate","source_as_of":"2026-08","valid_from":"2026-08-01","valid_to":"2026-08-31","recorded_on":"2026-09-22","statement":"IEA estimated Iraqi crude oil production at 3.86 million b/d in August 2026, within an OPEC+ production table published alongside a report of more than 10 million b/d of Gulf output shut in amid heightened security risks.","caveat":"An IEA supply estimate; OPEC's own secondary-source estimate for the same month can differ in methodology and value.","review_status":"manually_source_checked_candidate","ground_truth":false}
   ],
   "events": [
     {"id":"O-E01","event_time":"2025-Q4","precision":"quarter","published_on":null,"source_ids":["O-S01"],"kind":"estimated_baseline","description":"EIA estimated Hormuz oil flows at 21.6 million b/d before the 2026 disruption window."},
@@ -267,7 +385,9 @@
     {"id":"O-E03","event_time":"2026-04","precision":"month","published_on":"2026-07-08","source_ids":["O-S07"],"kind":"reported_actual","description":"EIA reported record U.S. crude oil and petroleum product exports of 13.6 million b/d."},
     {"id":"O-E04","event_time":"2026-06","precision":"month","published_on":"2026-07-16","source_ids":["O-S06"],"kind":"official_statistic","description":"China NBS reported crude processing of 51.24 million tonnes, down 17.7% year over year."},
     {"id":"O-E05","event_time":"2026-08","precision":"month","published_on":"2026-09-09","source_ids":["O-S02"],"kind":"estimated_market_observation","description":"EIA estimated the August Brent spot price average at $91 per barrel."},
-    {"id":"O-E06","event_time":"2026-10","precision":"month","published_on":"2026-09-06","source_ids":["O-S04"],"kind":"announced_policy","description":"Seven OPEC+ participants announced unchanged required production from September into October."}
+    {"id":"O-E06","event_time":"2026-10","precision":"month","published_on":"2026-09-06","source_ids":["O-S04"],"kind":"announced_policy","description":"Seven OPEC+ participants announced unchanged required production from September into October."},
+    {"id":"O-E07","event_time":"2026-09","precision":"month","published_on":"2026-09-16","source_ids":["O-S14"],"kind":"official_statistic","description":"EIA reported U.S. commercial crude oil stocks at 423.4 million barrels for the week ending September 11, 2026, 1% above the five-year average."},
+    {"id":"O-E08","event_time":"2026-08","precision":"month","published_on":"2026-09-11","source_ids":["O-S20"],"kind":"estimated_disruption","description":"IEA reported more than 10 million b/d of Gulf oil output shut in amid heightened security risks in August 2026, with global oil production down 1.6 million b/d month-on-month to 100.1 million b/d."}
   ],
   "excluded_assertions": [
     "A graph path through chokepoints proves the route of an individual cargo.",
@@ -288,7 +408,12 @@
       {"id":"O-M03","title":"World total oil supply","unit":"million barrels per day","description":"Quarterly world supply values reported alongside the chokepoint analysis.","source_ids":["O-S01"],"points":[{"period":"2025-Q3","value":108.2,"status":"estimate"},{"period":"2025-Q4","value":103.9,"status":"estimate"},{"period":"2026-Q1","value":96.1,"status":"estimate"},{"period":"2026-Q2","value":99.7,"status":"estimate"}],"caveat":"Global supply is not a direct measure of chokepoint throughput and reflects multiple production changes."},
       {"id":"O-M04","title":"China crude oil imports","unit":"million barrels per day","description":"Selected period averages showing the high-import baseline and 2026-Q2 decline.","source_ids":["O-S05"],"points":[{"period":"2025 average","value":11.6,"status":"reported"},{"period":"2025-H2","value":12.0,"status":"reported"},{"period":"2026-Q2","value":8.1,"status":"estimate"}],"caveat":"Periods have different lengths; the series illustrates context rather than a continuous quarterly run."},
       {"id":"O-M05","title":"Selected U.S. supply response","unit":"million barrels per day","description":"Different measures kept side by side: production, total petroleum exports and a full-year production forecast.","source_ids":["O-S07","O-S08"],"points":[{"period":"2026-H1 crude production","value":13.7,"status":"estimate"},{"period":"2026-04 crude + product exports","value":13.6,"status":"reported"},{"period":"2026 full-year crude production","value":13.8,"status":"forecast"}],"caveat":"These points are not one homogeneous series. Exports include crude and petroleum products; the annual production value is a forecast."},
-      {"id":"O-M06","title":"Major maritime oil routes before the disruption window","unit":"million barrels per day","description":"EIA 2025-H1 estimates provide a common structural baseline for selected chokepoints and the Cape route.","source_ids":["O-S10","O-S11","O-S12"],"points":[{"period":"Malacca","value":23.2,"status":"estimate"},{"period":"Hormuz","value":20.9,"status":"estimate"},{"period":"Cape of Good Hope","value":9.1,"status":"estimate"},{"period":"Suez + SUMED","value":4.9,"status":"estimate"},{"period":"Bab el-Mandeb","value":4.2,"status":"estimate"}],"caveat":"A 2025-H1 structural comparison outside the main observation window. Routes can overlap within one voyage, so values must not be summed as unique cargoes."}
+      {"id":"O-M06","title":"Major maritime oil routes before the disruption window","unit":"million barrels per day","description":"EIA 2025-H1 estimates provide a common structural baseline for selected chokepoints and the Cape route.","source_ids":["O-S10","O-S11","O-S12"],"points":[{"period":"Malacca","value":23.2,"status":"estimate"},{"period":"Hormuz","value":20.9,"status":"estimate"},{"period":"Cape of Good Hope","value":9.1,"status":"estimate"},{"period":"Suez + SUMED","value":4.9,"status":"estimate"},{"period":"Bab el-Mandeb","value":4.2,"status":"estimate"}],"caveat":"A 2025-H1 structural comparison outside the main observation window. Routes can overlap within one voyage, so values must not be summed as unique cargoes."},
+      {"id":"O-M07","title":"U.S. commercial crude oil stocks","unit":"million barrels","description":"Weekly survey snapshots of commercial crude oil inventories excluding the Strategic Petroleum Reserve.","source_ids":["O-S14","O-S15","O-S16"],"points":[{"period":"week ending 2026-06-19","value":412.1,"status":"reported"},{"period":"week ending 2026-07-17","value":411.7,"status":"reported"},{"period":"week ending 2026-09-11","value":423.4,"status":"reported"}],"caveat":"Each point is a single weekly survey snapshot, not a period average, and the three weeks are unevenly spaced. Relative to the EIA five-year (2021-2025) average for its own week, June 19 was 7% below, July 17 was 6% below and September 11 was 1% above."},
+      {"id":"O-M08","title":"U.S. refinery operable crude distillation capacity","unit":"million barrels per calendar day","description":"Annual EIA Refinery Capacity Report figures as of January 1 of each year.","source_ids":["O-S17","O-S18"],"points":[{"period":"2025-01-01","value":18.4,"status":"reported"},{"period":"2026-01-01","value":18.2,"status":"reported"}],"caveat":"Operable/nameplate capacity as of a single annual snapshot date; it is not actual utilized throughput in any given week. The January 2026 figure reflects 130 operable refineries, down two from 2025."},
+      {"id":"O-M09","title":"U.S. refinery utilization rate","unit":"percent of operable capacity","description":"Weekly EIA survey figures for crude oil inputs to refineries as a share of operable capacity.","source_ids":["O-S14","O-S15"],"points":[{"period":"week ending 2026-06-19","value":96.1,"status":"reported"},{"period":"week ending 2026-09-11","value":96.8,"status":"reported"}],"caveat":"Weekly snapshots, not a continuous or period-averaged series; only two weeks within the window are recorded here."},
+      {"id":"O-M10","title":"India crude oil imports","unit":"million tonnes","description":"PPAC fiscal-year import quantities, with the current fiscal year shown as a provisional partial-year figure.","source_ids":["O-S19"],"points":[{"period":"2024-25","value":243.2,"status":"reported"},{"period":"2025-26","value":245.8,"status":"reported"},{"period":"2026-27 (Apr-Aug, provisional)","value":100.7,"status":"estimate"}],"caveat":"Indian fiscal years run April-March; the 2026-27 point covers only five months and is explicitly marked provisional by PPAC pending actuals. Quantities are in metric tonnes and are not converted to barrels."},
+      {"id":"O-M11","title":"Selected OPEC+ member crude oil production, August 2026","unit":"million barrels per day","description":"IEA country-level supply estimates from its OPEC+ production table for a single month.","source_ids":["O-S20"],"points":[{"period":"Saudi Arabia","value":5.97,"status":"estimate"},{"period":"Iraq","value":3.86,"status":"estimate"},{"period":"Russia","value":8.36,"status":"estimate"},{"period":"Iran","value":2.16,"status":"estimate"}],"caveat":"A single-month cross-country comparison, not a time series. These are IEA supply estimates; OPEC's own Monthly Oil Market Report uses different secondary-source methodology and can report different country values for the same month."}
     ]
   }
 }
