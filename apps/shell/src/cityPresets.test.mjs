@@ -1,6 +1,6 @@
 // CITY PRESETS — the destination table, checked as data.
 //
-// CITY_POIS is written by hand and read directly by the camera, so a malformed
+// PLACE_PRESETS is written by hand and read directly by the camera, so a malformed
 // row is not a crash: the pill lights up, the camera flies, and it frames the
 // wrong thing. These checks are structural. They say a row is well formed —
 // present keys, finite numbers, coordinates on Earth, a camera angle a camera
@@ -8,9 +8,9 @@
 // say nothing about whether a destination is framed well.
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { CITY_POIS, LOCATIONS } from './locations.js';
+import { PLACE_PRESETS, LOCATIONS } from './locations.js';
 
-const DESTINATIONS = Object.entries(CITY_POIS);
+const DESTINATIONS = Object.entries(PLACE_PRESETS);
 const REQUIRED_POI_KEYS = ['name', 'lat', 'lon', 'alt', 'pitch', 'heading'];
 
 /** `id · POI name`, so a failure names the row instead of an index. */

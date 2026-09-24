@@ -202,3 +202,141 @@ export const OIL_GEOGRAPHY: OilGeography = {
     },
   ],
 };
+
+/** What the evidence pack is and which of its entities exist; the readouts count against this. */
+export interface OilPackSummary {
+  readonly caseId: string;
+  readonly schemaVersion: string;
+  readonly checkedOn: string;
+  readonly scope: string;
+  readonly entities: readonly {
+    readonly id: string;
+    readonly name: string;
+    readonly type: string;
+  }[];
+}
+
+export const OIL_PACK: OilPackSummary = {
+  caseId: 'oil-system-2025q3-2026q2',
+  schemaVersion: '0.2-industry-brief',
+  checkedOn: '2026-09-22',
+  scope:
+    'Observed baseline from 2025-Q3 through 2026-Q2, with selected developments through 2026-09-16. Forecasts are labelled separately.',
+  entities: [
+    {
+      id: 'oil-world',
+      name: 'Global oil system',
+      type: 'system',
+    },
+    {
+      id: 'oil-crude',
+      name: 'Crude oil and condensate',
+      type: 'material',
+    },
+    {
+      id: 'oil-products',
+      name: 'Refined petroleum products',
+      type: 'material',
+    },
+    {
+      id: 'oil-hormuz',
+      name: 'Strait of Hormuz',
+      type: 'maritime_chokepoint',
+    },
+    {
+      id: 'oil-bab',
+      name: 'Bab el-Mandeb Strait',
+      type: 'maritime_chokepoint',
+    },
+    {
+      id: 'oil-malacca',
+      name: 'Strait of Malacca',
+      type: 'maritime_chokepoint',
+    },
+    {
+      id: 'oil-saudi',
+      name: 'Saudi Arabia',
+      type: 'country',
+    },
+    {
+      id: 'oil-uae',
+      name: 'United Arab Emirates',
+      type: 'country',
+    },
+    {
+      id: 'oil-east-west',
+      name: 'Saudi East-West crude oil pipeline',
+      type: 'infrastructure',
+    },
+    {
+      id: 'oil-uae-pipeline',
+      name: 'UAE Abu Dhabi crude oil pipeline',
+      type: 'infrastructure',
+    },
+    {
+      id: 'oil-yanbu',
+      name: 'Yanbu export terminal',
+      type: 'facility',
+    },
+    {
+      id: 'oil-china',
+      name: 'China',
+      type: 'country',
+    },
+    {
+      id: 'oil-china-refining',
+      name: 'China refining system',
+      type: 'industry',
+    },
+    {
+      id: 'oil-us',
+      name: 'United States',
+      type: 'country',
+    },
+    {
+      id: 'oil-permian',
+      name: 'Permian production region',
+      type: 'production_region',
+    },
+    {
+      id: 'oil-opec-plus',
+      name: 'Seven OPEC+ participating countries',
+      type: 'producer_group',
+    },
+    {
+      id: 'oil-suez-sumed',
+      name: 'Suez Canal and SUMED pipeline corridor',
+      type: 'transport_corridor',
+    },
+    {
+      id: 'oil-cape-good-hope',
+      name: 'Cape of Good Hope route',
+      type: 'maritime_route',
+    },
+    {
+      id: 'oil-sunda',
+      name: 'Sunda Strait',
+      type: 'maritime_chokepoint',
+    },
+    {
+      id: 'oil-lombok',
+      name: 'Lombok Strait',
+      type: 'maritime_chokepoint',
+    },
+    {
+      id: 'oil-myanmar-china-pipeline',
+      name: 'Myanmar–China crude oil pipeline',
+      type: 'infrastructure',
+    },
+    {
+      id: 'oil-india',
+      name: 'India',
+      type: 'country',
+    },
+    {
+      id: 'oil-iraq',
+      name: 'Iraq',
+      type: 'country',
+    },
+  ],
+};

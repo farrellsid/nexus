@@ -96,7 +96,7 @@ export class LocationNavigation {
   }
 
   _initLocationBar() {
-    const { CITY_POIS, searchAndFlyTo, LocationSearch } = this.services;
+    const { PLACE_PRESETS, searchAndFlyTo, LocationSearch } = this.services;
     this._locationControls?.destroy();
     this._locationLookupUnsubscribe?.();
     this._locationLookup?.destroy();
@@ -129,7 +129,7 @@ export class LocationNavigation {
         statusCity: this._locationMiniCity,
         statusPoi: this._locationMiniPoi,
       },
-      cities: CITY_POIS,
+      cities: PLACE_PRESETS,
       getExpandedCity: () => this._expandedCityId,
       onCity: (id) => this._onCityPillClick(id),
       onPoi: (id, index) => this._onPoiClick(id, index),
@@ -168,7 +168,7 @@ export class LocationNavigation {
   }
 
   _onCityPillClick(cityId) {
-    const { CITY_POIS, flyToPresetLocation } = this.services;
+    const { PLACE_PRESETS, flyToPresetLocation } = this.services;
     if (this._expandedCityId === cityId) {
       // Same city clicked again — toggle collapse
       this._collapsePOIRow();
@@ -189,13 +189,13 @@ export class LocationNavigation {
     // Track current target + POI for orbit
     if (result) {
       this._currentTarget = result.targetPosition;
-      this._currentPoi = CITY_POIS[cityId].pois[0];
+      this._currentPoi = PLACE_PRESETS[cityId].pois[0];
     }
     this._updateLocationMiniStatus();
   }
 
   _onPoiClick(cityId, poiIndex) {
-    const { CITY_POIS, flyToPOI } = this.services;
+    const { PLACE_PRESETS, flyToPOI } = this.services;
     const isCityChanged =
       this._activeLocationId && this._activeLocationId !== cityId;
     const result = this._flyWithTransition(!!isCityChanged, (hooks) =>
@@ -209,14 +209,14 @@ export class LocationNavigation {
     // Track current target + POI for orbit
     if (result) {
       this._currentTarget = result.targetPosition;
-      this._currentPoi = CITY_POIS[cityId].pois[poiIndex];
+      this._currentPoi = PLACE_PRESETS[cityId].pois[poiIndex];
     }
     this._updateLocationMiniStatus();
   }
 
   _expandPOIRow(cityId) {
-    const { CITY_POIS } = this.services;
-    if (!CITY_POIS[cityId]) return;
+    const { PLACE_PRESETS } = this.services;
+    if (!PLACE_PRESETS[cityId]) return;
     this._expandedCityId = cityId;
     this._locationControls.showPois(cityId);
   }
@@ -248,9 +248,11 @@ export class LocationNavigation {
   }
 
   _updateLocationMiniStatus() {
-    const { CITY_POIS } = this.services;
+    const { PLACE_PRESETS } = this.services;
     this._locationControls?.renderStatus({
-      city: this._activeLocationId ? CITY_POIS[this._activeLocationId] : null,
+      city: this._activeLocationId
+        ? PLACE_PRESETS[this._activeLocationId]
+        : null,
       currentPoi: this._currentPoi,
       searchedLabel: this._searchedLocationLabel,
     });

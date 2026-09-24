@@ -5,7 +5,7 @@
 // Caltrans/TfL camera priors) give ORTHOMETRIC height (H, "height above mean
 // sea level"). N is the local geoid undulation — the gap between the WGS84
 // ellipsoid and the geoid (~mean sea level) surface, ranging roughly
-// -106..+85 m worldwide. See docs/plans/2026-07-05-entity-height-datum-fix.md.
+// -106..+85 m worldwide.
 //
 // Decision rule (task brief): try `egm96-universal` (npm, MIT, embeds the NGA
 // EGM96 15' grid) as a lazy dynamic import so its ~2.7 MB grid data-chunk

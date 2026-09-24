@@ -59,7 +59,7 @@ const SFO_ELLIPSOIDAL_M = -15;
  */
 function installHudEnvironment() {
   const elements = new Map(
-    ['hud-alt', 'hud-summary', 'hud-mgrs', 'hud-latlon', 'hud-bottom-line', 'hud-gsd', 'hud-coll', 'hud-ona', 'hud-mode']
+    ['hud-alt', 'hud-summary', 'hud-mgrs', 'hud-latlon', 'hud-bottom-line', 'hud-tilt', 'hud-mode']
       .map((id) => [id, { textContent: '' }]),
   );
   const previousDocument = globalThis.document;
@@ -152,15 +152,10 @@ test('the summary ALT tag agrees with the corner readout', () => {
   );
 });
 
-test('the sensor model keeps the ellipsoidal height it was tuned against', () => {
-  // GSD/NIIRS and the STREET/CITY/METRO view band are camera-geometry math,
-  // not readouts. Re-datuming them would silently move their thresholds, so
-  // altM stays and altMslM is purely additive.
-  assert.equal(
-    has(/const gsd = Math\.max\(0\.01, altM \* 0\.000375\);/),
-    true,
-    'GSD must keep reading the raw camera height',
-  );
+test('the view band keeps the ellipsoidal height its thresholds were tuned against', () => {
+  // The STREET/CITY/METRO view band is camera-geometry math, not a readout.
+  // Re-datuming it would silently move its thresholds, so altM stays and
+  // altMslM is purely additive.
   assert.equal(
     has(/const band = this\._viewBand\(m\.altM\);/),
     true,

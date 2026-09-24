@@ -2,7 +2,7 @@
 import { StyleManager as ApplicationShell } from './applicationShell.js';
 import { LocationSearch } from './location.js';
 import {
-  CITY_POIS,
+  PLACE_PRESETS,
   GLOBE_VIEW,
   flyToGlobeView,
   flyToPresetLocation,
@@ -10,6 +10,7 @@ import {
   searchAndFlyTo,
 } from '../locations.js';
 import { IntelHUD } from '../hud.js';
+import { NEXUS_READOUTS } from '../nexus/readouts.ts';
 import { ShareLinkManager } from '../sharelink.js';
 import { OrbitController } from '../orbit.js';
 import {
@@ -36,13 +37,14 @@ export class StyleManager extends ApplicationShell {
     super(viewer, {
       ...options,
       services: {
-        CITY_POIS,
+        PLACE_PRESETS,
         GLOBE_VIEW,
         flyToGlobeView,
         flyToPresetLocation,
         flyToPOI,
         searchAndFlyTo,
         IntelHUD,
+        NEXUS_READOUTS,
         ShareLinkManager,
         OrbitController,
         CelestialRing,

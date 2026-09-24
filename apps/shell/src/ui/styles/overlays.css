@@ -199,28 +199,11 @@
   letter-spacing: 2px;
 }
 
-.hud-ais-vessel {
-  margin-top: 6px;
-  max-width: 340px;
-  white-space: pre-line;
-  line-height: 1.35;
-  opacity: 0.64;
-}
-
-.hud-ais-vessel.active {
-  opacity: 0.95;
-}
-
 .hud-classification {
   font-size: 12px;
   letter-spacing: 2.5px;
   font-weight: 600;
   margin-bottom: 3px;
-}
-
-.hud-system {
-  font-size: 13px;
-  opacity: 0.8;
 }
 
 .hud-mode {
@@ -252,22 +235,25 @@
   text-overflow: ellipsis;
 }
 
-.hud-rec {
+.hud-clock {
   font-size: 13px;
   letter-spacing: 2px;
 }
 
-#hud-rec-dot {
-  color: #ff3333;
-  text-shadow: 0 0 6px rgba(255, 51, 51, 0.8);
-  font-size: 14px;
-  vertical-align: middle;
+/* Lines about the data on show: as-of date, pack, coverage, selection precision. */
+.hud-data-lines,
+.hud-selection {
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  opacity: 0.8;
 }
 
-.hud-orbital {
-  font-size: 12px;
-  opacity: 0.7;
-  letter-spacing: 1.5px;
+.hud-data-lines {
+  margin-top: 6px;
+}
+
+.hud-selection {
+  margin-bottom: 3px;
 }
 
 /* Edge annotations (vertical text) */
@@ -350,8 +336,7 @@
 #intel-hud[data-variant='minimal'] .hud-bottom-right,
 #intel-hud[data-variant='minimal'] .hud-left-edge,
 #intel-hud[data-variant='minimal'] .hud-right-edge,
-#intel-hud[data-variant='minimal'] .hud-classification,
-#intel-hud[data-variant='minimal'] .hud-system {
+#intel-hud[data-variant='minimal'] .hud-classification {
   display: none;
 }
 

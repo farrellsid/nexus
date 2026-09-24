@@ -1,22 +1,42 @@
 {
   "application": {
-    "exports": ["./application"],
-    "modules": ["src/app/application.js"],
+    "exports": [
+      "./application"
+    ],
+    "modules": [
+      "src/app/application.js"
+    ],
     "external": []
   },
   "viewer": {
-    "exports": ["./application/viewer"],
-    "modules": ["src/app/viewer.js"],
-    "external": ["cesium"]
+    "exports": [
+      "./application/viewer"
+    ],
+    "modules": [
+      "src/app/viewer.js"
+    ],
+    "external": [
+      "cesium"
+    ]
   },
   "vite-build": {
     "runtime": "node",
-    "exports": ["./build/vite", "./build/html"],
-    "modules": ["build/vite.js", "build/application-html.js"],
-    "external": ["vite-plugin-cesium"]
+    "exports": [
+      "./build/vite",
+      "./build/html"
+    ],
+    "modules": [
+      "build/vite.js",
+      "build/application-html.js"
+    ],
+    "external": [
+      "vite-plugin-cesium"
+    ]
   },
   "place-search": {
-    "exports": ["./search"],
+    "exports": [
+      "./search"
+    ],
     "modules": [
       "src/search/index.js",
       "src/search/placeSearch.js",
@@ -28,12 +48,18 @@
     "external": []
   },
   "panel-disclosure": {
-    "exports": ["./ui/panels"],
-    "modules": ["src/ui/panelDisclosure.js"],
+    "exports": [
+      "./ui/panels"
+    ],
+    "modules": [
+      "src/ui/panelDisclosure.js"
+    ],
     "external": []
   },
   "panel-rail-layout": {
-    "exports": ["./ui/layout"],
+    "exports": [
+      "./ui/layout"
+    ],
     "modules": [
       "src/ui/panelRails.js",
       "src/ui/leftPanelRail.js",
@@ -45,7 +71,9 @@
     "external": []
   },
   "visual-input": {
-    "exports": ["./ui/input"],
+    "exports": [
+      "./ui/input"
+    ],
     "modules": [
       "src/ui/visualInput.js",
       "src/ui/applicationShortcuts.js",
@@ -54,12 +82,19 @@
     "external": []
   },
   "display-controls": {
-    "exports": ["./ui/display"],
-    "modules": ["src/ui/displayControls.js"],
+    "exports": [
+      "./ui/display"
+    ],
+    "modules": [
+      "src/ui/displayControls.js"
+    ],
     "external": []
   },
   "visual-effects": {
-    "exports": ["./ui/effects", "./ui/effects/bloom"],
+    "exports": [
+      "./ui/effects",
+      "./ui/effects/bloom"
+    ],
     "modules": [
       "src/ui/effects.js",
       "src/ui/visualEffects.js",
@@ -72,10 +107,14 @@
       "src/styles/noir.js",
       "src/styles/snow.js"
     ],
-    "external": ["cesium"]
+    "external": [
+      "cesium"
+    ]
   },
   "map-source-controls": {
-    "exports": ["./ui/maps"],
+    "exports": [
+      "./ui/maps"
+    ],
     "modules": [
       "src/ui/mapSource.js",
       "src/ui/mapSourceControls.js",
@@ -84,7 +123,10 @@
     "external": []
   },
   "layer-panel": {
-    "exports": ["./ui/layers", "./ui/layers/feedback"],
+    "exports": [
+      "./ui/layers",
+      "./ui/layers/feedback"
+    ],
     "modules": [
       "src/ui/layers.js",
       "src/ui/layerPanel.js",
@@ -95,7 +137,9 @@
     "external": []
   },
   "location-controls": {
-    "exports": ["./ui/location"],
+    "exports": [
+      "./ui/location"
+    ],
     "modules": [
       "src/ui/location.js",
       "src/ui/locationControls.js",
@@ -106,7 +150,9 @@
     "external": []
   },
   "scene-controls": {
-    "exports": ["./ui/scenes"],
+    "exports": [
+      "./ui/scenes"
+    ],
     "modules": [
       "src/ui/scenes.js",
       "src/ui/sceneControls.js",
@@ -115,7 +161,9 @@
     "external": []
   },
   "ui-shell": {
-    "exports": ["./ui/shell"],
+    "exports": [
+      "./ui/shell"
+    ],
     "modules": [
       "src/app/stateChannel.js",
       "src/bloom.js",
@@ -177,10 +225,14 @@
       "src/ui/displayBindings.js",
       "src/ui/shellFacade.js"
     ],
-    "external": ["cesium"]
+    "external": [
+      "cesium"
+    ]
   },
   "director": {
-    "exports": ["./director"],
+    "exports": [
+      "./director"
+    ],
     "modules": [
       "src/director/playback.js",
       "src/director/clock.js",
@@ -203,7 +255,9 @@
     "external": []
   },
   "scenes": {
-    "exports": ["./scenes"],
+    "exports": [
+      "./scenes"
+    ],
     "modules": [
       "src/maps/catalog.js",
       "src/scenes/director.js",
@@ -248,7 +302,9 @@
       "src/nexus/oilGeographyLayer.ts",
       "src/nexus/oilTour.ts"
     ],
-    "external": ["cesium"]
+    "external": [
+      "cesium"
+    ]
   },
   "maps": {
     "exports": [
@@ -267,7 +323,9 @@
       "src/maps/registry.js",
       "src/maps/terrain.js"
     ],
-    "external": ["cesium"]
+    "external": [
+      "cesium"
+    ]
   },
   "application-components": {
     "exports": [
@@ -416,7 +474,9 @@
       "src/ui/sceneSharing.js",
       "src/nexus/oilGeographyLayer.ts",
       "src/nexus/oilStops.ts",
-      "src/nexus/oilTour.ts"
+      "src/nexus/oilTour.ts",
+      "src/nexus/oilPlaces.ts",
+      "src/nexus/readouts.ts"
     ],
     "external": [
       "@mapbox/vector-tile",
@@ -428,12 +488,18 @@
     ]
   },
   "application-catalog": {
-    "exports": ["./application/catalog"],
-    "modules": ["src/app/catalog.js"],
+    "exports": [
+      "./application/catalog"
+    ],
+    "modules": [
+      "src/app/catalog.js"
+    ],
     "external": []
   },
   "application-layer-construction": {
-    "exports": ["./application/layers"],
+    "exports": [
+      "./application/layers"
+    ],
     "modules": [
       "src/app/catalog.js",
       "src/app/constructCatalog.js",
@@ -466,21 +532,31 @@
     ]
   },
   "layer-lifecycle": {
-    "exports": ["./data/lifecycle"],
-    "modules": ["src/data/lifecycle.js"],
+    "exports": [
+      "./data/lifecycle"
+    ],
+    "modules": [
+      "src/data/lifecycle.js"
+    ],
     "external": []
   },
   "ui-navigation": {
-    "exports": ["./ui/navigation"],
+    "exports": [
+      "./ui/navigation"
+    ],
     "modules": [
       "src/navigationPolicy.js",
       "src/ui/navigationController.js",
       "src/app/stateChannel.js"
     ],
-    "external": ["cesium"]
+    "external": [
+      "cesium"
+    ]
   },
   "ui-share-restoration": {
-    "exports": ["./ui/share-restoration"],
+    "exports": [
+      "./ui/share-restoration"
+    ],
     "modules": [
       "src/data/layerState.js",
       "src/loadingFeedback.js",
@@ -491,7 +567,9 @@
     "external": []
   },
   "ui-visual-settings": {
-    "exports": ["./ui/visual-settings"],
+    "exports": [
+      "./ui/visual-settings"
+    ],
     "modules": [
       "src/bloom.js",
       "src/styles/anime.js",
@@ -509,10 +587,14 @@
       "src/ui/visualPresets.js",
       "src/ui/visualSettings.js"
     ],
-    "external": ["cesium"]
+    "external": [
+      "cesium"
+    ]
   },
   "ui-panel-chrome": {
-    "exports": ["./ui/panel-chrome"],
+    "exports": [
+      "./ui/panel-chrome"
+    ],
     "modules": [
       "src/panelStackLayout.js",
       "src/ui/leftPanelRail.js",
@@ -529,8 +611,16 @@
     "external": []
   },
   "nexus-oil-geography": {
-    "exports": ["./nexus/oil"],
-    "modules": ["src/nexus/oilGeographyLayer.ts", "src/nexus/oilStops.ts"],
-    "external": ["cesium"]
+    "exports": [
+      "./nexus/oil"
+    ],
+    "modules": [
+      "src/nexus/oilGeographyLayer.ts",
+      "src/nexus/oilStops.ts",
+      "src/nexus/oilPlaces.ts"
+    ],
+    "external": [
+      "cesium"
+    ]
   }
 }

@@ -159,7 +159,7 @@ test('regionFramingPlan: antimeridian-crossing viewport measured the short way r
 //
 // EVERY fixture below is SYNTHETIC geometry, constructed here. Google Maps
 // content — geocodes included — may not be cached, stored, rehosted, or
-// committed (DATA_SOURCES.md), so no captured API response appears in this repo.
+// committed, so no captured API response appears in this repo.
 // The fixtures reproduce the SHAPES that matter instead: an oversized box whose
 // place sits in one corner, an oversized box centred on its place, the same
 // crossing the antimeridian, and city-sized boxes.
@@ -380,14 +380,14 @@ test('globe and city-overview flights name the world frame explicitly', () => {
   assert.equal(globeViewer.flights[0].endTransform, Cesium.Matrix4.IDENTITY);
 
   const cityViewer = stubViewer();
-  flyToPresetLocation(cityViewer, 'austin', { viewMode: 'overview' });
+  flyToPresetLocation(cityViewer, 'gulf-and-red-sea', { viewMode: 'overview' });
   assert.equal(cityViewer.flights[0].endTransform, Cesium.Matrix4.IDENTITY);
 });
 
 test('city and landmark flights expose completion and cancellation hooks', () => {
   const overviewViewer = stubViewer();
   const overviewEvents = [];
-  flyToPresetLocation(overviewViewer, 'austin', {
+  flyToPresetLocation(overviewViewer, 'gulf-and-red-sea', {
     viewMode: 'overview',
     onComplete: () => overviewEvents.push('complete'),
     onCancel: () => overviewEvents.push('cancel'),
@@ -398,7 +398,7 @@ test('city and landmark flights expose completion and cancellation hooks', () =>
 
   const landmarkViewer = stubViewer();
   const landmarkEvents = [];
-  flyToPresetLocation(landmarkViewer, 'austin', {
+  flyToPresetLocation(landmarkViewer, 'gulf-and-red-sea', {
     onComplete: () => landmarkEvents.push('complete'),
     onCancel: () => landmarkEvents.push('cancel'),
   });

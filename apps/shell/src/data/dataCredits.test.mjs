@@ -18,22 +18,14 @@ test('every credit carries a unique key and some markup to render', () => {
   }
 });
 
-test('adsbdb is credited and carries its published route-data restriction', () => {
-  const credit = DATA_CREDITS.find((entry) => entry.key === 'adsbdb');
+test('the oil fixture credits its coordinate source and says its anchors are not routes', () => {
+  const credit = DATA_CREDITS.find(
+    (entry) => entry.key === 'oil-fixture-wikidata',
+  );
   assert.ok(
     credit,
-    'adsbdb supplies aircraft type and routes and must be credited',
+    'the anchors take their coordinates from Wikidata and must say so',
   );
-  // adsbdb publishes this restriction for its route data. Pin the provider's
-  // credits and restriction here so a later edit cannot silently remove them.
-  assert.match(credit.html, /David Taylor, Edinburgh/);
-  assert.match(credit.html, /Jim Mason, Glasgow/);
-  assert.match(
-    credit.html,
-    /may not be\s+copied, published, or incorporated into other databases/,
-  );
-  assert.match(credit.html, /explicit permission of David J Taylor, Edinburgh/);
-  assert.match(credit.html, /PlaneBase/);
-  assert.match(credit.html, /Guillaume Michel/);
-  assert.match(credit.html, /href="https:\/\/www\.adsbdb\.com"/);
+  assert.match(credit.html, /wikidata\.org/);
+  assert.match(credit.html, /not a boundary, route or vessel position/);
 });

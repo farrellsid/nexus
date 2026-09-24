@@ -1,65 +1,40 @@
 import * as Cesium from 'cesium';
+import { OIL_OVERVIEW } from './nexus/oilPlaces.ts';
+
+const START_HEIGHT_M = 26_000_000;
+const FLIGHT_DELAY_MS = 500;
+const FLIGHT_SECONDS = 4.0;
 
 /**
- * Camera presets for notable locations.
- * Phase 1 default: fly to Austin, TX on load.
- */
-export const CAMERA_PRESETS = {
-  austin: {
-    destination: Cesium.Cartesian3.fromDegrees(-97.7431, 30.2672, 800),
-    orientation: {
-      heading: Cesium.Math.toRadians(0),
-      pitch: Cesium.Math.toRadians(-35),
-      roll: 0.0,
-    },
-  },
-  sf: {
-    destination: Cesium.Cartesian3.fromDegrees(-122.4194, 37.7749, 1000),
-    orientation: {
-      heading: Cesium.Math.toRadians(30),
-      pitch: Cesium.Math.toRadians(-30),
-      roll: 0.0,
-    },
-  },
-  nyc: {
-    destination: Cesium.Cartesian3.fromDegrees(-73.9857, 40.7484, 1200),
-    orientation: {
-      heading: Cesium.Math.toRadians(-20),
-      pitch: Cesium.Math.toRadians(-30),
-      roll: 0.0,
-    },
-  },
-};
-
-/**
- * Set camera to Austin on load with a cinematic fly-in.
+ * Open on the whole globe, then ease down to the oil overview.
  * @returns {Function} Cancels the pending or active startup flight.
  */
-export function flyToAustin(viewer) {
-  // Start from a high altitude, then fly down
+export function flyToStartView(viewer) {
+  const at = (heightM) =>
+    Cesium.Cartesian3.fromDegrees(
+      OIL_OVERVIEW.longitude,
+      OIL_OVERVIEW.latitude,
+      heightM,
+    );
+  const straightDown = {
+    heading: 0,
+    pitch: Cesium.Math.toRadians(-90),
+    roll: 0,
+  };
   viewer.camera.setView({
-    destination: Cesium.Cartesian3.fromDegrees(-97.7431, 30.2672, 25000),
-    orientation: {
-      heading: Cesium.Math.toRadians(0),
-      pitch: Cesium.Math.toRadians(-90),
-      roll: 0.0,
-    },
+    destination: at(START_HEIGHT_M),
+    orientation: straightDown,
   });
 
-  // Cinematic fly-in after a brief pause
   const timer = setTimeout(() => {
     if (viewer.isDestroyed()) return;
     viewer.camera.flyTo({
-      destination: Cesium.Cartesian3.fromDegrees(-97.7431, 30.2672, 600),
-      orientation: {
-        heading: Cesium.Math.toRadians(15),
-        pitch: Cesium.Math.toRadians(-30),
-        roll: 0.0,
-      },
-      duration: 4.0,
+      destination: at(OIL_OVERVIEW.heightM),
+      orientation: straightDown,
+      duration: FLIGHT_SECONDS,
       easingFunction: Cesium.EasingFunction.CUBIC_IN_OUT,
     });
-  }, 500);
+  }, FLIGHT_DELAY_MS);
   return () => {
     clearTimeout(timer);
     if (!viewer.isDestroyed()) viewer.camera.cancelFlight();

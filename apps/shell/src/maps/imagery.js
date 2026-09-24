@@ -1,6 +1,6 @@
 import * as Cesium from 'cesium';
 
-// Attribution and service rights are documented in DATA_SOURCES.md.
+// Esri imagery is used through its public tile service; see the credit below and UPSTREAM.md.
 export const ESRI_ATTRIBUTION_HTML =
   '<a href="https://www.esri.com" target="_blank" rel="noopener">Powered by Esri</a>';
 

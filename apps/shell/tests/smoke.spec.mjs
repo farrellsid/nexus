@@ -72,3 +72,22 @@ test('the oil layers draw their sourced records when enabled and remove them whe
   await setLayers(false);
   expect(await read()).toEqual([]);
 });
+
+test('the corner readouts state the pack, its date and what the map leaves out, and follow the selection', async ({ page }) => {
+  await page.goto('/');
+  await page.waitForFunction(() => window.__godsEyeView?.viewer, null, { timeout: 60_000 });
+  const lines = page.locator('#hud-data-lines');
+  await expect(lines).toContainText('AS OF 2026-09-22');
+  await expect(lines).toContainText('8 OF 23 ENTITIES ON MAP · 15 NOT ON MAP');
+  await expect(page.locator('#hud-selection')).toHaveText('SELECTED: NONE');
+
+  await page.evaluate(async () => {
+    const { viewer, dataManager } = window.__godsEyeView;
+    await dataManager.setEnabled('nexus-oil-stops', true, { origin: 'user' });
+    const source = Array.from({ length: viewer.dataSources.length }, (_, i) => viewer.dataSources.get(i)).find(
+      (candidate) => candidate.name === 'nexus-oil-stops',
+    );
+    viewer.selectedEntity = source.entities.values[0];
+  });
+  await expect(page.locator('#hud-selection')).toHaveText('SELECTED: Strait of Hormuz · REPRESENTATIVE LABEL POINT');
+});

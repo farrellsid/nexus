@@ -1,5 +1,5 @@
 import { StyleManager } from '../ui/composition.js';
-import { flyToAustin } from '../camera.js';
+import { flyToStartView } from '../camera.js';
 
 /** Construct the existing controls and camera presentation. */
 export function createApplicationControls({
@@ -23,10 +23,10 @@ export function createApplicationControls({
   defer(() => styleManager.orbitController.stop());
   defer(() => styleManager.hud.destroy());
   defer(() => styleManager.dispose());
-  // If no share link state, do default fly-to Austin
+  // If no share link state, open on the oil overview
   if (!styleManager.hasShareState) {
-    loaderStatus.textContent = 'Flying to Austin, TX...';
-    defer(flyToAustin(viewer));
+    loaderStatus.textContent = 'Opening the oil overview...';
+    defer(flyToStartView(viewer));
   } else {
     loaderStatus.textContent = 'Restoring shared view...';
   }

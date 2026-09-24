@@ -1,34 +1,18 @@
 {
-  "name": "gods-eye-view",
+  "name": "nexus-shell",
   "private": true,
-  "version": "0.1.1",
-  "description": "A real-time intelligence console for planet Earth — photorealistic 3D globe, live aircraft/ships/satellites/earthquakes/CCTV, and hands-free voice control. Runs in a browser.",
+  "version": "0.1.0",
+  "description": "The Nexus visual shell: a Cesium globe with a dark console look, guided camera tours and the oil-system anchors. A stripped fork of God's Eye View (MIT); see UPSTREAM.md.",
   "type": "module",
   "license": "MIT",
-  "author": "Bilawal Sidhu",
-  "homepage": "https://github.com/bilawalsidhu/gods-eye-view#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/bilawalsidhu/gods-eye-view.git"
-  },
-  "bugs": {
-    "url": "https://github.com/bilawalsidhu/gods-eye-view/issues"
-  },
   "engines": {
     "node": ">=24.14.0 <25 || >=26 <27"
   },
   "keywords": [
     "cesium",
     "3d-globe",
-    "geospatial",
-    "osint",
-    "spatial-intelligence",
-    "photorealistic-3d-tiles",
-    "adsb",
-    "ais",
-    "satellites",
-    "voice-control",
-    "openai-realtime",
+    "supply-chain",
+    "evidence-first",
     "visualization"
   ],
   "scripts": {

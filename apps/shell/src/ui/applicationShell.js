@@ -20,7 +20,7 @@ import * as Cesium from 'cesium';
 import { ShellFeedback } from './shellFeedback.js';
 
 /**
- * Central UI orchestrator for the God's Eye View application.
+ * Central UI orchestrator for the Nexus shell.
  *
  * Responsibilities:
  * - Visual controls and presets backed by the VisualEffects controller.
@@ -179,7 +179,7 @@ export class StyleManager extends ShellFacade {
       placeSearch,
       navigation: this._navigation,
       services: {
-        CITY_POIS: services.CITY_POIS,
+        PLACE_PRESETS: services.PLACE_PRESETS,
         searchAndFlyTo: services.searchAndFlyTo,
         LocationSearch: services.LocationSearch,
         OrbitController: services.OrbitController,
@@ -213,7 +213,7 @@ export class StyleManager extends ShellFacade {
     });
 
     // Intel HUD
-    this.hud = new IntelHUD(viewer);
+    this.hud = new IntelHUD(viewer, services.NEXUS_READOUTS);
     this._recording.hud = this.hud;
 
     // Full-globe sun/moon ring. It is a crisp screen-space overlay above the
