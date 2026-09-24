@@ -11,6 +11,15 @@ DOMAIN_IMPORTS = {
     "geography": {"knowledge"},
     "investigation": {"geography", "knowledge"},
     "review": {"evidence", "knowledge"},
+    "normalisation/digest": set(),
+    "normalisation/measurements": set(),
+    "normalisation/vocabulary": {"knowledge", "normalisation.digest"},
+    "normalisation/release": {
+        "investigation",
+        "knowledge",
+        "normalisation.digest",
+        "normalisation.vocabulary",
+    },
 }
 
 

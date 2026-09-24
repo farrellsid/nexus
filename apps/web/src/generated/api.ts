@@ -72,6 +72,74 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/normalisation/status": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Normalisation Status */
+        get: operations["normalisation_status_api_normalisation_status_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/claims/{claim_id}/projection": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Claim Projection */
+        get: operations["claim_projection_api_claims__claim_id__projection_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/entities/resolve": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Resolve Entity */
+        get: operations["resolve_entity_api_entities_resolve_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/measurements": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Measurements */
+        get: operations["measurements_api_measurements_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/claims/{claim_id}/history": {
         parameters: {
             query?: never;
@@ -143,6 +211,13 @@ export interface components {
              */
             recorded_at: string;
         };
+        /** Alias */
+        Alias: {
+            /** Case Id */
+            case_id: string;
+            /** Legacy Id */
+            legacy_id: string;
+        };
         /** Briefing */
         Briefing: {
             /** Title */
@@ -200,6 +275,43 @@ export interface components {
             review_status: string;
             /** Ground Truth */
             ground_truth: boolean;
+        };
+        /** ClaimProjection */
+        ClaimProjection: {
+            /** Release Id */
+            release_id: string;
+            /**
+             * Basis Proposal Id
+             * Format: uuid
+             */
+            basis_proposal_id: string;
+            claim: components["schemas"]["ClaimRecord"];
+        };
+        /** ClaimRecord */
+        ClaimRecord: {
+            /** Case Id */
+            case_id: string;
+            /** Claim Id */
+            claim_id: string;
+            /** Predicate */
+            predicate: string;
+            /** Epistemic Status */
+            epistemic_status: string;
+            /** Content Type */
+            content_type: string;
+            /** Modality */
+            modality: string;
+            /** Release Status */
+            release_status: string;
+            /** Qualifiers */
+            qualifiers: {
+                [key: string]: string;
+            };
+            temporal: components["schemas"]["Temporal"];
+            /** Needs Semantic Review */
+            needs_semantic_review: boolean;
+            /** Note */
+            note: string | null;
         };
         /** Decision */
         Decision: {
@@ -259,6 +371,19 @@ export interface components {
             location_note: string;
             /** Location Precision */
             location_precision?: string | null;
+        };
+        /** EntityRecord */
+        EntityRecord: {
+            /** Canonical Id */
+            canonical_id: string;
+            /** Name */
+            name: string;
+            /** Category */
+            category: string;
+            /** Subtype */
+            subtype: string;
+            /** Aliases */
+            aliases: components["schemas"]["Alias"][];
         };
         /** Event */
         Event: {
@@ -421,6 +546,34 @@ export interface components {
              */
             answer_mode: string;
         };
+        /** MeasurementRecord */
+        MeasurementRecord: {
+            /** Id */
+            id: string;
+            /** Case Id */
+            case_id: string;
+            /** Metric Id */
+            metric_id: string;
+            /** Point Index */
+            point_index: number;
+            /** Measure */
+            measure: string;
+            /** Value Text */
+            value_text: string;
+            /** Entity */
+            entity: string | null;
+            /** Original Label */
+            original_label: string;
+            temporal: components["schemas"]["Temporal"];
+            /** Epistemic Status */
+            epistemic_status: string;
+            /** Release Status */
+            release_status: string;
+            /** Claim Ids */
+            claim_ids: string[];
+            /** Note */
+            note: string | null;
+        };
         /** MetricPoint */
         MetricPoint: {
             /** Period */
@@ -574,6 +727,25 @@ export interface components {
             /** Independence */
             independence: string;
         };
+        /** Temporal */
+        Temporal: {
+            /** Valid Kind */
+            valid_kind: string;
+            /** Valid Start */
+            valid_start: string | null;
+            /** Valid End Exclusive */
+            valid_end_exclusive: string | null;
+            /** Valid At */
+            valid_at: string | null;
+            /** Precision */
+            precision: string;
+            /** Original Label */
+            original_label: string | null;
+            /** Statistic */
+            statistic: string;
+            /** State */
+            state: string;
+        };
         /** ValidationError */
         ValidationError: {
             /** Location */
@@ -699,6 +871,122 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["ReviewAvailability"];
+                };
+            };
+        };
+    };
+    normalisation_status_api_normalisation_status_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": {
+                        [key: string]: string | null;
+                    };
+                };
+            };
+        };
+    };
+    claim_projection_api_claims__claim_id__projection_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                claim_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ClaimProjection"] | null;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    resolve_entity_api_entities_resolve_get: {
+        parameters: {
+            query: {
+                case_id: string;
+                legacy_id: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["EntityRecord"] | null;
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    measurements_api_measurements_get: {
+        parameters: {
+            query?: {
+                entity?: string | null;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["MeasurementRecord"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
                 };
             };
         };

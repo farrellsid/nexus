@@ -149,6 +149,188 @@
         }
       }
     },
+    "/api/normalisation/status": {
+      "get": {
+        "summary": "Normalisation Status",
+        "operationId": "normalisation_status_api_normalisation_status_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "null"
+                      }
+                    ]
+                  },
+                  "type": "object",
+                  "title": "Response Normalisation Status Api Normalisation Status Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/claims/{claim_id}/projection": {
+      "get": {
+        "summary": "Claim Projection",
+        "operationId": "claim_projection_api_claims__claim_id__projection_get",
+        "parameters": [
+          {
+            "name": "claim_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Claim Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/ClaimProjection"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Claim Projection Api Claims  Claim Id  Projection Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/entities/resolve": {
+      "get": {
+        "summary": "Resolve Entity",
+        "operationId": "resolve_entity_api_entities_resolve_get",
+        "parameters": [
+          {
+            "name": "case_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Case Id"
+            }
+          },
+          {
+            "name": "legacy_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Legacy Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "anyOf": [
+                    {
+                      "$ref": "#/components/schemas/EntityRecord"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ],
+                  "title": "Response Resolve Entity Api Entities Resolve Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/measurements": {
+      "get": {
+        "summary": "Measurements",
+        "operationId": "measurements_api_measurements_get",
+        "parameters": [
+          {
+            "name": "entity",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Entity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MeasurementRecord"
+                  },
+                  "title": "Response Measurements Api Measurements Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/claims/{claim_id}/history": {
       "get": {
         "summary": "History",
@@ -320,6 +502,25 @@
         ],
         "title": "AcceptedVersion"
       },
+      "Alias": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "legacy_id": {
+            "type": "string",
+            "title": "Legacy Id"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "case_id",
+          "legacy_id"
+        ],
+        "title": "Alias"
+      },
       "Briefing": {
         "properties": {
           "title": {
@@ -471,6 +672,103 @@
         ],
         "title": "Claim"
       },
+      "ClaimProjection": {
+        "properties": {
+          "release_id": {
+            "type": "string",
+            "title": "Release Id"
+          },
+          "basis_proposal_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Basis Proposal Id"
+          },
+          "claim": {
+            "$ref": "#/components/schemas/ClaimRecord"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "release_id",
+          "basis_proposal_id",
+          "claim"
+        ],
+        "title": "ClaimProjection"
+      },
+      "ClaimRecord": {
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "claim_id": {
+            "type": "string",
+            "title": "Claim Id"
+          },
+          "predicate": {
+            "type": "string",
+            "title": "Predicate"
+          },
+          "epistemic_status": {
+            "type": "string",
+            "title": "Epistemic Status"
+          },
+          "content_type": {
+            "type": "string",
+            "title": "Content Type"
+          },
+          "modality": {
+            "type": "string",
+            "title": "Modality"
+          },
+          "release_status": {
+            "type": "string",
+            "title": "Release Status"
+          },
+          "qualifiers": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Qualifiers"
+          },
+          "temporal": {
+            "$ref": "#/components/schemas/Temporal"
+          },
+          "needs_semantic_review": {
+            "type": "boolean",
+            "title": "Needs Semantic Review"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "case_id",
+          "claim_id",
+          "predicate",
+          "epistemic_status",
+          "content_type",
+          "modality",
+          "release_status",
+          "qualifiers",
+          "temporal",
+          "needs_semantic_review",
+          "note"
+        ],
+        "title": "ClaimRecord"
+      },
       "Decision": {
         "properties": {
           "request_id": {
@@ -616,6 +914,43 @@
           "location_note"
         ],
         "title": "Entity"
+      },
+      "EntityRecord": {
+        "properties": {
+          "canonical_id": {
+            "type": "string",
+            "title": "Canonical Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "category": {
+            "type": "string",
+            "title": "Category"
+          },
+          "subtype": {
+            "type": "string",
+            "title": "Subtype"
+          },
+          "aliases": {
+            "items": {
+              "$ref": "#/components/schemas/Alias"
+            },
+            "type": "array",
+            "title": "Aliases"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "canonical_id",
+          "name",
+          "category",
+          "subtype",
+          "aliases"
+        ],
+        "title": "EntityRecord"
       },
       "Event": {
         "properties": {
@@ -1011,6 +1346,96 @@
           "questions"
         ],
         "title": "Investigation"
+      },
+      "MeasurementRecord": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "case_id": {
+            "type": "string",
+            "title": "Case Id"
+          },
+          "metric_id": {
+            "type": "string",
+            "title": "Metric Id"
+          },
+          "point_index": {
+            "type": "integer",
+            "title": "Point Index"
+          },
+          "measure": {
+            "type": "string",
+            "title": "Measure"
+          },
+          "value_text": {
+            "type": "string",
+            "title": "Value Text"
+          },
+          "entity": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Entity"
+          },
+          "original_label": {
+            "type": "string",
+            "title": "Original Label"
+          },
+          "temporal": {
+            "$ref": "#/components/schemas/Temporal"
+          },
+          "epistemic_status": {
+            "type": "string",
+            "title": "Epistemic Status"
+          },
+          "release_status": {
+            "type": "string",
+            "title": "Release Status"
+          },
+          "claim_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Claim Ids"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "case_id",
+          "metric_id",
+          "point_index",
+          "measure",
+          "value_text",
+          "entity",
+          "original_label",
+          "temporal",
+          "epistemic_status",
+          "release_status",
+          "claim_ids",
+          "note"
+        ],
+        "title": "MeasurementRecord"
       },
       "MetricPoint": {
         "properties": {
@@ -1442,6 +1867,86 @@
           "independence"
         ],
         "title": "Source"
+      },
+      "Temporal": {
+        "properties": {
+          "valid_kind": {
+            "type": "string",
+            "title": "Valid Kind"
+          },
+          "valid_start": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid Start"
+          },
+          "valid_end_exclusive": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid End Exclusive"
+          },
+          "valid_at": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Valid At"
+          },
+          "precision": {
+            "type": "string",
+            "title": "Precision"
+          },
+          "original_label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Original Label"
+          },
+          "statistic": {
+            "type": "string",
+            "title": "Statistic"
+          },
+          "state": {
+            "type": "string",
+            "title": "State"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "valid_kind",
+          "valid_start",
+          "valid_end_exclusive",
+          "valid_at",
+          "precision",
+          "original_label",
+          "statistic",
+          "state"
+        ],
+        "title": "Temporal"
       },
       "ValidationError": {
         "properties": {

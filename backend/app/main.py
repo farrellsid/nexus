@@ -12,6 +12,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from app.investigation import Investigation, load_investigations
 from app.knowledge import Neighborhood, neighborhood
+from app.normalisation.release import EntityRecord, MeasurementRecord
 from app.review import (
     DecisionRequest,
     ProposalRequest,
@@ -21,6 +22,7 @@ from app.review import (
     ReviewService,
 )
 from app.storage.database import Database, configured_url
+from app.storage.normalisation import ClaimProjection, PostgresNormalisation
 from app.storage.reviews import PostgresReviews
 
 INVESTIGATIONS = Path(__file__).resolve().parents[2] / "investigations"
@@ -32,6 +34,7 @@ def create_app(
     investigation: Investigation | list[Investigation] | None = None,
     repository: PostgresReviews | None = None,
     review_origins: set[str] | None = None,
+    normalisation: PostgresNormalisation | None = None,
 ) -> FastAPI:
     if investigation is None:
         loaded = load_investigations(INVESTIGATIONS)
@@ -55,10 +58,12 @@ def create_app(
             for item in investigations.values():
                 storage.initialize(item)
             application.state.reviews = storage
+            application.state.normalisation = PostgresNormalisation(database)
         yield
 
     app = FastAPI(title="Nexus evidence workbench", version="0.2.0", lifespan=lifespan)
     app.state.reviews = repository
+    app.state.normalisation = normalisation
     app.add_middleware(
         TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "testserver"]
     )
@@ -101,6 +106,13 @@ def create_app(
                 status_code=503, detail="PostgreSQL review storage is not configured"
             )
         return app.state.reviews
+
+    def normalised() -> PostgresNormalisation:
+        if app.state.normalisation is None:
+            raise HTTPException(
+                status_code=503, detail="PostgreSQL normalisation storage is not configured"
+            )
+        return app.state.normalisation
 
     def current_investigation(case_id: str) -> Investigation:
         if case_id not in investigations:
@@ -147,6 +159,26 @@ def create_app(
         return ReviewAvailability(
             enabled=enabled, mode="postgresql" if enabled else "read_only_fixture"
         )
+
+    @app.get("/api/normalisation/status")
+    def normalisation_status() -> dict[str, str | None]:
+        return {"accepted_release_id": normalised().accepted_release_id()}
+
+    @app.get("/api/claims/{claim_id}/projection", response_model=ClaimProjection | None)
+    def claim_projection(claim_id: str) -> ClaimProjection | None:
+        if not any(claim_id in {claim.id for claim in item.pack.claims} for item in loaded):
+            raise HTTPException(status_code=404, detail="Claim not found")
+        return normalised().claim_projection(claim_id)
+
+    @app.get("/api/entities/resolve", response_model=EntityRecord | None)
+    def resolve_entity(case_id: str, legacy_id: str) -> EntityRecord | None:
+        if case_id not in investigations:
+            raise HTTPException(status_code=404, detail="Investigation not found")
+        return normalised().resolve_alias(case_id, legacy_id)
+
+    @app.get("/api/measurements", response_model=list[MeasurementRecord])
+    def measurements(entity: str | None = None) -> list[MeasurementRecord]:
+        return normalised().measurements(entity)
 
     @app.get("/api/claims/{claim_id}/history", response_model=ReviewHistory)
     def history(claim_id: str) -> ReviewHistory:
