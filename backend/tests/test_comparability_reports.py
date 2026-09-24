@@ -15,6 +15,15 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 @pytest.fixture(scope="module")
+def reports_r3():
+    release = Release.model_validate_json(
+        (ROOT / "normalisation/releases/2026-09-24-r3.json").read_text("utf-8")
+    )
+    vocabulary = load_vocabulary(ROOT / "normalisation/vocabulary-v1.json")
+    return build_reports(release.measurements, load_investigations(INVESTIGATIONS), vocabulary)
+
+
+@pytest.fixture(scope="module")
 def reports():
     release = Release.model_validate_json(
         (ROOT / "normalisation/releases/2026-09-24.json").read_text("utf-8")
@@ -54,3 +63,11 @@ def test_the_real_packs_contain_no_conflict_set(reports):
 
 def test_reports_with_complete_periods_have_keys(reports):
     assert sum(comparison_key(r) is not None for r in reports) == 37
+
+
+def test_bound_sources_are_added_to_the_group_sources_and_origins(reports_r3):
+    stocks = next(r for r in reports_r3 if r.id.endswith(":O-M07:2"))
+    assert stocks.source_ids[-1] == "O-S28" and "O-S14" in stocks.source_ids
+    assert "eia-open-data-api-v2" in stocks.origin_groups
+    unbound = next(r for r in reports_r3 if r.id.endswith(":O-M01:3"))
+    assert unbound.source_ids == ["O-S01"]

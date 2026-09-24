@@ -97,3 +97,24 @@ def test_a_case_with_nothing_required_is_trivially_supported():
     assert score.recall == (0, 0)
     assert score.full_support
     assert score.first_relevant_rank is None
+
+
+def test_a_measurement_record_lists_its_bound_sources_as_backing_sources():
+    import json
+    from pathlib import Path
+
+    from app.evaluation.corpus import build_corpus
+    from app.investigation import load_investigations
+    from app.main import INVESTIGATIONS
+    from app.normalisation.release import Release
+
+    root = Path(__file__).resolve().parents[2]
+    release = Release.model_validate_json(
+        (root / "normalisation/releases/2026-09-24-r3.json").read_text("utf-8")
+    )
+    corpus = build_corpus(load_investigations(INVESTIGATIONS), release)
+    stocks = next(r for r in corpus.records if r.ref.endswith(":O-M07:2"))
+    assert stocks.source_refs[-1] == "source:O-S28" and "source:O-S14" in stocks.source_refs
+    unbound = next(r for r in corpus.records if r.ref.endswith(":O-M01:3"))
+    assert unbound.source_refs == ["source:O-S01"]
+    assert json.dumps(stocks.source_refs)  # serialisable

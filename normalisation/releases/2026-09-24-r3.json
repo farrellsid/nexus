@@ -1,0 +1,2821 @@
+{
+  "release_id": "nx-norm-2026-09-24-r3",
+  "vocabulary_version": "1",
+  "entities": [
+    {
+      "canonical_id": "organization/kamoa-copper",
+      "name": "Kamoa Copper",
+      "category": "organization",
+      "subtype": "company",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "kamoa-copper"
+        }
+      ]
+    },
+    {
+      "canonical_id": "facility/kamoa-kakula-copper-complex",
+      "name": "Kamoa-Kakula Copper Complex",
+      "category": "facility",
+      "subtype": "site_complex",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "complex"
+        }
+      ]
+    },
+    {
+      "canonical_id": "facility/kakula-mine",
+      "name": "Kakula Mine",
+      "category": "facility",
+      "subtype": "mine",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "kakula"
+        }
+      ]
+    },
+    {
+      "canonical_id": "facility/kamoa-kakula-concentrators",
+      "name": "Kamoa-Kakula concentrators (Phases 1–3)",
+      "category": "facility",
+      "subtype": "facility_group",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "concentrators"
+        }
+      ]
+    },
+    {
+      "canonical_id": "facility/kamoa-kakula-smelter",
+      "name": "Kamoa-Kakula smelter",
+      "category": "facility",
+      "subtype": "smelter",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "smelter"
+        }
+      ]
+    },
+    {
+      "canonical_id": "organization/citic-metal",
+      "name": "CITIC Metal Limited",
+      "category": "organization",
+      "subtype": "company",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "citic"
+        }
+      ]
+    },
+    {
+      "canonical_id": "organization/gold-mountains-international-mining",
+      "name": "Gold Mountains International Mining Company Limited",
+      "category": "organization",
+      "subtype": "company",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "gold-mountains"
+        }
+      ]
+    },
+    {
+      "canonical_id": "organization/trafigura-asia-trading",
+      "name": "Trafigura Asia Trading Pte Ltd",
+      "category": "organization",
+      "subtype": "company",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "trafigura-asia"
+        }
+      ]
+    },
+    {
+      "canonical_id": "organization/trafigura-group",
+      "name": "Trafigura (group-level disclosure)",
+      "category": "organization",
+      "subtype": "company",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "trafigura"
+        }
+      ]
+    },
+    {
+      "canonical_id": "organization/aurubis-group",
+      "name": "Aurubis Group",
+      "category": "organization",
+      "subtype": "company",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "aurubis"
+        }
+      ]
+    },
+    {
+      "canonical_id": "organization/prysmian-group",
+      "name": "Prysmian (group-level disclosure)",
+      "category": "organization",
+      "subtype": "company",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "prysmian"
+        }
+      ]
+    },
+    {
+      "canonical_id": "facility/trafigura-dry-port-kolwezi",
+      "name": "Trafigura dry port, Kolwezi",
+      "category": "facility",
+      "subtype": "dry_port",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "dry-port"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/port-of-lobito",
+      "name": "Port of Lobito",
+      "category": "place",
+      "subtype": "port",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "lobito-port"
+        }
+      ]
+    },
+    {
+      "canonical_id": "infrastructure/lobito-atlantic-railway",
+      "name": "Lobito Atlantic Railway corridor",
+      "category": "infrastructure",
+      "subtype": "rail_line",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "rail"
+        }
+      ]
+    },
+    {
+      "canonical_id": "material/copper-concentrate",
+      "name": "Copper concentrate",
+      "category": "material",
+      "subtype": "copper_concentrate",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "concentrate"
+        }
+      ]
+    },
+    {
+      "canonical_id": "material/copper-anodes",
+      "name": "Copper anodes",
+      "category": "material",
+      "subtype": "copper_anode",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "anodes"
+        }
+      ]
+    },
+    {
+      "canonical_id": "material/copper-cathodes",
+      "name": "Copper cathodes",
+      "category": "material",
+      "subtype": "copper_cathode",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "cathodes"
+        }
+      ]
+    },
+    {
+      "canonical_id": "material/copper-wire-rod",
+      "name": "Copper wire rod",
+      "category": "material",
+      "subtype": "copper_wire_rod",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "rod"
+        }
+      ]
+    },
+    {
+      "canonical_id": "material/energy-and-telecom-cable-systems",
+      "name": "Energy and telecom cable systems",
+      "category": "material",
+      "subtype": "product_category",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "cables"
+        }
+      ]
+    },
+    {
+      "canonical_id": "material/sulphuric-acid",
+      "name": "Sulphuric acid",
+      "category": "material",
+      "subtype": "sulphuric_acid",
+      "aliases": [
+        {
+          "case_id": "kamoa-to-cables",
+          "legacy_id": "acid"
+        }
+      ]
+    },
+    {
+      "canonical_id": "industry/global-oil-system",
+      "name": "Global oil system",
+      "category": "industry",
+      "subtype": "industry_system",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-world"
+        }
+      ]
+    },
+    {
+      "canonical_id": "material/crude-oil",
+      "name": "Crude oil and condensate",
+      "category": "material",
+      "subtype": "crude_oil",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-crude"
+        }
+      ]
+    },
+    {
+      "canonical_id": "material/refined-petroleum-products",
+      "name": "Refined petroleum products",
+      "category": "material",
+      "subtype": "petroleum_product",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-products"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/strait-of-hormuz",
+      "name": "Strait of Hormuz",
+      "category": "place",
+      "subtype": "maritime_chokepoint",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-hormuz"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/bab-el-mandeb",
+      "name": "Bab el-Mandeb Strait",
+      "category": "place",
+      "subtype": "maritime_chokepoint",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-bab"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/strait-of-malacca",
+      "name": "Strait of Malacca",
+      "category": "place",
+      "subtype": "maritime_chokepoint",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-malacca"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/saudi-arabia",
+      "name": "Saudi Arabia",
+      "category": "place",
+      "subtype": "country",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-saudi"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/united-arab-emirates",
+      "name": "United Arab Emirates",
+      "category": "place",
+      "subtype": "country",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-uae"
+        }
+      ]
+    },
+    {
+      "canonical_id": "infrastructure/saudi-east-west-pipeline",
+      "name": "Saudi East-West crude oil pipeline",
+      "category": "infrastructure",
+      "subtype": "pipeline",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-east-west"
+        }
+      ]
+    },
+    {
+      "canonical_id": "infrastructure/abu-dhabi-crude-oil-pipeline",
+      "name": "UAE Abu Dhabi crude oil pipeline",
+      "category": "infrastructure",
+      "subtype": "pipeline",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-uae-pipeline"
+        }
+      ]
+    },
+    {
+      "canonical_id": "facility/yanbu-export-terminal",
+      "name": "Yanbu export terminal",
+      "category": "facility",
+      "subtype": "export_terminal",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-yanbu"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/china",
+      "name": "China",
+      "category": "place",
+      "subtype": "country",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-china"
+        }
+      ]
+    },
+    {
+      "canonical_id": "industry/china-refining-system",
+      "name": "China refining system",
+      "category": "industry",
+      "subtype": "oil_refining",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-china-refining"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/united-states",
+      "name": "United States",
+      "category": "place",
+      "subtype": "country",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-us"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/permian-production-region",
+      "name": "Permian production region",
+      "category": "place",
+      "subtype": "production_region",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-permian"
+        }
+      ]
+    },
+    {
+      "canonical_id": "organization/opec-plus-seven-participants",
+      "name": "Seven OPEC+ participating countries",
+      "category": "organization",
+      "subtype": "producer_group",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-opec-plus"
+        }
+      ]
+    },
+    {
+      "canonical_id": "transport_corridor/suez-sumed-corridor",
+      "name": "Suez Canal and SUMED pipeline corridor",
+      "category": "transport_corridor",
+      "subtype": "canal_corridor",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-suez-sumed"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/cape-of-good-hope-route",
+      "name": "Cape of Good Hope route",
+      "category": "place",
+      "subtype": "maritime_route",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-cape-good-hope"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/sunda-strait",
+      "name": "Sunda Strait",
+      "category": "place",
+      "subtype": "maritime_chokepoint",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-sunda"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/lombok-strait",
+      "name": "Lombok Strait",
+      "category": "place",
+      "subtype": "maritime_chokepoint",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-lombok"
+        }
+      ]
+    },
+    {
+      "canonical_id": "infrastructure/myanmar-china-crude-pipeline",
+      "name": "Myanmar–China crude oil pipeline",
+      "category": "infrastructure",
+      "subtype": "pipeline",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-myanmar-china-pipeline"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/india",
+      "name": "India",
+      "category": "place",
+      "subtype": "country",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-india"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/iraq",
+      "name": "Iraq",
+      "category": "place",
+      "subtype": "country",
+      "aliases": [
+        {
+          "case_id": "oil-system-2025q3-2026q2",
+          "legacy_id": "oil-iraq"
+        }
+      ]
+    },
+    {
+      "canonical_id": "place/russia",
+      "name": "Russia",
+      "category": "place",
+      "subtype": "country",
+      "aliases": []
+    },
+    {
+      "canonical_id": "place/iran",
+      "name": "Iran",
+      "category": "place",
+      "subtype": "country",
+      "aliases": []
+    }
+  ],
+  "claims": [
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C01",
+      "predicate": "operates",
+      "epistemic_status": "reported",
+      "content_type": "structure",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C02",
+      "predicate": "part_of",
+      "epistemic_status": "reported",
+      "content_type": "structure",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C03",
+      "predicate": "produces",
+      "epistemic_status": "reported",
+      "content_type": "operation",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "copper-in-concentrate output"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C04",
+      "predicate": "feeds_to",
+      "epistemic_status": "reported",
+      "content_type": "operation",
+      "modality": "planned",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C05",
+      "predicate": "produces",
+      "epistemic_status": "reported",
+      "content_type": "production_event",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "first production 2025-12-29"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C06",
+      "predicate": "produces",
+      "epistemic_status": "reported",
+      "content_type": "operation",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "product_role": "byproduct"
+      },
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C07",
+      "predicate": "offtake_agreement_with",
+      "epistemic_status": "reported",
+      "content_type": "contract",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "material": "anodes"
+      },
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "combined share, not individual 80%"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C08",
+      "predicate": "offtake_agreement_with",
+      "epistemic_status": "reported",
+      "content_type": "contract",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "material": "anodes"
+      },
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "same combined-share restriction"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C09",
+      "predicate": "offtake_agreement_with",
+      "epistemic_status": "reported",
+      "content_type": "contract",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "material": "anodes"
+      },
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "remaining 20%, three-year term reported"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C10",
+      "predicate": "sold_to",
+      "epistemic_status": "reported",
+      "content_type": "transaction",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "material": "anodes"
+      },
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "no delivery inference"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C11",
+      "predicate": "arrived_at",
+      "epistemic_status": "reported",
+      "content_type": "logistics_event",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": true,
+      "note": "reported cargo location, not all anodes"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C12",
+      "predicate": "routes_via",
+      "epistemic_status": "reported",
+      "content_type": "transport",
+      "modality": "planned",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C13",
+      "predicate": "arrived_at",
+      "epistemic_status": "reported",
+      "content_type": "logistics_event",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": true,
+      "note": "first shipment, Q1 2026"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C14",
+      "predicate": "produces",
+      "epistemic_status": "reported",
+      "content_type": "capability",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C15",
+      "predicate": "produces",
+      "epistemic_status": "reported",
+      "content_type": "capability",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "from cathodes"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C16",
+      "predicate": "supply_agreement_with",
+      "epistemic_status": "reported",
+      "content_type": "contract",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "material": "rod"
+      },
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "European plants particularly"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C17",
+      "predicate": "produces",
+      "epistemic_status": "reported",
+      "content_type": "capability",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "claim_id": "C18",
+      "predicate": "input_for",
+      "epistemic_status": "reported",
+      "content_type": "process",
+      "modality": "generic",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "not batch lineage"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C01",
+      "predicate": "refined_into",
+      "epistemic_status": "reported",
+      "content_type": "process",
+      "modality": "generic",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C02",
+      "predicate": "carries_flow_within",
+      "epistemic_status": "estimated",
+      "content_type": "flow",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q2",
+        "statistic": "mean_rate",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": false,
+      "note": "total oil; 2026-Q2"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C03",
+      "predicate": "carries_flow_within",
+      "epistemic_status": "estimated",
+      "content_type": "flow",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q2",
+        "statistic": "mean_rate",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": false,
+      "note": "total oil; 2026-Q2"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C04",
+      "predicate": "bypasses",
+      "epistemic_status": "reported",
+      "content_type": "capability",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C05",
+      "predicate": "connects_to",
+      "epistemic_status": "reported",
+      "content_type": "structure",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C06",
+      "predicate": "bypasses",
+      "epistemic_status": "reported",
+      "content_type": "capability",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C07",
+      "predicate": "imports",
+      "epistemic_status": "estimated",
+      "content_type": "trade",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q2",
+        "statistic": "mean_rate",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": true,
+      "note": "statement explicitly says estimated; retain pending re-review"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C08",
+      "predicate": "processes",
+      "epistemic_status": "reported",
+      "content_type": "processing",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-06-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-06",
+        "statistic": "total",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": true,
+      "note": "above-designated-size enterprise scope; not consumption"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C09",
+      "predicate": "located_in",
+      "epistemic_status": "reported",
+      "content_type": "structure",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "national system, not a facility"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C10",
+      "predicate": "produces",
+      "epistemic_status": "estimated",
+      "content_type": "production",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-01-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2026-H1",
+        "statistic": "mean_rate",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C11",
+      "predicate": "contributes_production_to",
+      "epistemic_status": "forecast",
+      "content_type": "production",
+      "modality": "planned",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "attribution": "EIA",
+        "target": "2026"
+      },
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "Forecast issued by EIA for 2026."
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C12",
+      "predicate": "exports",
+      "epistemic_status": "reported",
+      "content_type": "trade",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "material_scope": "crude_oil_and_petroleum_products"
+      },
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-05-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-04",
+        "statistic": "mean_rate",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": true,
+      "note": "material scope is crude PLUS products; endpoint mismatch requires review"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C13",
+      "predicate": "sets_production_requirement_for",
+      "epistemic_status": "reported",
+      "content_type": "policy",
+      "modality": "required",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-10-01",
+        "valid_end_exclusive": "2026-11-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-09-06",
+        "statistic": "qualitative",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": true,
+      "note": "seven participants, not all OPEC+; October target; policy applies to October, was decided in September, and is not observed October output."
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C14",
+      "predicate": "uses",
+      "epistemic_status": "reported",
+      "content_type": "transport",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "no quantified spare capacity"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C15",
+      "predicate": "uses",
+      "epistemic_status": "reported",
+      "content_type": "structure",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C16",
+      "predicate": "carries_flow_within",
+      "epistemic_status": "estimated",
+      "content_type": "flow",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-01-01",
+        "valid_end_exclusive": "2025-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2025-H1",
+        "statistic": "mean_rate",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": false,
+      "note": "2025-H1"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C17",
+      "predicate": "serves_import_market",
+      "epistemic_status": "estimated",
+      "content_type": "share",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "denominator": "import volumes passing Malacca"
+      },
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-01-01",
+        "valid_end_exclusive": "2025-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2025-H1",
+        "statistic": "ratio",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C18",
+      "predicate": "connects_to",
+      "epistemic_status": "reported",
+      "content_type": "structure",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "compound canal/pipeline corridor, not one sea edge"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C19",
+      "predicate": "alternative_to",
+      "epistemic_status": "reported",
+      "content_type": "transport",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "no particular cargo"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C20",
+      "predicate": "alternative_to",
+      "epistemic_status": "reported",
+      "content_type": "transport",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C21",
+      "predicate": "alternative_to",
+      "epistemic_status": "reported",
+      "content_type": "transport",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C22",
+      "predicate": "supply_route_to",
+      "epistemic_status": "reported",
+      "content_type": "transport",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "unknown",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": null,
+        "precision": "unknown",
+        "original_label": null,
+        "statistic": "qualitative",
+        "state": "unknown"
+      },
+      "needs_semantic_review": false,
+      "note": "crude, alternative to Malacca"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C23",
+      "predicate": "holds_stocks_of",
+      "epistemic_status": "reported",
+      "content_type": "stock",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "instant",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": "2026-09-11",
+        "precision": "day",
+        "original_label": "week ending 2026-09-11",
+        "statistic": "snapshot",
+        "state": "proposed_reinterpretation"
+      },
+      "needs_semantic_review": false,
+      "note": "excludes SPR; point-in-time, not weekly total; Stored validity is 2026-09-05 to 2026-09-11, but the statement and metric describe a stock snapshot for the week ending 2026-09-11; proposed as an instant."
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C24",
+      "predicate": "has_processing_capacity_for",
+      "epistemic_status": "reported",
+      "content_type": "capacity",
+      "modality": "capability",
+      "release_status": "unspecified",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "instant",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": "2026-01-01",
+        "precision": "day",
+        "original_label": "2026-01-01",
+        "statistic": "capacity",
+        "state": "proposed_reinterpretation"
+      },
+      "needs_semantic_review": false,
+      "note": "operable atmospheric distillation, calendar-day basis; Stored validity has equal bounds (2026-01-01), which describes a capacity snapshot, not an empty interval; proposed as an instant."
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C25",
+      "predicate": "imports",
+      "epistemic_status": "reported",
+      "content_type": "trade",
+      "modality": "actual",
+      "release_status": "provisional",
+      "qualifiers": {},
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-09-01",
+        "valid_at": null,
+        "precision": "fiscal_year",
+        "original_label": "2026-27 (Apr-Aug, provisional)",
+        "statistic": "total",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": true,
+      "note": "not automatically estimated"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "claim_id": "O-C26",
+      "predicate": "produces",
+      "epistemic_status": "estimated",
+      "content_type": "production",
+      "modality": "actual",
+      "release_status": "unspecified",
+      "qualifiers": {
+        "issuer": "IEA"
+      },
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-08-01",
+        "valid_end_exclusive": "2026-09-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-08",
+        "statistic": "mean_rate",
+        "state": "legacy_bounds"
+      },
+      "needs_semantic_review": false,
+      "note": null
+    }
+  ],
+  "sources": [
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S01",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S02",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S03",
+      "publisher_class": "company",
+      "document_class": "filing",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S04",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S05",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S06",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S07",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S08",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S09",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S10",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S11",
+      "publisher_class": "company",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S12",
+      "publisher_class": "company",
+      "document_class": "product_reference",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S13",
+      "publisher_class": "company",
+      "document_class": "product_reference",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "kamoa-to-cables",
+      "source_id": "S14",
+      "publisher_class": "company",
+      "document_class": "operations_profile",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S01",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S02",
+      "publisher_class": "government_agency",
+      "document_class": "outlook",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S03",
+      "publisher_class": "intergovernmental_body",
+      "document_class": "provider_update",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S04",
+      "publisher_class": "intergovernmental_body",
+      "document_class": "participant_announcement",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S05",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S06",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S07",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S08",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S09",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S10",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S11",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S12",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S13",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S14",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S15",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S16",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S17",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S18",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S19",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S20",
+      "publisher_class": "intergovernmental_body",
+      "document_class": "analysis",
+      "legacy_reported_method": "web_tool"
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S21",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S22",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S23",
+      "publisher_class": "intergovernmental_body",
+      "document_class": "analysis",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S24",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S25",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S26",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S27",
+      "publisher_class": "government_agency",
+      "document_class": "analysis",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S28",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S29",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": null
+    },
+    {
+      "case_id": "oil-system-2025q3-2026q2",
+      "source_id": "O-S30",
+      "publisher_class": "government_agency",
+      "document_class": "statistical_release",
+      "legacy_reported_method": null
+    }
+  ],
+  "measurements": [
+    {
+      "id": "oil-system-2025q3-2026q2:O-M01:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M01",
+      "point_index": 0,
+      "measure": "chokepoint_transit_rate",
+      "value_text": "21.3",
+      "entity": "place/strait-of-hormuz",
+      "original_label": "2025-Q3",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-07-01",
+        "valid_end_exclusive": "2025-10-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2025-Q3",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M01:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M01",
+      "point_index": 1,
+      "measure": "chokepoint_transit_rate",
+      "value_text": "21.6",
+      "entity": "place/strait-of-hormuz",
+      "original_label": "2025-Q4",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-10-01",
+        "valid_end_exclusive": "2026-01-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2025-Q4",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M01:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M01",
+      "point_index": 2,
+      "measure": "chokepoint_transit_rate",
+      "value_text": "14.9",
+      "entity": "place/strait-of-hormuz",
+      "original_label": "2026-Q1",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-01-01",
+        "valid_end_exclusive": "2026-04-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q1",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M01:3",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M01",
+      "point_index": 3,
+      "measure": "chokepoint_transit_rate",
+      "value_text": "4.9",
+      "entity": "place/strait-of-hormuz",
+      "original_label": "2026-Q2",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q2",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C02"
+      ],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M02:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M02",
+      "point_index": 0,
+      "measure": "chokepoint_transit_rate",
+      "value_text": "4.6",
+      "entity": "place/bab-el-mandeb",
+      "original_label": "2025-Q3",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-07-01",
+        "valid_end_exclusive": "2025-10-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2025-Q3",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M02:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M02",
+      "point_index": 1,
+      "measure": "chokepoint_transit_rate",
+      "value_text": "5.4",
+      "entity": "place/bab-el-mandeb",
+      "original_label": "2025-Q4",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-10-01",
+        "valid_end_exclusive": "2026-01-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2025-Q4",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M02:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M02",
+      "point_index": 2,
+      "measure": "chokepoint_transit_rate",
+      "value_text": "5.6",
+      "entity": "place/bab-el-mandeb",
+      "original_label": "2026-Q1",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-01-01",
+        "valid_end_exclusive": "2026-04-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q1",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M02:3",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M02",
+      "point_index": 3,
+      "measure": "chokepoint_transit_rate",
+      "value_text": "8.1",
+      "entity": "place/bab-el-mandeb",
+      "original_label": "2026-Q2",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q2",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C03"
+      ],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M03:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M03",
+      "point_index": 0,
+      "measure": "world_oil_supply_rate",
+      "value_text": "108.2",
+      "entity": "industry/global-oil-system",
+      "original_label": "2025-Q3",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-07-01",
+        "valid_end_exclusive": "2025-10-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2025-Q3",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M03:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M03",
+      "point_index": 1,
+      "measure": "world_oil_supply_rate",
+      "value_text": "103.9",
+      "entity": "industry/global-oil-system",
+      "original_label": "2025-Q4",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-10-01",
+        "valid_end_exclusive": "2026-01-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2025-Q4",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M03:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M03",
+      "point_index": 2,
+      "measure": "world_oil_supply_rate",
+      "value_text": "96.1",
+      "entity": "industry/global-oil-system",
+      "original_label": "2026-Q1",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-01-01",
+        "valid_end_exclusive": "2026-04-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q1",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M03:3",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M03",
+      "point_index": 3,
+      "measure": "world_oil_supply_rate",
+      "value_text": "99.7",
+      "entity": "industry/global-oil-system",
+      "original_label": "2026-Q2",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q2",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M04:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M04",
+      "point_index": 0,
+      "measure": "crude_import_rate",
+      "value_text": "11.6",
+      "entity": "place/china",
+      "original_label": "2025 average",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-01-01",
+        "valid_end_exclusive": "2026-01-01",
+        "valid_at": null,
+        "precision": "year",
+        "original_label": "2025 average",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M04:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M04",
+      "point_index": 1,
+      "measure": "crude_import_rate",
+      "value_text": "12.0",
+      "entity": "place/china",
+      "original_label": "2025-H2",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-07-01",
+        "valid_end_exclusive": "2026-01-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2025-H2",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M04:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M04",
+      "point_index": 2,
+      "measure": "crude_import_rate",
+      "value_text": "8.1",
+      "entity": "place/china",
+      "original_label": "2026-Q2",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "quarter",
+        "original_label": "2026-Q2",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C07"
+      ],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M05:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M05",
+      "point_index": 0,
+      "measure": "crude_production_rate",
+      "value_text": "13.7",
+      "entity": "place/united-states",
+      "original_label": "2026-H1 crude production",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-01-01",
+        "valid_end_exclusive": "2026-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2026-H1 crude production",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C10"
+      ],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M05:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M05",
+      "point_index": 1,
+      "measure": "crude_and_product_export_rate",
+      "value_text": "13.6",
+      "entity": "place/united-states",
+      "original_label": "2026-04 crude + product exports",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-05-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-04 crude + product exports",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C12"
+      ],
+      "note": null,
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M05:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M05",
+      "point_index": 2,
+      "measure": "forecast_crude_production_rate",
+      "value_text": "13.8",
+      "entity": "place/united-states",
+      "original_label": "2026 full-year crude production",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-01-01",
+        "valid_end_exclusive": "2027-01-01",
+        "valid_at": null,
+        "precision": "year",
+        "original_label": "2026 full-year crude production",
+        "statistic": "mean_rate",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "forecast",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C11"
+      ],
+      "note": "Forecast issued by EIA for full-year 2026 crude production.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M06:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M06",
+      "point_index": 0,
+      "measure": "route_transit_rate",
+      "value_text": "23.2",
+      "entity": "place/strait-of-malacca",
+      "original_label": "Malacca",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-01-01",
+        "valid_end_exclusive": "2025-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2025-H1 (group context); point label Malacca",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C16"
+      ],
+      "note": "The pack's period field holds a route name; the period 2025-H1 comes from the group description and caveat.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M06:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M06",
+      "point_index": 1,
+      "measure": "route_transit_rate",
+      "value_text": "20.9",
+      "entity": "place/strait-of-hormuz",
+      "original_label": "Hormuz",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-01-01",
+        "valid_end_exclusive": "2025-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2025-H1 (group context); point label Hormuz",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "The pack's period field holds a route name; the period 2025-H1 comes from the group description and caveat.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M06:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M06",
+      "point_index": 2,
+      "measure": "route_transit_rate",
+      "value_text": "9.1",
+      "entity": "place/cape-of-good-hope-route",
+      "original_label": "Cape of Good Hope",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-01-01",
+        "valid_end_exclusive": "2025-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2025-H1 (group context); point label Cape of Good Hope",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "The pack's period field holds a route name; the period 2025-H1 comes from the group description and caveat.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M06:3",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M06",
+      "point_index": 3,
+      "measure": "route_transit_rate",
+      "value_text": "4.9",
+      "entity": "transport_corridor/suez-sumed-corridor",
+      "original_label": "Suez + SUMED",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-01-01",
+        "valid_end_exclusive": "2025-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2025-H1 (group context); point label Suez + SUMED",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "The pack's period field holds a route name; the period 2025-H1 comes from the group description and caveat.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M06:4",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M06",
+      "point_index": 4,
+      "measure": "route_transit_rate",
+      "value_text": "4.2",
+      "entity": "place/bab-el-mandeb",
+      "original_label": "Bab el-Mandeb",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-01-01",
+        "valid_end_exclusive": "2025-07-01",
+        "valid_at": null,
+        "precision": "half_year",
+        "original_label": "2025-H1 (group context); point label Bab el-Mandeb",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "The pack's period field holds a route name; the period 2025-H1 comes from the group description and caveat.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M07:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M07",
+      "point_index": 0,
+      "measure": "commercial_crude_stocks_excl_spr",
+      "value_text": "412.1",
+      "entity": "place/united-states",
+      "original_label": "week ending 2026-06-19",
+      "temporal": {
+        "valid_kind": "instant",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": "2026-06-19",
+        "precision": "week",
+        "original_label": "week ending 2026-06-19",
+        "statistic": "snapshot",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": [
+        {
+          "source_id": "O-S28",
+          "basis": "EIA API v2 series WCESTUS1 cross-checked 2026-09-24 (docs/crosscheck-report.md): the provider's value, scaled exactly and rounded half-up to the pack's precision, equals this value. Same publisher and survey as the source already cited; not an independent measurement."
+        }
+      ]
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M07:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M07",
+      "point_index": 1,
+      "measure": "commercial_crude_stocks_excl_spr",
+      "value_text": "411.7",
+      "entity": "place/united-states",
+      "original_label": "week ending 2026-07-17",
+      "temporal": {
+        "valid_kind": "instant",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": "2026-07-17",
+        "precision": "week",
+        "original_label": "week ending 2026-07-17",
+        "statistic": "snapshot",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": [
+        {
+          "source_id": "O-S28",
+          "basis": "EIA API v2 series WCESTUS1 cross-checked 2026-09-24 (docs/crosscheck-report.md): the provider's value, scaled exactly and rounded half-up to the pack's precision, equals this value. Same publisher and survey as the source already cited; not an independent measurement."
+        }
+      ]
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M07:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M07",
+      "point_index": 2,
+      "measure": "commercial_crude_stocks_excl_spr",
+      "value_text": "423.4",
+      "entity": "place/united-states",
+      "original_label": "week ending 2026-09-11",
+      "temporal": {
+        "valid_kind": "instant",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": "2026-09-11",
+        "precision": "week",
+        "original_label": "week ending 2026-09-11",
+        "statistic": "snapshot",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C23"
+      ],
+      "note": null,
+      "bound_sources": [
+        {
+          "source_id": "O-S28",
+          "basis": "EIA API v2 series WCESTUS1 cross-checked 2026-09-24 (docs/crosscheck-report.md): the provider's value, scaled exactly and rounded half-up to the pack's precision, equals this value. Same publisher and survey as the source already cited; not an independent measurement."
+        }
+      ]
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M08:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M08",
+      "point_index": 0,
+      "measure": "operable_distillation_capacity",
+      "value_text": "18.4",
+      "entity": "place/united-states",
+      "original_label": "2025-01-01",
+      "temporal": {
+        "valid_kind": "instant",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": "2025-01-01",
+        "precision": "day",
+        "original_label": "2025-01-01",
+        "statistic": "capacity",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": null,
+      "bound_sources": [
+        {
+          "source_id": "O-S30",
+          "basis": "EIA API v2 series 8_NA_8D0_NUS_4 cross-checked 2026-09-24 (docs/crosscheck-report.md): the provider's value, scaled exactly and rounded half-up to the pack's precision, equals this value. Same publisher and survey as the source already cited; not an independent measurement."
+        }
+      ]
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M08:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M08",
+      "point_index": 1,
+      "measure": "operable_distillation_capacity",
+      "value_text": "18.2",
+      "entity": "place/united-states",
+      "original_label": "2026-01-01",
+      "temporal": {
+        "valid_kind": "instant",
+        "valid_start": null,
+        "valid_end_exclusive": null,
+        "valid_at": "2026-01-01",
+        "precision": "day",
+        "original_label": "2026-01-01",
+        "statistic": "capacity",
+        "state": "from_period_label"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C24"
+      ],
+      "note": null,
+      "bound_sources": [
+        {
+          "source_id": "O-S30",
+          "basis": "EIA API v2 series 8_NA_8D0_NUS_4 cross-checked 2026-09-24 (docs/crosscheck-report.md): the provider's value, scaled exactly and rounded half-up to the pack's precision, equals this value. Same publisher and survey as the source already cited; not an independent measurement."
+        }
+      ]
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M09:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M09",
+      "point_index": 0,
+      "measure": "refinery_utilization",
+      "value_text": "96.1",
+      "entity": "place/united-states",
+      "original_label": "week ending 2026-06-19",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-06-13",
+        "valid_end_exclusive": "2026-06-20",
+        "valid_at": null,
+        "precision": "week",
+        "original_label": "week ending 2026-06-19",
+        "statistic": "ratio",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "Week ending date read as the seven days ending on it; the source's observation basis is to be confirmed.",
+      "bound_sources": [
+        {
+          "source_id": "O-S29",
+          "basis": "EIA API v2 series WPULEUS3 cross-checked 2026-09-24 (docs/crosscheck-report.md): the provider's value, scaled exactly and rounded half-up to the pack's precision, equals this value. Same publisher and survey as the source already cited; not an independent measurement."
+        }
+      ]
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M09:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M09",
+      "point_index": 1,
+      "measure": "refinery_utilization",
+      "value_text": "96.8",
+      "entity": "place/united-states",
+      "original_label": "week ending 2026-09-11",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-09-05",
+        "valid_end_exclusive": "2026-09-12",
+        "valid_at": null,
+        "precision": "week",
+        "original_label": "week ending 2026-09-11",
+        "statistic": "ratio",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "Week ending date read as the seven days ending on it; the source's observation basis is to be confirmed.",
+      "bound_sources": [
+        {
+          "source_id": "O-S29",
+          "basis": "EIA API v2 series WPULEUS3 cross-checked 2026-09-24 (docs/crosscheck-report.md): the provider's value, scaled exactly and rounded half-up to the pack's precision, equals this value. Same publisher and survey as the source already cited; not an independent measurement."
+        }
+      ]
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M10:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M10",
+      "point_index": 0,
+      "measure": "crude_import_total",
+      "value_text": "243.2",
+      "entity": "place/india",
+      "original_label": "2024-25",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2024-04-01",
+        "valid_end_exclusive": "2025-04-01",
+        "valid_at": null,
+        "precision": "fiscal_year",
+        "original_label": "2024-25",
+        "statistic": "total",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "Indian fiscal year read as April-March (stated in the pack's caveat); the calendar definition still needs its own citation.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M10:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M10",
+      "point_index": 1,
+      "measure": "crude_import_total",
+      "value_text": "245.8",
+      "entity": "place/india",
+      "original_label": "2025-26",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2025-04-01",
+        "valid_end_exclusive": "2026-04-01",
+        "valid_at": null,
+        "precision": "fiscal_year",
+        "original_label": "2025-26",
+        "statistic": "total",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "reported",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "Indian fiscal year read as April-March (stated in the pack's caveat); the calendar definition still needs its own citation.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M10:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M10",
+      "point_index": 2,
+      "measure": "crude_import_total",
+      "value_text": "100.7",
+      "entity": "place/india",
+      "original_label": "2026-27 (Apr-Aug, provisional)",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-04-01",
+        "valid_end_exclusive": "2026-09-01",
+        "valid_at": null,
+        "precision": "fiscal_year",
+        "original_label": "2026-27 (Apr-Aug, provisional)",
+        "statistic": "total",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "reported",
+      "release_status": "provisional",
+      "claim_ids": [
+        "O-C25"
+      ],
+      "note": "Indian fiscal year read as April-March (stated in the pack's caveat); the calendar definition still needs its own citation. Partial fiscal year (April-August), provisional; not annualised. The pack labels this point 'estimate'; the source's own label is provisional (P), so it is projected as reported and provisional, matching claim O-C25.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M11:0",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M11",
+      "point_index": 0,
+      "measure": "country_crude_production_rate",
+      "value_text": "5.97",
+      "entity": "place/saudi-arabia",
+      "original_label": "Saudi Arabia",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-08-01",
+        "valid_end_exclusive": "2026-09-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-08 (group context); point label Saudi Arabia",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "The pack's period field holds a country; the period 2026-08 comes from the group title and description.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M11:1",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M11",
+      "point_index": 1,
+      "measure": "country_crude_production_rate",
+      "value_text": "3.86",
+      "entity": "place/iraq",
+      "original_label": "Iraq",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-08-01",
+        "valid_end_exclusive": "2026-09-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-08 (group context); point label Iraq",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [
+        "O-C26"
+      ],
+      "note": "The pack's period field holds a country; the period 2026-08 comes from the group title and description.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M11:2",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M11",
+      "point_index": 2,
+      "measure": "country_crude_production_rate",
+      "value_text": "8.36",
+      "entity": "place/russia",
+      "original_label": "Russia",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-08-01",
+        "valid_end_exclusive": "2026-09-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-08 (group context); point label Russia",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "The pack's period field holds a country; the period 2026-08 comes from the group title and description. Russia is not an entity in either pack; it is a registry entity added in this release.",
+      "bound_sources": []
+    },
+    {
+      "id": "oil-system-2025q3-2026q2:O-M11:3",
+      "case_id": "oil-system-2025q3-2026q2",
+      "metric_id": "O-M11",
+      "point_index": 3,
+      "measure": "country_crude_production_rate",
+      "value_text": "2.16",
+      "entity": "place/iran",
+      "original_label": "Iran",
+      "temporal": {
+        "valid_kind": "interval",
+        "valid_start": "2026-08-01",
+        "valid_end_exclusive": "2026-09-01",
+        "valid_at": null,
+        "precision": "month",
+        "original_label": "2026-08 (group context); point label Iran",
+        "statistic": "mean_rate",
+        "state": "proposed_reinterpretation"
+      },
+      "epistemic_status": "estimated",
+      "release_status": "unspecified",
+      "claim_ids": [],
+      "note": "The pack's period field holds a country; the period 2026-08 comes from the group title and description. Iran is not an entity in either pack; it is a registry entity added in this release.",
+      "bound_sources": []
+    }
+  ]
+}

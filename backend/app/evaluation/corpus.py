@@ -82,7 +82,13 @@ def build_corpus(investigations: list[Investigation], release: Release) -> Corpu
                     kind="measurement",
                     text=text,
                     entities=[measurement.entity] if measurement.entity else [],
-                    source_refs=[f"source:{s}" for s in metrics[measurement.metric_id].source_ids],
+                    source_refs=[
+                        f"source:{s}"
+                        for s in [
+                            *metrics[measurement.metric_id].source_ids,
+                            *(b.source_id for b in measurement.bound_sources),
+                        ]
+                    ],
                 )
             )
     return Corpus(records=records, entity_names=entity_names)

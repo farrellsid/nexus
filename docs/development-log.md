@@ -2,6 +2,14 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-24, M5 plan drafted
+
+Wrote `docs/superpowers/plans/2026-09-24-m5-visual-shell.md` after measuring the God's Eye clone (`.local/references/gods-eye-view`, commit `f01b6a5`). Nothing is built. Awaiting the user's answers on four decisions (strip-step recording, JS versus TS, local imagery, effects). The EIA binding work is staged for the user's commit.
+
+## 2026-09-24, EIA binding applied
+
+Uncommitted (staged for the user). At the user's request, added measurement-level source bindings: `SourceBinding` on `MeasurementRecord` (additive, default empty), a validator rule (bound source must exist, needs a basis, no repeats), `measurement_source` (migration `012_measurement_sources.sql`, append-only), storage read and write, and the readers (comparability reports and the evaluation corpus add bound sources to the group's). Release `nx-norm-2026-09-24-r3` binds O-M07 (3 points) to O-S28, O-M09 (2) to O-S29 and O-M08 (2) to O-S30, each with a basis that says it is the same publisher and survey. Applied to the real database after a backup (`.local/backups/nexus-20260924-073804-b5330d.dump`); r3 accepted by `farrellsid`; claims, proposals, decisions, versions and sources unchanged. 454 backend tests pass. **Next:** M5 (visual shell) or another priority the user names.
+
 ## 2026-09-24, EIA registered and the other adapters
 
 Uncommitted. Registered EIA series O-S28 to O-S30 (migration 011, release r2 accepted by `farrellsid` on the user's direction, baselines, verified), added JSON extraction, key injection for the EIA host only, StatCan, Sodir and GDELT parsers, `scripts/collect.py` and the results in `docs/acquisition-providers.md`. 446 backend tests, ruff, licence gate (dev and release) and `normalise.py check` pass. Backup before the migration: `.local/backups/nexus-20260924-071615-950804.dump`. **Next actions:** the user directed that we work with the data we have and target gaps later; binding measurements to O-S28 to O-S30 is deferred for consideration. Everything from this session's data-source work was staged for the user's commit. Next: M5 (visual shell) or another priority the user names.

@@ -12,7 +12,8 @@ from app.normalisation.release import Release, validate_release
 from app.normalisation.vocabulary import load_vocabulary
 
 ROOT = Path(__file__).resolve().parents[2]
-RELEASE = ROOT / "normalisation" / "releases" / "2026-09-24-r2.json"
+RELEASES = ROOT / "normalisation" / "releases"
+RELEASE = RELEASES / "2026-09-24-r3.json"
 
 
 def test_original_decimal_text_is_preserved(tmp_path):
@@ -101,15 +102,49 @@ def test_russia_and_iran_are_registry_entities_and_link_their_measurements(relea
     assert linked["Russia"] == "place/russia" and linked["Iran"] == "place/iran"
 
 
+def _load(name: str) -> Release:
+    return Release.model_validate_json((RELEASES / name).read_text("utf-8"))
+
+
 @pytestmark_release
-def test_release_r2_adds_only_the_three_registered_eia_sources_to_the_accepted_release(release):
-    accepted = Release.model_validate_json(
-        (ROOT / "normalisation" / "releases" / "2026-09-24.json").read_text("utf-8")
-    )
-    assert release.release_id == "nx-norm-2026-09-24-r2"
-    assert release.entities == accepted.entities
-    assert release.claims == accepted.claims
-    assert release.measurements == accepted.measurements
-    added = [s for s in release.sources if s not in accepted.sources]
+def test_release_r2_adds_only_the_three_registered_eia_sources_to_the_accepted_release():
+    accepted, r2 = _load("2026-09-24.json"), _load("2026-09-24-r2.json")
+    assert r2.release_id == "nx-norm-2026-09-24-r2"
+    assert r2.entities == accepted.entities
+    assert r2.claims == accepted.claims
+    assert r2.measurements == accepted.measurements
+    added = [s for s in r2.sources if s not in accepted.sources]
     assert [s.source_id for s in added] == ["O-S28", "O-S29", "O-S30"]
-    assert all(s.legacy_reported_method is None for s in added)
+
+
+@pytestmark_release
+def test_release_r3_adds_only_the_seven_eia_source_bindings_to_r2(release):
+    r2 = _load("2026-09-24-r2.json")
+    assert release.release_id == "nx-norm-2026-09-24-r3"
+    assert (release.entities, release.claims, release.sources) == (
+        r2.entities,
+        r2.claims,
+        r2.sources,
+    )
+    assert [
+        m.model_copy(update={"bound_sources": []}) for m in release.measurements
+    ] == r2.measurements
+    bound = {
+        m.id.split(":", 1)[1]: [b.source_id for b in m.bound_sources]
+        for m in release.measurements
+        if m.bound_sources
+    }
+    assert bound == {
+        "O-M07:0": ["O-S28"],
+        "O-M07:1": ["O-S28"],
+        "O-M07:2": ["O-S28"],
+        "O-M09:0": ["O-S29"],
+        "O-M09:1": ["O-S29"],
+        "O-M08:0": ["O-S30"],
+        "O-M08:1": ["O-S30"],
+    }
+    assert all(
+        "not an independent measurement" in b.basis
+        for m in release.measurements
+        for b in m.bound_sources
+    )

@@ -7,7 +7,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "scripts" / "render_normalisation_review.py"
-RELEASE = ROOT / "normalisation" / "releases" / "2026-09-24-r2.json"
+RELEASE = ROOT / "normalisation" / "releases" / "2026-09-24-r3.json"
 
 
 @pytest.fixture(scope="module")

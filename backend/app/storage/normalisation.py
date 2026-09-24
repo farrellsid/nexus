@@ -16,6 +16,7 @@ from app.normalisation.release import (
     EntityRecord,
     MeasurementRecord,
     Release,
+    SourceBinding,
     Temporal,
     content_hash,
 )
@@ -224,6 +225,12 @@ class PostgresNormalisation:
                     m.note,
                 ),
             )
+            for binding in m.bound_sources:
+                connection.execute(
+                    "INSERT INTO measurement_source(release_id, measurement_id, source_id, basis)"
+                    " VALUES (%s, %s, %s, %s)",
+                    (rid, m.id, binding.source_id, binding.basis),
+                )
 
     def decide(
         self,
@@ -339,6 +346,15 @@ class PostgresNormalisation:
                 " ORDER BY case_id, metric_id, point_index",
                 (release_id, entity, entity),
             ).fetchall()
+            bindings: dict[str, list[SourceBinding]] = {}
+            for b in connection.execute(
+                "SELECT measurement_id, source_id, basis FROM measurement_source"
+                " WHERE release_id = %s ORDER BY measurement_id, source_id",
+                (release_id,),
+            ):
+                bindings.setdefault(b["measurement_id"], []).append(
+                    SourceBinding(source_id=b["source_id"], basis=b["basis"])
+                )
         return [
             MeasurementRecord(
                 id=row["id"],
@@ -354,6 +370,7 @@ class PostgresNormalisation:
                 release_status=row["release_status"],
                 claim_ids=row["claim_ids"],
                 note=row["note"],
+                bound_sources=bindings.get(row["id"], []),
             )
             for row in rows
         ]

@@ -194,6 +194,7 @@ def render(release_path: Path) -> str:
             "Period",
             "Status",
             "Claims",
+            "Bound sources",
             "Note",
         ],
         [
@@ -211,6 +212,7 @@ def render(release_path: Path) -> str:
                     else f", {m['release_status']}"
                 ),
                 ", ".join(m["claim_ids"]),
+                ", ".join(b["source_id"] for b in m.get("bound_sources", [])),
                 m["note"],
             ]
             for m in release["measurements"]

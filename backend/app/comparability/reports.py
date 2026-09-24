@@ -26,7 +26,10 @@ def build_reports(
     reports = []
     for measurement in measurements:
         definition = vocabulary.measures[measurement.measure]
-        source_ids = groups[(measurement.case_id, measurement.metric_id)]
+        source_ids = list(groups[(measurement.case_id, measurement.metric_id)])
+        source_ids += [
+            b.source_id for b in measurement.bound_sources if b.source_id not in source_ids
+        ]
         temporal = measurement.temporal
         reports.append(
             Report(

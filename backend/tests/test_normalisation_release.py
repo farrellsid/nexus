@@ -369,3 +369,38 @@ def test_content_hash_changes_with_content(make):
     other = release.model_copy(update={"release_id": "other"})
     assert content_hash(release) == content_hash(release)
     assert content_hash(release) != content_hash(other)
+
+
+def test_a_bound_source_that_exists_is_accepted(make):
+    from app.normalisation.release import SourceBinding
+
+    binding = SourceBinding(source_id="S1", basis="cross-check equal at pack precision")
+    found = problems_of(
+        make, measurements=[measurement(0, "5.97", bound_sources=[binding]), measurement(1, "13.7")]
+    )
+    assert found == []
+
+
+def test_a_bound_source_that_does_not_exist_is_reported(make):
+    from app.normalisation.release import SourceBinding
+
+    binding = SourceBinding(source_id="S9", basis="cross-check")
+    found = problems_of(
+        make, measurements=[measurement(0, "5.97", bound_sources=[binding]), measurement(1, "13.7")]
+    )
+    assert any("M1:0" in p and "S9" in p and "unknown source" in p for p in found)
+
+
+def test_a_binding_needs_a_basis_and_may_not_repeat(make):
+    from app.normalisation.release import SourceBinding
+
+    blank = SourceBinding(source_id="S1", basis=" ")
+    twice = [SourceBinding(source_id="S1", basis="a"), SourceBinding(source_id="S1", basis="b")]
+    found = problems_of(
+        make, measurements=[measurement(0, "5.97", bound_sources=[blank]), measurement(1, "13.7")]
+    )
+    assert any("M1:0" in p and "basis" in p for p in found)
+    found = problems_of(
+        make, measurements=[measurement(0, "5.97", bound_sources=twice), measurement(1, "13.7")]
+    )
+    assert any("M1:0" in p and "twice" in p for p in found)

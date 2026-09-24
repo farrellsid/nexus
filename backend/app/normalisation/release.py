@@ -61,6 +61,13 @@ class SourceRecord(Record):
     legacy_reported_method: str | None
 
 
+class SourceBinding(Record):
+    """A source whose data was checked against a measurement, and why it is bound to it."""
+
+    source_id: str
+    basis: str
+
+
 class MeasurementRecord(Record):
     id: str
     case_id: str
@@ -75,6 +82,8 @@ class MeasurementRecord(Record):
     release_status: str
     claim_ids: list[str]
     note: str | None
+    # Sources bound to this point in addition to its metric group's sources.
+    bound_sources: list[SourceBinding] = []
 
 
 class Release(Record):
@@ -142,6 +151,22 @@ def _measurement_coverage(
                 f"measurement {measurement.id} value text {measurement.value_text!r} "
                 f"differs from original {original!r}"
             )
+    return problems
+
+
+def _binding_problems(release: Release, investigations: list[Investigation]) -> list[str]:
+    known = {f"{i.pack.case_id}/{s.id}" for i in investigations for s in i.pack.sources}
+    problems = []
+    for m in release.measurements:
+        seen: set[str] = set()
+        for binding in m.bound_sources:
+            if f"{m.case_id}/{binding.source_id}" not in known:
+                problems.append(f"measurement {m.id} binds unknown source {binding.source_id}")
+            if not binding.basis.strip():
+                problems.append(f"measurement {m.id} binding {binding.source_id} needs a basis")
+            if binding.source_id in seen:
+                problems.append(f"measurement {m.id} binds source {binding.source_id} twice")
+            seen.add(binding.source_id)
     return problems
 
 
@@ -259,4 +284,5 @@ def validate_release(
     problems += _measurement_coverage(release, investigations, metric_texts)
     problems += _codes(release, vocabulary)
     problems += _claim_temporal(release, investigations)
+    problems += _binding_problems(release, investigations)
     return problems

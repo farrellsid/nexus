@@ -31,6 +31,7 @@ NEW_TABLES = [
     "claim_projection",
     "source_classification",
     "measurement",
+    "measurement_source",
 ]
 
 
@@ -119,6 +120,14 @@ def test_measurements_can_be_filtered_by_entity(store, release, vocabulary):
 
 @pytest.mark.parametrize("table", NEW_TABLES)
 def test_every_new_table_is_append_only(store, release, vocabulary, database, table):
+    from app.normalisation.release import SourceBinding
+
+    binding = SourceBinding(source_id="O-S28", basis="synthetic test binding")
+    measurements = [
+        m.model_copy(update={"bound_sources": [binding]}) if m.id.endswith(":O-M07:0") else m
+        for m in release.measurements
+    ]
+    release = release.model_copy(update={"measurements": measurements})
     store.record_release(release, vocabulary)
     accept(store, release.release_id)
     with database.connect() as connection:
@@ -166,3 +175,22 @@ def test_the_copper_pack_is_covered_too(store, release, vocabulary):
     accept(store, release.release_id)
     assert store.claim_projection("C07").claim.predicate == "offtake_agreement_with"
     assert store.resolve_alias(COPPER, "smelter").canonical_id == "facility/kamoa-kakula-smelter"
+
+
+def test_bound_sources_round_trip_and_only_bound_measurements_carry_them(
+    store, release, vocabulary
+):
+    from app.normalisation.release import SourceBinding
+
+    binding = SourceBinding(source_id="O-S28", basis="synthetic test binding")
+    measurements = [
+        m.model_copy(update={"bound_sources": [binding]}) if m.id.endswith(":O-M07:0") else m
+        for m in release.measurements
+    ]
+    bound = release.model_copy(update={"release_id": "nx-norm-bound", "measurements": measurements})
+    store.record_release(bound, vocabulary)
+    accept(store, "nx-norm-bound")
+    served = store.measurements()
+    carrying = [m for m in served if m.bound_sources]
+    assert [m.id for m in carrying] == [f"{OIL}:O-M07:0"]
+    assert carrying[0].bound_sources == [binding]

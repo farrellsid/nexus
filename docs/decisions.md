@@ -94,7 +94,13 @@ Approved as direction, with the details still to be designed:
 ## 2026-09-24, working with what we have (the user's direction)
 
 - **Data-source work stops here for now.** The remaining gaps (China's monthly crude figures, OPEC and Energy Institute files, GEM, ANP, GDELT volume, O-M11's August values) are targeted later, if they appear or the information turns out to be incomplete.
-- **Measurement-level source bindings to O-S28 to O-S30 are deferred,** to be taken into consideration later.
+- **Measurement-level source bindings to O-S28 to O-S30 were first deferred, then built at the user's request** (release r3, migration 012). A binding is additive and states its basis; it never replaces a metric group's sources. An EIA-to-EIA binding is recorded as the same publisher and survey, so it does not count as an independent report.
+
+## 2026-09-24, M5 approach (the user's answers)
+
+- **Strip steps are committed by the assistant on branch `m5-shell`, never on `master`,** each commit naming its paths. This is a scoped exception to "the user makes the commits", for that branch only.
+- **Retained upstream modules stay JavaScript; new Nexus code is strict TypeScript;** React comes in M6 as mounted panels.
+- **Local development keeps Esri and OSM imagery; the public build uses Natural Earth** through one flag.
 
 ## Consequences to keep in view
 
