@@ -130,22 +130,6 @@ function fixture() {
   };
 }
 
-test('initial presentation uses actual state and retains unavailable chip semantics', () => {
-  const f = fixture();
-  assert.equal(f.chip('osm').getAttribute('aria-pressed'), 'true');
-  assert.equal(f.statusElement.textContent, 'OSM');
-  const unavailable = f.chip('bing-aerial');
-  assert.equal(
-    unavailable.disabled,
-    false,
-    'unavailable chips remain focusable',
-  );
-  assert.equal(unavailable.getAttribute('aria-disabled'), 'true');
-  unavailable.click();
-  assert.equal(f.requests.length, 0);
-  f.controls.destroy();
-});
-
 test('selection claims authority before requesting and never lights a pending source optimistically', async () => {
   const f = fixture();
   const pending = f.controls.select('esri-imagery');

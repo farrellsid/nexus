@@ -2,7 +2,7 @@
   "name": "gods-eye-view",
   "private": true,
   "version": "0.1.1",
-  "description": "A real-time intelligence console for planet Earth \u2014 photorealistic 3D globe, live aircraft/ships/satellites/earthquakes/CCTV, and hands-free voice control. Runs in a browser.",
+  "description": "A real-time intelligence console for planet Earth — photorealistic 3D globe, live aircraft/ships/satellites/earthquakes/CCTV, and hands-free voice control. Runs in a browser.",
   "type": "module",
   "license": "MIT",
   "author": "Bilawal Sidhu",
@@ -74,7 +74,6 @@
     },
     "./search": "./src/search/index.js",
     "./ui/panels": "./src/ui/panelDisclosure.js",
-    "./ui/surfaces": "./src/ui/surfaceKeyboard.js",
     "./ui/layout": "./src/ui/panelRails.js",
     "./ui/input": "./src/ui/visualInput.js",
     "./ui/display": "./src/ui/displayControls.js",
@@ -92,7 +91,6 @@
     "./maps/catalog": "./src/maps/catalog.js",
     "./maps/imagery": "./src/maps/imagery.js",
     "./maps/terrain": "./src/maps/terrain.js",
-    "./maps/3d": "./src/maps/google3d.js",
     "./maps/defaults": "./src/maps/defaultSources.js",
     "./application/scene": "./src/app/scene.js",
     "./application/controls": "./src/app/controls.js",
@@ -102,7 +100,6 @@
     "./application/errors": "./src/app/errors.js",
     "./ui/composition": "./src/ui/composition.js",
     "./ui/hud": "./src/hud.js",
-    "./standalone/settings": "./src/keySetup.js",
     "./build/html": {
       "node": "./build/application-html.js"
     },

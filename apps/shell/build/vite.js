@@ -5,8 +5,6 @@ import cesium from 'vite-plugin-cesium';
 export function createBrowserViteConfig({
   plugins = [],
   publicDir,
-  googleApiKey,
-  cesiumToken,
   host = 'localhost',
   port = 4173,
 } = {}) {
@@ -23,15 +21,11 @@ export function createBrowserViteConfig({
       fs: {
         deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/ENVIRONMENT'],
       },
-      // These headers protect the document containing Provider Settings.
+      // The shell is never framed by another origin.
       headers: {
         'X-Frame-Options': 'DENY',
         'Content-Security-Policy': "frame-ancestors 'none'",
       },
-    },
-    define: {
-      'import.meta.env.GOOGLE_MAPS_API_KEY': JSON.stringify(googleApiKey),
-      'import.meta.env.CESIUM_ION_TOKEN': JSON.stringify(cesiumToken),
     },
     build: { chunkSizeWarningLimit: 1500 },
   };

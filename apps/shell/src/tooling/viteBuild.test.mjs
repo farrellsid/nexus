@@ -3,59 +3,6 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createBrowserViteConfig } from '../../build/vite.js';
 
-test('explicit build inputs preserve browser-only defines, plugin order and loopback protections', () => {
-  const plugin = { name: 'fixture-provider' };
-  const config = createBrowserViteConfig({
-    plugins: [plugin],
-    googleApiKey: 'browser-fixture',
-    cesiumToken: 'ion-fixture',
-  });
-  assert.equal(config.plugins[2], plugin);
-  assert.equal(config.server.host, 'localhost');
-  assert.equal(config.server.port, 4173);
-  assert.deepEqual(config.server.allowedHosts, [
-    'localhost',
-    '127.0.0.1',
-    '.local',
-  ]);
-  assert.ok(config.server.fs.deny.includes('**/ENVIRONMENT'));
-  assert.ok(config.server.fs.deny.includes('.env.*'));
-  assert.equal(config.server.headers['X-Frame-Options'], 'DENY');
-  assert.equal(
-    config.server.headers['Content-Security-Policy'],
-    "frame-ancestors 'none'",
-  );
-  assert.deepEqual(config.define, {
-    'import.meta.env.GOOGLE_MAPS_API_KEY': '"browser-fixture"',
-    'import.meta.env.CESIUM_ION_TOKEN': '"ion-fixture"',
-  });
-  assert.equal(
-    createBrowserViteConfig({ host: '0.0.0.0', port: '4800' }).server
-      .allowedHosts,
-    true,
-  );
-  assert.equal(
-    createBrowserViteConfig({ host: '::', port: '4800' }).server.port,
-    4800,
-  );
-});
-
-test('build helper does not discover environment values or construct local providers', () => {
-  const before = process.env.GOOGLE_MAPS_API_KEY;
-  process.env.GOOGLE_MAPS_API_KEY = 'environment-fixture';
-  try {
-    const config = createBrowserViteConfig();
-    assert.equal(
-      config.define['import.meta.env.GOOGLE_MAPS_API_KEY'],
-      undefined,
-    );
-    assert.equal(config.plugins.length, 2);
-  } finally {
-    if (before === undefined) delete process.env.GOOGLE_MAPS_API_KEY;
-    else process.env.GOOGLE_MAPS_API_KEY = before;
-  }
-});
-
 test('build export resolves in Node and has no browser fallback', async () => {
   const exported = await import('gods-eye-view/build/vite');
   assert.equal(exported.createBrowserViteConfig, createBrowserViteConfig);

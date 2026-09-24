@@ -32,11 +32,6 @@
     "modules": ["src/ui/panelDisclosure.js"],
     "external": []
   },
-  "surface-keyboard": {
-    "exports": ["./ui/surfaces"],
-    "modules": ["src/ui/surfaceKeyboard.js"],
-    "external": []
-  },
   "panel-rail-layout": {
     "exports": ["./ui/layout"],
     "modules": [
@@ -84,8 +79,7 @@
     "modules": [
       "src/ui/mapSource.js",
       "src/ui/mapSourceControls.js",
-      "src/mapStackChips.js",
-      "src/keySetupCore.mjs"
+      "src/mapStackChips.js"
     ],
     "external": []
   },
@@ -96,7 +90,6 @@
       "src/ui/layerPanel.js",
       "src/ui/clearLayersControl.js",
       "src/loadingFeedback.js",
-      "src/keySetupCore.mjs",
       "src/data/feedState.js"
     ],
     "external": []
@@ -128,7 +121,6 @@
       "src/bloom.js",
       "src/data/layerState.js",
       "src/data/scenePick.js",
-      "src/keySetupCore.mjs",
       "src/loadingFeedback.js",
       "src/locationStatus.js",
       "src/mapStackChips.js",
@@ -174,7 +166,6 @@
       "src/ui/shellElements.js",
       "src/ui/shellFeedback.js",
       "src/ui/styleParameters.js",
-      "src/ui/surfaceKeyboard.js",
       "src/ui/uiLifetime.js",
       "src/ui/visualEffects.js",
       "src/ui/visualInput.js",
@@ -265,20 +256,16 @@
       "./maps/catalog",
       "./maps/imagery",
       "./maps/terrain",
-      "./maps/3d",
       "./maps/defaults"
     ],
     "modules": [
-      "src/maps/availability.js",
       "src/maps/catalog.js",
       "src/maps/controller.js",
       "src/maps/credits.js",
       "src/maps/defaultSources.js",
-      "src/maps/google3d.js",
       "src/maps/imagery.js",
       "src/maps/registry.js",
-      "src/maps/terrain.js",
-      "src/keySetupCore.mjs"
+      "src/maps/terrain.js"
     ],
     "external": ["cesium"]
   },
@@ -292,7 +279,6 @@
       "./application/errors",
       "./ui/composition",
       "./ui/hud",
-      "./standalone/settings",
       "./standalone/catalog"
     ],
     "modules": [
@@ -320,21 +306,16 @@
       "src/data/scenePick.js",
       "src/hud.js",
       "src/hudLocality.js",
-      "src/keySetup.js",
-      "src/keySetupCore.mjs",
       "src/loadingFeedback.js",
       "src/locationStatus.js",
       "src/locations.js",
       "src/logoGaze.js",
       "src/mapStackChips.js",
       "src/mapStackController.js",
-      "src/mapStartup.js",
-      "src/maps/availability.js",
       "src/maps/catalog.js",
       "src/maps/controller.js",
       "src/maps/credits.js",
       "src/maps/defaultSources.js",
-      "src/maps/google3d.js",
       "src/maps/imagery.js",
       "src/maps/registry.js",
       "src/maps/terrain.js",
@@ -393,7 +374,6 @@
       "src/ui/shellElements.js",
       "src/ui/shellFeedback.js",
       "src/ui/styleParameters.js",
-      "src/ui/surfaceKeyboard.js",
       "src/ui/uiLifetime.js",
       "src/ui/visualEffects.js",
       "src/ui/visualInput.js",

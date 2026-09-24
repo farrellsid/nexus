@@ -108,7 +108,7 @@ export class ShareLinkManager {
     // null = the altitude-adaptive terminus (the default). A number pins the
     // outside-fill opacity as a percent, 94..100. (`sce`, 2026-08-17)
     this._scopeTerminusPct = null;
-    this._mapStack = 'photoreal';
+    this._mapStack = 'esri-imagery';
     this._layerStateProvider = null;
     this._panelStateProvider = null;
     this._styleParamStateProvider = null;
@@ -200,7 +200,7 @@ export class ShareLinkManager {
       scopeTerminusPct: params.has('sce')
         ? clampScopeTerminusPct(params.get('sce'))
         : null,
-      mapStack: params.get('map') || 'photoreal',
+      mapStack: params.get('map') || 'esri-imagery',
       layerState: decodedLayerState,
       layerStateInvalid:
         params.get('v') === '2' &&

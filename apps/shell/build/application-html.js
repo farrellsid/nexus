@@ -5,7 +5,6 @@ export const APPLICATION_TEMPLATES = Object.freeze([
   'display-controls',
   'command-dock',
   'layer-panels',
-  'provider-settings',
   'hud-loading',
 ]);
 const allowed = new Set(APPLICATION_TEMPLATES);

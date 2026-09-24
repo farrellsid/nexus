@@ -88,32 +88,9 @@ export function layerStatesForShot(
   return states;
 }
 
-/** Resolve recipe map preferences and registered presentation fallbacks. */
+/** Resolve a shot's map and visual state through the registered presentation rules. */
 export function visualStateForShot(shot, packs, isMapStackAvailable) {
-  const sourceRecipe = packs.recipeForShot(shot);
-  const sceneBeatState = Object.values(shot?.layers || {}).find(
-    (state) => state?.params?.presentation === 'scene-beat',
-  );
-  const controls = {
-    ...sceneBeatState?.params?.sceneControls,
-    ...sourceRecipe?.runtimeControlsByBeat?.[sceneBeatState?.params?.beatId],
-  };
-  if (controls.imageryComparison === true) {
-    return { ...(shot.visual || {}), mapStack: 'esri-imagery' };
-  }
-  if (
-    sourceRecipe?.standaloneSurfaceBeatIds?.includes(
-      sceneBeatState?.params?.beatId,
-    )
-  ) {
-    return { ...(shot.visual || {}), mapStack: 'esri-imagery' };
-  }
-  const visual = sourceRecipe?.photorealSurfaceBeatIds?.includes(
-    sceneBeatState?.params?.beatId,
-  )
-    ? { ...(shot.visual || {}), mapStack: 'photoreal' }
-    : shot?.visual || {};
-  return packs.resolveVisual(shot, visual, isMapStackAvailable);
+  return packs.resolveVisual(shot, shot?.visual || {}, isMapStackAvailable);
 }
 
 /** Combine authored holds, registered pack overrides and layer reveal requirements. */

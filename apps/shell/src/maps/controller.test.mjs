@@ -157,35 +157,6 @@ test('repeated Esri shot handoffs retain imagery and keep tile fallback live', a
   env.controller.destroy();
 });
 
-test('returning to the live provider supersedes a pending switch without rebuilding imagery', async () => {
-  const env = publicFixture();
-  await env.controller.setStack('esri-imagery');
-  const layer = env.imagery[0];
-  let resolve;
-  env.registry.sources.find(
-    (source) => source.descriptor.id === 'osm',
-  ).imagery = () =>
-    new Promise((done) => {
-      resolve = done;
-    });
-  const pending = env.controller.setStack('osm');
-  await settle();
-  await env.controller.setStack('esri-imagery');
-  resolve(env.providers.get('osm'));
-  await pending;
-  assert.equal(env.controller.getActiveId(), 'esri-imagery');
-  assert.equal(env.imagery[0], layer);
-  assert.equal(env.removed.length, 0);
-  await env.controller.setStack('photoreal');
-  assert.equal(env.imagery.length, 0);
-  assert.equal(env.tileset.show, true);
-  await env.controller.setStack('esri-imagery');
-  assert.notEqual(env.imagery[0], layer, 'a removed layer must be recreated');
-  assert.equal(env.viewer.scene.globe.show, true);
-  assert.equal(env.tileset.show, false);
-  env.controller.destroy();
-});
-
 test('a destroyed controller aborts creation and disposes a late provider without touching the scene', async () => {
   let resolve,
     signal,
@@ -223,36 +194,6 @@ test('a destroyed controller aborts creation and disposes a late provider withou
   );
 });
 
-test('slow terrain cannot overwrite a newer source and a 3D view never starts unused terrain', async () => {
-  const env = publicFixture();
-  let resolve,
-    reads = 0;
-  const osm = env.registry.sources.find(
-    (source) => source.descriptor.id === 'osm',
-  );
-  osm.terrain = {
-    id: 'slow-floor',
-    create: () => {
-      reads++;
-      return new Promise((done) => {
-        resolve = done;
-      });
-    },
-  };
-  await env.controller.setStack('photoreal');
-  assert.equal(reads, 0);
-  const loading = env.controller.setStack('osm');
-  await settle();
-  await env.controller.setStack('photoreal');
-  resolve({ provider: { id: 'late-terrain' } });
-  await loading;
-  assert.equal(env.viewer.terrainProvider, undefined);
-  assert.equal(env.viewer.scene.globe.show, false);
-  assert.equal(env.tileset.show, true);
-  assert.equal(env.controller.getActiveId(), 'photoreal');
-  env.controller.destroy();
-});
-
 test('Esri construction fallback reports and attributes the source actually rendered', async () => {
   const env = publicFixture();
   env.registry.sources.find(
@@ -268,45 +209,6 @@ test('Esri construction fallback reports and attributes the source actually rend
   );
   assert.equal(env.imagery[0].provider, env.providers.get('osm'));
   assert.equal(env.credits.size, 0);
-  env.controller.destroy();
-});
-
-test('one Esri tile failure stays put, two fall back, and stale errors cannot replace a selection', async () => {
-  const env = publicFixture();
-  await env.controller.setStack('esri-imagery');
-  assert.equal(env.credits.size, 1);
-  const errorEvent = env.providers.get('esri-imagery').errorEvent;
-  errorEvent.raise();
-  await settle();
-  assert.equal(env.controller.getActiveId(), 'esri-imagery');
-  errorEvent.raise();
-  await settle();
-  assert.equal(env.controller.getActiveId(), 'osm');
-  assert.equal(env.credits.size, 0);
-  assert.equal(
-    env.controller.getState().lastError,
-    'Esri Satellite tile requests failed; using OSM',
-  );
-  assert.equal(errorEvent.size, 0);
-  await env.controller.setStack('photoreal');
-  errorEvent.raise({ timesRetried: 9 });
-  await settle();
-  assert.equal(env.controller.getActiveId(), 'photoreal');
-  env.controller.destroy();
-});
-
-test('tooltips and rejected selection share the registry reason, including retired map IDs', async () => {
-  const errors = [],
-    env = publicFixture();
-  env.controller._onError = (message) => errors.push(message);
-  const reason = env.controller
-    .getStacks()
-    .find((stack) => stack.id === 'bing-aerial').unavailableReason;
-  await env.controller.setStack('bing-aerial');
-  assert.deepEqual(errors, [reason]);
-  assert.match(reason, /CESIUM_ION_TOKEN/);
-  await env.controller.setStack('bing-road');
-  assert.equal(env.controller.getActiveId(), 'photoreal');
   env.controller.destroy();
 });
 

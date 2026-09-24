@@ -368,7 +368,7 @@ export class VisualSettings {
           getScopeTerminusOverride() == null
             ? null
             : Math.round(getScopeTerminusOverride() * 100),
-        mapStack: this.mapStackController?.getActiveId?.() || 'photoreal',
+        mapStack: this.mapStackController?.getActiveId?.() || 'esri-imagery',
       },
     };
   }
@@ -463,7 +463,7 @@ export class VisualSettings {
         enabled: isScopeMaskEnabled(),
         featherPct: Math.round(getScopeMaskFeather() * 100),
       },
-      mapStack: this.mapStackController?.getActiveId?.() || 'photoreal',
+      mapStack: this.mapStackController?.getActiveId?.() || 'esri-imagery',
       styleParams,
     };
   }

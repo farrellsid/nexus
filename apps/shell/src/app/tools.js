@@ -20,7 +20,7 @@ export function createApplicationTools({
   signal,
   defer,
 }) {
-  const { viewer, tileset, mapStackController, operations } = scene;
+  const { viewer, mapStackController } = scene;
   const { styleManager } = controls;
   const { dataManager } = data;
   const sceneDirector = new SceneDirector(viewer, styleManager, dataManager, {
@@ -79,7 +79,6 @@ export function createApplicationTools({
   window.__godsEyeView = {
     viewer,
     styleManager,
-    tileset,
     dataManager,
     sceneDirector,
     mapStackController,

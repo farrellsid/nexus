@@ -1,7 +1,6 @@
 import { layerFeedState } from '../data/feedState.js';
 export { layerFeedState } from '../data/feedState.js';
 import { GUIDANCE_STATUSES } from '../loadingFeedback.js';
-import { keySetupRequirement } from '../keySetupCore.mjs';
 const FEED_STATE_LABELS = Object.freeze({
   nominal: 'ON',
   loading: 'LOADING',
@@ -29,26 +28,6 @@ const PANEL_LABELS = {};
 
 function panelLabel(layer) {
   return PANEL_LABELS[layer.id] || layer.name;
-}
-
-/**
- * Guidance for a control a missing provider key is holding back.
- *
- * The key registry already owns what each key is called and which environment
- * variables enable it, so a layer only declares WHICH key it needs
- * (`requiresKeyId`) and reports `stats.keyRequired` while that key is absent.
- * Naming the variable turns an unexplained dead control into a next step.
- *
- * An unnamed or unknown key returns '' rather than guessing: guidance naming
- * the wrong variable sends the operator to the wrong provider.
- *
- * @param {object} [layer] Row from the layer manager's getAll().
- * @returns {string} Guidance text, or '' when no key guidance applies.
- */
-export function layerKeyRequirementTooltip(layer = {}) {
-  if (layer?.stats?.keyRequired !== true) return '';
-  const requiresKeyId = String(layer.requiresKeyId || '').trim();
-  return requiresKeyId ? keySetupRequirement(requiresKeyId) : '';
 }
 
 /** Layer row presentation over supplied state and actions; no layer imports. */
@@ -529,16 +508,10 @@ export class LayerPanel {
         : layer.enabled
           ? FEED_STATE_LABELS[feedState]
           : 'OFF';
-    const keyGuidance = layerKeyRequirementTooltip(layer);
-    // Name the missing key on the control itself: a row reading KEY REQUIRED
-    // without saying WHICH key leaves a dead control and no next step. Empty
-    // when the layer needs no key, or already has one.
-    button.title = keyGuidance;
+    button.title = '';
     button.setAttribute(
       'aria-label',
-      keyGuidance
-        ? `${panelLabel(layer)}: ${button.textContent}. ${keyGuidance}`
-        : `${panelLabel(layer)}: ${button.textContent}`,
+      `${panelLabel(layer)}: ${button.textContent}`,
     );
   }
 

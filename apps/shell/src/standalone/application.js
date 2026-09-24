@@ -11,13 +11,7 @@ import { createStandaloneTools } from './tools.js';
 let constructed = false;
 
 /** Compose the standalone application once per page. Reload to start again. */
-export function createStandaloneApplication({
-  googleApiKey,
-  cesiumToken,
-  geospatial = {},
-  voice = {},
-  allowQaRegistration = false,
-}) {
+export function createStandaloneApplication({ allowQaRegistration = false }) {
   if (constructed)
     throw new Error('The standalone application already owns this page');
   constructed = true;
@@ -32,13 +26,10 @@ export function createStandaloneApplication({
         // The search package takes it as plain data rather than importing it,
         // so it stays free of application state.
         presets: CITY_POIS,
-        ...geospatial,
         signal: context.signal,
       });
       const scene = await createStandaloneScene({
         ...context,
-        googleApiKey,
-        cesiumToken,
         loaderStatus,
       });
       catalog = createStandaloneCatalog({ signal: context.signal });
@@ -54,6 +45,6 @@ export function createStandaloneApplication({
     createData: (context) =>
       createStandaloneData({ ...context, allowQaRegistration, catalog }),
     createTools: (context) =>
-      createStandaloneTools({ ...context, loadingScreen, placeSearch, voice }),
+      createStandaloneTools({ ...context, loadingScreen, placeSearch }),
   });
 }
