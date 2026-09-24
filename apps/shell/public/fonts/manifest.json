@@ -1,0 +1,42 @@
+[
+  {
+    "file": "inter-latin-ext-34b9c504.woff2",
+    "family": "Inter",
+    "subset": "latin-ext",
+    "bytes": 85068,
+    "sha256": "34b9c504cab7a73e37b746343a449132e56cf7b5481af2cb81dc74dcff25c956",
+    "from": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa25L7SUc.woff2"
+  },
+  {
+    "file": "inter-latin-3100e775.woff2",
+    "family": "Inter",
+    "subset": "latin",
+    "bytes": 48256,
+    "sha256": "3100e775e8616cd2611beecfa23a4263d7037586789b43f035236a2e6fbd4c62",
+    "from": "https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2"
+  },
+  {
+    "file": "jetbrains-mono-latin-ext-79bfdab9.woff2",
+    "family": "JetBrains Mono",
+    "subset": "latin-ext",
+    "bytes": 15196,
+    "sha256": "79bfdab9ba467e26eea4122e6f2567e188dd8a09a8c730d501fc487c4ab99c6e",
+    "from": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbV2o-flEEny0FZhsfKu5WU4xD1OwG_TA.woff2"
+  },
+  {
+    "file": "jetbrains-mono-latin-18be4527.woff2",
+    "family": "JetBrains Mono",
+    "subset": "latin",
+    "bytes": 40404,
+    "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e",
+    "from": "https://fonts.gstatic.com/s/jetbrainsmono/v24/tDbV2o-flEEny0FZhsfKu5WU4xD7OwE.woff2"
+  },
+  {
+    "file": "material-symbols-outlined-icon-subset-26f78097.woff2",
+    "family": "Material Symbols Outlined",
+    "subset": "icon-subset",
+    "bytes": 4660,
+    "sha256": "26f780970741dddc118af852d75a84bfea74b157923c9ab6da2ef1cf19e6340e",
+    "from": "https://fonts.gstatic.com/l/font?kit=...&skey=b8dc2088854b122f&v=v374"
+  }
+]

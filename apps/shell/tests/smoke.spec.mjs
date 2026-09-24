@@ -34,6 +34,8 @@ test('the shell renders and is no noisier than its recorded baseline', async ({ 
     writeFileSync(KNOWN_PATH, JSON.stringify({ errors: [...new Set(errors)].sort() }, null, 2) + '\n');
     return;
   }
+  const allowedHosts = new Set(JSON.parse(readFileSync(new URL('./allowed-hosts.json', import.meta.url), 'utf8')).hosts);
+  expect([...hosts].filter((host) => !allowedHosts.has(host)), 'hosts the page must not contact').toEqual([]);
   // A blank page compresses to a few KB; a rendered globe with chrome is far larger.
   expect(screenshot.length, 'the page looks blank').toBeGreaterThan(60_000);
   const unexpected = errors.filter((text) => !known.some((entry) => text.includes(entry)));

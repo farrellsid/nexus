@@ -1,0 +1,8 @@
+{
+  "_comment": "Hosts the page may contact at load. Google Fonts and gstatic were removed in A5. The imagery and terrain services below are local-development choices; the public build uses Natural Earth and contacts none of them.",
+  "hosts": [
+    "127.0.0.1:5175",
+    "services.arcgisonline.com",
+    "terrain.reearth.land"
+  ]
+}

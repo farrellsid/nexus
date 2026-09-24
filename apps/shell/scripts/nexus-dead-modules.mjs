@@ -37,6 +37,7 @@ const URL_REF = /new URL\(\s*['"]([^'"]+)['"]\s*,\s*import\.meta\.url/g;
 
 function resolveImport(from, spec) {
   if (!spec.startsWith('.') && !spec.startsWith('/')) return { external: true };
+  if (spec.startsWith('/node_modules/')) return { external: true }; // Vite's generated dependency cache
   const clean = spec.split('?')[0].split('#')[0];
   const base = clean.startsWith('/') ? join(root, clean) : resolve(dirname(from), clean);
   for (const candidate of [base, `${base}.js`, `${base}.mjs`, join(base, 'index.js'), join(base, 'index.mjs')]) {
