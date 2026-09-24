@@ -3,7 +3,8 @@ dist/
 # Third-party data, models and event media shipped with the upstream reference. Their licences are
 # not cleared, so they stay on this machine only, never in git history, and each is deleted when the
 # strip step that owns it removes the code that uses it (see UPSTREAM.md).
-src/data/
+src/data/local_data/
+src/data/fixtures/
 public/models/
 public/events/
 test-results/
