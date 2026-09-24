@@ -37,6 +37,13 @@ Do not assume the whole internet must be ingested. Keep selected source versions
 
 Illustrative arithmetic, not a forecast: 10,000 PDFs averaging 2 MB consume about 20 GB before extracted text, versions, indexes and backups. One million 1,536-dimensional float32 vectors consume 6.144 GB in values alone; indexes/metadata add more. Embeddings require model/dimension/version metadata and regeneration planning.
 
+### Retrieval note, 2026-09-23 (checked, not a decision)
+
+- **Scale today:** across both packs, 43 entities, 44 claims and 34 sources. Structured lookups (an entity's claims, metrics and bounded neighbourhood) are the primary retrieval path, and they are exact. Vector search adds value for paraphrased questions over long passages, which need stored source text that the project does not yet keep.
+- **The project-local PostgreSQL 17 runtime** ships `pg_trgm`, `unaccent` and `fuzzystrmatch` (fuzzy names, typos, aliases) and full-text search, but **not `pgvector`**. Enabling it means an extra install step, which matters for a local-first open-source tool.
+- **Embeddings should not be shipped inside data packs.** They are specific to a model and version. If ever adopted, compute them locally on install.
+- **Adoption trigger:** run the authored acceptance cases against structured plus full-text retrieval, and add `pgvector` only if they show paraphrase misses. When added, use it as a ranking step after structured filters on entity, period and status, so a similar passage from the wrong period cannot outrank the right one.
+
 Cloud object storage is appropriate for sharing, backup and a large document corpus; it does not replace a database or provide compute. Cloudflare R2 Standard lists $0.015/GB-month, separate operation charges and free internet egress. Thus 100 GB is $1.50/month in base storage before free allowances and operations. Hosted Postgres, server compute, OCR, search, models and licensed datasets are additional. Source checked 2026-09-15: https://developers.cloudflare.com/r2/pricing/ . No cloud budget or provider has been selected.
 
 ## Model routing and BYOK

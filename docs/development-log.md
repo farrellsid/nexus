@@ -2,6 +2,22 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-23 — Design records: rebuild, acquisition, packs, methodology
+
+No code changed. Design discussion with the user produced these records, each marking what is the user's decision and what is an assistant proposal:
+
+- `docs/frontend-rebuild.md`: rebuild on a God's Eye View foundation (user decision), industry/investigation container and shared entity registry, two-level type taxonomy from prior-art research, action-layer principle, phasing, warning vocabulary for missing data, and the user's guided-tour requirements.
+- `docs/data-acquisition.md`: no acquisition code exists. An excerpt check found 7 of 17 fetchable HTML excerpts verbatim; the rest are reworded, unreproducible or drifted. Proposed pipeline: acquire, extract, review, refresh.
+- `docs/data-packs.md`: installable industry packs, licensing and pack-security proposals. No LICENSE file exists at the repository root.
+- `docs/methodology.md`: orientation document for how Nexus works, including two gaps verified in the data: 32 distinct free-text predicates across 44 claims, and `claim.kind` mixing epistemic status with content type.
+- `docs/technical-stack.md`: retrieval note. The local PostgreSQL runtime has `pg_trgm` and `unaccent` but not `pgvector`; vectors deferred until acceptance cases show a need.
+- `docs/briefs/technical-design-review-brief.md`: a brief for a separate, higher-tier agent to write recommendations on vocabularies, time, conflicting sources, units, shipping geometry, tours, hosting cost, evaluation, acquisition and licences. It writes only to `docs/recommendations/`.
+- `docs/decisions.md`: new decision log. Recorded after the review: cap of CAD 10 to 20 a month; versioned normalisation with aliases; side-by-side sources; modelled shipping alternatives; static public snapshot with local authoring; MIT and CC BY 4.0; published tours use accepted versions only. Consequence: nothing is publishable until claims are accepted.
+- `docs/recommendations/`: the separate agent's ten recommendations (see `00-summary.md`). Spot-checked eight of its findings against the repo; all held. Three were corrections to earlier statements here: the excerpt diagnosis was wrong for two of four sources (O-S05 and O-S07 omit "(b/d)", O-S08 and O-S10 expand it), O-C26 is not supported by its retained excerpt, and the Cape failure was a limit of the waypoint chains I tried, not an inherent limit of drawing routes. Also confirmed: corrections cannot change a claim's predicate, migrations 002 to 006 disable the seed trigger, and the oil pack's 2026-09-10 cutoff label is contradicted by later evidence. README counts fixed. Data repairs need the user's go-ahead.
+- `docs/ui-flows.md`: first-pass UI flows (one persistent shell, screens, Mermaid flows, action verbs, degradation). User decisions recorded: dark style, globe behind other screens, "next"-driven tours, desktop first.
+
+Next: no implementation is scheduled. Open questions are listed at the end of each record.
+
 ## 2026-09-22 — Cesium rendering bug SOLVED: duplicate `@cesium/engine` in the dependency tree
 
 **Root cause: two copies of `@cesium/engine` were installed, producing two `ContextLimits` singletons.**

@@ -1,0 +1,1341 @@
+{
+  "scope": "Read-only filesystem/JSON inspection; not source truth, licence clearance or executed acceptance evaluation",
+  "packs": [
+    {
+      "path": "investigations/01-kamoa-to-cables/evidence-pack.json",
+      "sha256": "a0318b1ec4233cf5f0bbf73e6c41164b2b306c6650d05df7e1aa257d4638b53c",
+      "case_id": "kamoa-to-cables",
+      "counts": {
+        "entities": 20,
+        "claims": 18,
+        "sources": 14,
+        "events": 6
+      },
+      "questions": 12,
+      "question_statuses": {
+        "authored_acceptance_case_not_executed": 12
+      },
+      "metric_groups": 0,
+      "metric_points": 0,
+      "metric_summary": []
+    },
+    {
+      "path": "investigations/02-oil-system/evidence-pack.json",
+      "sha256": "18ceedc1b12f5644275446e73d37db939a5b42c2dca73ddd6a6e37b35aa019f7",
+      "case_id": "oil-system-2025q3-2026q2",
+      "counts": {
+        "entities": 23,
+        "claims": 26,
+        "sources": 20,
+        "events": 8
+      },
+      "questions": 14,
+      "question_statuses": {
+        "authored_acceptance_case_not_executed": 14
+      },
+      "metric_groups": 11,
+      "metric_points": 37,
+      "metric_summary": [
+        {
+          "id": "O-M01",
+          "unit": "million barrels per day",
+          "period_labels": [
+            "2025-Q3",
+            "2025-Q4",
+            "2026-Q1",
+            "2026-Q2"
+          ]
+        },
+        {
+          "id": "O-M02",
+          "unit": "million barrels per day",
+          "period_labels": [
+            "2025-Q3",
+            "2025-Q4",
+            "2026-Q1",
+            "2026-Q2"
+          ]
+        },
+        {
+          "id": "O-M03",
+          "unit": "million barrels per day",
+          "period_labels": [
+            "2025-Q3",
+            "2025-Q4",
+            "2026-Q1",
+            "2026-Q2"
+          ]
+        },
+        {
+          "id": "O-M04",
+          "unit": "million barrels per day",
+          "period_labels": [
+            "2025 average",
+            "2025-H2",
+            "2026-Q2"
+          ]
+        },
+        {
+          "id": "O-M05",
+          "unit": "million barrels per day",
+          "period_labels": [
+            "2026-H1 crude production",
+            "2026-04 crude + product exports",
+            "2026 full-year crude production"
+          ]
+        },
+        {
+          "id": "O-M06",
+          "unit": "million barrels per day",
+          "period_labels": [
+            "Malacca",
+            "Hormuz",
+            "Cape of Good Hope",
+            "Suez + SUMED",
+            "Bab el-Mandeb"
+          ]
+        },
+        {
+          "id": "O-M07",
+          "unit": "million barrels",
+          "period_labels": [
+            "week ending 2026-06-19",
+            "week ending 2026-07-17",
+            "week ending 2026-09-11"
+          ]
+        },
+        {
+          "id": "O-M08",
+          "unit": "million barrels per calendar day",
+          "period_labels": [
+            "2025-01-01",
+            "2026-01-01"
+          ]
+        },
+        {
+          "id": "O-M09",
+          "unit": "percent of operable capacity",
+          "period_labels": [
+            "week ending 2026-06-19",
+            "week ending 2026-09-11"
+          ]
+        },
+        {
+          "id": "O-M10",
+          "unit": "million tonnes",
+          "period_labels": [
+            "2024-25",
+            "2025-26",
+            "2026-27 (Apr-Aug, provisional)"
+          ]
+        },
+        {
+          "id": "O-M11",
+          "unit": "million barrels per day",
+          "period_labels": [
+            "Saudi Arabia",
+            "Iraq",
+            "Russia",
+            "Iran"
+          ]
+        }
+      ]
+    }
+  ],
+  "predicates": {
+    "alternative_to": 3,
+    "anode_offtake_with": 3,
+    "bypasses": 2,
+    "carried_flow_within": 3,
+    "connected_route_with": 1,
+    "connects_to": 1,
+    "consumes": 1,
+    "coordinates_production_policy_for": 1,
+    "exports": 1,
+    "generic_input_for": 1,
+    "held_commercial_stocks_of": 1,
+    "imports": 2,
+    "located_in": 1,
+    "manufactures": 1,
+    "operates": 1,
+    "operates_refining_capacity_of": 1,
+    "part_of": 1,
+    "part_of_production_in": 1,
+    "planned_feed_to": 1,
+    "planned_route_via": 1,
+    "produce": 1,
+    "produced": 1,
+    "produces": 4,
+    "produces_byproduct": 1,
+    "provides_alternative_supply_route_to": 1,
+    "refined_into": 1,
+    "reported_arrived_at": 1,
+    "reported_delivered_to": 1,
+    "served_import_market": 1,
+    "sold_anodes_to": 1,
+    "uses": 2,
+    "wire_rod_contract_with": 1
+  },
+  "kinds": {
+    "estimated_flow": 3,
+    "estimated_trade_share": 1,
+    "forecast_context": 1,
+    "generic_process": 2,
+    "official_statistic": 5,
+    "operating_plan": 1,
+    "reported_alternative_route": 3,
+    "reported_capability": 5,
+    "reported_contract": 4,
+    "reported_decision": 1,
+    "reported_estimate": 2,
+    "reported_event": 3,
+    "reported_infrastructure": 1,
+    "reported_operation": 2,
+    "reported_plan": 1,
+    "reported_rerouting": 1,
+    "reported_structure": 6,
+    "reported_trade": 1,
+    "reported_transaction": 1
+  },
+  "source_statuses": {
+    "government_analysis_read_via_web": 7,
+    "government_statistics_read_via_web": 6,
+    "intergovernmental_analysis_read_via_web": 1,
+    "official_statistics_read_via_web": 2,
+    "participant_announcement_read_via_web": 1,
+    "primary_document_read_via_web": 16,
+    "provider_update_read_via_web": 1
+  },
+  "claims_with_unknown_validity": [
+    "C01",
+    "C02",
+    "C03",
+    "C04",
+    "C05",
+    "C06",
+    "C07",
+    "C08",
+    "C09",
+    "C10",
+    "C11",
+    "C12",
+    "C13",
+    "C14",
+    "C15",
+    "C16",
+    "C17",
+    "C18",
+    "O-C01",
+    "O-C04",
+    "O-C05",
+    "O-C06",
+    "O-C09",
+    "O-C11",
+    "O-C14",
+    "O-C15",
+    "O-C18",
+    "O-C19",
+    "O-C20",
+    "O-C21",
+    "O-C22"
+  ],
+  "all_candidates": true,
+  "all_ground_truth_false": true,
+  "claim_inventory": [
+    {
+      "id": "C01",
+      "predicate": "operates",
+      "kind": "reported_structure",
+      "subject": "kamoa-copper",
+      "object": "complex",
+      "source_as_of": "2026-02-19",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C02",
+      "predicate": "part_of",
+      "kind": "reported_structure",
+      "subject": "kakula",
+      "object": "complex",
+      "source_as_of": "2025-06-13",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C03",
+      "predicate": "produce",
+      "kind": "reported_operation",
+      "subject": "concentrators",
+      "object": "concentrate",
+      "source_as_of": "2026-04-13",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C04",
+      "predicate": "planned_feed_to",
+      "kind": "operating_plan",
+      "subject": "concentrators",
+      "object": "smelter",
+      "source_as_of": "2026-01-02",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C05",
+      "predicate": "produced",
+      "kind": "reported_event",
+      "subject": "smelter",
+      "object": "anodes",
+      "source_as_of": "2026-01-02",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C06",
+      "predicate": "produces_byproduct",
+      "kind": "reported_operation",
+      "subject": "smelter",
+      "object": "acid",
+      "source_as_of": "2026-04-13",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C07",
+      "predicate": "anode_offtake_with",
+      "kind": "reported_contract",
+      "subject": "kamoa-copper",
+      "object": "citic",
+      "source_as_of": "2025-01-08",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C08",
+      "predicate": "anode_offtake_with",
+      "kind": "reported_contract",
+      "subject": "kamoa-copper",
+      "object": "gold-mountains",
+      "source_as_of": "2025-01-08",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C09",
+      "predicate": "anode_offtake_with",
+      "kind": "reported_contract",
+      "subject": "kamoa-copper",
+      "object": "trafigura-asia",
+      "source_as_of": "2025-07-08",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C10",
+      "predicate": "sold_anodes_to",
+      "kind": "reported_transaction",
+      "subject": "trafigura",
+      "object": "aurubis",
+      "source_as_of": "2026-02-19",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C11",
+      "predicate": "reported_delivered_to",
+      "kind": "reported_event",
+      "subject": "anodes",
+      "object": "dry-port",
+      "source_as_of": "2026-02-19",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C12",
+      "predicate": "planned_route_via",
+      "kind": "reported_plan",
+      "subject": "dry-port",
+      "object": "rail",
+      "source_as_of": "2026-02-19",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C13",
+      "predicate": "reported_arrived_at",
+      "kind": "reported_event",
+      "subject": "anodes",
+      "object": "lobito-port",
+      "source_as_of": "2026-04-13",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C14",
+      "predicate": "produces",
+      "kind": "reported_capability",
+      "subject": "aurubis",
+      "object": "cathodes",
+      "source_as_of": "FY2022/23",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C15",
+      "predicate": "produces",
+      "kind": "reported_capability",
+      "subject": "aurubis",
+      "object": "rod",
+      "source_as_of": "FY2022/23 plus undated product page",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C16",
+      "predicate": "wire_rod_contract_with",
+      "kind": "reported_contract",
+      "subject": "aurubis",
+      "object": "prysmian",
+      "source_as_of": "2024-04-23",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C17",
+      "predicate": "manufactures",
+      "kind": "reported_capability",
+      "subject": "prysmian",
+      "object": "cables",
+      "source_as_of": "2024-04-23",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "C18",
+      "predicate": "generic_input_for",
+      "kind": "generic_process",
+      "subject": "rod",
+      "object": "cables",
+      "source_as_of": null,
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-15"
+    },
+    {
+      "id": "O-C01",
+      "predicate": "refined_into",
+      "kind": "generic_process",
+      "subject": "oil-crude",
+      "object": "oil-products",
+      "source_as_of": "2024 structural baseline",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C02",
+      "predicate": "carried_flow_within",
+      "kind": "estimated_flow",
+      "subject": "oil-hormuz",
+      "object": "oil-world",
+      "source_as_of": "2026-Q2",
+      "valid_from": "2026-04-01",
+      "valid_to": "2026-06-30",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C03",
+      "predicate": "carried_flow_within",
+      "kind": "estimated_flow",
+      "subject": "oil-bab",
+      "object": "oil-world",
+      "source_as_of": "2026-Q2",
+      "valid_from": "2026-04-01",
+      "valid_to": "2026-06-30",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C04",
+      "predicate": "bypasses",
+      "kind": "reported_capability",
+      "subject": "oil-east-west",
+      "object": "oil-hormuz",
+      "source_as_of": "page checked 2026-09-22",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C05",
+      "predicate": "connects_to",
+      "kind": "reported_structure",
+      "subject": "oil-east-west",
+      "object": "oil-yanbu",
+      "source_as_of": "2026-09-09",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C06",
+      "predicate": "bypasses",
+      "kind": "reported_capability",
+      "subject": "oil-uae-pipeline",
+      "object": "oil-hormuz",
+      "source_as_of": "page checked 2026-09-22",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C07",
+      "predicate": "imports",
+      "kind": "reported_trade",
+      "subject": "oil-china",
+      "object": "oil-crude",
+      "source_as_of": "2026-Q2",
+      "valid_from": "2026-04-01",
+      "valid_to": "2026-06-30",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C08",
+      "predicate": "consumes",
+      "kind": "official_statistic",
+      "subject": "oil-china-refining",
+      "object": "oil-crude",
+      "source_as_of": "2026-06",
+      "valid_from": "2026-06-01",
+      "valid_to": "2026-06-30",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C09",
+      "predicate": "located_in",
+      "kind": "reported_structure",
+      "subject": "oil-china-refining",
+      "object": "oil-china",
+      "source_as_of": "2026-06",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C10",
+      "predicate": "produces",
+      "kind": "reported_estimate",
+      "subject": "oil-us",
+      "object": "oil-crude",
+      "source_as_of": "2026-H1",
+      "valid_from": "2026-01-01",
+      "valid_to": "2026-06-30",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C11",
+      "predicate": "part_of_production_in",
+      "kind": "forecast_context",
+      "subject": "oil-permian",
+      "object": "oil-us",
+      "source_as_of": "2026 forecast",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C12",
+      "predicate": "exports",
+      "kind": "official_statistic",
+      "subject": "oil-us",
+      "object": "oil-products",
+      "source_as_of": "2026-04",
+      "valid_from": "2026-04-01",
+      "valid_to": "2026-04-30",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C13",
+      "predicate": "coordinates_production_policy_for",
+      "kind": "reported_decision",
+      "subject": "oil-opec-plus",
+      "object": "oil-crude",
+      "source_as_of": "2026-09-06",
+      "valid_from": "2026-10-01",
+      "valid_to": "2026-10-31",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C14",
+      "predicate": "uses",
+      "kind": "reported_rerouting",
+      "subject": "oil-saudi",
+      "object": "oil-east-west",
+      "source_as_of": "2026-09-09",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C15",
+      "predicate": "uses",
+      "kind": "reported_structure",
+      "subject": "oil-uae",
+      "object": "oil-uae-pipeline",
+      "source_as_of": "page checked 2026-09-22",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C16",
+      "predicate": "carried_flow_within",
+      "kind": "estimated_flow",
+      "subject": "oil-malacca",
+      "object": "oil-world",
+      "source_as_of": "2025-H1",
+      "valid_from": "2025-01-01",
+      "valid_to": "2025-06-30",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C17",
+      "predicate": "served_import_market",
+      "kind": "estimated_trade_share",
+      "subject": "oil-malacca",
+      "object": "oil-china",
+      "source_as_of": "2025-H1",
+      "valid_from": "2025-01-01",
+      "valid_to": "2025-06-30",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C18",
+      "predicate": "connected_route_with",
+      "kind": "reported_structure",
+      "subject": "oil-suez-sumed",
+      "object": "oil-bab",
+      "source_as_of": "2025-H1 baseline",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C19",
+      "predicate": "alternative_to",
+      "kind": "reported_alternative_route",
+      "subject": "oil-cape-good-hope",
+      "object": "oil-bab",
+      "source_as_of": "2025-H1 baseline",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C20",
+      "predicate": "alternative_to",
+      "kind": "reported_alternative_route",
+      "subject": "oil-sunda",
+      "object": "oil-malacca",
+      "source_as_of": "2025-H1 baseline",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C21",
+      "predicate": "alternative_to",
+      "kind": "reported_alternative_route",
+      "subject": "oil-lombok",
+      "object": "oil-malacca",
+      "source_as_of": "2025-H1 baseline",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C22",
+      "predicate": "provides_alternative_supply_route_to",
+      "kind": "reported_infrastructure",
+      "subject": "oil-myanmar-china-pipeline",
+      "object": "oil-china",
+      "source_as_of": "2025-H1 baseline",
+      "valid_from": null,
+      "valid_to": null,
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C23",
+      "predicate": "held_commercial_stocks_of",
+      "kind": "official_statistic",
+      "subject": "oil-us",
+      "object": "oil-crude",
+      "source_as_of": "week ending 2026-09-11",
+      "valid_from": "2026-09-05",
+      "valid_to": "2026-09-11",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C24",
+      "predicate": "operates_refining_capacity_of",
+      "kind": "official_statistic",
+      "subject": "oil-us",
+      "object": "oil-crude",
+      "source_as_of": "2026-01-01",
+      "valid_from": "2026-01-01",
+      "valid_to": "2026-01-01",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C25",
+      "predicate": "imports",
+      "kind": "official_statistic",
+      "subject": "oil-india",
+      "object": "oil-crude",
+      "source_as_of": "2026-27 (Apr-Aug, provisional)",
+      "valid_from": "2026-04-01",
+      "valid_to": "2026-08-31",
+      "recorded_on": "2026-09-22"
+    },
+    {
+      "id": "O-C26",
+      "predicate": "produces",
+      "kind": "reported_estimate",
+      "subject": "oil-iraq",
+      "object": "oil-crude",
+      "source_as_of": "2026-08",
+      "valid_from": "2026-08-01",
+      "valid_to": "2026-08-31",
+      "recorded_on": "2026-09-22"
+    }
+  ],
+  "extension_controls_present": [
+    "pg_trgm",
+    "unaccent",
+    "fuzzystrmatch"
+  ],
+  "root_licence_files": [],
+  "reference_asset_inventory": [
+    {
+      "path": "DATA_SOURCES.md",
+      "bytes": 59514,
+      "sha256": "5262107f233a7cada9d30bd63eb5fe95cbb10ca76f2e5893398e59e8ee4d690e"
+    },
+    {
+      "path": "docs/media/01-style-sweep.gif",
+      "bytes": 1004961,
+      "sha256": "990b50146640d1060def7a15a0460ee5fb210dcbbf3d9b4e7add930be18f81af"
+    },
+    {
+      "path": "docs/media/01-voice-annotate-zilker.gif",
+      "bytes": 5917886,
+      "sha256": "ca91378f5db86c7ebb06ae0c81889a23edee23ae072e71a06f93480dcfe5df8e"
+    },
+    {
+      "path": "docs/media/03-austin-cctv.gif",
+      "bytes": 6064699,
+      "sha256": "dc4eaeba74a517ee62ca6c7e85bb64afaf132f771a732b3922e26c8fc12946be"
+    },
+    {
+      "path": "docs/media/04-airport-distance.gif",
+      "bytes": 3188741,
+      "sha256": "e49bae11fc7f74203745ba483be5d90699aab5fcb257d7eab38fb1f7d0643b16"
+    },
+    {
+      "path": "docs/media/05-traffic-to-cctv.gif",
+      "bytes": 5080454,
+      "sha256": "d1982dccb00ef04509848a9599bc1694fb80aac69e66f7f2388528ca093a269e"
+    },
+    {
+      "path": "docs/media/06-cockpit-ar.gif",
+      "bytes": 5557461,
+      "sha256": "d04fc1326f7828d88510deb43321b0a9795842a4a0e226112310851d67fa7322"
+    },
+    {
+      "path": "docs/media/07-helicopter-loops.gif",
+      "bytes": 6242391,
+      "sha256": "2327154649403cba406b4451722eb94cecb837ec60389b24fd3bcddd04019dfd"
+    },
+    {
+      "path": "docs/media/08-boneyard.gif",
+      "bytes": 5014073,
+      "sha256": "d4c0e1ff24693f1bee61db3ecf04290a7c3457d730026eed6e373c04e6d429d9"
+    },
+    {
+      "path": "docs/media/08-falcon9-replay.gif",
+      "bytes": 910111,
+      "sha256": "729fee66c6e2465358f3f2a3b981271b45066d15e203b4450faff153cfb957c1"
+    },
+    {
+      "path": "docs/media/09-undersea-cables.gif",
+      "bytes": 1886522,
+      "sha256": "8504852abcc786d7b9e35efc4e6ba68da6bca5e56f8a914389a3fa57edff612c"
+    },
+    {
+      "path": "docs/media/10-walking-route-flythrough.gif",
+      "bytes": 3876526,
+      "sha256": "c8578f5e41ed738e25e0802339d05788f78dd7dff9d0b267566767c94805a903"
+    },
+    {
+      "path": "docs/media/12-switch-aircraft-cockpit.gif",
+      "bytes": 2259945,
+      "sha256": "d35e2e5fcd3c5e37d4b5fb4142033187460cabcd0f05fd0ac487b355c1131a33"
+    },
+    {
+      "path": "docs/media/14-iss-over-ukraine.gif",
+      "bytes": 3102742,
+      "sha256": "f32b93f513b35a3bd746824af72b00cfb51aba0c9ef18708282068bfc19bf52b"
+    },
+    {
+      "path": "docs/media/15-global-radio-layer.gif",
+      "bytes": 2776244,
+      "sha256": "2bc85b54570f48bc6aeae833481dd4e4f697a148226fca6861b63ff2a4c9d4bf"
+    },
+    {
+      "path": "docs/media/hero-open-source-reveal.gif",
+      "bytes": 6487951,
+      "sha256": "8da6943138231c130a62cba938c7508bcd77857f554ce59fd2805cd81adfda8a"
+    },
+    {
+      "path": "docs/media/open-source-survey.png",
+      "bytes": 130925,
+      "sha256": "d1eee944eaf04d9063d0251d21e1c8eb3b30471dc576044bab58917e35995924"
+    },
+    {
+      "path": "docs/media/README.md",
+      "bytes": 2905,
+      "sha256": "86f9c9551dedabedd1346c39e2847b233c396c3044f86de35e4ee2e431b4d7d6"
+    },
+    {
+      "path": "docs/media/start-here/airport-ground-traffic-google-3d.gif",
+      "bytes": 1226853,
+      "sha256": "3f1a57d5a9cf17d3371e936a86ea6aff82a406d6f30771bc82c217d8261f6876"
+    },
+    {
+      "path": "docs/media/start-here/military-cockpit-dense-google-3d.gif",
+      "bytes": 8550813,
+      "sha256": "7e25e49d08bcfee317e25496751fcee55844e5cdb0b3911c7cd395244eadfc3c"
+    },
+    {
+      "path": "docs/media/youtube-popular-videos.png",
+      "bytes": 980981,
+      "sha256": "2bab334300d0327d9016fde5bd973eb662ad1c20f7c7ded7888e7660250010a3"
+    },
+    {
+      "path": "index.html",
+      "bytes": 1817,
+      "sha256": "10bfe30778ac25372653a7e461e94b0bab6567fa660f222a005375682c7e4f18"
+    },
+    {
+      "path": "LICENSE",
+      "bytes": 3281,
+      "sha256": "b231bb38e2d4eab741643126087cbe9df2b58e2f2e5abf27ad613d05f52b01ca"
+    },
+    {
+      "path": "public/events/bhote-koshi-2026/event.json",
+      "bytes": 42175,
+      "sha256": "1b71d1c805ef0072c3cc4b759f2310785e20eb3ae8c539d59dad1e74de3370fe"
+    },
+    {
+      "path": "public/events/bhote-koshi-2026/post.webp",
+      "bytes": 1004808,
+      "sha256": "7f68c306e2bc22d19d587a30d2d9c1ddd20845acca5a0482fa0ca3cdc35a5a6b"
+    },
+    {
+      "path": "public/events/bhote-koshi-2026/pre.webp",
+      "bytes": 1353906,
+      "sha256": "8976e32f7dcf1b2966de8223dbb19247091cc21914c177fa1a136271fcba6e13"
+    },
+    {
+      "path": "public/events/bhote-koshi-2026/README.md",
+      "bytes": 3735,
+      "sha256": "c64a05d461ce35b5f62cf5865305778120efb1ac86238a0d7674f3e12d170c27"
+    },
+    {
+      "path": "public/location.svg",
+      "bytes": 325,
+      "sha256": "3d4472c928f7d01afb121ad7fcd949f516b7ea9e8125d9e63fd2c6abec3df74b"
+    },
+    {
+      "path": "public/logo.svg",
+      "bytes": 8434,
+      "sha256": "9984443bf385b0f2eb41401ff0416cf2250db3c176e8ddd8a6d5d91c93a6b880"
+    },
+    {
+      "path": "public/mic.svg",
+      "bytes": 498,
+      "sha256": "628b68fcdf9d2cd0bd37b07adfb918f7804c6d35ddfa3b169703dd21a10a4eb1"
+    },
+    {
+      "path": "public/models/airplane.glb",
+      "bytes": 88144,
+      "sha256": "6780e81a4ce48c04e4c36404bf8bdd2e647933b2995f8cc62a81f9b9d9caf91f"
+    },
+    {
+      "path": "public/models/atr72.glb",
+      "bytes": 263948,
+      "sha256": "4641e4cd87015dfcbd94d6ec2f1f0a1d6423d814413ce6df8e8f874cb96b1915"
+    },
+    {
+      "path": "public/models/b789.glb",
+      "bytes": 470200,
+      "sha256": "182963a700f02102c8aa3a11e467a33df383cdf1c58418e561104439dfec61af"
+    },
+    {
+      "path": "public/models/bell206.glb",
+      "bytes": 320788,
+      "sha256": "6a47c8b2c13106e40219483598ef772da35b63261688406f427f24c5a8f92027"
+    },
+    {
+      "path": "public/models/c172.glb",
+      "bytes": 526088,
+      "sha256": "aba52b6b784534db63c1712b0189ce1b74a94edea586b41db9b795f9be3601d8"
+    },
+    {
+      "path": "public/models/citation2.glb",
+      "bytes": 562036,
+      "sha256": "5c8a7a98cdbb24faac928370df7f3adc03da8388663a6bb856b59366d271af1e"
+    },
+    {
+      "path": "public/models/jet.glb",
+      "bytes": 270988,
+      "sha256": "ac33dc352dc4ef17946680d0ada5cd530e7a4bed95c6ef4aaf2153c381d4bd1a"
+    },
+    {
+      "path": "public/models/mq9.glb",
+      "bytes": 542880,
+      "sha256": "18e8588f44ed4522f838b5d1ce1ead6ef4c08dc5536e21cf7f2d8e60b045ad35"
+    },
+    {
+      "path": "public/models/README.md",
+      "bytes": 4929,
+      "sha256": "0e773b75019c0c39f8689d8cc1ce6d4e4a8ab3f995d413413d775c27827612f9"
+    },
+    {
+      "path": "public/models/ship.glb",
+      "bytes": 230024,
+      "sha256": "48665716be710479635171b3169f3f056e4785ca1e979089e3d47a83bf480d9a"
+    },
+    {
+      "path": "public/pin.svg",
+      "bytes": 489,
+      "sha256": "01184acd8cc80fc19525b3b1bbd4904c77cac38cc43329a8ed0e861e74fcfa62"
+    },
+    {
+      "path": "public/visual-presets.svg",
+      "bytes": 351,
+      "sha256": "bcab34a5a2b20c958a1c2bfbafe6344feb2595da9d338431036cf002009d5177"
+    },
+    {
+      "path": "src/data/bhoteKoshiFloodPath.js",
+      "bytes": 19468,
+      "sha256": "c2f69cb9e4f4be1b96f86f7fde603279f6938987b291ba1f6881133ba6227493"
+    },
+    {
+      "path": "src/data/local_data/cctv_ground_heights/cctv_ground_heights.json",
+      "bytes": 1991265,
+      "sha256": "a52ca3953224fbcc29363badac28318263396b1167a6924bf756e5968392a0f3"
+    },
+    {
+      "path": "src/data/local_data/cctv_ground_heights/README.md",
+      "bytes": 1631,
+      "sha256": "ade9646783852ebf2cb60cd0aba3525bae1efc09a324a5d7f60182741d2b678b"
+    },
+    {
+      "path": "src/data/local_data/dams/dams.geojson",
+      "bytes": 730321,
+      "sha256": "034f57cd88bbfc53e78b92328a044365dee7571b1f66e6e13278d54691244efa"
+    },
+    {
+      "path": "src/data/local_data/dams/dams.geojsonl",
+      "bytes": 730280,
+      "sha256": "f2b6f3166bee6dba4f0b569553a14c84faeb0048eb522bacd4d9c78e93d30d30"
+    },
+    {
+      "path": "src/data/local_data/dams/README.md",
+      "bytes": 621,
+      "sha256": "38fd328c121aa798bd9e3d770acb8bf9602058b18e4e8806dc2de5a9f58ab401"
+    },
+    {
+      "path": "src/data/local_data/datacenters/datacenters.geojsonl",
+      "bytes": 2561978,
+      "sha256": "089144857a5ca001b0238c8f9316a3cc229b6c79a73558ac2660e206e0e59968"
+    },
+    {
+      "path": "src/data/local_data/datacenters/README.md",
+      "bytes": 760,
+      "sha256": "f132b903c041a15e6d898e379e86004382dfac9bc86b506c9f30647630682089"
+    },
+    {
+      "path": "src/data/local_data/natural_earth/marine.json",
+      "bytes": 633342,
+      "sha256": "3fd509366f15ab086755a62a99150f65da407572e48ad4c602172fea716fa74f"
+    },
+    {
+      "path": "src/data/local_data/natural_earth/README.md",
+      "bytes": 2000,
+      "sha256": "5c8d4073e7490fbcbb0943b722df0b5a3f54fa8a8eca0498577161c425f9cf51"
+    },
+    {
+      "path": "src/data/local_data/natural_earth/regions.json",
+      "bytes": 1987099,
+      "sha256": "0c7652965095db0365a9bdf3170994b48e0138a781ab4110af533f42fe9f48c7"
+    },
+    {
+      "path": "src/data/local_data/neighborhoods/san-francisco.json",
+      "bytes": 222167,
+      "sha256": "55c538680628b1ed5afa6627ec3abd83c3ba70b5dd4912a46d3d0f6892f807e5"
+    },
+    {
+      "path": "src/data/local_data/neighborhoods/SOURCE.md",
+      "bytes": 2867,
+      "sha256": "083f5ce50d27aa6eaca3a82fd7571c23c1369bb9339f33b21d4d9ff943ca2c38"
+    },
+    {
+      "path": "src/data/local_data/telegeography_submarine_cables/cable-geo.json",
+      "bytes": 728308,
+      "sha256": "3d28db104e57982e7ae67fabe66f2ff8dc01e137458454e0de0032a8878c6bad"
+    },
+    {
+      "path": "src/data/local_data/telegeography_submarine_cables/landing-point-geo.json",
+      "bytes": 359269,
+      "sha256": "11fc154189db51237099ffe1da2183984d666a906e5ed0e89b86421192eb622b"
+    },
+    {
+      "path": "src/data/local_data/telegeography_submarine_cables/README.md",
+      "bytes": 1460,
+      "sha256": "512bfe853af9bacaf29cc09a55082ede42ebea303decb1cb51c20e5304ca25aa"
+    },
+    {
+      "path": "src/data/local_data/telegeography_submarine_cables/source.json",
+      "bytes": 1113,
+      "sha256": "16d7ea86bf43ab286a07612b5ae23bd9bac7d21f28d598bf41754b3a1a94dc31"
+    },
+    {
+      "path": "src/layers/alpr/assets/alpr-marker-normal.png",
+      "bytes": 13199,
+      "sha256": "1c0466197eb33b32a11355ebd4d91f723455af1e6eaa1769285528490b29294c"
+    },
+    {
+      "path": "src/layers/alpr/assets/alpr-marker-selected-brackets.png",
+      "bytes": 4733,
+      "sha256": "76c719e74686935097654343d802fd087ca4e975787b8e20fcf8e401bf49a211"
+    },
+    {
+      "path": "src/layers/alpr/assets/alpr-marker-selected.png",
+      "bytes": 10261,
+      "sha256": "731909db2cb1792870abe6cb5d2693cfb2062fad93f70aa4de976fa0fc82a0ec"
+    },
+    {
+      "path": "src/ui/styles/bhote-koshi.css",
+      "bytes": 13319,
+      "sha256": "c8fecc195e9e9055bd3f21ba9c202e66155f4f9b570d331331b398113d4c7f01"
+    },
+    {
+      "path": "src/ui/styles/cctv.css",
+      "bytes": 8434,
+      "sha256": "89f20ee705a25aef89cb2a2d7e6e771242b6f978eb5460cd1dc15cc6d0f3522c"
+    },
+    {
+      "path": "src/ui/styles/cockpit.css",
+      "bytes": 53999,
+      "sha256": "aae39e9dceeaf1915f473f67c11ab4639aac62435983d5504384597baf778bb5"
+    },
+    {
+      "path": "src/ui/styles/command-dock-compact.css",
+      "bytes": 9843,
+      "sha256": "2cec22994fcd6a2e62628342993abaf63693fc34a7924bfd0fe3e416e01d9a88"
+    },
+    {
+      "path": "src/ui/styles/command-dock-sliding.css",
+      "bytes": 20079,
+      "sha256": "9124a030b682addb88b490ea14f5fce11966cacde8c27e61b40351049cc790f1"
+    },
+    {
+      "path": "src/ui/styles/command-dock-trays.css",
+      "bytes": 12313,
+      "sha256": "a071e4d1a938d3cf69e1db1bf268bee3d6ec859ab24073ed6eba6303585bcb96"
+    },
+    {
+      "path": "src/ui/styles/command-dock.css",
+      "bytes": 6552,
+      "sha256": "43315bd762eeb4f49e3f11f5d1c5b1cb0528ca937df2d4a6246a501e62c8266d"
+    },
+    {
+      "path": "src/ui/styles/controls.css",
+      "bytes": 25737,
+      "sha256": "68f9ecfb93247c18b90a7698f35a1de909b0c6629238f3ff1c2f7fd725873854"
+    },
+    {
+      "path": "src/ui/styles/first-run.css",
+      "bytes": 10556,
+      "sha256": "1ecb3dc794efbe10a560d8188a29630b643a00aed17be8f38119667e5fbf9bd5"
+    },
+    {
+      "path": "src/ui/styles/foundation.css",
+      "bytes": 17828,
+      "sha256": "33060991a7c9c9be88bc8a42de8138698797ffef636ab1d3b224cac60daab4b7"
+    },
+    {
+      "path": "src/ui/styles/layers.css",
+      "bytes": 32897,
+      "sha256": "7ae8a4e3b2d92d3077c64d1c6fc5f9e50c9bb6ed6ca7b17b7cb53d0f8cd6cc63"
+    },
+    {
+      "path": "src/ui/styles/location.css",
+      "bytes": 6285,
+      "sha256": "942d39debf0517f0e42ecc2684a5c094717f39136defdec6e7a2a517e3fe3683"
+    },
+    {
+      "path": "src/ui/styles/overlays.css",
+      "bytes": 7245,
+      "sha256": "6c551da403d6f0eef247b1594070628fd7e542727d889547a3961b15d967fddb"
+    },
+    {
+      "path": "src/ui/styles/provider-settings.css",
+      "bytes": 8935,
+      "sha256": "a8f5017455b0ca90451d62c4bd67af2398317964baffc3db942a7806e5b78c30"
+    },
+    {
+      "path": "src/ui/styles/radio.css",
+      "bytes": 19915,
+      "sha256": "e802338f08b7978e5a70c6294198e7a447812fe8860dc2cde1a93fc6f29f1e0f"
+    },
+    {
+      "path": "src/ui/styles/recording.css",
+      "bytes": 1161,
+      "sha256": "ab11f2df0cb807b7708bd50c742ed468d3afe383e8ac5d3245d889763b0eede1"
+    },
+    {
+      "path": "src/ui/styles/responsive.css",
+      "bytes": 5606,
+      "sha256": "18f4fbe11119d4326eae0adfe50e3cca40435fc4abd45d9115cd6c4a4cb54e22"
+    },
+    {
+      "path": "src/ui/styles/scenes.css",
+      "bytes": 10798,
+      "sha256": "ce5320588a046cf1c25c0dd45afe1d87bde58895c46e49da881fcb44ba37f123"
+    },
+    {
+      "path": "src/ui/styles/status.css",
+      "bytes": 11777,
+      "sha256": "1a10bb79e42c49db88778eb7bb5f1fa3962ee72983b88cec2ab7f5fc5e534538"
+    },
+    {
+      "path": "src/ui/styles/voice-cost.css",
+      "bytes": 2372,
+      "sha256": "6e566f4450de537c8f91939d0f4ecf8280f81961bc2af9fa58de9fc4d8adf656"
+    },
+    {
+      "path": "style.css",
+      "bytes": 920,
+      "sha256": "afa020fc69b01fa33c68cfe674ff7dee0654a0375da9330c3cc42258e8577090"
+    }
+  ],
+  "cesium_third_party_declarations_not_independent_clearance": [
+    {
+      "name": "@tweenjs/tween.js",
+      "license": [
+        "MIT"
+      ],
+      "version": "25.0.0",
+      "url": "https://www.npmjs.com/package/@tweenjs/tween.js"
+    },
+    {
+      "name": "@zip.js/zip.js",
+      "license": [
+        "BSD-3-Clause"
+      ],
+      "version": "2.8.16",
+      "url": "https://www.npmjs.com/package/@zip.js/zip.js"
+    },
+    {
+      "name": "autolinker",
+      "license": [
+        "MIT"
+      ],
+      "version": "4.1.5",
+      "url": "https://www.npmjs.com/package/autolinker"
+    },
+    {
+      "name": "basis_universal",
+      "license": [
+        "Apache-2.0"
+      ],
+      "version": "1.15",
+      "url": "https://github.com/BinomialLLC/basis_universal"
+    },
+    {
+      "name": "bitmap-sdf",
+      "license": [
+        "MIT"
+      ],
+      "version": "1.0.4",
+      "url": "https://www.npmjs.com/package/bitmap-sdf"
+    },
+    {
+      "name": "dompurify",
+      "license": [
+        "Apache-2.0"
+      ],
+      "version": "3.3.1",
+      "url": "https://www.npmjs.com/package/dompurify",
+      "notes": "dompurify is available as both MPL-2.0 OR Apache-2.0"
+    },
+    {
+      "name": "draco3d",
+      "license": [
+        "Apache-2.0"
+      ],
+      "version": "1.5.7",
+      "url": "https://www.npmjs.com/package/draco3d"
+    },
+    {
+      "name": "earcut",
+      "license": [
+        "ISC"
+      ],
+      "version": "3.0.2",
+      "url": "https://www.npmjs.com/package/earcut"
+    },
+    {
+      "name": "grapheme-splitter",
+      "license": [
+        "MIT"
+      ],
+      "version": "1.0.4",
+      "url": "https://www.npmjs.com/package/grapheme-splitter"
+    },
+    {
+      "name": "jsep",
+      "license": [
+        "MIT"
+      ],
+      "version": "1.4.0",
+      "url": "https://www.npmjs.com/package/jsep"
+    },
+    {
+      "name": "kdbush",
+      "license": [
+        "ISC"
+      ],
+      "version": "4.0.2",
+      "url": "https://www.npmjs.com/package/kdbush"
+    },
+    {
+      "name": "Knockout",
+      "license": [
+        "MIT"
+      ],
+      "version": "3.5.1",
+      "url": "https://knockoutjs.com/"
+    },
+    {
+      "name": "Knockout ES5 plugin",
+      "license": [
+        "MIT"
+      ],
+      "version": "0.4.6",
+      "url": "https://github.com/SteveSanderson/knockout-es5"
+    },
+    {
+      "name": "ktx-parse",
+      "license": [
+        "MIT"
+      ],
+      "version": "1.1.0",
+      "url": "https://www.npmjs.com/package/ktx-parse"
+    },
+    {
+      "name": "lerc",
+      "license": [
+        "Apache-2.0"
+      ],
+      "version": "2.0.0",
+      "url": "https://www.npmjs.com/package/lerc"
+    },
+    {
+      "name": "mersenne-twister",
+      "license": [
+        "MIT"
+      ],
+      "version": "1.1.0",
+      "url": "https://www.npmjs.com/package/mersenne-twister"
+    },
+    {
+      "name": "meshoptimizer",
+      "license": [
+        "MIT"
+      ],
+      "version": "1.0.1",
+      "url": "https://www.npmjs.com/package/meshoptimizer"
+    },
+    {
+      "name": "nosleep.js",
+      "license": [
+        "MIT"
+      ],
+      "version": "0.12.0",
+      "url": "https://www.npmjs.com/package/nosleep.js"
+    },
+    {
+      "name": "pako",
+      "license": [
+        "MIT"
+      ],
+      "version": "2.1.0",
+      "url": "https://www.npmjs.com/package/pako",
+      "notes": "pako is MIT, and its dependency zlib is attributed separately"
+    },
+    {
+      "name": "protobufjs",
+      "license": [
+        "BSD-3-Clause"
+      ],
+      "version": "8.0.0",
+      "url": "https://www.npmjs.com/package/protobufjs"
+    },
+    {
+      "name": "rbush",
+      "license": [
+        "MIT"
+      ],
+      "version": "4.0.1",
+      "url": "https://www.npmjs.com/package/rbush"
+    },
+    {
+      "name": "topojson-client",
+      "license": [
+        "ISC"
+      ],
+      "version": "3.1.0",
+      "url": "https://www.npmjs.com/package/topojson-client"
+    },
+    {
+      "name": "urijs",
+      "license": [
+        "MIT"
+      ],
+      "version": "1.19.11",
+      "url": "https://www.npmjs.com/package/urijs"
+    }
+  ]
+}
