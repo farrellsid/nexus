@@ -144,3 +144,29 @@ test('the action layer plays the tour, refuses a bad request, and global context
   expect(await enabledLayers()).toEqual(['nexus-oil-stops', 'nexus-oil-corridors']);
   expect((await run('stop_tour', {})).ok).toBe(true);
 });
+
+test('a hostile share hash is ignored: no errors, and the shell opens on its own view', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/#lat=999&lon=NaN&alt=1e300&style=__proto__&map=%3Cscript%3E&hud=constructor&v=2&l=evil');
+  await page.waitForFunction(() => window.__godsEyeView?.viewer, null, { timeout: 60_000 });
+  await page.waitForFunction(
+    () => Math.abs(window.__godsEyeView.viewer.camera.positionCartographic.height - 12_000_000) < 50_000,
+    null,
+    { timeout: 30_000 },
+  );
+  expect(errors).toEqual([]);
+});
+
+test('a well-formed share hash restores its view', async ({ page }) => {
+  await page.goto('/#v=2&lat=12.5&lon=43.3&alt=600000&heading=0&pitch=-60&roll=0&style=normal&map=esri-imagery');
+  await page.waitForFunction(() => window.__godsEyeView?.viewer, null, { timeout: 60_000 });
+  await page.waitForFunction(
+    () => {
+      const position = window.__godsEyeView.viewer.camera.positionCartographic;
+      return Math.abs((position.latitude * 180) / Math.PI - 12.5) < 0.5 && Math.abs(position.height - 600_000) < 20_000;
+    },
+    null,
+    { timeout: 30_000 },
+  );
+});

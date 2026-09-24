@@ -48,6 +48,16 @@ const URL_TO_STYLE = Object.fromEntries(
   Object.entries(STYLE_TO_URL).map(([k, v]) => [v, k]),
 );
 
+// What a camera can be. A hash is untrusted text, so every number in it is held to these ranges
+// before it reaches Cesium, and every name is looked up by its own properties only, so a value like
+// `constructor` or `__proto__` is never mistaken for a style.
+const MAX_CAMERA_HEIGHT_M = 60_000_000;
+const MIN_CAMERA_HEIGHT_M = 1;
+const HUD_VARIANTS = new Set(['tactical', 'operator', 'minimal']);
+const MAP_STACK_ID = /^[a-z0-9-]{1,32}$/;
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
 const SHARE_STYLE_PARAM_REGISTRY = Object.freeze({
   retro: Object.freeze([
     { key: 'pixelation', token: 'p', min: 1, max: 10 },
@@ -148,25 +158,35 @@ export class ShareLinkManager {
     const lat = parseFloat(params.get('lat'));
     const lon = parseFloat(params.get('lon'));
 
-    // Coordinates drive Cartesian conversion, so reject non-finite URL values
-    // before marking a share restoration as pending. `parseFloat('Infinity')`
-    // is not NaN and would otherwise reach Cesium asynchronously at startup.
-    if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
+    // Coordinates drive Cartesian conversion, so reject non-finite or off-Earth
+    // URL values before marking a share restoration as pending.
+    // `parseFloat('Infinity')` is not NaN and would otherwise reach Cesium
+    // asynchronously at startup.
+    if (!Number.isFinite(lat) || Math.abs(lat) > 90) return null;
+    if (!Number.isFinite(lon) || Math.abs(lon) > 180) return null;
 
     const parseOr = (value, fallback) => {
       const num = parseFloat(value);
       return Number.isFinite(num) ? num : fallback;
     };
 
-    const style = URL_TO_STYLE[params.get('style')] || 'normal';
+    const styleName = params.get('style');
+    const style =
+      styleName !== null && Object.hasOwn(URL_TO_STYLE, styleName)
+        ? URL_TO_STYLE[styleName]
+        : 'normal';
     const decodedLayerState = decodeLayerStateParams(params);
     const state = {
       lat,
       lon,
-      alt: parseOr(params.get('alt'), 800),
-      heading: parseOr(params.get('heading'), 0),
-      pitch: parseOr(params.get('pitch'), -35),
-      roll: parseOr(params.get('roll'), 0),
+      alt: clamp(
+        parseOr(params.get('alt'), 800),
+        MIN_CAMERA_HEIGHT_M,
+        MAX_CAMERA_HEIGHT_M,
+      ),
+      heading: clamp(parseOr(params.get('heading'), 0), -360, 360),
+      pitch: clamp(parseOr(params.get('pitch'), -35), -90, 90),
+      roll: clamp(parseOr(params.get('roll'), 0), -360, 360),
       style,
       styleParams: decodeStyleParamState(params, style),
       bloom: params.get('bloom') === '1',
@@ -174,7 +194,9 @@ export class ShareLinkManager {
       bloomIntensity: parseOr(params.get('bi'), LEGACY_BLOOM_FALLBACK),
       bloomVersion: parseOr(params.get('bv'), 1),
       sharpenIntensity: parseOr(params.get('si'), 49),
-      hudVariant: params.get('hud') || 'tactical',
+      hudVariant: HUD_VARIANTS.has(params.get('hud'))
+        ? params.get('hud')
+        : 'tactical',
       hudVisible: params.get('hv') === '1',
       celestialRing: params.has('cr') ? params.get('cr') === '1' : false,
       scopeEnabled: params.has('sc') ? params.get('sc') === '1' : true,
@@ -199,7 +221,9 @@ export class ShareLinkManager {
       scopeTerminusPct: params.has('sce')
         ? clampScopeTerminusPct(params.get('sce'))
         : null,
-      mapStack: params.get('map') || 'esri-imagery',
+      mapStack: MAP_STACK_ID.test(params.get('map') ?? '')
+        ? params.get('map')
+        : 'esri-imagery',
       layerState: decodedLayerState,
       layerStateInvalid:
         params.get('v') === '2' &&
