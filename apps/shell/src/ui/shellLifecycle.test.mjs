@@ -218,13 +218,13 @@ test('feedback disposal clears toast and polling work and rejects retained notic
   try {
     const owner = new ShellFeedback({ readLayers: () => [] });
     owner.observeVisibility();
-    owner._startTrafficChipTicker();
+    owner._startFeedbackTicker();
     owner._showToast('Saved');
     assert.equal(f.timers.size, 2);
     owner.destroy();
     owner._showToast('Late');
     owner._showGlobalStatusNotice('Late');
-    owner._startTrafficChipTicker();
+    owner._startFeedbackTicker();
     document.dispatchEvent(new Event('visibilitychange'));
     assert.equal(f.timers.size, 0);
     assert.equal(f.nodes.get('toast').textContent, 'Saved');

@@ -322,7 +322,6 @@ export const LAYER_STATE_REGISTRY = Object.freeze([
     token: 'z',
     disposition: 'enabled-only',
   }),
-  Object.freeze({ id: 'bikeshare', token: 'b', disposition: 'enabled-only' }),
   Object.freeze({
     id: 'cctv',
     token: 'c',
@@ -376,8 +375,6 @@ export const LAYER_STATE_REGISTRY = Object.freeze([
     disposition: 'enabled+options',
     optionOwner: 'satellites',
   }),
-  Object.freeze({ id: 'traffic', token: 't', disposition: 'enabled-only' }),
-  Object.freeze({ id: 'transit', token: 'j', disposition: 'enabled-only' }),
 ]);
 
 export const REGISTERED_LAYER_IDS = Object.freeze(

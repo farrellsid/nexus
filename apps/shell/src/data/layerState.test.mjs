@@ -158,9 +158,9 @@ function encode(state) {
 
 test('production registry is exact, canonical, and rejects incomplete contracts', async () => {
   assert.equal(validateLayerStateRegistry(), true);
-  assert.equal(REGISTERED_LAYER_IDS.length, 19);
-  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 19);
-  assert.ok(REGISTERED_LAYER_IDS.includes('transit'));
+  assert.equal(REGISTERED_LAYER_IDS.length, 16);
+  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 16);
+  assert.ok(REGISTERED_LAYER_IDS.includes('radio'));
   assert.deepEqual(REGISTERED_LAYER_IDS, [...REGISTERED_LAYER_IDS].sort());
   assert.throws(
     () => validateLayerStateRegistry([...LAYER_STATE_REGISTRY, LAYER_STATE_REGISTRY[0]]),
@@ -205,7 +205,7 @@ test('v2 codec distinguishes absent from empty and keeps canonical deterministic
   });
 
   const first = normalizeLayerState({
-    enabledLayerIds: ['traffic', 'cctv', 'local-dams', 'cctv'],
+    enabledLayerIds: ['local-datacenters', 'cctv', 'local-dams', 'cctv'],
     options: {
       radio: { volume: 0.37, filter: 'news' },
       cctv: { autoHop: true, coverageMode: 'viewshed', showProjection: false },
@@ -214,7 +214,7 @@ test('v2 codec distinguishes absent from empty and keeps canonical deterministic
     },
   });
   const second = normalizeLayerState({
-    enabledLayerIds: ['local-dams', 'cctv', 'traffic'],
+    enabledLayerIds: ['local-dams', 'cctv', 'local-datacenters'],
     options: {
       satellites: { catalog: 'dense' },
       flights: { models3d: true, models3dMode: 'all' },
@@ -652,7 +652,7 @@ test('explicit manager params and visibility revoke module-owned pending trackin
 
 test('share payload wins over local, passive restore writes nothing, and explicit success persists', async () => {
   const local = createDefaultLayerState();
-  local.enabledLayerIds = ['traffic'];
+  local.enabledLayerIds = ['local-datacenters'];
   const storage = memoryStorage(serializeStoredLayerState(local));
   const manager = productionManager();
   const share = shareSink();
@@ -669,13 +669,13 @@ test('share payload wins over local, passive restore writes nothing, and explici
   assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams']);
   assert.equal(storage.writes.length, 1);
 
-  await manager.setEnabled('traffic', true, { origin: 'scene' });
+  await manager.setEnabled('local-datacenters', true, { origin: 'scene' });
   assert.equal(storage.writes.length, 1);
   assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams']);
 
-  await manager.setEnabled('traffic', true, { origin: 'tool' });
+  await manager.setEnabled('local-datacenters', true, { origin: 'tool' });
   assert.equal(storage.writes.length, 2);
-  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams', 'traffic']);
+  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams', 'local-datacenters']);
 
   manager.setLayerParams('cctv', { selectedCameraId: 'private-camera' }, { origin: 'user' });
   assert.equal(storage.writes.length, 2);
@@ -720,7 +720,7 @@ test('absent share payload restores local state without rewriting it', async () 
 
 test('historical share payload suppresses unrelated local layer preferences', async () => {
   const local = createDefaultLayerState();
-  local.enabledLayerIds = ['traffic', 'radio'];
+  local.enabledLayerIds = ['local-datacenters', 'radio'];
   const storage = memoryStorage(serializeStoredLayerState(local));
   const manager = productionManager();
   const coordinator = new LayerStateCoordinator(manager, shareSink(), { storage });

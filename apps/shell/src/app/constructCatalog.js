@@ -6,10 +6,7 @@ import { createApplicationMilitary } from './layers/militaryFlights.js';
 import { createApplicationVessels } from './layers/aisLiveVessels.js';
 import { createApplicationCctv } from './layers/cctv.js';
 import { createApplicationRadio } from './layers/radio.js';
-import { createApplicationTraffic } from './layers/traffic.js';
-import { createApplicationBikeshare } from './layers/bikeshare.js';
 import { createApplicationDirections } from './layers/directions.js';
-import { createApplicationTransit } from './layers/transit.js';
 import { createApplicationInstallations } from './layers/militaryInstallations.js';
 import { createApplicationSatellites } from './layers/satellites.js';
 import { createApplicationLaunches } from './layers/rocketLaunches.js';
@@ -27,14 +24,6 @@ const SOURCE_METHODS = Object.freeze({
   vessels: ['getSnapshot'],
   cctv: ['getCatalog', 'getHealth', 'getFrameUrl', 'getMediaUrl'],
   radio: ['getDirectory', 'recordClick'],
-  traffic: [
-    'requestRoads',
-    'getStatus',
-    'fetchFlowForBounds',
-    'getFlowSessionStats',
-    'resetFlowTileCache',
-  ],
-  bikeshare: ['getStations'],
   installations: ['getMappedSites', 'searchNearby'],
   satellites: ['readGroup'],
   launches: ['getLaunches', 'getActiveTle'],
@@ -109,11 +98,8 @@ export function createApplicationCatalog({
         createApplicationAlpr({ surface, source: sources.alpr }),
         satellites,
         createApplicationLaunches({ source: sources.launches, satellites }),
-        createApplicationTraffic({ source: sources.traffic }),
         createApplicationCctv({ surface, source: sources.cctv }),
         createApplicationRadio({ surface, source: sources.radio }),
-        createApplicationTransit({ surface, source: sources.transit }),
-        createApplicationBikeshare({ source: sources.bikeshare }),
         createApplicationDirections(),
         vessels,
         installations,

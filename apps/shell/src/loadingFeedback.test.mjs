@@ -46,15 +46,12 @@ import {
   canPresentDeferredStatusNotice,
   createGlobalStatusNotice,
   createLoadingFeedbackState,
-  createTrafficSyncFeedbackState,
   LOADING_FAILURE_DWELL_MS,
   normalizeLayerLoading,
   presentGlobalLoadingStatus,
   presentGlobalStatusNotice,
   presentLoadingFeedback,
   reduceLoadingFeedback,
-  reduceTrafficSyncFeedback,
-  TRAFFIC_SYNC_CONFIRM_MS,
 } from './loadingFeedback.js';
 
 test('universal status notices reuse the standard failure dwell', () => {
@@ -441,159 +438,6 @@ test('describes disable work without reporting it as a completed load', () => {
   assert.equal(presentLoadingFeedback(visible, summary, 200).label, 'TURNING OFF LIVE DATA');
   const complete = reduceLoadingFeedback(visible, aggregateLayerLoading([]), 250);
   assert.equal(presentLoadingFeedback(complete, aggregateLayerLoading([]), 250).label, 'LIVE DATA OFF');
-});
-
-test('a flow failure landing after the roads settle still ends the batch as LOAD FAILED', () => {
-  // Traffic's 250 ms paint race lets a TomTom request outlive the road load
-  // that started it. The layer keeps stats.loading true while it still owns
-  // that request, so the batch cannot close early and report LOAD COMPLETE
-  // over a failure that has not landed yet.
-  const sample = (stats) => aggregateLayerLoading([
-    { id: 'traffic', name: 'Street Traffic', enabled: true, lifecycleState: 'enabled', stats },
-  ]);
-  // Roads loading; flow request outstanding.
-  const roadsLoading = sample({ loading: true, count: 0, mode: 'live', error: null });
-  let state = reduceLoadingFeedback(createLoadingFeedbackState(), roadsLoading, 0);
-  state = reduceLoadingFeedback(state, roadsLoading, 200);
-  assert.equal(state.visible, true);
-  // Cached roads have painted, but the flow fetch has NOT settled: the layer
-  // still reports loading, so the batch stays open.
-  const flowStillPending = sample({ loading: true, count: 544, mode: 'live', error: null });
-  state = reduceLoadingFeedback(state, flowStillPending, 400);
-  assert.equal(state.phase, 'loading');
-  // Flow fails late.
-  const flowFailed = sample({
-    loading: false,
-    count: 544,
-    mode: 'live',
-    error: 'SIMULATED — TomTom daily budget reached',
-  });
-  state = reduceLoadingFeedback(state, flowFailed, 900);
-  assert.equal(state.terminal, 'error');
-  assert.equal(
-    presentLoadingFeedback(state, flowFailed, 900).label,
-    'LOAD FAILED',
-    'a late flow failure must not be announced as LOAD COMPLETE',
-  );
-});
-
-test('keeps cold idle traffic hidden even with a truthful zero-coverage label', () => {
-  let state = createTrafficSyncFeedbackState();
-  const sample = {
-    enabled: true,
-    stats: { loading: false, loadingLabel: 'LIVE · TomTom flow · 0% cov', flowCoveragePct: 0 },
-  };
-  for (const now of [0, 220, 440, 2200]) state = reduceTrafficSyncFeedback(state, sample, now);
-  assert.equal(state.visible, false);
-  assert.equal(state.busy, false);
-});
-
-test('shows traffic busy work and one fixed busy-to-idle confirmation', () => {
-  const busySample = {
-    enabled: true,
-    stats: { loading: true, loadingLabel: 'syncing LIVE traffic flow' },
-  };
-  const idleSample = {
-    enabled: true,
-    stats: { loading: false, loadingLabel: 'LIVE · TomTom flow · 0% cov' },
-  };
-  let state = reduceTrafficSyncFeedback(createTrafficSyncFeedbackState(), busySample, 100);
-  assert.deepEqual({ visible: state.visible, progress: state.progressText }, { visible: true, progress: '...' });
-  state = reduceTrafficSyncFeedback(state, busySample, 320);
-  state = reduceTrafficSyncFeedback(state, idleSample, 500);
-  const fixedDeadline = state.confirmationUntil;
-  assert.equal(fixedDeadline, 500 + TRAFFIC_SYNC_CONFIRM_MS);
-  assert.equal(state.progressText, '');
-  state = reduceTrafficSyncFeedback(state, idleSample, 900);
-  assert.equal(state.confirmationUntil, fixedDeadline);
-  state = reduceTrafficSyncFeedback(state, idleSample, fixedDeadline + 1);
-  assert.equal(state.visible, false);
-});
-
-test('the settled traffic chip shows exactly one percentage — the coverage it measured', () => {
-  // "LIVE · TomTom flow · 0% cov" beside a hard-coded "100%" read as a chip
-  // arguing with itself. The 100% was never a measurement: a settled chip is
-  // complete by definition, so the progress slot goes quiet and the label's
-  // coverage figure is the only number left.
-  const idleSample = {
-    enabled: true,
-    stats: { loading: false, loadingLabel: 'LIVE · TomTom flow · 0% cov' },
-  };
-  let state = reduceTrafficSyncFeedback(
-    createTrafficSyncFeedbackState(),
-    { enabled: true, stats: { loading: true, loadingLabel: 'syncing LIVE traffic flow' } },
-    0,
-  );
-  state = reduceTrafficSyncFeedback(state, idleSample, 100);
-  assert.equal(state.visible, true);
-  assert.equal(state.label, 'LIVE · TomTom flow · 0% cov');
-  assert.equal(state.progressText, '');
-  const rendered = `${state.label} ${state.progressText}`.trim();
-  assert.equal(rendered.match(/\d+%/g).length, 1, 'the settled chip must carry one percentage');
-  assert.doesNotMatch(rendered, /100%/);
-});
-
-test('the chip renderer clears the progress slot instead of stranding the last value', () => {
-  const ui = readFileSync(new URL('./ui/shellFeedback.js', import.meta.url), 'utf8');
-  const css = readStylesheet(new URL('../style.css', import.meta.url));
-  const start = ui.indexOf('  _updateTrafficSyncChip(');
-  assert.ok(start > 0, '_updateTrafficSyncChip is missing');
-  const body = ui.slice(start, ui.indexOf('\n  }', start));
-  // A truthiness guard here would leave the busy "..." sitting beside the
-  // settled label, which is the contradiction wearing a different hat.
-  assert.doesNotMatch(body, /if \(presentation\.progressText\s*\n?\s*&&/);
-  assert.match(
-    body,
-    /if \(this\._trafficSyncProgress\.textContent !== presentation\.progressText\) \{/,
-  );
-  // …and the emptied slot must collapse rather than leave a min-width stub.
-  assert.match(css, /#traffic-sync-progress:empty \{\s*display: none;\s*\}/);
-});
-
-test('work still in flight keeps its progress number beside a label that has none', () => {
-  const state = reduceTrafficSyncFeedback(
-    createTrafficSyncFeedbackState(),
-    { enabled: true, stats: { phaseLabel: 'warming roads', phaseProgressPct: 42 } },
-    0,
-  );
-  assert.deepEqual(
-    { busy: state.busy, label: state.label, progress: state.progressText },
-    { busy: true, label: 'warming roads', progress: '42%' },
-  );
-  assert.doesNotMatch(state.label, /%/, 'a busy label must not carry its own percentage');
-});
-
-test('resets traffic feedback on disable and permits a later fresh cycle', () => {
-  const busy = { enabled: true, stats: { loading: true } };
-  const idle = { enabled: true, stats: { loading: false, loadingLabel: 'simulated traffic' } };
-  let state = reduceTrafficSyncFeedback(createTrafficSyncFeedbackState(), busy, 0);
-  state = reduceTrafficSyncFeedback(state, idle, 100);
-  state = reduceTrafficSyncFeedback(state, { enabled: false, stats: {}, forceShow: true }, 200);
-  assert.deepEqual(state, createTrafficSyncFeedbackState());
-  state = reduceTrafficSyncFeedback(state, idle, 300);
-  assert.equal(state.visible, false);
-  state = reduceTrafficSyncFeedback(state, busy, 400);
-  state = reduceTrafficSyncFeedback(state, idle, 500);
-  assert.equal(state.visible, true);
-});
-
-test('new busy work replaces confirmation and force-show remains bounded', () => {
-  const idle = { enabled: true, stats: { loadingLabel: 'simulated traffic' } };
-  const busy = {
-    enabled: true,
-    stats: { phaseProgressPct: -20, prewarmQueueDepth: 1, phaseLabel: 'warming roads' },
-  };
-  let state = reduceTrafficSyncFeedback(createTrafficSyncFeedbackState(), idle, 0);
-  state = reduceTrafficSyncFeedback(state, { ...idle, forceShow: true }, 100);
-  const forcedDeadline = state.confirmationUntil;
-  state = reduceTrafficSyncFeedback(state, { ...idle, forceShow: true }, 300);
-  assert.equal(state.confirmationUntil, forcedDeadline);
-  state = reduceTrafficSyncFeedback(state, busy, 400);
-  assert.deepEqual({ busy: state.busy, progress: state.progressText }, { busy: true, progress: '0%' });
-  state = reduceTrafficSyncFeedback(state, idle, 500);
-  assert.equal(state.confirmationUntil, 500 + TRAFFIC_SYNC_CONFIRM_MS);
-  state = reduceTrafficSyncFeedback(state, idle, 500 + TRAFFIC_SYNC_CONFIRM_MS + 1);
-  assert.equal(state.visible, false);
 });
 
 test('aggregates Mapped Installations refresh beside CCTV without changing either owner', () => {
