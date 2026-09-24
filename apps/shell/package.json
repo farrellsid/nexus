@@ -44,7 +44,11 @@
     "test:track": "node scripts/track-regression.mjs",
     "qa:map-source-tray": "node scripts/qa-map-source-tray.mjs",
     "check:boundaries": "node scripts/check-import-directions.mjs && node scripts/check-package-boundaries.mjs",
-    "qa:transit": "node scripts/qa-transit.mjs"
+    "qa:transit": "node scripts/qa-transit.mjs",
+    "check:engine": "node scripts/nexus-check-engine.mjs",
+    "check:dead": "node scripts/nexus-dead-modules.mjs --strict",
+    "e2e": "playwright test",
+    "check:step": "npm test && npm run check:dead && npm run check:engine && npm run e2e"
   },
   "dependencies": {
     "@mapbox/vector-tile": "^3.0.0",
@@ -55,6 +59,7 @@
     "satellite.js": "^6.0.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "prettier": "3.9.6",
     "puppeteer": "^25.10.0",
     "sharp": "^0.35.4",
