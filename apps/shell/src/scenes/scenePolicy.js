@@ -45,11 +45,10 @@ export const SCENE_TRACKING_PARAM_KEYS = Object.freeze([
 /**
  * Selection params that look like the ones above and are deliberately KEPT.
  *
- * `selectedCameraId` (cctv) activates a camera and raises its monitor plane.
- * It never writes viewer.trackedEntity or moves the camera — only the separate
- * `focusSelected` option does that — so it is composition the operator meant
- * to capture, not a second writer on the camera. The vessels layer exposes no
- * getParams() surface at all, so its selection cannot be captured today.
+ * None today. A selection param that never writes viewer.trackedEntity or moves
+ * the camera is composition the operator meant to capture, not a second writer
+ * on the camera, and belongs here. The vessels layer exposes no getParams()
+ * surface at all, so its selection cannot be captured today.
  *
  * The list exists so the decision is RECORDED rather than implied by absence:
  * scenePolicy.test.mjs sweeps every layer's getParams() for the selection
@@ -58,9 +57,7 @@ export const SCENE_TRACKING_PARAM_KEYS = Object.freeze([
  * through merely by not matching the older `selected…TrackingId` spelling.
  * @constant {ReadonlyArray<string>}
  */
-export const SCENE_KEPT_SELECTION_PARAM_KEYS = Object.freeze([
-  'selectedCameraId',
-]);
+export const SCENE_KEPT_SELECTION_PARAM_KEYS = Object.freeze([]);
 
 /**
  * Names belonging to the selection/tracking family, whatever their spelling.

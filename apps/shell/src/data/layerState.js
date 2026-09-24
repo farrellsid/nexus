@@ -196,15 +196,6 @@ const OPTION_GROUPS = Object.freeze({
     }),
     integerOption('selectedSatTrackingId', 't', null),
   ]),
-  cctv: Object.freeze([
-    enumOption('coverageMode', 'c', 'on', ['off', 'on', 'viewshed'], {
-      off: '0',
-      on: '1',
-      viewshed: 'v',
-    }),
-    booleanOption('showProjection', 'p', true),
-    booleanOption('autoHop', 'a', false),
-  ]),
 });
 
 const TRACKING_OPTION_KEY_BY_LAYER = Object.freeze({
@@ -245,11 +236,6 @@ export const LAYER_STATE_REGISTRY = Object.freeze([
     disposition: 'enabled-only',
   }),
   Object.freeze({
-    id: 'alpr-cameras',
-    token: 'p',
-    disposition: 'enabled-only',
-  }),
-  Object.freeze({
     id: 'bhote-koshi-2026',
     token: 'h',
     disposition: 'enabled-only',
@@ -258,12 +244,6 @@ export const LAYER_STATE_REGISTRY = Object.freeze([
     id: 'bhote-koshi-locator',
     token: 'z',
     disposition: 'enabled-only',
-  }),
-  Object.freeze({
-    id: 'cctv',
-    token: 'c',
-    disposition: 'enabled+options',
-    optionOwner: 'cctv',
   }),
   Object.freeze({ id: 'directions', token: 'n', disposition: 'enabled-only' }),
   Object.freeze({

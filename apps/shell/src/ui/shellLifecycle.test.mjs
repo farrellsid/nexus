@@ -179,7 +179,6 @@ test('panel disposal cancels a live drag without saving or accepting later point
     const owner = new PanelPositionControls({
       syncPanelCollapseButton() {},
       layoutRightPanels() {},
-      syncCctvPanelViewport() {},
       showToast() {},
     });
     const panel = f.element(),

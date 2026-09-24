@@ -13,7 +13,6 @@ import { RecordingControls } from './recordingControls.js';
 import { readShellElements } from './shellElements.js';
 import { CockpitCoordinator } from './cockpitCoordinator.js';
 import { ContextControls } from './context.js';
-import { CctvControls } from './cctv.js';
 import { LocationNavigation } from './locationNavigation.js';
 import { bindClearLayersControl } from './layers.js';
 import { bindCameraOrientationControls } from './cameraOrientationControls.js';
@@ -26,8 +25,6 @@ import { aircraftTrackingTarget } from '../cockpitTracking.js';
 
 import { ShellFeedback } from './shellFeedback.js';
 
-import { runCctvLayerEnableTransition } from '../cctvFocusPolicy.js';
-
 /**
  * Central UI orchestrator for the God's Eye View application.
  *
@@ -36,8 +33,6 @@ import { runCctvLayerEnableTransition } from '../cctvFocusPolicy.js';
  * - Bloom and sharpen post-processing toggle/intensity control.
  * - Draggable/collapsible panel system with localStorage persistence,
  *   z-order stacking, and viewport-clamped positioning.
- * - CCTV panel: camera selection, coverage toggle, projection, calibration
- *   sliders, auto-hop, and summary typewriter effect.
  * - Location bar with city/POI preset pills, QWERTY key navigation,
  *   geocoding search, and inter-city world-jump transitions.
  * - Orbit controller integration for POI fly-around.
@@ -69,7 +64,6 @@ export class StyleManager extends ShellFacade {
       flightsLayer,
       militaryFlightsLayer,
       satellitesLayer,
-      cctvLayer,
       aisLiveVesselsLayer,
       militaryAwarenessLayer,
     } = services;
@@ -87,8 +81,6 @@ export class StyleManager extends ShellFacade {
         _rightPanelStack: this._rightPanelStack,
       },
       operations: {
-        _syncCctvPanelViewport: (...args) =>
-          this._syncCctvPanelViewport(...args),
         _showToast: (...args) => this._showToast(...args),
       },
       readHud: () => this.hud,
@@ -223,12 +215,10 @@ export class StyleManager extends ShellFacade {
       services: {
         cachedGroundFloor: services.cachedGroundFloor,
         warmGroundFloor: services.warmGroundFloor,
-        cctvLayer: services.cctvLayer,
       },
       readControls: () => ({
         hud: this.hud,
         _contextControls: this._contextControls,
-        _cctvControls: this._cctvControls,
       }),
       operations: {
         _updateGlobalLoadingFeedback: (...args) =>
@@ -236,7 +226,6 @@ export class StyleManager extends ShellFacade {
         _syncContextModeButtons: (...args) =>
           this._syncContextModeButtons(...args),
         _stampNavigation: (...args) => this._stampNavigation(...args),
-        _runExplicitCctvFocus: (...args) => this._runExplicitCctvFocus(...args),
         _runExplicitWorldFocus: (...args) =>
           this._runExplicitWorldFocus(...args),
         runImmediateNavigation: (...args) =>
@@ -422,7 +411,6 @@ export class StyleManager extends ShellFacade {
         flightsLayer,
         militaryFlightsLayer,
         satellitesLayer,
-        cctvLayer,
         aisLiveVesselsLayer,
       ],
       (modeLabel) => {
@@ -471,7 +459,6 @@ export class StyleManager extends ShellFacade {
         _syncShareState: (...args) => this._syncShareState(...args),
         _toggleOrbit: (...args) => this._toggleOrbit(...args),
         toggleCleanView: (...args) => this.toggleCleanView(...args),
-        _toggleCctvEnabled: (...args) => this._toggleCctvEnabled(...args),
         _setBloomEnabled: (...args) => this._setBloomEnabled(...args),
         _setBloomIntensity: (...args) => this._setBloomIntensity(...args),
         _setSharpenEnabled: (...args) => this._setSharpenEnabled(...args),
@@ -510,7 +497,6 @@ export class StyleManager extends ShellFacade {
     this._initPanelChrome();
     this._initLeftPanelAdaptiveLayout();
     this._initRightPanelAdaptiveLayout();
-    this._initCctvPanel();
     this._initGlobalContextPanel();
     this._initLocationBar();
     this._initShareButton();
@@ -530,10 +516,8 @@ export class StyleManager extends ShellFacade {
 
     // Keep the parameter panel from overlapping toggle controls.
     this._layoutRightPanels();
-    this._syncCctvPanelViewport();
     this._windowResizeHandler = () => {
       this._scheduleRightPanelLayout({ reconsiderAutoCollapse: true });
-      this._syncCctvPanelViewport();
       this._scheduleLeftPanelLayout({ reconsiderAutoCollapse: true });
     };
     window.addEventListener('resize', this._windowResizeHandler);
@@ -758,109 +742,11 @@ export class StyleManager extends ShellFacade {
   }
 
   /**
-   * Activates an explicit CCTV target, then releases tracking before its camera
-   * flight. Cockpit mode keeps tracking and suppresses only the flight.
-   * @param {Function} activate CCTV target activation returning its camera ID.
-   * @param {Function} focus CCTV camera flight receiving the activated ID.
-   * @returns {*} Focus operation result.
-   */
-  _runExplicitCctvFocus(activate, focus) {
-    if (this._disposed) return false;
-    const cameraId = activate();
-    if (!cameraId) return false;
-    return this._runExplicitNavigation('camera', () => focus(cameraId));
-  }
-
-  /** Compose camera panel controls from the existing camera port and application actions. */
-  _initCctvPanel() {
-    const { cctvLayer } = this.services;
-    this._cctvControls?.destroy();
-    this._cctvControls = new CctvControls({
-      elements: {
-        _cctvAdjustBtn: this._cctvAdjustBtn,
-        _cctvAutoHopBtn: this._cctvAutoHopBtn,
-        _cctvCalReadout: this._cctvCalReadout,
-        _cctvCalibResetBtn: this._cctvCalibResetBtn,
-        _cctvCalibSaveBtn: this._cctvCalibSaveBtn,
-        _cctvCoverageBtn: this._cctvCoverageBtn,
-        _cctvEnableBtn: this._cctvEnableBtn,
-        _cctvFocusBtn: this._cctvFocusBtn,
-        _cctvFrame: this._cctvFrame,
-        _cctvFrameWrap: this._cctvFrameWrap,
-        _cctvMeta: this._cctvMeta,
-        _cctvNearestBtn: this._cctvNearestBtn,
-        _cctvNextBtn: this._cctvNextBtn,
-        _cctvPanel: this._cctvPanel,
-        _cctvPrevBtn: this._cctvPrevBtn,
-        _cctvProjectionBtn: this._cctvProjectionBtn,
-        _cctvQualityChip: this._cctvQualityChip,
-        _cctvSelect: this._cctvSelect,
-        _cctvSourceBadge: this._cctvSourceBadge,
-        _cctvSummary: this._cctvSummary,
-        _cctvSyncChip: this._cctvSyncChip,
-        _cctvSyncLabel: this._cctvSyncLabel,
-        _cctvSyncProgress: this._cctvSyncProgress,
-      },
-      cctv: cctvLayer,
-      actions: {
-        isEnabled: () => this._dataManager?.isEnabled('cctv'),
-        setParams: (params, options) =>
-          this._dataManager?.setLayerParams('cctv', params, options),
-        toggleEnabled: (...args) => this._toggleCctvEnabled(...args),
-        runExplicitFocus: (...args) => this._runExplicitCctvFocus(...args),
-        setPanelCollapsed: (...args) => this.setPanelCollapsed(...args),
-        showToast: (message) => this._showToast(message),
-        syncViewport: () => this._syncCctvPanelViewport(),
-        setSplitFlapText,
-      },
-    });
-  }
-
-  /**
-   * Toggles the CCTV layer enabled state. When enabling and no camera is active,
-   * auto-focuses on the nearest camera.
-   * @param {boolean} [forceState] - Explicit on/off. Omit to toggle.
-   * @returns {Promise<boolean>} True if the layer is now in the requested state.
-   */
-  async _toggleCctvEnabled(forceState) {
-    const { cctvLayer } = this.services;
-    if (this._disposed) return false;
-    if (!this._dataManager || !this._dataManager.layers?.has('cctv')) {
-      this._showToast('CCTV layer unavailable');
-      return false;
-    }
-    const enabled = this._dataManager.isEnabled('cctv');
-    const target = typeof forceState === 'boolean' ? forceState : !enabled;
-    if (target === enabled) return true;
-    await runCctvLayerEnableTransition({
-      target,
-      setEnabled: (next) =>
-        this._dataManager.setEnabled('cctv', next, { origin: 'user' }),
-      readOwnership: () => ({
-        trackedEntity: this.viewer?.trackedEntity,
-        cockpitActive: !!this.cockpitView?.active,
-      }),
-      shouldFocus: () =>
-        !this._disposed &&
-        this._dataManager.isEnabled('cctv') &&
-        !this._cctvControls?.getState()?.activeCameraId,
-      activate: () => cctvLayer.focusNearest({ focus: false }),
-      fly: (cameraId) =>
-        this._runExplicitCctvFocus(
-          () => cameraId,
-          (selectedId) => cctvLayer.focusCamera(selectedId, 1.6),
-        ),
-    });
-    return true;
-  }
-
-  /**
    * Makes a panel draggable via its handle element. Implements:
    * - Z-order promotion: each pointerdown increments the global z-counter
    *   so the clicked panel floats above siblings.
    * - Viewport clamping: drag moves are clamped to a 6px inset from all edges.
    * - Right-rail pinning: pp-toggles panel is re-anchored right after drag.
-   * - CCTV viewport sync: cctv-panel recalculates scroll height after drag.
    * @param {string} panelId - DOM id of the panel.
    * @param {HTMLElement} panelEl - The panel DOM element.
    * @param {HTMLElement} handleEl - The drag handle element within the panel.
@@ -1305,33 +1191,6 @@ export class StyleManager extends ShellFacade {
     this._initCockpitDisplayPortal();
   }
 
-  /**
-   * Recalculates the CCTV panel max-height based on its current top position
-   * and the window height, enabling internal scroll without viewport overflow.
-   * @returns {void}
-   */
-  _syncCctvPanelViewport() {
-    if (!this._cctvPanel) return;
-    const inner = this._cctvPanel.querySelector('.cctv-panel-inner');
-    this._lifetime.frame(() => {
-      if (this._cctvPanel.parentElement?.id === 'right-context-rail') {
-        this._cctvPanel.style.maxHeight = '';
-        if (inner) inner.style.maxHeight = '';
-        this._scheduleRightPanelLayout();
-        return;
-      }
-      const rect = this._cctvPanel.getBoundingClientRect();
-      const availableHeight = Math.max(
-        190,
-        Math.floor(window.innerHeight - rect.top - 12),
-      );
-      this._cctvPanel.style.maxHeight = `${availableHeight}px`;
-      if (inner) {
-        inner.style.maxHeight = `${availableHeight}px`;
-      }
-    });
-  }
-
   /** Terminal result for the complete initial share restoration. */
   get initialRestorePromise() {
     return (
@@ -1366,7 +1225,6 @@ export class StyleManager extends ShellFacade {
     this._mapSourceControls?.destroy();
     this._cameraOrientationControls?.destroy();
     this._clearLayersControl?.destroy();
-    this._cctvControls?.destroy();
     this._cockpitCoordinator.stop();
     this._visualSettings.stop();
     this.shareLinkManager?.destroy();

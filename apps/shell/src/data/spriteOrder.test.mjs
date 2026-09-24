@@ -11,7 +11,7 @@ import flightsLayer from './flights.js';
 import aisLiveVesselsLayer from './aisLiveVessels.js';
 import { createFirmsHeatmapLayer } from './firmsHeatmap.js';
 
-const ORDER = ['cctv', 'firms', 'ais', 'military', 'flights'];
+const ORDER = ['firms', 'ais', 'military', 'flights'];
 
 function makePrimitives(initial = []) {
   return {
@@ -40,39 +40,17 @@ test('restoreSpriteOrder raises live collections bottom-to-top and skips destroy
   const primitives = makePrimitives([
     collections.flights,
     collections.ais,
-    collections.cctv,
     collections.military,
   ]);
 
   restoreSpriteOrder({ scene: { primitives } });
 
-  assert.deepEqual(primitives.calls, ['cctv', 'ais', 'military', 'flights']);
+  assert.deepEqual(primitives.calls, ['ais', 'military', 'flights']);
   assert.deepEqual(primitives.items.map((item) => item.id), [
-    'cctv', 'ais', 'military', 'flights',
+    'ais', 'military', 'flights',
   ]);
 
   for (const id of ORDER) unregisterSpriteCollection(id);
-});
-
-test('late CCTV registration still restores flights above the ambient collection', () => {
-  const flights = makeCollection('flights');
-  const cctv = makeCollection('cctv');
-  const primitives = makePrimitives([flights]);
-  const viewer = { scene: { primitives } };
-
-  registerSpriteCollection('flights', flights);
-  restoreSpriteOrder(viewer);
-  primitives.items.push(cctv); // CCTV enabled after flights: it starts on top.
-  registerSpriteCollection('cctv', cctv);
-  primitives.calls.length = 0;
-
-  restoreSpriteOrder(viewer);
-
-  assert.deepEqual(primitives.calls, ['cctv', 'flights']);
-  assert.deepEqual(primitives.items.map((item) => item.id), ['cctv', 'flights']);
-
-  unregisterSpriteCollection('cctv', cctv);
-  unregisterSpriteCollection('flights', flights);
 });
 
 test('restoreSpriteOrder is inert for destroyed viewers and primitive collections', () => {

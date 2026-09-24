@@ -10,10 +10,10 @@ const root = fileURLToPath(new URL('../..', import.meta.url));
 // is the key the code writes. Whether deleting one has the effect the document
 // claims is not checked here.
 const DOCUMENTED_KEYS = [
-  ['docs/KNOWN-ISSUES.md', 'godsEyeView.{layout}.panelCollapsed.cctv-panel'],
+  ['docs/KNOWN-ISSUES.md', 'godsEyeView.{layout}.panelCollapsed.scene-panel'],
   ['docs/KNOWN-ISSUES.md', 'godsEyeView.{layout}.panelCollapsed.<panel-id>'],
   ['docs/KNOWN-ISSUES.md', 'godsEyeView.{position}.panelPos.<panel-id>'],
-  ['scripts/dev-fresh.sh', 'godsEyeView.{layout}.panelCollapsed.cctv-panel'],
+  ['scripts/dev-fresh.sh', 'godsEyeView.{layout}.panelCollapsed.scene-panel'],
   ['docs/CURRENT-STATE.md', 'godsEyeView.{position}.panelPos.<panel-id>'],
   ['docs/CURRENT-STATE.md', 'godsEyeView.{position}.panelPos.<id>'],
   ['docs/CURRENT-STATE.md', 'godsEyeView.{layout}.panelCollapsed.<panel-id>'],
@@ -30,8 +30,8 @@ test('the documented outcomes hold: default, stored open, stored shut, and a sha
   );
   assert.match(
     html,
-    /<div id="cctv-panel" class="panel-collapsible collapsed"/,
-    'the CCTV panel starts collapsed in the markup',
+    /<div id="scene-panel" class="panel-collapsible collapsed"/,
+    'the scene panel starts collapsed in the markup',
   );
 
   const saved = {
@@ -59,30 +59,29 @@ test('the documented outcomes hold: default, stored open, stored shut, and a sha
     const controls = new PanelPositionControls({
       syncPanelCollapseButton: () => {},
       layoutRightPanels: () => {},
-      syncCctvPanelViewport: () => {},
       showToast: () => {},
     });
 
     // Nothing stored: the markup default wins, and the panel is collapsed. So
     // deleting the key is a reset, not a way to open the panel.
-    controls._restorePanelCollapsedState('cctv-panel');
+    controls._restorePanelCollapsedState('scene-panel');
     assert.equal(classes.has('collapsed'), true);
 
     // The value the documents tell a reader to set.
-    store.set('godsEyeView.v6.panelCollapsed.cctv-panel', '0');
-    controls._restorePanelCollapsedState('cctv-panel');
+    store.set('godsEyeView.v6.panelCollapsed.scene-panel', '0');
+    controls._restorePanelCollapsedState('scene-panel');
     assert.equal(classes.has('collapsed'), false);
 
     // ...and the opposite value keeps it shut, so '0' is doing the work.
-    store.set('godsEyeView.v6.panelCollapsed.cctv-panel', '1');
-    controls._restorePanelCollapsedState('cctv-panel');
+    store.set('godsEyeView.v6.panelCollapsed.scene-panel', '1');
+    controls._restorePanelCollapsedState('scene-panel');
     assert.equal(classes.has('collapsed'), true);
 
     // A view opened from a share link is laid out from the link: the shell
     // restores with allowStored false, and the stored value is not consulted.
     // This is why the console workaround is documented for ordinary loads only.
-    store.set('godsEyeView.v6.panelCollapsed.cctv-panel', '0');
-    controls._restorePanelCollapsedState('cctv-panel', { allowStored: false });
+    store.set('godsEyeView.v6.panelCollapsed.scene-panel', '0');
+    controls._restorePanelCollapsedState('scene-panel', { allowStored: false });
     assert.equal(
       classes.has('collapsed'),
       true,

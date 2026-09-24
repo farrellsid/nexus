@@ -19,10 +19,6 @@ const PANEL_GROUPS = [
     ids: ['satellites', 'flights', 'military', 'ais-live-vessels'],
   },
   {
-    label: 'Cameras',
-    ids: ['cctv', 'alpr-cameras'],
-  },
-  {
     label: 'Infrastructure',
     ids: ['military-installations', 'local-datacenters', 'local-dams'],
   },
@@ -43,8 +39,6 @@ const PANEL_POSITIONS = new Map(
 );
 const PANEL_LABELS = {
   'ais-live-vessels': 'Live Vessels',
-  cctv: 'Cameras',
-  'alpr-cameras': 'Mapped ALPR Cameras',
   'local-datacenters': 'Data Centers',
   'local-firms': 'Active Fires',
 };

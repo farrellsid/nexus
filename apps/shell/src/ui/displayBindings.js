@@ -88,7 +88,6 @@ export class DisplayBindings {
           cycleDetectionMode();
           this._syncShareState();
         },
-        toggleCctv: () => this._toggleCctvEnabled(),
       },
     });
 

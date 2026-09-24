@@ -14,7 +14,6 @@ const LEFT_STACK_OBSTACLE_SELECTOR = [
   '#style-indicator',
   '#top-center-actions',
   '#traffic-sync-chip',
-  '#cctv-sync-chip',
   '#intel-hud .hud-top-left',
   '#intel-hud .hud-top-right',
   '#intel-hud .hud-bottom-left',
@@ -44,7 +43,6 @@ const RIGHT_STACK_OBSTACLE_SELECTOR = [
   '#style-indicator',
   '#top-center-actions',
   '#traffic-sync-chip',
-  '#cctv-sync-chip',
   '#intel-hud .hud-top-left',
   '#intel-hud .hud-top-right',
   '#intel-hud .hud-bottom-left',
@@ -93,7 +91,6 @@ export class PanelLayoutController {
     this._leftPanelStack = document.getElementById('left-panel-stack');
     this._rightPanelStack = document.getElementById('right-context-rail');
     this._ppToggles = document.getElementById('pp-toggles');
-    this._cctvPanel = document.getElementById('cctv-panel');
     this._sliderPanel = document.getElementById('param-slider-panel');
     this._detectionBtn = document.getElementById('detection-toggle');
   }
@@ -194,16 +191,6 @@ export class PanelLayoutController {
     this._ppToggles.querySelector('.pp-header-row')?.removeAttribute('title');
     stack.prepend(this._ppToggles);
     const globalContextPanel = document.getElementById('global-context-panel');
-    if (this._cctvPanel) {
-      this._cctvPanel.style.removeProperty('top');
-      this._cctvPanel.style.removeProperty('right');
-      this._cctvPanel.style.removeProperty('bottom');
-      this._cctvPanel.style.removeProperty('left');
-      this._cctvPanel.style.removeProperty('z-index');
-      this._cctvPanel.classList.remove('panel-draggable', 'panel-dragging');
-      stack.insertBefore(this._cctvPanel, globalContextPanel);
-      this._syncPanelCollapseButton(this._cctvPanel);
-    }
     if (this._sliderPanel) {
       this._sliderPanel.style.removeProperty('top');
       this._sliderPanel.style.removeProperty('right');
@@ -219,11 +206,7 @@ export class PanelLayoutController {
         this._scheduleRightPanelLayout();
       });
       this._rightStackResizeObserver.observe(stack);
-      for (const panel of [
-        this._ppToggles,
-        this._cctvPanel,
-        globalContextPanel,
-      ]) {
+      for (const panel of [this._ppToggles, globalContextPanel]) {
         if (panel) this._rightStackResizeObserver.observe(panel);
       }
       document

@@ -564,10 +564,10 @@ test('all saved Nepal shots choose a usable map in keyed and keyless runtimes wi
 
 /** The layer registry as main.js builds it (src/main.js dataManager.register calls). */
 const REGISTERED = [
-  'flights', 'military', 'earthquakes', 'satellites', 'rocket-launches', 'traffic',
-  'cctv', 'radio', 'bikeshare', 'ais-live-vessels', 'military-installations',
+  'directions', 'flights', 'military', 'satellites', 'rocket-launches',
+  'ais-live-vessels', 'military-installations',
   'military-awareness', 'local-datacenters', 'local-dams',
-  'local-firms',
+  'local-firms', 'test-layer',
 ];
 
 /** Layers Space Missions permits while it isolates the globe (contextModePolicy). */
@@ -595,7 +595,7 @@ const PROJECT_FIXTURE = {
         holdSec: 0,
         camera: { lat: -30, lon: 140, alt: 900000, heading: 0, pitch: -40, roll: 0 },
         visual: { style: 'retro' },
-        layers: { traffic: { enabled: true } },
+        layers: { 'test-layer': { enabled: true } },
       },
     ],
   }],
@@ -927,7 +927,7 @@ test('explicit scene-layer OFF revokes continuation during enable, flight and ho
       dataManager.visibilityListener({ layerId: 'flights', enabled: false, origin: 'tool' });
       release();
       await run;
-      assert.equal(dataManager.committed.some(({ id, enabled }) => id === 'traffic' && enabled), false);
+      assert.equal(dataManager.committed.some(({ id, enabled }) => id === 'test-layer' && enabled), false);
     } finally { await director.destroy(); restore(); }
   }
 });
@@ -1070,11 +1070,11 @@ test('a refused layer is reported, never counted as applied', async () => {
   try {
     const result = await director._applyLayerStates({
       flights: { enabled: true, params: { models3d: true } },
-      traffic: { enabled: false },
+      'test-layer': { enabled: false },
     });
 
     assert.deepEqual(result.refused, ['flights']);
-    assert.deepEqual(result.applied, ['traffic']);
+    assert.deepEqual(result.applied, ['test-layer']);
     // Params must not be pushed at a layer whose transition was vetoed.
     assert.deepEqual(dataManager.setParamsCalls, []);
     const refusals = director._activeRun.events.filter((event) => event.type === 'shot_layers_refused');
@@ -1098,7 +1098,7 @@ test('cancellation between two layers ends the reconcile where it stands', async
     const result = await director._applyLayerStates({
       flights: { enabled: true },
       satellites: { enabled: true },
-      traffic: { enabled: true },
+      'test-layer': { enabled: true },
     }, token);
 
     assert.deepEqual(dataManager.setEnabledCalls.map((call) => call.id), ['flights']);
@@ -1148,7 +1148,7 @@ test('STOP between two layers lands no further layer changes', async () => {
           holdSec: 0,
           camera: { lat: 10, lon: 20, alt: 500000, heading: 0, pitch: -40, roll: 0 },
           visual: { style: 'normal' },
-          layers: { flights: { enabled: true }, satellites: { enabled: true }, traffic: { enabled: true } },
+          layers: { flights: { enabled: true }, satellites: { enabled: true }, 'test-layer': { enabled: true } },
         }],
       }],
     },
@@ -1231,7 +1231,7 @@ test('a newer LOAD aborts the previous LOAD transition rather than disowning it'
     await Promise.all([first, second]);
 
     // Only the newer LOAD reconciled, and it carried a live (unaborted) signal.
-    assert.deepEqual(dataManager.setEnabledCalls.map((call) => call.id), ['traffic']);
+    assert.deepEqual(dataManager.setEnabledCalls.map((call) => call.id), ['test-layer']);
     assert.ok(dataManager.setEnabledCalls[0].signal instanceof AbortSignal);
     assert.equal(dataManager.setEnabledCalls[0].signal.aborted, false);
   } finally {
@@ -1357,7 +1357,7 @@ test('the newest LOAD wins when two loads race', async () => {
 
     assert.deepEqual(
       dataManager.setEnabledCalls.map(({ id, enabled }) => ({ id, enabled })),
-      [{ id: 'traffic', enabled: true }],
+      [{ id: 'test-layer', enabled: true }],
     );
     assert.equal(viewer.flights.length, 1);
     assert.equal(director._selectedShotId, 'shot-b');
@@ -1385,7 +1385,7 @@ test('a scene run supersedes a LOAD still suspended on its visual await', async 
     // Only the run's own shots reconciled; the stale LOAD's flights never did.
     assert.deepEqual(
       dataManager.setEnabledCalls.map((call) => call.id),
-      ['flights', 'traffic'],
+      ['flights', 'test-layer'],
     );
   } finally {
     restore();

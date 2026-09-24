@@ -600,7 +600,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: true,
       satellites: false,
-      traffic: false,
     },
     post: {
       bloom: 62,
@@ -669,7 +668,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: false,
       satellites: true,
-      traffic: false,
     },
     post: {
       bloom: 58,
@@ -746,7 +744,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: false,
       satellites: false,
-      traffic: false,
     },
     post: {
       bloom: 72,
@@ -813,7 +810,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: true,
       satellites: true,
-      traffic: true,
     },
     post: {
       bloom: 65,
@@ -890,7 +886,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: true,
       satellites: true,
-      traffic: true,
     },
     post: {
       bloom: 68,

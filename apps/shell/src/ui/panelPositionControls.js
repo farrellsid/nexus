@@ -11,15 +11,9 @@ const PANEL_POSITION_STORAGE_VERSION = 'v8';
 const PANEL_Z_BASE = 100;
 const PANEL_Z_MAX = 139;
 export class PanelPositionControls {
-  constructor({
-    syncPanelCollapseButton,
-    layoutRightPanels,
-    syncCctvPanelViewport,
-    showToast,
-  }) {
+  constructor({ syncPanelCollapseButton, layoutRightPanels, showToast }) {
     this._syncPanelCollapseButton = syncPanelCollapseButton;
     this._layoutRightPanels = layoutRightPanels;
-    this._syncCctvPanelViewport = syncCctvPanelViewport;
     this._showToast = showToast;
     this._ppToggles = document.getElementById('pp-toggles');
     this._panelZCounter = PANEL_Z_BASE + 10;
@@ -254,9 +248,6 @@ export class PanelPositionControls {
         if (panelId === 'pp-toggles') {
           this._layoutRightPanels();
         }
-        if (panelId === 'cctv-panel') {
-          this._syncCctvPanelViewport();
-        }
       };
 
       const cancel = () => {
@@ -272,9 +263,6 @@ export class PanelPositionControls {
           this._pinPanelToRight(panelEl);
         }
         this._savePanelPosition(panelId, panelEl);
-        if (panelId === 'cctv-panel') {
-          this._syncCctvPanelViewport();
-        }
       };
 
       this._cancelDrag = cancel;

@@ -95,8 +95,6 @@ export const WORLD_OVERLAY_OCCLUDER_SELECTORS = Object.freeze([
   '#title-bar',
   '#style-indicator',
   '#top-center-actions',
-  '#traffic-sync-chip',
-  '#cctv-sync-chip',
   '#left-panel-stack',
   '#right-context-rail',
   '#pp-toggles',

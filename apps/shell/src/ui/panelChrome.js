@@ -10,7 +10,6 @@ const SHARE_PANEL_STATE_SPECS = Object.freeze([
   { id: 'control-panel', pinnable: true },
   { id: 'location-bar', pinnable: true },
   { id: 'data-panel' },
-  { id: 'cctv-panel' },
   { id: 'scene-panel' },
   { id: 'global-context-panel' },
   { id: 'pp-toggles' },
@@ -19,7 +18,6 @@ const SHARE_PANEL_STATE_SPECS = Object.freeze([
 /** Standard map-view panels cleared out of the way on a fresh Cockpit entry. */
 const COCKPIT_ENTRY_COLLAPSE_PANEL_IDS = Object.freeze([
   'data-panel',
-  'cctv-panel',
   'scene-panel',
   'pp-toggles',
   'global-context-panel',
@@ -52,7 +50,6 @@ export class PanelChrome {
     this._panelPosition = new PanelPositionControls({
       syncPanelCollapseButton: (panel) => this._syncPanelCollapseButton(panel),
       layoutRightPanels: () => this._layoutRightPanels(),
-      syncCctvPanelViewport: () => this._syncCctvPanelViewport(),
       showToast: (message) => this._showToast(message),
     });
     this._panelLayout = new PanelLayoutController({
@@ -276,11 +273,9 @@ export class PanelChrome {
   }
 
   _syncPanelCollapseButton(panelEl) {
-    const isRightRail = [
-      'pp-toggles',
-      'cctv-panel',
-      'global-context-panel',
-    ].includes(panelEl?.id);
+    const isRightRail = ['pp-toggles', 'global-context-panel'].includes(
+      panelEl?.id,
+    );
     const collapsed = panelEl.classList.contains('collapsed');
     panelEl
       .querySelectorAll('.panel-collapse-btn[data-collapse-target]')
@@ -468,9 +463,6 @@ export class PanelChrome {
     }
     if (this._rightPanelStack?.contains(panelEl)) {
       this._scheduleRightPanelLayout({ reconsiderAutoCollapse: true });
-    }
-    if (panelId === 'cctv-panel') {
-      this._syncCctvPanelViewport();
     }
     this._lifetime.frame(() => this._updateCommandDockTrayStack());
     this._scheduleLeftPanelLayout({

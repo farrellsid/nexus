@@ -4,12 +4,10 @@ import { createMilitaryRegistry } from '../layers/aircraft/classification.js';
 import { createApplicationFlights } from './layers/flights.js';
 import { createApplicationMilitary } from './layers/militaryFlights.js';
 import { createApplicationVessels } from './layers/aisLiveVessels.js';
-import { createApplicationCctv } from './layers/cctv.js';
 import { createApplicationDirections } from './layers/directions.js';
 import { createApplicationInstallations } from './layers/militaryInstallations.js';
 import { createApplicationSatellites } from './layers/satellites.js';
 import { createApplicationLaunches } from './layers/rocketLaunches.js';
-import { createApplicationAlpr } from './layers/alprCameras.js';
 import { createApplicationAwareness } from './layers/militaryAwareness.js';
 import { createApplicationFirms } from './layers/firms.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
@@ -21,11 +19,9 @@ const SOURCE_METHODS = Object.freeze({
   flights: ['getSnapshot'],
   military: ['getSnapshot'],
   vessels: ['getSnapshot'],
-  cctv: ['getCatalog', 'getHealth', 'getFrameUrl', 'getMediaUrl'],
   installations: ['getMappedSites', 'searchNearby'],
   satellites: ['readGroup'],
   launches: ['getLaunches', 'getActiveTle'],
-  alpr: ['fetch'],
   firms: ['getSnapshot'],
 });
 
@@ -93,10 +89,8 @@ export function createApplicationCatalog({
         }),
         flights,
         military,
-        createApplicationAlpr({ surface, source: sources.alpr }),
         satellites,
         createApplicationLaunches({ source: sources.launches, satellites }),
-        createApplicationCctv({ surface, source: sources.cctv }),
         createApplicationDirections(),
         vessels,
         installations,

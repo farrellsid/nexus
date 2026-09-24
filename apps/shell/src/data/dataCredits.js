@@ -89,14 +89,6 @@ export const DATA_CREDITS = [
       '(ODbL 1.0)',
   },
   {
-    key: 'alpr-osm',
-    html:
-      'ALPR camera locations (automatic license plate readers): ' +
-      '<a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> ' +
-      '(<a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noopener">ODbL 1.0</a>); ' +
-      'community mapping includes <a href="https://deflock.org" target="_blank" rel="noopener">DeFlock</a>',
-  },
-  {
     key: 'military-installations-osm',
     html:
       'Mapped installation context: ' +
@@ -130,51 +122,6 @@ export const DATA_CREDITS = [
       'Cockpit regional headlines: ' +
       '<a href="https://www.gdeltproject.org/about.html" target="_blank" rel="noopener">GDELT Project</a> ' +
       '(location-matched article links; publisher terms apply)',
-  },
-  {
-    key: 'austin-cctv',
-    html:
-      'CCTV cameras &amp; frames: City of Austin, TX — ' +
-      '<a href="https://data.austintexas.gov" target="_blank" rel="noopener">data.austintexas.gov</a>',
-  },
-  {
-    key: 'txdot-cctv',
-    html:
-      'CCTV cameras &amp; frames (Texas): ' +
-      '<a href="https://its.txdot.gov/" target="_blank" rel="noopener">Texas Department of Transportation</a> (courtesy)',
-  },
-  {
-    key: 'caltrans-cctv',
-    html:
-      'CCTV cameras &amp; frames (California): Caltrans — ' +
-      '<a href="https://cwwp2.dot.ca.gov/" target="_blank" rel="noopener">cwwp2.dot.ca.gov</a>',
-  },
-  {
-    key: 'tfl-cctv',
-    html:
-      'CCTV cameras &amp; frames (London): ' +
-      '<a href="https://tfl.gov.uk/info-for/open-data-users/" target="_blank" rel="noopener">Powered by TfL Open Data</a>. ' +
-      'Contains OS data © Crown copyright and database rights.',
-  },
-  {
-    key: 'ontario-511-cctv',
-    html:
-      'CCTV cameras &amp; frames (Ontario): ' +
-      '<a href="https://511on.ca/" target="_blank" rel="noopener">Ontario 511</a> ' +
-      '(<a href="https://www.ontario.ca/page/open-government-licence-ontario" target="_blank" rel="noopener">Open Government Licence - Ontario</a>)',
-  },
-  {
-    key: 'fintraffic-cctv',
-    html:
-      'CCTV cameras &amp; frames (Finland): Fintraffic / ' +
-      '<a href="https://www.digitraffic.fi/en/" target="_blank" rel="noopener">digitraffic.fi</a>, ' +
-      'license CC BY 4.0',
-  },
-  {
-    key: 'calgary-cctv',
-    html:
-      'Traffic cameras (Calgary): contains information licensed under the ' +
-      '<a href="https://data.calgary.ca/stories/s/Open-Calgary-Terms-of-Use/u45n-7awa" target="_blank" rel="noopener">Open Government Licence – City of Calgary</a>',
   },
   {
     key: 'osrm-routing',
@@ -215,40 +162,6 @@ export const DATA_CREDITS = [
       'from NASA’s Fire Information for Resource Management System ' +
       '(<a href="https://earthdata.nasa.gov/firms" target="_blank" rel="noopener">earthdata.nasa.gov/firms</a>), ' +
       'part of NASA’s Earth Observing System Data and Information System (EOSDIS)',
-  },
-  {
-    key: 'drivebc-cctv',
-    html:
-      'CCTV cameras &amp; frames (British Columbia): ' +
-      '<a href="https://www.drivebc.ca/" target="_blank" rel="noopener">DriveBC</a>. ' +
-      'Contains information licensed under the ' +
-      '<a href="https://www2.gov.bc.ca/gov/content/data/open-data/open-government-licence-bc" target="_blank" rel="noopener">Open Government Licence – British Columbia</a>. ' +
-      'Some cameras are supplied by partners (TransLink, the City of Vancouver, the City of Surrey, Parks Canada and others); each names its provider in the CCTV panel.',
-  },
-  {
-    key: 'tallinn-cctv',
-    html:
-      'CCTV cameras &amp; frames (Tallinn): City of Tallinn — ' +
-      '<a href="https://ristmikud.tallinn.ee/" target="_blank" rel="noopener">ristmikud.tallinn.ee</a> (courtesy)',
-  },
-  {
-    key: 'tarktee-cctv',
-    html:
-      'CCTV cameras &amp; frames (Estonia road weather): Transpordiamet / Tarktee — ' +
-      '<a href="https://tarktee.transpordiamet.ee/" target="_blank" rel="noopener">tarktee.transpordiamet.ee</a> (courtesy)',
-  },
-  {
-    key: 'warendorf-cctv',
-    html:
-      'Webcam (Warendorf): <a href="https://www.warendorf.de/" target="_blank" rel="noopener">Stadt Warendorf</a> (courtesy); ' +
-      'camera poses derived from OpenStreetMap geometry, © OpenStreetMap contributors (ODbL)',
-  },
-  {
-    key: 'nsw-cctv',
-    html:
-      'CCTV cameras &amp; frames (New South Wales): ' +
-      '<a href="https://www.livetraffic.com/" target="_blank" rel="noopener">Live Traffic NSW</a> — Transport for NSW ' +
-      '(<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>)',
   },
 ];
 

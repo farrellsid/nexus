@@ -103,7 +103,6 @@ const LAYER_CANDIDATE_CAP = 2600;
 const LAYER_WEIGHTS = Object.freeze({
   military: 1.4,
   traffic: 1.15,
-  cctv: 1.1,
   flights: 1,
   satellites: 1,
   'ais-live-vessels': 1,

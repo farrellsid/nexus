@@ -115,7 +115,7 @@ test('generated links are v2 and include deterministic layers, options, style pa
   manager._updateHash();
   const params = new URLSearchParams(window.location.hash.slice(1));
   assert.equal(params.get('v'), '2');
-  assert.equal(params.get('l'), 'c.q');
+  assert.equal(params.get('l'), 'q');
   assert.equal(params.get('sp'), 's.82_b.37_m.100_p.260_a.100');
   assert.equal(params.get('ui'), 'c.c.0_c.p.1_m.c.1');
 });
@@ -432,7 +432,7 @@ test('every explicit visual UI gesture claims restore authority before it mutate
   const initUi = sourceBlock('  _initUI() {', '  _initMapStackControl() {');
   const gestureRoutes = [
     ['toggleHud: () => {', 'toggleOrbit: () =>', 'this.hud.toggle()', 'HUD hotkey'],
-    ['cycleDetection: () => {', 'toggleCctv: () =>', 'cycleDetectionMode()', 'detection hotkey'],
+    ['cycleDetection: () => {', 'this._syncShareState();', 'cycleDetectionMode()', 'detection hotkey'],
     ['toggleBloom:', 'setBloomIntensity:', 'this._setBloomEnabled(', 'toggleBloom control'],
     ['setBloomIntensity:', 'toggleSharpen:', 'this._setBloomIntensity(', 'setBloomIntensity control'],
     ['toggleSharpen:', 'toggleScope:', 'this._setSharpenEnabled(', 'toggleSharpen control'],

@@ -1,16 +1,12 @@
 import flights from '../data/flights.js';
 import military from '../data/militaryFlights.js';
 import vessels from '../data/aisLiveVessels.js';
-import { configureAlprSource } from '../data/alprCameras.js';
-import { configureCctvSource } from '../data/cctv.js';
 import { configureInstallationSource } from '../data/militaryInstallations.js';
 import { configureSatelliteSource } from '../data/satellites.js';
 import { configureLaunchSource } from '../data/rocketLaunches.js';
 import { configureFirmsSource } from '../data/firmsHeatmap.js';
 import { configureMilitaryRegistrySource } from '../data/militaryRegistry.js';
 const configure = {
-  alpr: configureAlprSource,
-  cctv: configureCctvSource,
   installations: configureInstallationSource,
   satellites: configureSatelliteSource,
   launches: configureLaunchSource,

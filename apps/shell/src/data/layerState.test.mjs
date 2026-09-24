@@ -157,8 +157,8 @@ function encode(state) {
 
 test('production registry is exact, canonical, and rejects incomplete contracts', async () => {
   assert.equal(validateLayerStateRegistry(), true);
-  assert.equal(REGISTERED_LAYER_IDS.length, 15);
-  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 15);
+  assert.equal(REGISTERED_LAYER_IDS.length, 13);
+  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 13);
   assert.ok(REGISTERED_LAYER_IDS.includes('local-datacenters'));
   assert.deepEqual(REGISTERED_LAYER_IDS, [...REGISTERED_LAYER_IDS].sort());
   assert.throws(
@@ -187,42 +187,6 @@ test('production registry is exact, canonical, and rejects incomplete contracts'
   assert.equal(qaManager.layers.has('local-datacenters'), true);
   assert.equal(await qaManager.unregisterForQa('local-datacenters'), true);
   assert.equal(qaManager.layers.has('local-datacenters'), false);
-});
-
-test('v2 codec distinguishes absent from empty and keeps canonical deterministic ordering', () => {
-  assert.equal(decodeLayerStateParams(new URLSearchParams('lat=1&lon=2')), null);
-  assert.equal(decodeLayerStateParams(new URLSearchParams('v=1&l=e')), null);
-  assert.equal(decodeLayerStateParams(new URLSearchParams('v=3&l=e')), null);
-  assert.equal(decodeLayerStateParams(new URLSearchParams('v=2')), null);
-
-  const empty = decodeLayerStateParams(new URLSearchParams('v=2&l='));
-  assert.deepEqual(empty.enabledLayerIds, []);
-  assert.deepEqual(empty.options.cctv, {
-    coverageMode: 'on',
-    showProjection: true,
-    autoHop: false,
-  });
-
-  const first = normalizeLayerState({
-    enabledLayerIds: ['local-datacenters', 'cctv', 'local-dams', 'cctv'],
-    options: {
-      radio: { volume: 0.37, filter: 'news' },
-      cctv: { autoHop: true, coverageMode: 'viewshed', showProjection: false },
-      flights: { models3dMode: 'all', models3d: true },
-      satellites: { catalog: 'dense' },
-    },
-  });
-  const second = normalizeLayerState({
-    enabledLayerIds: ['local-dams', 'cctv', 'local-datacenters'],
-    options: {
-      satellites: { catalog: 'dense' },
-      flights: { models3d: true, models3dMode: 'all' },
-      cctv: { showProjection: false, coverageMode: 'viewshed', autoHop: true },
-      radio: { filter: 'news', volume: 0.37 },
-    },
-  });
-  assert.equal(encode(first), encode(second));
-  assert.deepEqual(decodeLayerStateParams(new URLSearchParams(encode(first))), first);
 });
 
 test('unknown enabled-layer tokens reject the payload instead of becoming an empty set', () => {
@@ -592,51 +556,6 @@ test('explicit manager params and visibility revoke module-owned pending trackin
   ]);
 });
 
-test('share payload wins over local, passive restore writes nothing, and explicit success persists', async () => {
-  const local = createDefaultLayerState();
-  local.enabledLayerIds = ['local-datacenters'];
-  const storage = memoryStorage(serializeStoredLayerState(local));
-  const manager = productionManager();
-  const share = shareSink();
-  const coordinator = new LayerStateCoordinator(manager, share, { storage });
-  const explicitEmpty = createDefaultLayerState();
-  await coordinator.start({ shareLayerState: explicitEmpty });
-
-  assert.equal(coordinator.source, 'share');
-  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, []);
-  assert.deepEqual(storage.writes, []);
-  assert.equal(share.provider().enabledLayerIds.length, 0);
-
-  await manager.setEnabled('local-dams', true, { origin: 'user' });
-  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams']);
-  assert.equal(storage.writes.length, 1);
-
-  await manager.setEnabled('local-datacenters', true, { origin: 'scene' });
-  assert.equal(storage.writes.length, 1);
-  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams']);
-
-  await manager.setEnabled('local-datacenters', true, { origin: 'tool' });
-  assert.equal(storage.writes.length, 2);
-  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams', 'local-datacenters']);
-
-  manager.setLayerParams('cctv', { selectedCameraId: 'private-camera' }, { origin: 'user' });
-  assert.equal(storage.writes.length, 2);
-  assert.deepEqual(coordinator.getDurableState().options.cctv, {
-    coverageMode: 'on',
-    showProjection: true,
-    autoHop: false,
-  });
-
-  manager.setLayerParams('cctv', { coverageMode: 'off' }, { origin: 'scene' });
-  assert.equal(storage.writes.length, 2);
-  assert.equal(coordinator.getDurableState().options.cctv.coverageMode, 'on');
-
-  manager.setLayerParams('cctv', { coverageMode: 'viewshed' }, { origin: 'voice' });
-  assert.equal(storage.writes.length, 3);
-  assert.equal(coordinator.getDurableState().options.cctv.coverageMode, 'viewshed');
-  coordinator.destroy();
-});
-
 test('historical share payload suppresses unrelated local layer preferences', async () => {
   const local = createDefaultLayerState();
   local.enabledLayerIds = ['local-datacenters', 'local-datacenters'];
@@ -653,15 +572,15 @@ test('historical share payload suppresses unrelated local layer preferences', as
 
 test('one layer failure is isolated from sibling restoration', async () => {
   const manager = productionManager({
-    cctv: { init: () => { throw new Error('missing key'); } },
+    'local-datacenters': { init: () => { throw new Error('missing key'); } },
   });
   const state = createDefaultLayerState();
-  state.enabledLayerIds = ['cctv', 'local-dams'];
+  state.enabledLayerIds = ['local-datacenters', 'local-dams'];
   const coordinator = new LayerStateCoordinator(manager, shareSink(), { storage: memoryStorage() });
   const results = await coordinator.start({ shareLayerState: state });
-  assert.equal(manager.isEnabled('cctv'), false);
+  assert.equal(manager.isEnabled('local-datacenters'), false);
   assert.equal(manager.isEnabled('local-dams'), true);
-  const failed = results.find((result) => result.layerId === 'cctv');
+  const failed = results.find((result) => result.layerId === 'local-datacenters');
   assert.equal(failed.succeeded, false);
   assert.equal(failed.phase, 'init');
   assert.equal(failed.errorClass, 'Error');

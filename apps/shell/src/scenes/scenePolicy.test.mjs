@@ -42,10 +42,10 @@ function sweepLayerParamKeys() {
 /** The layer registry as main.js builds it (src/main.js dataManager.register calls). */
 const REGISTERED = new Set([
   'bhote-koshi-2026', 'bhote-koshi-locator',
-  'flights', 'military', 'earthquakes', 'satellites', 'rocket-launches', 'traffic',
-  'cctv', 'radio', 'bikeshare', 'ais-live-vessels', 'military-installations',
+  'directions', 'flights', 'military', 'satellites', 'rocket-launches',
+  'ais-live-vessels', 'military-installations',
   'military-awareness', 'local-datacenters', 'local-dams',
-  'local-firms',
+  'local-firms', 'test-layer',
 ]);
 
 test('a shot only reconciles the layers it declares', () => {
@@ -63,30 +63,30 @@ test('undeclared layers are never torn down by a four-layer recipe', () => {
   );
   const touched = plan.map((entry) => entry.id);
   assert.deepEqual(touched, ['flights', 'satellites']);
-  for (const untouched of ['cctv', 'radio', 'local-dams', 'local-datacenters', 'local-firms']) {
+  for (const untouched of ['directions', 'military', 'local-dams', 'local-datacenters', 'local-firms']) {
     assert.ok(!touched.includes(untouched), `${untouched} must be left alone`);
   }
 });
 
 test('an explicit false in a recipe still disables that layer', () => {
   const plan = sceneLayerPlan(
-    { earthquakes: { enabled: true }, flights: { enabled: false }, traffic: { enabled: false } },
+    { earthquakes: { enabled: true }, flights: { enabled: false }, 'test-layer': { enabled: false } },
     REGISTERED,
   );
   assert.deepEqual(
     plan.filter((entry) => !entry.enabled).map((entry) => entry.id),
-    ['flights', 'traffic'],
+    ['flights', 'test-layer'],
   );
 });
 
 test('an operator-captured shot declaring every layer still reconciles in full', () => {
   // captureShot() snapshots the whole registry, so full reconcile is preserved.
   const captured = Object.fromEntries(
-    [...REGISTERED].map((id) => [id, { enabled: id === 'cctv' }]),
+    [...REGISTERED].map((id) => [id, { enabled: id === 'local-dams' }]),
   );
   const plan = sceneLayerPlan(captured, REGISTERED);
   assert.equal(plan.length, REGISTERED.size);
-  assert.deepEqual(plan.filter((entry) => entry.enabled).map((entry) => entry.id), ['cctv']);
+  assert.deepEqual(plan.filter((entry) => entry.enabled).map((entry) => entry.id), ['local-dams']);
 });
 
 test('layers no longer registered are skipped, not pushed at the data manager', () => {
@@ -148,7 +148,7 @@ test('every selection-shaped layer param is classified, whatever its spelling', 
   // any match must be explicitly stripped or explicitly kept.
   const classified = new Set([...SCENE_TRACKING_PARAM_KEYS, ...SCENE_KEPT_SELECTION_PARAM_KEYS]);
   const swept = sweepLayerParamKeys();
-  assert.ok(swept.size >= 6, `expected the known layer param surfaces, saw ${swept.size}`);
+  assert.ok(swept.size >= 5, `expected the known layer param surfaces, saw ${swept.size}`);
 
   const seen = new Set();
   for (const [file, keys] of swept) {
