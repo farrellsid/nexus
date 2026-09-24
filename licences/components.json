@@ -1,0 +1,163 @@
+{
+  "_comment": "Every file the public build emits must belong to an included component here. redistribution: allowed | reference_only | local_only | blocked | unverified. Licence evidence was read from primary texts on 2026-09-23; see docs/decisions.md and docs/recommendations/10-assets-and-licences.md.",
+  "components": [
+    {
+      "id": "nexus-app",
+      "kind": "software",
+      "included": true,
+      "emitted_globs": ["index.html", "assets/**"],
+      "licence": "MIT (Nexus code); npm runtime dependencies are checked separately",
+      "redistribution": "allowed",
+      "evidence_url": "https://opensource.org/license/mit",
+      "checked_at": "2026-09-23",
+      "note": "Requires the LICENSE file to exist; the gate checks that separately."
+    },
+    {
+      "id": "cesium-runtime",
+      "kind": "software",
+      "included": true,
+      "emitted_globs": ["cesium/**"],
+      "licence": "Apache-2.0",
+      "redistribution": "allowed",
+      "evidence_url": "https://raw.githubusercontent.com/CesiumGS/cesium/main/LICENSE.md",
+      "checked_at": "2026-09-23",
+      "note": "Upstream LICENSE.md and the installed copy both read. Keep ThirdParty.json and notices. Individual transitive assets inside the runtime are not independently cleared."
+    },
+    {
+      "id": "godseye-adapted-code",
+      "kind": "software",
+      "included": true,
+      "emitted_globs": [],
+      "licence": "MIT, copyright Bilawal Sidhu",
+      "redistribution": "allowed",
+      "evidence_url": "https://raw.githubusercontent.com/bilawalsidhu/gods-eye-view/main/LICENSE",
+      "checked_at": "2026-09-23",
+      "note": "Local LICENSE is identical to upstream. The MIT grant covers source code only; its third-party data and assets are excluded. Notice kept in THIRD_PARTY_NOTICES.md."
+    },
+    {
+      "id": "natural-earth-land",
+      "kind": "data",
+      "included": true,
+      "emitted_globs": [],
+      "licence": "Public domain (Natural Earth); world-atlas package is ISC",
+      "redistribution": "allowed",
+      "evidence_url": "https://www.naturalearthdata.com/about/terms-of-use/",
+      "checked_at": "2026-09-23",
+      "note": "Bundled into the JavaScript through world-atlas. Suitable for context, not for certifying a strait or port."
+    },
+    {
+      "id": "wikidata-coordinates",
+      "kind": "data",
+      "included": true,
+      "emitted_globs": [],
+      "licence": "CC0 1.0",
+      "redistribution": "allowed",
+      "evidence_url": "https://www.wikidata.org/wiki/Wikidata:Licensing",
+      "checked_at": "2026-09-23",
+      "note": "The page states: 'All data in Wikidata has a CC0 license.' Coordinates in geography.json come from here."
+    },
+    {
+      "id": "esri-world-imagery",
+      "kind": "service",
+      "included": false,
+      "emitted_globs": [],
+      "licence": "Esri service terms",
+      "redistribution": "unverified",
+      "release_use": "disabled",
+      "evidence_url": "https://www.esri.com/en-us/legal/terms/master-agreement",
+      "checked_at": "2026-09-23",
+      "note": "Public use of the keyless endpoint is not established. Public build uses the Natural Earth globe until settled."
+    },
+    {
+      "id": "openstreetmap-tiles",
+      "kind": "service",
+      "included": false,
+      "emitted_globs": [],
+      "licence": "ODbL data; tile service policy applies separately",
+      "redistribution": "unverified",
+      "release_use": "disabled",
+      "evidence_url": "https://operations.osmfoundation.org/policies/tiles/",
+      "checked_at": "2026-09-23",
+      "note": "The data licence is not permission for unlimited tile hosting. Disabled for public release."
+    },
+    {
+      "id": "inter-font",
+      "kind": "font",
+      "included": false,
+      "emitted_globs": ["fonts/inter/**"],
+      "licence": "OFL-1.1, copyright The Inter Project Authors",
+      "redistribution": "allowed",
+      "evidence_url": "https://raw.githubusercontent.com/rsms/inter/master/LICENSE.txt",
+      "checked_at": "2026-09-23",
+      "note": "Planned. Self-host a pinned copy with its licence text. Mind the Reserved Font Name condition if modified."
+    },
+    {
+      "id": "jetbrains-mono-font",
+      "kind": "font",
+      "included": false,
+      "emitted_globs": ["fonts/jetbrains-mono/**"],
+      "licence": "OFL-1.1, copyright The JetBrains Mono Project Authors",
+      "redistribution": "allowed",
+      "evidence_url": "https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/OFL.txt",
+      "checked_at": "2026-09-23",
+      "note": "Planned. Self-host a pinned copy with its licence text."
+    },
+    {
+      "id": "material-symbols",
+      "kind": "icon",
+      "included": false,
+      "emitted_globs": ["fonts/material-symbols/**"],
+      "licence": "Apache-2.0",
+      "redistribution": "allowed",
+      "evidence_url": "https://raw.githubusercontent.com/google/material-design-icons/master/LICENSE",
+      "checked_at": "2026-09-23",
+      "note": "Planned. The repository LICENSE was verified; the exact font file version to bundle is not yet chosen."
+    },
+    {
+      "id": "godseye-styles",
+      "kind": "software",
+      "included": false,
+      "emitted_globs": [],
+      "licence": "MIT, copyright Bilawal Sidhu",
+      "redistribution": "allowed",
+      "evidence_url": "https://raw.githubusercontent.com/bilawalsidhu/gods-eye-view/main/LICENSE",
+      "checked_at": "2026-09-23",
+      "note": "Planned. Adapt foundation, cockpit and command-dock styles only; keep the copyright and modification notice."
+    },
+    {
+      "id": "godseye-loose-svgs",
+      "kind": "icon",
+      "included": false,
+      "emitted_globs": [],
+      "licence": "Unknown provenance",
+      "redistribution": "unverified",
+      "evidence_url": "https://github.com/bilawalsidhu/gods-eye-view/blob/main/LICENSE",
+      "checked_at": "2026-09-23",
+      "note": "location.svg, visual-presets.svg, pin.svg: no per-file provenance; the MIT grant excludes third-party assets. Replace with verified icons."
+    },
+    {
+      "id": "godseye-third-party-material",
+      "kind": "data",
+      "included": false,
+      "emitted_globs": [],
+      "forbidden_globs": [
+        "models/**",
+        "events/**",
+        "local_data/**",
+        "**/telegeography*/**",
+        "**/datacenters/**",
+        "**/dams/**",
+        "**/cctv_ground_heights/**",
+        "**/neighborhoods/**",
+        "**/alpr-marker-*",
+        "**/logo.svg",
+        "**/mic.svg"
+      ],
+      "licence": "Mixed: CC BY-NC-SA, ODbL, CC BY-NC, per-model CC BY, unknown",
+      "redistribution": "blocked",
+      "evidence_url": "https://raw.githubusercontent.com/bilawalsidhu/gods-eye-view/main/LICENSE",
+      "checked_at": "2026-09-23",
+      "note": "Bundled in the God's Eye repository outside its MIT grant. Must never enter the Nexus build."
+    }
+  ]
+}
