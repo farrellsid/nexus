@@ -39,8 +39,8 @@ export async function discoverRuntimeFormatFiles(root) {
   const files = [];
   for (const name of new Set(candidates)) {
     if (
-      !/\.[cm]?js$/.test(name) ||
-      /\.test\.[cm]?js$/.test(name) ||
+      !/\.[cm]?[jt]s$/.test(name) ||
+      /\.test\.[cm]?[jt]s$/.test(name) ||
       !existsSync(path.join(root, name))
     )
       continue;

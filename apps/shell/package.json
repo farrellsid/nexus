@@ -2,7 +2,7 @@
   "name": "gods-eye-view",
   "private": true,
   "version": "0.1.1",
-  "description": "A real-time intelligence console for planet Earth — photorealistic 3D globe, live aircraft/ships/satellites/earthquakes/CCTV, and hands-free voice control. Runs in a browser.",
+  "description": "A real-time intelligence console for planet Earth \u2014 photorealistic 3D globe, live aircraft/ships/satellites/earthquakes/CCTV, and hands-free voice control. Runs in a browser.",
   "type": "module",
   "license": "MIT",
   "author": "Bilawal Sidhu",
@@ -42,8 +42,11 @@
     "check:engine": "node scripts/nexus-check-engine.mjs",
     "check:dead": "node scripts/nexus-dead-modules.mjs --strict",
     "e2e": "playwright test",
-    "check:step": "npm run format:check && npm test && npm run check:config && npm run check:boundaries && npm run check:dead && npm run check:engine && npm run e2e",
-    "check:config": "node scripts/nexus-prune-config.mjs --check"
+    "check:step": "npm run format:check && npm run typecheck && npm run check:generated && npm test && npm run check:config && npm run check:boundaries && npm run check:dead && npm run check:engine && npm run e2e",
+    "check:config": "node scripts/nexus-prune-config.mjs --check",
+    "typecheck": "tsc --noEmit",
+    "generate": "node scripts/generate-oil-stops.mjs",
+    "check:generated": "node scripts/generate-oil-stops.mjs --check"
   },
   "dependencies": {
     "@mapbox/vector-tile": "^3.0.0",
@@ -55,16 +58,15 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",
+    "@types/node": "^24.13.6",
     "prettier": "3.9.6",
     "sharp": "^0.35.4",
+    "typescript": "^5.9.3",
     "vite": "^6.0.0",
     "vite-plugin-cesium": "^1.2.23",
     "ws": "^8.21.0"
   },
   "exports": {
-    "./infrastructure": "./src/data/infrastructure.js",
-    "./infrastructure/geojson": "./src/data/localGeojsonCore.js",
-    "./infrastructure/lod": "./src/data/localGeojsonLod.js",
     "./application": "./src/app/application.js",
     "./application/viewer": "./src/app/viewer.js",
     "./build/vite": {
@@ -101,7 +103,6 @@
     "./ui/composition": "./src/ui/composition.js",
     "./ui/hud": "./src/hud.js",
     "./standalone/settings": "./src/keySetup.js",
-    "./context": "./src/data/contextStore.js",
     "./build/html": {
       "node": "./build/application-html.js"
     },
@@ -112,6 +113,7 @@
     "./ui/navigation": "./src/ui/navigationController.js",
     "./ui/share-restoration": "./src/ui/shareRestoration.js",
     "./ui/visual-settings": "./src/ui/visualSettings.js",
-    "./ui/panel-chrome": "./src/ui/panelChrome.js"
+    "./ui/panel-chrome": "./src/ui/panelChrome.js",
+    "./nexus/oil": "./src/nexus/oilGeographyLayer.ts"
   }
 }

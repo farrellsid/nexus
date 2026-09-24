@@ -176,19 +176,13 @@ export const SHARE_TRACKING_RESTORE_POLICIES = Object.freeze({});
  */
 export const LAYER_STATE_REGISTRY = Object.freeze([
   Object.freeze({
-    id: 'bhote-koshi-2026',
-    token: 'h',
+    id: 'nexus-oil-corridors',
+    token: 'c',
     disposition: 'enabled-only',
   }),
   Object.freeze({
-    id: 'bhote-koshi-locator',
-    token: 'z',
-    disposition: 'enabled-only',
-  }),
-  Object.freeze({ id: 'local-dams', token: 'q', disposition: 'enabled-only' }),
-  Object.freeze({
-    id: 'local-datacenters',
-    token: 'd',
+    id: 'nexus-oil-stops',
+    token: 's',
     disposition: 'enabled-only',
   }),
 ]);

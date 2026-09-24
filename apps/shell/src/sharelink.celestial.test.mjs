@@ -76,12 +76,6 @@ test('unknown-only v2 layer tokens are invalid, while historical l fields stay i
   }
 });
 
-test('Nepal locator token is valid in v2 share links', () => {
-  const parsed = makeManager('#v=2&lat=10&lon=20&l=z').parseInitialHash();
-  assert.deepEqual(parsed.layerState.enabledLayerIds, ['bhote-koshi-locator']);
-  assert.equal(parsed.layerStateInvalid, false);
-});
-
 test('share-link serialization emits the current celestial state', () => {
   const manager = makeManager();
   manager.onToggleChange(false, false, { celestialRingEnabled: false });
@@ -98,7 +92,7 @@ test('share-link serialization emits the current celestial state', () => {
 test('generated links are v2 and include deterministic layers, options, style params, and panels', () => {
   const manager = makeManager();
   const layers = createDefaultLayerState();
-  layers.enabledLayerIds = ['cctv', 'local-dams'];
+  layers.enabledLayerIds = ['cctv', 'nexus-oil-stops'];
   layers.options.cctv = { coverageMode: 'viewshed', showProjection: false, autoHop: true };
   manager.setLayerStateProvider(() => layers);
   manager.setPanelStateProvider(() => ({ specs: [
@@ -113,7 +107,7 @@ test('generated links are v2 and include deterministic layers, options, style pa
   manager._updateHash();
   const params = new URLSearchParams(window.location.hash.slice(1));
   assert.equal(params.get('v'), '2');
-  assert.equal(params.get('l'), 'q');
+  assert.equal(params.get('l'), 's');
   assert.equal(params.get('sp'), 's.82_b.37_m.100_p.260_a.100');
   assert.equal(params.get('ui'), 'c.c.0_c.p.1_m.c.1');
 });

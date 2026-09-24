@@ -1,6 +1,5 @@
 {
   "modules": [
-    "src/data/localGeojson.js",
     "src/data/manager.js",
     "src/search/index.js",
     "src/testSupport/readLayerSource.mjs",

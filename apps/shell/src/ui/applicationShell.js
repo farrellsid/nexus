@@ -47,8 +47,7 @@ export class StyleManager extends ShellFacade {
     { mapStackController = null, placeSearch, services } = {},
   ) {
     super();
-    const { IntelHUD, ShareLinkManager, CelestialRing, initWorldOverlay } =
-      services;
+    const { IntelHUD, ShareLinkManager, CelestialRing } = services;
     this.services = services;
     this._lifetime = new UiLifetime();
     this._recording = new RecordingControls({
@@ -105,7 +104,6 @@ export class StyleManager extends ShellFacade {
       services: {
         setScopeTerminusOverride: services.setScopeTerminusOverride,
         clampScopeTerminusPct: services.clampScopeTerminusPct,
-        getKeyholeFadeTuning: services.getKeyholeFadeTuning,
         getScopeMaskFeather: services.getScopeMaskFeather,
         getScopeTerminusOverride: services.getScopeTerminusOverride,
         governorRequestRender: services.governorRequestRender,
@@ -113,7 +111,6 @@ export class StyleManager extends ShellFacade {
         isCelestialRingStyleSupported: services.isCelestialRingStyleSupported,
         isScopeMaskEnabled: services.isScopeMaskEnabled,
         releaseContinuousRender: services.releaseContinuousRender,
-        setKeyholeFadeTuning: services.setKeyholeFadeTuning,
         setScopeMaskEnabled: services.setScopeMaskEnabled,
         setScopeMaskFeather: services.setScopeMaskFeather,
       },
@@ -277,11 +274,6 @@ export class StyleManager extends ShellFacade {
     // from deterministic markup defaults instead of recipient-local panel
     // preferences. Encoded panel fields are applied after all panels exist.
     this._shareRestoration.attachLinks(this.shareLinkManager);
-
-    // The shared world-overlay host must own its one postRender lane before
-    // detection and tracked-readout initialize. It stays transparent until a
-    // production source explicitly registers entries.
-    initWorldOverlay(viewer);
 
     this._initStages();
     this._initBloomSharpen();
@@ -776,7 +768,6 @@ export class StyleManager extends ShellFacade {
    * @returns {Promise<void>} Resolves after focused-session state restoration.
    */
   async dispose() {
-    const { destroyWorldOverlay } = this.services;
     if (this._disposed) return;
     this._shareRestoration.destroy();
     this._feedback._globalStatusNotice = null;
@@ -805,7 +796,6 @@ export class StyleManager extends ShellFacade {
       window.removeEventListener('resize', this._windowResizeHandler);
       this._windowResizeHandler = null;
     }
-    destroyWorldOverlay();
     this.celestialRing?.destroy();
     this._visualSettings.destroy();
   }

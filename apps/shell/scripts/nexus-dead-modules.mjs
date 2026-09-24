@@ -28,8 +28,8 @@ const walk = (dir) =>
     return statSync(path).isDirectory() ? walk(path) : [path];
   });
 const rel = (path) => relative(root, path).replaceAll('\\', '/');
-const isSource = (path) => /\.(m?js)$/.test(path);
-const isTest = (path) => /\.test\.mjs$/.test(path);
+const isSource = (path) => /\.(m?js|ts)$/.test(path);
+const isTest = (path) => /\.test\.(mjs|ts)$/.test(path);
 
 // Import statements must start a line, so import-shaped strings inside test fixtures do not count.
 const IMPORT = /^[ \t]*(?:import|export)\s[^'"`;]*?from\s*['"]([^'"]+)['"]|^[ \t]*import\s*['"]([^'"]+)['"]|import\(\s*['"]([^'"]+)['"]\s*\)/gm;
@@ -40,7 +40,7 @@ function resolveImport(from, spec) {
   if (spec.startsWith('/node_modules/')) return { external: true }; // Vite's generated dependency cache
   const clean = spec.split('?')[0].split('#')[0];
   const base = clean.startsWith('/') ? join(root, clean) : resolve(dirname(from), clean);
-  for (const candidate of [base, `${base}.js`, `${base}.mjs`, join(base, 'index.js'), join(base, 'index.mjs')]) {
+  for (const candidate of [base, `${base}.js`, `${base}.mjs`, `${base}.ts`, join(base, 'index.js'), join(base, 'index.mjs'), join(base, 'index.ts')]) {
     if (existsSync(candidate) && statSync(candidate).isFile()) return { path: candidate };
   }
   return { missing: base };

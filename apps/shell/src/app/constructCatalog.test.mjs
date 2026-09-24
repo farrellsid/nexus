@@ -10,30 +10,11 @@ test('catalogs construct distinct layer instances', (t) => {
     a.abort();
     b.abort();
   });
-  const first = createApplicationCatalog({
-    signal: a.signal,
-  });
-  const second = createApplicationCatalog({
-    signal: b.signal,
-  });
-  assert.equal(first.layers.length, 4);
-  assert.ok(first.get('bhote-koshi-2026'));
-  assert.ok(first.get('bhote-koshi-locator'));
-  const lifecycle = registerAll(first.layers);
-  const rows = lifecycle.getAll();
-  for (const id of ['bhote-koshi-2026', 'bhote-koshi-locator']) {
-    assert.equal(
-      rows.find((row) => row.id === id)?.showInTogglePanel,
-      false,
-      `${id} remains registered for Scenes but is absent from Data Layers`,
-    );
-    assert.equal(typeof first.get(id).enable, 'function');
-    assert.equal(typeof first.get(id).setParams, 'function');
-  }
-  assert.equal(
-    rows.find((row) => row.id === 'local-dams')?.showInTogglePanel,
-    true,
-    'ordinary data layer entries remain visible',
+  const first = createApplicationCatalog({ signal: a.signal });
+  const second = createApplicationCatalog({ signal: b.signal });
+  assert.deepEqual(
+    first.layers.map(({ id }) => id),
+    ['nexus-oil-stops', 'nexus-oil-corridors'],
   );
   assert.deepEqual(
     first.layers.map(({ id }) => id),
@@ -41,22 +22,20 @@ test('catalogs construct distinct layer instances', (t) => {
   );
   for (const layer of first.layers)
     assert.notEqual(layer, second.get(layer.id));
+  const lifecycle = new LayerLifecycle({});
+  for (const layer of first.layers) lifecycle.register(layer);
+  for (const row of lifecycle.getAll())
+    assert.equal(
+      row.showInTogglePanel,
+      true,
+      `${row.id} appears in the Data Layers panel`,
+    );
 });
 
 test('an already cancelled construction fails before any layer is built', () => {
   const lifetime = new AbortController();
   lifetime.abort();
-  assert.throws(
-    () =>
-      createApplicationCatalog({
-        signal: lifetime.signal,
-      }),
-    { name: 'AbortError' },
-  );
+  assert.throws(() => createApplicationCatalog({ signal: lifetime.signal }), {
+    name: 'AbortError',
+  });
 });
-
-function registerAll(layers) {
-  const lifecycle = new LayerLifecycle({});
-  for (const layer of layers) lifecycle.register(layer);
-  return lifecycle;
-}

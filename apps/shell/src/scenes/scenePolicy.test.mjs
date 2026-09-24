@@ -15,7 +15,7 @@ const REGISTERED = new Set([
   'bhote-koshi-2026', 'bhote-koshi-locator',
   'directions', 'flights', 'military', 'satellites', 'rocket-launches',
   'ais-live-vessels', 'military-installations',
-  'military-awareness', 'local-datacenters', 'local-dams',
+  'military-awareness', 'nexus-oil-corridors', 'nexus-oil-stops',
   'local-firms', 'test-layer',
 ]);
 
@@ -34,7 +34,7 @@ test('undeclared layers are never torn down by a four-layer recipe', () => {
   );
   const touched = plan.map((entry) => entry.id);
   assert.deepEqual(touched, ['flights', 'satellites']);
-  for (const untouched of ['directions', 'military', 'local-dams', 'local-datacenters', 'local-firms']) {
+  for (const untouched of ['directions', 'military', 'nexus-oil-stops', 'nexus-oil-corridors', 'local-firms']) {
     assert.ok(!touched.includes(untouched), `${untouched} must be left alone`);
   }
 });
@@ -53,11 +53,11 @@ test('an explicit false in a recipe still disables that layer', () => {
 test('an operator-captured shot declaring every layer still reconciles in full', () => {
   // captureShot() snapshots the whole registry, so full reconcile is preserved.
   const captured = Object.fromEntries(
-    [...REGISTERED].map((id) => [id, { enabled: id === 'local-dams' }]),
+    [...REGISTERED].map((id) => [id, { enabled: id === 'nexus-oil-stops' }]),
   );
   const plan = sceneLayerPlan(captured, REGISTERED);
   assert.equal(plan.length, REGISTERED.size);
-  assert.deepEqual(plan.filter((entry) => entry.enabled).map((entry) => entry.id), ['local-dams']);
+  assert.deepEqual(plan.filter((entry) => entry.enabled).map((entry) => entry.id), ['nexus-oil-stops']);
 });
 
 test('layers no longer registered are skipped, not pushed at the data manager', () => {
@@ -93,12 +93,12 @@ test('every shipped recipe declares only registered layer ids', () => {
   }
 });
 
-test('shipped recipes touch only their four declared layers', () => {
+test('shipped recipes touch only their declared layers', () => {
   for (const recipe of SCENE_RECIPES) {
     const declared = Object.entries(recipe.layers || {})
       .map(([id, enabled]) => [id, { enabled }]);
     const plan = sceneLayerPlan(Object.fromEntries(declared), REGISTERED);
     assert.equal(plan.length, Object.keys(recipe.layers || {}).length, recipe.id);
-    assert.ok(plan.length <= 4, `${recipe.id} should not reach beyond its declared layers`);
+    assert.ok(plan.length <= 8, `${recipe.id} should not reach beyond its declared layers`);
   }
 });

@@ -48,3 +48,27 @@ test('the shell renders and is no noisier than its recorded baseline', async ({ 
   const stale = known.filter((entry) => !errors.some((text) => text.includes(entry)));
   expect(stale, 'known errors that no longer occur: delete them from known-errors.json').toEqual([]);
 });
+
+test('the oil layers draw their sourced records when enabled and remove them when disabled', async ({ page }) => {
+  await page.goto('/');
+  await page.waitForFunction(() => window.__godsEyeView?.dataManager, null, { timeout: 60_000 });
+  const read = () =>
+    page.evaluate(() => {
+      const { viewer } = window.__godsEyeView;
+      return Array.from({ length: viewer.dataSources.length }, (_, index) => {
+        const source = viewer.dataSources.get(index);
+        return `${source.name}:${source.entities.values.length}`;
+      }).sort();
+    });
+  const setLayers = (enabled) =>
+    page.evaluate(async (on) => {
+      const { dataManager } = window.__godsEyeView;
+      for (const id of ['nexus-oil-stops', 'nexus-oil-corridors'])
+        await dataManager.setEnabled(id, on, { origin: 'user' });
+    }, enabled);
+  expect(await read()).toEqual([]);
+  await setLayers(true);
+  expect(await read()).toEqual(['nexus-oil-corridors:2', 'nexus-oil-stops:6']);
+  await setLayers(false);
+  expect(await read()).toEqual([]);
+});

@@ -15,14 +15,8 @@ import { ShareLinkManager } from '../sharelink.js';
 import { OrbitController } from '../orbit.js';
 import {
   CelestialRing,
-  getKeyholeFadeTuning,
   isCelestialRingStyleSupported,
-  setKeyholeFadeTuning,
 } from '../celestialRing.js';
-import {
-  destroyWorldOverlay,
-  initWorldOverlay,
-} from '../overlays/worldOverlay.js';
 import {
   holdContinuousRender,
   releaseContinuousRender,
@@ -54,11 +48,7 @@ export class StyleManager extends ApplicationShell {
         ShareLinkManager,
         OrbitController,
         CelestialRing,
-        getKeyholeFadeTuning,
         isCelestialRingStyleSupported,
-        setKeyholeFadeTuning,
-        destroyWorldOverlay,
-        initWorldOverlay,
         holdContinuousRender,
         releaseContinuousRender,
         governorRequestRender,

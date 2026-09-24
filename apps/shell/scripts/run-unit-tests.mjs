@@ -11,7 +11,7 @@ export function discoverUnitTestFiles(root = process.cwd()) {
     for (const entry of readdirSync(directory, { withFileTypes: true })) {
       const absolute = path.join(directory, entry.name);
       if (entry.isDirectory()) visit(absolute);
-      else if (entry.isFile() && entry.name.endsWith('.test.mjs')) {
+      else if (entry.isFile() && /\.test\.(mjs|ts)$/.test(entry.name)) {
         files.push(path.relative(root, absolute).split(path.sep).join('/'));
       }
     }

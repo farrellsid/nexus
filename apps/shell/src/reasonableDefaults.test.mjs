@@ -34,7 +34,6 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 
 import { KEYHOLE_OUTER_RADIUS, KEYHOLE_OUTSIDE_OPACITY_DEFAULT, KEYHOLE_LABEL_FEATHER_RATIO } from './celestialRing.js';
-import { AIRCRAFT_BRACKET_FLOOR_ANCHOR } from './data/detectionPolicy.js';
 import {
   SCOPE_FEATHER_RATIO_DEFAULT,
   getScopeMaskFeather,

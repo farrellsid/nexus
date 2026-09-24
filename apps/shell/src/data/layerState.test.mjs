@@ -44,7 +44,7 @@ function paramsForLayer(id) {
       calibration: { cameraId: 'secret-camera', values: { heading: 12 } },
     };
   }
-  if (id === 'local-datacenters') {
+  if (id === 'nexus-oil-corridors') {
     return {
       filter: 'all',
       volume: 0.8,
@@ -157,9 +157,9 @@ function encode(state) {
 
 test('production registry is exact, canonical, and rejects incomplete contracts', async () => {
   assert.equal(validateLayerStateRegistry(), true);
-  assert.equal(REGISTERED_LAYER_IDS.length, 4);
-  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 4);
-  assert.ok(REGISTERED_LAYER_IDS.includes('local-datacenters'));
+  assert.equal(REGISTERED_LAYER_IDS.length, 2);
+  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 2);
+  assert.ok(REGISTERED_LAYER_IDS.includes('nexus-oil-corridors'));
   assert.deepEqual(REGISTERED_LAYER_IDS, [...REGISTERED_LAYER_IDS].sort());
   assert.throws(
     () => validateLayerStateRegistry([...LAYER_STATE_REGISTRY, LAYER_STATE_REGISTRY[0]]),
@@ -167,37 +167,31 @@ test('production registry is exact, canonical, and rejects incomplete contracts'
   );
 
   const manager = new DataLayerManager({});
-  manager.register(fakeLayer('local-dams'));
-  assert.throws(() => manager.register(fakeLayer('local-dams')), /Duplicate data-layer id/);
-  await assert.rejects(manager.restoreLayerState('local-dams', { enabled: true }), /finalized/);
+  manager.register(fakeLayer('nexus-oil-stops'));
+  assert.throws(() => manager.register(fakeLayer('nexus-oil-stops')), /Duplicate data-layer id/);
+  await assert.rejects(manager.restoreLayerState('nexus-oil-stops', { enabled: true }), /finalized/);
   assert.throws(() => manager.finalizeRegistrations([]), /registry mismatch/);
   assert.throws(
-    () => manager.finalizeRegistrations([{ id: 'local-dams', disposition: 'default' }]),
+    () => manager.finalizeRegistrations([{ id: 'nexus-oil-stops', disposition: 'default' }]),
     /Invalid layer serialization disposition/,
   );
   assert.equal(manager.finalizeRegistrations([
-    { id: 'local-dams', disposition: 'enabled-only' },
+    { id: 'nexus-oil-stops', disposition: 'enabled-only' },
   ]), true);
-  assert.throws(() => manager.register(fakeLayer('local-datacenters')), /finalized/);
-  assert.throws(() => manager.registerForQa(fakeLayer('local-datacenters')), /not authorized/);
+  assert.throws(() => manager.register(fakeLayer('nexus-oil-corridors')), /finalized/);
+  assert.throws(() => manager.registerForQa(fakeLayer('nexus-oil-corridors')), /not authorized/);
   const qaManager = new DataLayerManager({}, { allowQaRegistration: true });
-  qaManager.register(fakeLayer('local-dams'));
-  qaManager.finalizeRegistrations([{ id: 'local-dams', disposition: 'enabled-only' }]);
-  qaManager.registerForQa(fakeLayer('local-datacenters'));
-  assert.equal(qaManager.layers.has('local-datacenters'), true);
-  assert.equal(await qaManager.unregisterForQa('local-datacenters'), true);
-  assert.equal(qaManager.layers.has('local-datacenters'), false);
+  qaManager.register(fakeLayer('nexus-oil-stops'));
+  qaManager.finalizeRegistrations([{ id: 'nexus-oil-stops', disposition: 'enabled-only' }]);
+  qaManager.registerForQa(fakeLayer('nexus-oil-corridors'));
+  assert.equal(qaManager.layers.has('nexus-oil-corridors'), true);
+  assert.equal(await qaManager.unregisterForQa('nexus-oil-corridors'), true);
+  assert.equal(qaManager.layers.has('nexus-oil-corridors'), false);
 });
 
 test('unknown enabled-layer tokens reject the payload instead of becoming an empty set', () => {
   assert.equal(decodeLayerStateParams(new URLSearchParams('v=2&l=unknown')), null);
   assert.equal(decodeLayerStateParams(new URLSearchParams('v=2&l=c.unknown')), null);
-});
-
-test('Nepal event and locator have distinct enabled-only share tokens', () => {
-  const decoded = decodeLayerStateParams(new URLSearchParams('v=2&l=h.z'));
-  assert.deepEqual(decoded.enabledLayerIds, ['bhote-koshi-2026', 'bhote-koshi-locator']);
-  assert.ok(encode(decoded).includes('l=h.z'));
 });
 
 test('stored state is deterministic, rejects other versions, and stays within a tested URL bound', () => {
@@ -215,7 +209,7 @@ test('stored state is deterministic, rejects other versions, and stays within a 
 
 test('historical share payload suppresses unrelated local layer preferences', async () => {
   const local = createDefaultLayerState();
-  local.enabledLayerIds = ['local-datacenters', 'local-datacenters'];
+  local.enabledLayerIds = ['nexus-oil-corridors', 'nexus-oil-corridors'];
   const storage = memoryStorage(serializeStoredLayerState(local));
   const manager = productionManager();
   const coordinator = new LayerStateCoordinator(manager, shareSink(), { storage });
@@ -229,20 +223,20 @@ test('historical share payload suppresses unrelated local layer preferences', as
 
 test('one layer failure is isolated from sibling restoration', async () => {
   const manager = productionManager({
-    'local-datacenters': { init: () => { throw new Error('missing key'); } },
+    'nexus-oil-corridors': { init: () => { throw new Error('missing key'); } },
   });
   const state = createDefaultLayerState();
-  state.enabledLayerIds = ['local-datacenters', 'local-dams'];
+  state.enabledLayerIds = ['nexus-oil-corridors', 'nexus-oil-stops'];
   const coordinator = new LayerStateCoordinator(manager, shareSink(), { storage: memoryStorage() });
   const results = await coordinator.start({ shareLayerState: state });
-  assert.equal(manager.isEnabled('local-datacenters'), false);
-  assert.equal(manager.isEnabled('local-dams'), true);
-  const failed = results.find((result) => result.layerId === 'local-datacenters');
+  assert.equal(manager.isEnabled('nexus-oil-corridors'), false);
+  assert.equal(manager.isEnabled('nexus-oil-stops'), true);
+  const failed = results.find((result) => result.layerId === 'nexus-oil-corridors');
   assert.equal(failed.succeeded, false);
   assert.equal(failed.phase, 'init');
   assert.equal(failed.errorClass, 'Error');
   assert.equal(failed.error, 'missing key');
-  assert.equal(results.find((result) => result.layerId === 'local-dams').succeeded, true);
+  assert.equal(results.find((result) => result.layerId === 'nexus-oil-stops').succeeded, true);
   coordinator.destroy();
 });
 
@@ -251,18 +245,18 @@ test('later explicit visibility during delayed restore wins for that layer only'
   const manager = productionManager();
   const storage = memoryStorage();
   const state = createDefaultLayerState();
-  state.enabledLayerIds = ['local-datacenters', 'local-dams'];
+  state.enabledLayerIds = ['nexus-oil-corridors', 'nexus-oil-stops'];
   const coordinator = new LayerStateCoordinator(manager, shareSink(), {
     storage,
     restoreGate: gate.promise,
   });
   const restore = coordinator.start({ shareLayerState: state });
-  await manager.setEnabled('local-datacenters', false, { origin: 'user' });
+  await manager.setEnabled('nexus-oil-corridors', false, { origin: 'user' });
   gate.resolve();
   const results = await restore;
-  assert.equal(manager.isEnabled('local-datacenters'), false);
-  assert.equal(manager.isEnabled('local-dams'), true);
-  assert.equal(results.find((result) => result.layerId === 'local-datacenters').cancellationReason, 'superseded');
+  assert.equal(manager.isEnabled('nexus-oil-corridors'), false);
+  assert.equal(manager.isEnabled('nexus-oil-stops'), true);
+  assert.equal(results.find((result) => result.layerId === 'nexus-oil-corridors').cancellationReason, 'superseded');
   assert.equal(storage.writes.length, 1);
   coordinator.destroy();
 });
@@ -274,7 +268,7 @@ test('share restore waits for a superseding same-target visibility successor', a
   const releaseSecondUpdate = deferred();
   let updateCount = 0;
   const manager = productionManager({
-    'local-datacenters': {
+    'nexus-oil-corridors': {
       update: async () => {
         updateCount += 1;
         if (updateCount === 1) {
@@ -289,7 +283,7 @@ test('share restore waits for a superseding same-target visibility successor', a
     },
   });
   const state = createDefaultLayerState();
-  state.enabledLayerIds = ['local-datacenters'];
+  state.enabledLayerIds = ['nexus-oil-corridors'];
   const coordinator = new LayerStateCoordinator(manager, shareSink(), { storage: memoryStorage() });
 
   let restoreSettled = false;
@@ -297,7 +291,7 @@ test('share restore waits for a superseding same-target visibility successor', a
     .then((result) => { restoreSettled = true; return result; });
   await firstUpdateStarted.promise;
   let successorSettled = false;
-  const explicitOn = manager.setEnabled('local-datacenters', true, { origin: 'user' })
+  const explicitOn = manager.setEnabled('nexus-oil-corridors', true, { origin: 'user' })
     .then((result) => { successorSettled = true; return result; });
   releaseFirstUpdate.resolve();
   await secondUpdateStarted.promise;
@@ -308,13 +302,13 @@ test('share restore waits for a superseding same-target visibility successor', a
   releaseSecondUpdate.resolve();
   assert.equal(await explicitOn, true);
   const results = await restore;
-  const radio = results.find((result) => result.layerId === 'local-datacenters');
+  const radio = results.find((result) => result.layerId === 'nexus-oil-corridors');
   assert.equal(radio.cancellationReason, 'superseded');
   assert.equal(radio.successorEnabled, true);
   assert.equal(radio.authoritativeIntentEpoch, radio.successorIntentEpoch);
   assert.equal(radio.authoritativeEnabled, true);
   assert.equal(radio.succeeded, true);
-  assert.equal(manager.getLayerLifecycleState('local-datacenters').lifecycleState, 'enabled');
+  assert.equal(manager.getLayerLifecycleState('nexus-oil-corridors').lifecycleState, 'enabled');
   coordinator.destroy();
 });
 
@@ -324,7 +318,7 @@ test('share restore waits for a superseding opposite-target visibility successor
   const disableStarted = deferred();
   const releaseDisable = deferred();
   const manager = productionManager({
-    'local-datacenters': {
+    'nexus-oil-corridors': {
       update: async () => {
         updateStarted.resolve();
         await releaseUpdate.promise;
@@ -338,14 +332,14 @@ test('share restore waits for a superseding opposite-target visibility successor
     },
   });
   const state = createDefaultLayerState();
-  state.enabledLayerIds = ['local-datacenters'];
+  state.enabledLayerIds = ['nexus-oil-corridors'];
   const coordinator = new LayerStateCoordinator(manager, shareSink(), { storage: memoryStorage() });
 
   let restoreSettled = false;
   const restore = coordinator.start({ shareLayerState: state })
     .then((result) => { restoreSettled = true; return result; });
   await updateStarted.promise;
-  const explicitOff = manager.setEnabled('local-datacenters', false, { origin: 'user' });
+  const explicitOff = manager.setEnabled('nexus-oil-corridors', false, { origin: 'user' });
   releaseUpdate.resolve();
   await disableStarted.promise;
   await Promise.resolve();
@@ -354,13 +348,13 @@ test('share restore waits for a superseding opposite-target visibility successor
   releaseDisable.resolve();
   assert.equal(await explicitOff, true);
   const results = await restore;
-  const radio = results.find((result) => result.layerId === 'local-datacenters');
+  const radio = results.find((result) => result.layerId === 'nexus-oil-corridors');
   assert.equal(radio.cancellationReason, 'superseded');
   assert.equal(radio.successorEnabled, false);
   assert.equal(radio.authoritativeIntentEpoch, radio.successorIntentEpoch);
   assert.equal(radio.authoritativeEnabled, false);
   assert.equal(radio.succeeded, false, 'the newer OFF must not count as successful shared ON');
-  assert.equal(manager.getLayerLifecycleState('local-datacenters').lifecycleState, 'disabled');
+  assert.equal(manager.getLayerLifecycleState('nexus-oil-corridors').lifecycleState, 'disabled');
   coordinator.destroy();
 });
 
