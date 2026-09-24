@@ -27,7 +27,7 @@ function fixture() {
     clearTimeout(id) {
       timers.delete(id);
     },
-    initFirstRunExperience() {
+    initWelcome() {
       events.push('welcome');
       return { destroy: () => events.push('welcome:destroy') };
     },
@@ -38,6 +38,7 @@ function fixture() {
   vm.createContext(context);
   vm.runInContext(source, context);
   const stop = context.startApplicationChrome({
+    initializeWelcome: context.initWelcome,
     initializeSettings: context.initKeySetup,
     loadingScreen: {
       classList: { add: (value) => events.push(value) },

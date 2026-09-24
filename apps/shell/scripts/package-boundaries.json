@@ -384,7 +384,6 @@
       "src/ui/styles/command-dock-trays.css",
       "src/ui/styles/command-dock-sliding.css",
       "src/ui/styles/voice-cost.css",
-      "src/ui/styles/first-run.css",
       "src/ui/styles/provider-settings.css"
     ],
     "external": []
@@ -1064,7 +1063,6 @@
       "src/data/trafficQueue.js",
       "src/data/trailRenderer.js",
       "src/data/vesselLabels.js",
-      "src/firstRunExperience.js",
       "src/hud.js",
       "src/hudLocality.js",
       "src/keySetup.js",

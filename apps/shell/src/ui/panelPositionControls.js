@@ -117,8 +117,8 @@ export class PanelPositionControls {
     //
     // It used to start expanded, to advertise the HUD / DETECT / 3D toggles.
     // That reason expired when those became ON by default: the rail now opens
-    // to offer controls for things already happening, while competing with the
-    // first-run mission card for the one first impression there is. A stored
+    // to offer controls for things already happening, without competing for the
+    // first impression. A stored
     // choice still wins in both directions, so anyone who opens it keeps it.
     if (panelId === 'pp-toggles' && stored === null) collapsed = true;
     panelEl.classList.toggle('collapsed', collapsed);

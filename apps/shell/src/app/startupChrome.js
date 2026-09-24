@@ -1,12 +1,10 @@
-import { initFirstRunExperience } from '../firstRunExperience.js';
-
 /** Reveal welcome controls only after restoration and the loading transition. */
 export function startApplicationChrome({
   loadingScreen,
   styleManager,
   dataManager,
   signal,
-  initializeWelcome = initFirstRunExperience,
+  initializeWelcome,
   initializeSettings,
 }) {
   let disposed = false;

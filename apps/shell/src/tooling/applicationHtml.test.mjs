@@ -15,8 +15,8 @@ test('the standalone document expands every component once and preserves unique 
 });
 
 test('component selection includes only requested markup and refuses filesystem traversal', () => {
-  const html = expandApplicationHtml('<!-- gev:template welcome -->\n');
-  assert.match(html, /id="first-run-launcher"/);
+  const html = expandApplicationHtml('<!-- gev:template hud-loading -->\n');
+  assert.match(html, /id="loading-screen"/);
   assert.doesNotMatch(html, /id="cesiumContainer"/);
   assert.throws(() => expandApplicationHtml('<!-- gev:template ../../.env -->'), /Unknown application template/);
 });
