@@ -180,8 +180,6 @@ export class StyleManager extends ShellFacade {
 
     this._mapStackChangeHandler = null;
 
-    this._cockpitDisplayModeHandler = null;
-
     this._locationNavigation = new LocationNavigation({
       viewer,
       placeSearch,

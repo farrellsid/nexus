@@ -73,16 +73,6 @@
     bottom: 120px;
   }
 
-  #gev-voice-control {
-    right: 16px;
-    bottom: 16px;
-    min-width: 196px;
-  }
-
-  #gev-voice-detail {
-    max-width: 112px;
-  }
-
   .hud-top-left,
   .hud-bottom-left {
     left: 16px;
@@ -133,30 +123,10 @@
     width: 260px;
   }
 
-  #cctv-panel {
-    top: auto;
-    left: 16px;
-    right: 16px;
-    width: auto;
-    bottom: 308px;
-  }
-
-  #cctv-panel.collapsed {
-    width: auto;
-  }
-
   /* Narrow viewports: cap the preview height to keep the panel compact. Cap
      the IMAGE, not the wrap — the wrap is overflow:hidden, so capping it would
      re-crop the very timestamp this is protecting. object-fit: contain then
      letterboxes inside the shorter box. */
-  #cctv-frame {
-    aspect-ratio: auto;
-    height: 120px;
-  }
-
-  .cctv-frame-wrap {
-    min-height: 0;
-  }
 
   #scene-panel {
     top: auto;
@@ -215,27 +185,13 @@
     width: 100%;
   }
 
-  #right-context-rail #pp-toggles.collapsed .pp-header-row,
-  #right-context-rail #cctv-panel,
-  #right-context-rail #cctv-panel.collapsed,
-  #right-context-rail #radio-panel,
-  #right-context-rail #radio-panel.collapsed,
-  #right-context-rail #global-context-panel,
-  #right-context-rail #global-context-panel.collapsed {
+  #right-context-rail #pp-toggles.collapsed .pp-header-row {
     width: 100%;
-  }
-  .context-radio-mini {
-    right: -38px;
-    width: min(244px, calc(100vw - 32px));
   }
 
   #left-panel-stack > #data-panel,
-  #left-panel-stack > #cctv-panel,
-  #left-panel-stack > #global-context-panel,
   #left-panel-stack > #scene-panel,
   #left-panel-stack > #data-panel.collapsed,
-  #left-panel-stack > #cctv-panel.collapsed,
-  #left-panel-stack > #global-context-panel.collapsed,
   #left-panel-stack > #scene-panel.collapsed {
     position: relative;
     top: auto;

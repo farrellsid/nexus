@@ -36,7 +36,6 @@ const SHARE_PANEL_STATE_REGISTRY = Object.freeze([
   { id: 'location-bar', token: 'l', pinnable: true },
   { id: 'data-panel', token: 'd', pinnable: false },
   { id: 'scene-panel', token: 's', pinnable: false },
-  { id: 'global-context-panel', token: 'g', pinnable: false },
   { id: 'pp-toggles', token: 'p', pinnable: false },
   { id: 'param-slider-panel', token: 'm', pinnable: false },
 ]);

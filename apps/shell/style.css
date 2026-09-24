@@ -4,11 +4,9 @@
 @import './src/ui/styles/controls.css';
 @import './src/ui/styles/location.css';
 @import './src/ui/styles/status.css';
-@import './src/ui/styles/cockpit.css';
 @import './src/ui/styles/overlays.css';
 @import './src/ui/styles/layers.css';
-@import './src/ui/styles/radio.css';
-@import './src/ui/styles/cctv.css';
+@import './src/ui/styles/data-toggles.css';
 @import './src/ui/styles/scenes.css';
 @import './src/ui/styles/recording.css';
 @import './src/ui/styles/responsive.css';
@@ -16,5 +14,4 @@
 @import './src/ui/styles/command-dock-compact.css';
 @import './src/ui/styles/command-dock-trays.css';
 @import './src/ui/styles/command-dock-sliding.css';
-@import './src/ui/styles/voice-cost.css';
 @import './src/ui/styles/icon-glyphs.css';

@@ -123,7 +123,6 @@ body {
   pointer-events: none;
 }
 
-#world-overlay-detection-surface,
 #world-overlay-canvas {
   position: absolute;
   inset: 0;
@@ -155,9 +154,6 @@ body {
    `mix-blend-mode: screen` composites against the WebGL scene. z5 keeps it
    under the z6 root that carries the shared card canvas; do not move this
    surface inside #world-overlay-root, which would isolate the blend. */
-#world-overlay-detection-surface {
-  z-index: 5;
-}
 
 /* Canvas cards retain their spatial renderer; this parallel focusable list
    exposes only the currently painted actionable targets to assistive tech. */
@@ -175,25 +171,6 @@ body {
 
 /* ── Source-backed cockpit weather ─────────────
    Low-resolution GPU cloud pass composited only inside the cockpit keyhole. */
-#cockpit-cloud-effects {
-  position: fixed;
-  inset: 0;
-  z-index: 7;
-  display: none;
-  width: 100vw;
-  height: 100vh;
-  opacity: 0;
-  pointer-events: none;
-  clip-path: circle(min(40vw, 52vh) at 50% 50%);
-  filter: blur(0.7px) saturate(0.72) contrast(1.08);
-  transform: translateZ(0);
-  transition: opacity 900ms ease;
-}
-
-body.cockpit-mode #cockpit-cloud-effects.active {
-  display: block;
-  opacity: 0.86;
-}
 
 /* ── Full-globe celestial keyhole ring ─────── */
 .celestial-ring-overlay {
@@ -396,117 +373,6 @@ body:has(.data-toggle-row[data-layer-id='alpr-cameras'] .data-toggle-btn.active)
    frame, so the on-screen credit content is owned by Cesium's update loop, not
    CSS overrides — we deliberately don't fight it here.) */
 
-#gev-voice-control {
-  position: fixed;
-  right: 36px;
-  bottom: 36px;
-  /* Z ladder: panels 100-139, voice pill 150, toast 200, clean-view-exit 300 */
-  z-index: 150;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 214px;
-  padding: 9px 14px;
-  color: var(--text-primary);
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 999px;
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
-    0 1px 0 rgba(255, 255, 255, 0.06) inset,
-    0 0 20px rgba(0, 212, 255, 0.08);
-  backdrop-filter: blur(24px) saturate(1.4);
-  -webkit-backdrop-filter: blur(24px) saturate(1.4);
-  font-family: var(--font-mono);
-  pointer-events: auto;
-}
-
-#gev-voice-button {
-  width: 72px;
-  height: 34px;
-  flex: 0 0 auto;
-  color: var(--accent);
-  background: rgba(0, 212, 255, 0.06);
-  border: 1px solid rgba(0, 212, 255, 0.28);
-  border-radius: var(--btn-radius);
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0;
-  cursor: pointer;
-}
-
-#gev-voice-button:hover {
-  color: #ffffff;
-  border-color: var(--accent);
-  box-shadow: 0 0 12px rgba(0, 212, 255, 0.22);
-}
-
-.gev-voice-readout {
-  min-width: 0;
-  line-height: 1.2;
-  text-align: right;
-}
-
-#gev-voice-status {
-  font-size: 10px;
-  color: var(--accent);
-}
-
-#gev-voice-detail {
-  max-width: 132px;
-  margin-top: 2px;
-  overflow: hidden;
-  color: var(--text-secondary);
-  font-size: 9px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-#gev-voice-control[data-status='listening'] {
-  border-color: rgba(92, 255, 198, 0.45);
-}
-
-#gev-voice-control[data-status='listening'] #gev-voice-status {
-  color: #5cffc6;
-}
-
-#gev-voice-control[data-status='executing'] {
-  border-color: rgba(255, 220, 120, 0.55);
-}
-
-#gev-voice-control[data-status='executing'] #gev-voice-status {
-  color: #ffdc78;
-}
-
-#gev-voice-control[data-status='error'] {
-  align-items: flex-start;
-  width: min(440px, calc(100vw - 72px));
-  border-color: rgba(255, 92, 110, 0.6);
-  /* Multi-line error block reads as a panel, not a capsule */
-  border-radius: var(--panel-radius);
-}
-
-#gev-voice-control[data-status='error'] #gev-voice-status {
-  color: #ff5c6e;
-}
-
-#gev-voice-control[data-status='error'] .gev-voice-readout {
-  flex: 1;
-  text-align: left;
-}
-
-#gev-voice-control[data-status='error'] #gev-voice-detail {
-  max-width: none;
-  overflow: visible;
-  color: #ffb4bd;
-  line-height: 1.45;
-  text-overflow: clip;
-  white-space: pre-wrap;
-  overflow-wrap: anywhere;
-  user-select: text;
-}
-
 /* ── Title Bar ────────────────────────────────── */
 #title-bar {
   position: fixed;
@@ -573,35 +439,6 @@ body:has(.data-toggle-row[data-layer-id='alpr-cameras'] .data-toggle-btn.active)
   top: -15px;
   width: 27px;
   height: 13px;
-}
-
-#title-bar.radio-broadcasting .title-logo::before,
-#title-bar.radio-broadcasting .title-logo::after {
-  opacity: var(--radio-broadcast-opacity);
-  animation: title-radio-broadcast 1.8s ease-in-out infinite;
-}
-
-#title-bar.radio-broadcasting .title-logo::after {
-  animation-delay: 0.28s;
-}
-
-@keyframes title-radio-broadcast {
-  0%,
-  100% {
-    opacity: calc(var(--radio-broadcast-opacity) * 0.55);
-    transform: translateX(-50%) scale(0.94);
-  }
-  50% {
-    opacity: var(--radio-broadcast-opacity);
-    transform: translateX(-50%) scale(1);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  #title-bar.radio-broadcasting .title-logo::before,
-  #title-bar.radio-broadcasting .title-logo::after {
-    animation: none;
-  }
 }
 
 .brand-logo {

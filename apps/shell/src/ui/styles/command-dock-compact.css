@@ -218,141 +218,6 @@
   display: none;
 }
 
-#command-dock > #gev-voice-control {
-  position: relative;
-  inset: auto;
-  z-index: 3;
-  display: grid;
-  grid-template-columns: 3.2rem 1fr 3.6rem;
-  grid-template-rows: 0.8rem 2.55rem 0.8rem;
-  flex: 0 0 var(--dock-voice-width);
-  width: var(--dock-voice-width);
-  min-width: 0;
-  height: 4.9rem;
-  margin: -0.65rem 0;
-  padding: 0.3rem 0.65rem;
-  gap: 0 0.35rem;
-  overflow: hidden;
-  border-radius: var(--panel-radius);
-  transform: none;
-}
-
-#command-dock .gev-voice-kicker {
-  position: static;
-  grid-column: 2 / 4;
-  grid-row: 1;
-  align-self: center;
-  color: rgba(190, 221, 230, 0.58);
-  font-size: 0.39rem;
-  letter-spacing: 0.07rem;
-  text-align: center;
-}
-
-#command-dock #gev-voice-button {
-  grid-column: 1;
-  grid-row: 1 / 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 3rem;
-  height: 3rem;
-  align-self: center;
-  gap: 0.15rem;
-  padding: 0;
-  border-radius: 50%;
-  box-shadow:
-    0 0 0 0.2rem rgba(0, 212, 255, 0.06),
-    0 0 1rem rgba(0, 212, 255, 0.12);
-}
-
-#command-dock .gev-mic-orbit {
-  display: grid;
-  place-items: center;
-  width: 1.7rem;
-  height: 1.7rem;
-}
-
-#command-dock .gev-mic-orbit img {
-  width: 1.55rem;
-  height: 1.55rem;
-}
-
-#command-dock .gev-mic-label {
-  font-size: 0.35rem;
-  color: rgba(190, 221, 230, 0.72);
-  letter-spacing: 0.02rem;
-}
-
-#command-dock .gev-voice-visualizer {
-  grid-column: 2;
-  grid-row: 2;
-  display: flex;
-  align-items: end;
-  justify-content: center;
-  gap: 0.12rem;
-  height: 2.2rem;
-  padding: 0.2rem 0.1rem;
-  border-bottom: 1px solid rgba(54, 220, 255, 0.34);
-}
-
-#command-dock .gev-voice-visualizer span {
-  width: 0.18rem;
-  height: 0.55rem;
-  background: linear-gradient(to top, #28b9db, #71eaff);
-  box-shadow: 0 0 0.35rem rgba(54, 220, 255, 0.28);
-  transform-origin: bottom;
-}
-
-#command-dock .gev-voice-visualizer span:nth-child(3n) {
-  height: 1.35rem;
-}
-#command-dock .gev-voice-visualizer span:nth-child(4n) {
-  height: 0.95rem;
-}
-#command-dock .gev-voice-visualizer span:nth-child(5n) {
-  height: 1.7rem;
-}
-#command-dock .gev-voice-visualizer span:nth-child(7n) {
-  height: 0.75rem;
-}
-
-#command-dock
-  #gev-voice-control[data-status='listening']
-  .gev-voice-visualizer
-  span,
-#command-dock
-  #gev-voice-control[data-status='executing']
-  .gev-voice-visualizer
-  span {
-  animation: gev-voice-bar 680ms ease-in-out infinite alternate;
-  animation-delay: calc(var(--bar) * -45ms);
-}
-
-#command-dock .gev-voice-readout {
-  display: contents;
-}
-
-#command-dock #gev-voice-status {
-  grid-column: 3;
-  grid-row: 2;
-  align-self: start;
-  padding-top: 0.2rem;
-  font-size: 0.45rem;
-  text-align: right;
-}
-
-#command-dock #gev-voice-detail {
-  grid-column: 2 / 4;
-  grid-row: 3;
-  align-self: center;
-  max-width: none;
-  margin: 0;
-  font-size: 0.39rem;
-  letter-spacing: 0.08rem;
-  text-align: center;
-}
-
 @keyframes command-dock-reveal {
   from {
     opacity: 0;
@@ -361,17 +226,6 @@
   to {
     opacity: 1;
     transform: translateY(0);
-  }
-}
-
-@keyframes gev-voice-bar {
-  from {
-    transform: scaleY(0.35);
-    opacity: 0.5;
-  }
-  to {
-    transform: scaleY(1);
-    opacity: 1;
   }
 }
 
@@ -410,21 +264,6 @@ body:not(.ui-clean-view):not(.recording-mode) #cesium-credits {
   #command-dock:has(#control-panel:not(.collapsed)) > #location-bar {
     flex-basis: 0;
     border: 0;
-  }
-
-  #command-dock:has(#location-bar:not(.collapsed)) > #gev-voice-control,
-  #command-dock:has(#control-panel:not(.collapsed)) > #gev-voice-control {
-    flex-basis: 4.75rem;
-    width: 4.75rem;
-  }
-
-  #command-dock:has(#location-bar:not(.collapsed)) .gev-voice-visualizer,
-  #command-dock:has(#location-bar:not(.collapsed)) .gev-voice-kicker,
-  #command-dock:has(#location-bar:not(.collapsed)) .gev-voice-readout,
-  #command-dock:has(#control-panel:not(.collapsed)) .gev-voice-visualizer,
-  #command-dock:has(#control-panel:not(.collapsed)) .gev-voice-kicker,
-  #command-dock:has(#control-panel:not(.collapsed)) .gev-voice-readout {
-    visibility: hidden;
   }
 
   #command-dock .location-search-wrap {
