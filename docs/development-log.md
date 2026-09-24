@@ -2,6 +2,10 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-24, M5 phase A done on branch m5-shell
+
+Branch `m5-shell` (three commits so far: A1, A1b to A4, A5), never `master`, per the user's answer. `apps/shell/UPSTREAM.md` is the step log. Imported the God's Eye reference (`f01b6a5`) as code only; its datasets, models and event media are on disk but gitignored so they never enter history. **Baseline:** 4168 upstream tests, 4158 pass, 0 fail, 10 skipped (identical to the untouched clone, after I corrected my own mistake of excluding `build/`, which is source, and `docs/*.md`, which 23 tests read); one `@cesium/engine` (22.3.0); `vite build` 423 files, 31.2 MB. **Step checks added:** `npm run check:step` (tests, dead-module checker with a recorded baseline, one-engine check, Playwright smoke with a shrink-only known-errors list and an allowed-hosts list). **A5:** removed the Google Fonts and Material Symbols CDN dependency (189 KB of local woff2, OFL and Apache-2.0); the look was checked by screenshot against the baseline and one cascade-order difference (smaller arrows) was found and fixed. The page now contacts only localhost, Esri imagery and the Re:Earth terrain service. **Next:** phase B, the strip steps B1 to B16.
+
 ## 2026-09-24, M5 plan drafted
 
 Wrote `docs/superpowers/plans/2026-09-24-m5-visual-shell.md` after measuring the God's Eye clone (`.local/references/gods-eye-view`, commit `f01b6a5`). Nothing is built. Awaiting the user's answers on four decisions (strip-step recording, JS versus TS, local imagery, effects). The EIA binding work is staged for the user's commit.
