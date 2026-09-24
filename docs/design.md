@@ -134,7 +134,7 @@ The user wants a geographically guided answer to questions such as "What's happe
 
 ### Proposed scale and sources
 
-First end-to-end release: oil, with an observed window from 2025-Q3 through 2026-Q2 and selected developments through 2026-09-10. The current pack contains a curated collection of public documents, six metric groups and 21 meaningful entities rather than comprehensive global coverage. Preserve the copper pack as an evidence-handling fixture.
+First end-to-end release: oil, with an observed window from 2025-Q3 through 2026-Q2 and selected developments through 2026-09-16. The current pack contains a curated collection of public documents, six metric groups and 21 meaningful entities rather than comprehensive global coverage. Preserve the copper pack as an evidence-handling fixture.
 
 Combine three source functions: structural context (production processes and major infrastructure); quantitative baseline (production, consumption, stocks, trade and capacity); developments (news, disclosures and official announcements). Add reports and research as attributed interpretation. Countries publish statistical releases and ministry/agency reports on varying schedules; do not expect a universal national quarterly report.
 

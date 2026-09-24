@@ -31,9 +31,31 @@ Approved as direction, with the details still to be designed:
 - **Public release:** a static public snapshot with local authoring. MIT for original code and CC BY 4.0 for original authored material. Unverified and non-commercial assets are excluded from the default release. (`07-hosting-cost-and-identity.md`, `10-assets-and-licences.md`)
 - **Published tours use accepted versions only.** Releases are pinned, and a change to a dependency requires review. (`06-guided-tours.md`)
 
+## 2026-09-24, rights and scope
+
+- **Copyright holder** for the notices is `farrellsid`. `LICENSE` (MIT) and `LICENSE-CONTENT.md` (CC BY 4.0, legal text unmodified from creativecommons.org) now exist.
+- **`Zlib` is on the npm licence allow-list**, on the strength of pako's file headers.
+- **Copper publishers' terms are audited when the data is expanded**, not now. Until then their excerpts are withheld from any public build.
+
+## 2026-09-24, oil pack repair (assistant proposals, awaiting user approval)
+
+- **Repairs supersede; they never rewrite.** Seven replacement source versions (O-S21 to O-S27) are added; the old records stay and are declared superseded in `investigations/excerpt-exceptions.json`. Claims move to them only through 13 evidence-only correction proposals that a person accepts.
+- **Replacement versions are not extra independent sources.** Each `independence` note says so, and each keeps its original `origin_group`.
+- **The coverage label moves from 2026-09-10 to 2026-09-16** because the pack contains evidence dated 2026-09-16. This is an assistant proposal; the user decides the wording.
+- **Excerpts should match the page's exact characters.** The verifier folds case, quotes and dashes so it does not fail on typography; a strict character-exact pass is a possible later option.
+
+## 2026-09-24, normalisation release (proposed by the assistant; approved by the user the same day)
+
+- **One release covers both investigations** and is approved as a whole by a stored decision; every row stays append-only. A later release may add but never drop or repoint an accepted entity or alias.
+- **Canonical entity ID is `<category>/<slug>`** (for example `place/china`), using the two-level taxonomy. Legacy IDs resolve as case-scoped aliases.
+- **Measurement IDs are `<case_id>:<metric_id>:<n>`**, permanent once accepted; `n` is a provenance pointer only.
+- **The overloaded metric `period` is repaired in the projection.** O-M06 and O-M11 rows get an entity and take their period from the group's context; the pack is unchanged.
+- **Nothing is `observed`** in vocabulary 1. A forecast must name its issuer in a note.
+- **Data adapters read accepted releases only.**
+
 ## Consequences to keep in view
 
-- **Nothing is publishable yet.** Published tours need accepted evidence, and the last observed state was zero accepted claims. Claims must be reviewed and accepted first, and known defects (O-C26 is unsupported by its retained excerpt; the oil pack's cutoff label is wrong) must be repaired before acceptance.
+- **Nothing is publishable yet.** Published tours need accepted evidence, and the local database holds zero accepted versions and zero decisions (44 assertions, 44 candidate proposals, checked 2026-09-23). Claims must be reviewed and accepted first, and known defects (O-C26 is unsupported by its retained excerpt; the oil pack's cutoff label is wrong) must be repaired before acceptance.
 - **The cap is in Canadian dollars** while the fetched prices are in US dollars. The exchange rate was not checked. A static public build costs nothing and is the plan, so the cap only constrains a later paid VPS. The 2 GiB droplet with weekly backup was quoted at US$14.40 and may sit close to the limit after conversion and tax.
-- **No LICENSE file exists yet.** The licence choice is decided, but writing the files needs the copyright holder's name for the notice, and release still needs the asset audit in `10-assets-and-licences.md`.
+- **Licence files now exist** (2026-09-24). Release still needs a bundle inventory once the visual shell is built, and the legal advice discussed in the roadmap is not yet decided.
 - **Still open** are the items each recommendation lists under "Decisions needed", other than those settled above.

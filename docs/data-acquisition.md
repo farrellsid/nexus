@@ -38,3 +38,7 @@ The LLM stays non-deterministic where it proposes and is never trusted where thi
 - **PDFs and scans.** Text-layer PDFs can be substring-checked; image-only PDFs need OCR with recorded confidence or human confirmation.
 - **Mutable "latest" URLs.** O-S14's own note says its URL is overwritten every week, so it cannot be verified later without a snapshot.
 - **Excerpt policy.** Either `excerpt` must be verbatim and verifiable, with a separate `note` for authored paraphrase, or the four reworded excerpts get corrected. The UI must not show unverified text in quotation marks.
+
+## Addendum, 2026-09-24: a verbatim excerpt can still fail to support its claim
+
+While reviewing the normalisation mapping, two copper claims were checked against their pages. C11 cites S06 with the retained excerpt "to the Aurubis Group", and C13 cites S08 with "are expected to arrive in May". Both excerpts are real fragments of the pages, so the excerpt verifier reports them as verbatim. Neither states what the claim says (delivery to the Kolwezi dry port; arrival at Lobito during Q1 2026), although the pages do: S06 says the anodes "have been delivered to Trafigura's dry port facility in Kolwezi", and S08 says the first shipment "arrived at the Atlantic port of Lobito during the quarter". This is the same class of defect as O-C26. It is recorded for the copper audit that was deferred to the data expansion; nothing was changed.

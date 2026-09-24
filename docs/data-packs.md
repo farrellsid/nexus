@@ -50,6 +50,18 @@ If users can share packs, the risk is not a "virus" inside JSON, which cannot ex
 - **Prompt injection:** text from a pack is untrusted data. The chat agent may act only through the validated action API, and pack text can never grant it new actions or change its instructions.
 - **Authenticity:** a manifest with a content hash now, maintainer signatures later. Unsigned packs are shown as unverified origin.
 
+## Legal context (not advice)
+
+The user shared a general-audience article: Torys LLP, "You don't own your data, but you can still protect it", Torys Quarterly, Spring 2022 (Nic Wall, Andrew Bernstein, Lauren Nickerson). It is copyrighted, so only a summary is kept here. As pasted, it says the following about Canada:
+
+- Canada does not recognise free-standing ownership of data. Copyright can protect a database where skill and judgment went into selecting and arranging it, but not the underlying data.
+- Protection comes instead from four sources: intellectual property, contracts, statutes and the common law.
+- Website terms are a contract and can restrict collecting or using a site's data. The article warns specifically about screen-scraping.
+- Statutes include privacy law and sector-specific regimes, and the Criminal Code covers fraudulently obtaining computer services.
+- It is a general discussion, not legal advice.
+
+What follows for Nexus: bare facts and figures with a citation are the lowest-risk content, which is why the gate withholds only excerpts (quoted text) and never claims, numbers or links. Prose, charts and images are separate copyright works that the article does not address. Acquisition must respect each site's terms, since contract is the main protection the article names. The article is about Canadian law in 2022, while a public site is read worldwide and may be hosted elsewhere, so it does not replace the legal advice planned before release (M9).
+
 ## Open questions
 
 - **Licences:** which licence for code, which for maintained data, and whether share-alike is acceptable.

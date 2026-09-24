@@ -52,6 +52,8 @@ npm --prefix apps/web run dev
 .\.venv\Scripts\python -m pytest backend/tests -q
 .\.venv\Scripts\python -m ruff check backend scripts
 .\.venv\Scripts\python -m ruff format --check backend scripts
+.\.venv\Scripts\python scripts/check_licences.py --mode dev
+.\.venv\Scripts\python scripts/normalise.py check
 npm --prefix apps/web run format:check
 npm --prefix apps/web run build
 npm --prefix apps/web run test:e2e
@@ -79,3 +81,7 @@ The user accepted React/TypeScript, Python/FastAPI and PostgreSQL with a modular
 [Comparable commercial products and design lessons](docs/comparable-products.md): public-documentation research into supplier graphs, shipment visibility and aggregate trade visualization.
 
 Current scope: see the 2026-09-21 section in [design](docs/design.md). Industry-level learning with a guided geographic briefing; selective detail by significance. Earlier exhaustive-chain interpretations and milestone ordering are superseded there.
+
+## Licence
+
+Source code: [MIT](LICENSE). Original authored text (documentation, claim wording, notes, tours): [CC BY 4.0](LICENSE-CONTENT.md). Third-party software, fonts and data keep their own licences: see [third-party notices](THIRD_PARTY_NOTICES.md) and `licences/`. Quoted source excerpts belong to their publishers. Check with `python scripts/check_licences.py --mode release`.

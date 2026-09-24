@@ -73,6 +73,8 @@ These appear as caveats in the oil and copper packs and are part of the method.
 | Document | Status | Content |
 |---|---|---|
 | `docs/decisions.md` | Record of user decisions | What is decided, by date; start here for status |
+| `docs/roadmap.md` | Proposal: milestones M0 to M11 with verification per step | Order, gates, and what the assistant and the user each verify |
+| `licences/`, `scripts/check_licences.py` | Implemented (M1, in progress) | Component and per-source rights manifests, an allow-list policy, and a gate that fails a release on unverified or forbidden material |
 | `docs/recommendations/` | Recommendations from the technical design review; direction approved in `docs/decisions.md` | Ten workstreams, summary in `00-summary.md` |
 | `docs/design.md` | Decided direction, partly superseded by later sections | Product scope and milestones |
 | `docs/technical-stack.md` | Baseline accepted; some rows now outdated | Stack, storage, retrieval note (2026-09-23) |
@@ -97,6 +99,7 @@ These appear as caveats in the oil and copper packs and are part of the method.
 - **"Append-only" applies to proposals, decisions and accepted versions, not to the retained seed.** Migrations 002 to 006 disable the `seed_immutable` trigger to replace the seed.
 - **Silent id collisions.** The additive generator uses `ON CONFLICT (id) DO NOTHING`, so an incoming record with an existing id but different content is skipped without error.
 - **Claim support and coverage labels.** O-C26 is not supported by its retained excerpt, and the oil pack's "developments through 2026-09-10" label is contradicted by later evidence (details in `docs/data-acquisition.md`).
+- **Status of the gaps above (2026-09-24):** the predicate, epistemic-status, time and measurement gaps now have a proposed normalisation release (`docs/normalisation-review.md`); it was accepted 2026-09-24 and changes no recorded claim. The relation-edit gap is not closed: corrections still cannot change predicates or endpoints, which is why the release is a projection beside the claims.
 - Ten workstream recommendations on these gaps are in `docs/recommendations/00-summary.md`. They are recommendations, not decisions.
 
 ## 9. Keeping this current
