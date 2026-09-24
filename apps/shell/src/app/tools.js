@@ -1,4 +1,6 @@
 import { SceneDirector } from '../scenes/director.js';
+import { PLACE_PRESETS, flyToGlobeView, flyToPOI } from '../locations.js';
+import { createShellActions } from '../nexus/shellActions.ts';
 import { installScopeMask, destroyScopeMask } from '../scopeMask.js';
 import {
   installRenderGovernor,
@@ -30,6 +32,15 @@ export function createApplicationTools({
   });
   defer(() => sceneDirector.destroy());
   onSceneDirector?.(sceneDirector);
+  // Everything that drives the shell (the scene director, later a chat box) goes through these verbs.
+  const actions = createShellActions({
+    viewer,
+    dataManager,
+    sceneDirector,
+    places: PLACE_PRESETS,
+    flyToPlace: flyToPOI,
+    flyToGlobe: flyToGlobeView,
+  });
   if (startChrome)
     defer(startChrome({ loadingScreen, styleManager, dataManager, signal }));
   // Idle render governor: flips the scene into requestRenderMode whenever
@@ -81,6 +92,7 @@ export function createApplicationTools({
     styleManager,
     dataManager,
     sceneDirector,
+    actions,
     mapStackController,
     getRenderGovernorDiagnostics,
     requestRender: governorRequestRender,

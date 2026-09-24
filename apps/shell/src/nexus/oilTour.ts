@@ -9,6 +9,8 @@ import {
   OIL_STOPS_LAYER_ID,
 } from './oilGeographyLayer.ts';
 
+export const OIL_TOUR_ID = 'nexus-oil-tour';
+
 const METRES_PER_DEGREE_LATITUDE = 111_320;
 const TOUR_ALTITUDE_M = 1_500_000;
 const TOUR_PITCH_DEG = -50;
@@ -65,7 +67,7 @@ export function oilTourRecipe(
     hold: 2,
   }));
   return {
-    id: 'nexus-oil-tour',
+    id: OIL_TOUR_ID,
     title: 'Oil chokepoints',
     durationSec: cameraPath.reduce(
       (total, shot) => total + shot.duration + shot.hold,

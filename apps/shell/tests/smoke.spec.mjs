@@ -91,3 +91,56 @@ test('the corner readouts state the pack, its date and what the map leaves out, 
   });
   await expect(page.locator('#hud-selection')).toHaveText('SELECTED: Strait of Hormuz · REPRESENTATIVE LABEL POINT');
 });
+
+test('the action layer plays the tour, refuses a bad request, and global context puts the view back', async ({ page }) => {
+  await page.goto('/');
+  await page.waitForFunction(() => window.__godsEyeView?.actions, null, { timeout: 60_000 });
+  // Let the opening flight finish, or it would take the camera back from the first request.
+  await page.waitForFunction(
+    () => Math.abs(window.__godsEyeView.viewer.camera.positionCartographic.height - 12_000_000) < 50_000,
+    null,
+    { timeout: 30_000 },
+  );
+  const run = (name, args) => page.evaluate(([n, a]) => window.__godsEyeView.actions.run(n, a), [name, args]);
+  const camera = () =>
+    page.evaluate(() => {
+      const { camera } = window.__godsEyeView.viewer;
+      const position = camera.positionCartographic;
+      return { lon: (position.longitude * 180) / Math.PI, lat: (position.latitude * 180) / Math.PI, height: position.height };
+    });
+  const enabledLayers = () =>
+    page.evaluate(() =>
+      ['nexus-oil-stops', 'nexus-oil-corridors'].filter((id) => window.__godsEyeView.dataManager.isEnabled(id)),
+    );
+
+  expect((await run('delete_evidence', {})).ok).toBe(false);
+  expect((await run('set_layer', { layer: 'no-such-layer', visible: true })).ok).toBe(false);
+
+  // Global context: pull out with the layers on, then return to exactly where the camera was.
+  expect((await run('fly_to_place', { destination: 'gulf-and-red-sea', place: 0 })).ok).toBe(true);
+  await page.waitForFunction(() => window.__godsEyeView.viewer.camera.positionCartographic.height < 800_000, null, { timeout: 30_000 });
+  const before = await camera();
+  expect(await enabledLayers()).toEqual([]);
+  expect((await run('global_context', { on: true })).ok).toBe(true);
+  await page.waitForFunction(() => window.__godsEyeView.viewer.camera.positionCartographic.height > 15_000_000, null, { timeout: 30_000 });
+  expect(await enabledLayers()).toEqual(['nexus-oil-stops', 'nexus-oil-corridors']);
+  expect((await run('global_context', { on: false })).ok).toBe(true);
+  await page.waitForFunction(() => window.__godsEyeView.viewer.camera.positionCartographic.height < 800_000, null, { timeout: 30_000 });
+  const after = await camera();
+  expect(Math.abs(after.lon - before.lon)).toBeLessThan(0.5);
+  expect(Math.abs(after.lat - before.lat)).toBeLessThan(0.5);
+  expect(await enabledLayers()).toEqual([]);
+
+  // The tour flies to the first stop (Hormuz) and turns the oil layers on.
+  expect((await run('play_tour', {})).ok).toBe(true);
+  await page.waitForFunction(
+    () => {
+      const position = window.__godsEyeView.viewer.camera.positionCartographic;
+      return Math.abs((position.longitude * 180) / Math.PI - 56.5) < 3 && position.height < 3_000_000;
+    },
+    null,
+    { timeout: 45_000 },
+  );
+  expect(await enabledLayers()).toEqual(['nexus-oil-stops', 'nexus-oil-corridors']);
+  expect((await run('stop_tour', {})).ok).toBe(true);
+});
