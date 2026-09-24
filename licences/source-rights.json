@@ -8,7 +8,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-provides-2024-production-results-2025-production-guidance/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S02": {
       "publisher": "Ivanhoe Mines",
@@ -17,7 +18,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-announces-restart-of-underground-mining-operations-on-western-side-of-kakula-mine-on-june-7-2025/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S03": {
       "publisher": "Zijin Mining",
@@ -26,7 +28,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.hkexnews.hk/listedco/listconews/sehk/2025/0613/2025061301243.pdf",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S04": {
       "publisher": "Ivanhoe Mines",
@@ -35,7 +38,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-reports-112009-tonnes-of-copper-produced-by-kamoa-kakula-in-q2-2025/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S05": {
       "publisher": "Ivanhoe Mines",
@@ -44,7 +48,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-announces-first-anode-production-from-kamoa-kakula-copper-smelter/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S06": {
       "publisher": "Trafigura",
@@ -53,7 +58,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.trafigura.com/news-and-insights/press-releases/2026/trafigura-aurubis-and-kamoa-copper-complete-first-sale-of-low-carbon-refined-copper-via-the-lobito-atlantic-railway/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S07": {
       "publisher": "Lobito Atlantic Railway",
@@ -62,7 +68,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.lobitoatlantic.com/pt/noticias-recursos/noticias/trafigura-aurubis-and-kamoa-copper-complete-first-sale-of-low-carbon-refined-copper-via-the-lobito-atlantic-railway/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S08": {
       "publisher": "Ivanhoe Mines",
@@ -71,7 +78,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.ivanhoemines.com/news-stories/news-release/ivanhoe-mines-reports-71417-tonnes-of-copper-in-anode-produced-by-kamoa-kakula-in-q1-2026-recovery-efforts-advancing/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S09": {
       "publisher": "Prysmian",
@@ -80,7 +88,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.prysmian.com/en/media/press-releases/prysmian-and-aurubis-contract-for-copper-wire-rod",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S10": {
       "publisher": "Aurubis",
@@ -89,7 +98,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.aurubis.com/dam/jcr:3d203743-a866-456a-b09c-b28a83f6d0e8/Aurubis_Press%20Release_Prysmian%20supply%20contract_20240423.pdf",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S11": {
       "publisher": "Prysmian",
@@ -98,7 +108,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.prysmian.com/it/comunicati-stampa/prysmian-e-aurubis-siglano-un-contratto-per-la-fornitura-di-rame-in-vergelle",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S12": {
       "publisher": "Aurubis",
@@ -107,7 +118,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://annualreport2022-23.aurubis.com/at-a-glance/company-portrait",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S13": {
       "publisher": "Aurubis",
@@ -116,7 +128,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.aurubis.com/en/olen/products/wire-rod",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "S14": {
       "publisher": "Ivanhoe Mines",
@@ -125,7 +138,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable; bulk ingestion and full-text redistribution rights not established. Only metadata, short excerpts and authored notes retained.",
       "evidence_url": "https://www.ivanhoemines.com/operations/kamoa-kakula-mining-complex/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "O-S01": {
       "publisher": "U.S. Energy Information Administration",
@@ -134,7 +148,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (undated)"
+      "attribution": "Source: U.S. Energy Information Administration (undated)",
+      "snapshot_policy": "store"
     },
     "O-S02": {
       "publisher": "U.S. Energy Information Administration",
@@ -143,7 +158,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-09-09)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-09-09)",
+      "snapshot_policy": "store"
     },
     "O-S03": {
       "publisher": "Joint Organisations Data Initiative",
@@ -152,7 +168,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Public provider page and download links reviewed; redistribution terms for bulk data require separate audit.",
       "evidence_url": "https://www.jodidata.org/oil/",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "O-S04": {
       "publisher": "Organization of the Petroleum Exporting Countries",
@@ -161,7 +178,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable participant release; short excerpt and authored note retained.",
       "evidence_url": "https://opec.org/pr-detail/613-6-september-2026.html",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "O-S05": {
       "publisher": "U.S. Energy Information Administration",
@@ -170,7 +188,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-07-31)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-07-31)",
+      "snapshot_policy": "store"
     },
     "O-S06": {
       "publisher": "National Bureau of Statistics of China",
@@ -179,7 +198,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Public statistical release; short excerpt and authored note retained. Reuse terms not separately audited.",
       "evidence_url": "https://www.stats.gov.cn/english/PressRelease/202607/t20260717_1964155.html",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "O-S07": {
       "publisher": "U.S. Energy Information Administration",
@@ -188,7 +208,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-07-08)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-07-08)",
+      "snapshot_policy": "store"
     },
     "O-S08": {
       "publisher": "U.S. Energy Information Administration",
@@ -197,7 +218,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-09-10)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-09-10)",
+      "snapshot_policy": "store"
     },
     "O-S09": {
       "publisher": "U.S. Energy Information Administration",
@@ -206,7 +228,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2025-05-19)"
+      "attribution": "Source: U.S. Energy Information Administration (2025-05-19)",
+      "snapshot_policy": "store"
     },
     "O-S10": {
       "publisher": "U.S. Energy Information Administration",
@@ -215,7 +238,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (undated)"
+      "attribution": "Source: U.S. Energy Information Administration (undated)",
+      "snapshot_policy": "store"
     },
     "O-S11": {
       "publisher": "U.S. Energy Information Administration",
@@ -224,7 +248,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-03-03)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-03-03)",
+      "snapshot_policy": "store"
     },
     "O-S12": {
       "publisher": "U.S. Energy Information Administration",
@@ -233,7 +258,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-03-03)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-03-03)",
+      "snapshot_policy": "store"
     },
     "O-S13": {
       "publisher": "U.S. Energy Information Administration",
@@ -242,7 +268,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-03-03)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-03-03)",
+      "snapshot_policy": "store"
     },
     "O-S14": {
       "publisher": "U.S. Energy Information Administration",
@@ -251,7 +278,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-09-16)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-09-16)",
+      "snapshot_policy": "store"
     },
     "O-S15": {
       "publisher": "U.S. Energy Information Administration",
@@ -260,7 +288,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-06-24)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-06-24)",
+      "snapshot_policy": "store"
     },
     "O-S16": {
       "publisher": "U.S. Energy Information Administration",
@@ -269,7 +298,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-07-22)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-07-22)",
+      "snapshot_policy": "store"
     },
     "O-S17": {
       "publisher": "U.S. Energy Information Administration",
@@ -278,7 +308,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-06-29)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-06-29)",
+      "snapshot_policy": "store"
     },
     "O-S18": {
       "publisher": "U.S. Energy Information Administration",
@@ -287,7 +318,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2025-06-30)"
+      "attribution": "Source: U.S. Energy Information Administration (2025-06-30)",
+      "snapshot_policy": "store"
     },
     "O-S19": {
       "publisher": "Petroleum Planning and Analysis Cell, Ministry of Petroleum and Natural Gas, Government of India",
@@ -296,7 +328,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Public Government of India statistical publication; short table excerpt and authored notes retained. Bulk redistribution terms not separately audited.",
       "evidence_url": "https://ppac.gov.in/download.php?file=rep_studies/1789735879_Final__Snapshot_of_Indias_Oil_Gas_data_Aug_2026_V3.pdf",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "O-S20": {
       "publisher": "International Energy Agency",
@@ -305,7 +338,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable summary table on the report landing page; the full analytical report requires a paid subscription. Short table excerpt and authored notes retained.",
       "evidence_url": "https://www.iea.org/reports/oil-market-report-september-2026",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "O-S21": {
       "publisher": "U.S. Energy Information Administration",
@@ -314,7 +348,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Replacement version of O-S01.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (None)"
+      "attribution": "Source: U.S. Energy Information Administration (None)",
+      "snapshot_policy": "store"
     },
     "O-S22": {
       "publisher": "U.S. Energy Information Administration",
@@ -323,7 +358,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Replacement version of O-S11.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-03-03)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-03-03)",
+      "snapshot_policy": "store"
     },
     "O-S23": {
       "publisher": "International Energy Agency",
@@ -332,7 +368,8 @@
       "basis": "Publisher terms not audited. Pack rights note: Publicly readable summary table on the report landing page; the full analytical report requires a paid subscription. Short table excerpt and authored notes retained. Replacement version of O-S20.",
       "evidence_url": "https://www.iea.org/reports/oil-market-report-september-2026",
       "checked_at": "2026-09-23",
-      "audited": false
+      "audited": false,
+      "snapshot_policy": "store"
     },
     "O-S24": {
       "publisher": "U.S. Energy Information Administration",
@@ -341,7 +378,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Replacement version of O-S05.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-07-31)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-07-31)",
+      "snapshot_policy": "store"
     },
     "O-S25": {
       "publisher": "U.S. Energy Information Administration",
@@ -350,7 +388,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Replacement version of O-S07.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-07-08)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-07-08)",
+      "snapshot_policy": "store"
     },
     "O-S26": {
       "publisher": "U.S. Energy Information Administration",
@@ -359,7 +398,8 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Replacement version of O-S08.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (2026-09-10)"
+      "attribution": "Source: U.S. Energy Information Administration (2026-09-10)",
+      "snapshot_policy": "store"
     },
     "O-S27": {
       "publisher": "U.S. Energy Information Administration",
@@ -368,7 +408,9 @@
       "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Replacement version of O-S10.",
       "evidence_url": "https://www.eia.gov/about/copyrights_reuse.php",
       "checked_at": "2026-09-23",
-      "attribution": "Source: U.S. Energy Information Administration (None)"
+      "attribution": "Source: U.S. Energy Information Administration (None)",
+      "snapshot_policy": "store"
     }
-  }
+  },
+  "_comment_snapshot_policy": "snapshot_policy says whether fetched bytes may be kept in the local object store: store, hash_only (keep the hash, size and headers, discard the bytes) or none. Set to store for every source on 2026-09-24 at the user's direction: private, local-only research use under fair use, with publication filtered later by the release gate (`check_licences.py --mode release`). The object store is git-ignored (.local/) and is never published."
 }

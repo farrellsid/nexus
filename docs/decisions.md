@@ -53,6 +53,37 @@ Approved as direction, with the details still to be designed:
 - **Nothing is `observed`** in vocabulary 1. A forecast must name its issuer in a note.
 - **Data adapters read accepted releases only.**
 
+## 2026-09-24, evaluation and comparability (proposed by the assistant; classes and comparability rules approved by the user)
+
+- **Deterministic evaluation before any model.** Counts stay raw; failures are listed. Expected answers are drafts until the user confirms each.
+- **The retriever is a baseline** (BM25 plus an entity boost); vectors stay deferred until a measured miss justifies them.
+- **An answerer sees only the question and the hits**, never the oracle, so a model adapter can replace it.
+- **A range needs a reviewer's `comparable` mark, at least two independent origins, one lane and unit, and recorded scope metadata.** It is labelled "range of N reports; not a confidence interval". A revision or a shared origin never counts as a second report.
+- **Comparability judgements are append-only and reviewer-attributed.** The user is the only reviewer for now. No write endpoint exists yet.
+
+## 2026-09-24, acquisition (assistant proposals, awaiting user approval)
+
+- **Three storage policies per source:** `store`, `hash_only`, `none`. Every source defaults to `hash_only`; the user decides which publishers become `store`.
+- **Verification compares to a named baseline and is not a truth score.** A missing baseline is `unreachable` (`baseline_missing`, not ready), never a match. A first snapshot of a legacy source is a new baseline, not a reconstruction of what the maintainer saw.
+- **A byte match and a text match are reported separately, and either gives `matches`,** because a real page varied between fetches while its text did not (see `docs/acquisition-providers.md`).
+- **HTML first.** PDFs and scans are logged and hashed but not extracted until an extractor is chosen.
+- **The only network path is `scripts/acquire.py`,** dry run by default, one fetch per `--confirm`. No scheduled, startup or automatic fetching.
+- **Proposal gates are mechanical.** Passing lets a proposal enter human review and never means the claim is entailed.
+
+## 2026-09-24, provider and storage decisions (the user's)
+
+- **Providers:** EIA API v2 and JODI CSV downloads. GDELT is under discussion as a discovery layer, not evidence (`docs/acquisition-providers.md`).
+- **Local storage:** every source is `store`, for private local research use under fair use. The intent is to collect broadly now and filter what may be published later. Working assumption: the data may not be published publicly. Publication is filtered by the release gate, which is unchanged.
+- **Secrets:** the EIA key lives in `.local/` only. Logged URLs must redact `api_key` before any adapter exists.
+
+## 2026-09-24, adapters and the source survey
+
+- **Adapters are pure parsers.** Only `scripts/acquire.py` and `scripts/crosscheck.py` touch the network, dry run by default, one request per `--confirm`.
+- **Credential values are redacted everywhere they could be logged,** including redirect chains and error text, and a body containing a known secret is never stored.
+- **Comparisons use exact scale changes only** and round the provider's value to the pack's own precision; a `differs` result goes to a person.
+- **A cross-check is not a verdict.** Agreement with a provider does not show the pack cited it.
+- **Provider series are not yet `evidence_sources`,** so cross-checks write a manifest of hashes and redacted URLs instead of database attempts. Registering them is an open decision.
+
 ## Consequences to keep in view
 
 - **Nothing is publishable yet.** Published tours need accepted evidence, and the local database holds zero accepted versions and zero decisions (44 assertions, 44 candidate proposals, checked 2026-09-23). Claims must be reviewed and accepted first, and known defects (O-C26 is unsupported by its retained excerpt; the oil pack's cutoff label is wrong) must be repaired before acceptance.

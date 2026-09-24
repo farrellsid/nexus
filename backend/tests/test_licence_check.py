@@ -26,6 +26,7 @@ def rights(**overrides):
         "publisher": "Agency",
         "redistribution": "allowed",
         "release_excerpt": "include",
+        "snapshot_policy": "hash_only",
         "basis": "Published as public domain",
         "evidence_url": "https://example.org/terms",
         "checked_at": "2026-09-23",
@@ -41,6 +42,23 @@ class TestSources:
         for mode in ("dev", "release"):
             findings = gate.evaluate_sources(SOURCES, {}, mode)
             assert codes(findings, "error") == ["source-missing-rights"]
+
+    def test_a_source_without_a_snapshot_policy_is_an_error(self, gate):
+        entry = {k: v for k, v in rights().items() if k != "snapshot_policy"}
+        assert codes(gate.evaluate_sources(SOURCES, {"S1": entry}, "dev"), "error") == [
+            "source-bad-snapshot-policy"
+        ]
+
+    def test_an_unknown_snapshot_policy_is_an_error(self, gate):
+        entry = rights(snapshot_policy="keep_everything")
+        assert codes(gate.evaluate_sources(SOURCES, {"S1": entry}, "dev"), "error") == [
+            "source-bad-snapshot-policy"
+        ]
+
+    def test_each_valid_snapshot_policy_passes(self, gate):
+        for policy in ("store", "hash_only", "none"):
+            entry = rights(snapshot_policy=policy)
+            assert gate.evaluate_sources(SOURCES, {"S1": entry}, "dev") == []
 
     def test_a_rights_entry_for_no_source_is_an_error(self, gate):
         findings = gate.evaluate_sources(SOURCES, {"S1": rights(), "S9": rights()}, "dev")

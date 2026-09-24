@@ -331,6 +331,67 @@
         }
       }
     },
+    "/api/comparisons": {
+      "get": {
+        "summary": "List Comparisons",
+        "operationId": "list_comparisons_api_comparisons_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/ComparisonSet"
+                  },
+                  "type": "array",
+                  "title": "Response List Comparisons Api Comparisons Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/comparisons/{set_id}": {
+      "get": {
+        "summary": "Get Comparison",
+        "operationId": "get_comparison_api_comparisons__set_id__get",
+        "parameters": [
+          {
+            "name": "set_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Set Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ComparisonSet"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/claims/{claim_id}/history": {
       "get": {
         "summary": "History",
@@ -566,6 +627,73 @@
         ],
         "title": "Briefing"
       },
+      "Card": {
+        "properties": {
+          "report_id": {
+            "type": "string",
+            "title": "Report Id"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "value_text": {
+            "type": "string",
+            "title": "Value Text"
+          },
+          "unit_symbol": {
+            "type": "string",
+            "title": "Unit Symbol"
+          },
+          "period_label": {
+            "type": "string",
+            "title": "Period Label"
+          },
+          "source_ids": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Source Ids"
+          },
+          "lane": {
+            "type": "string",
+            "title": "Lane"
+          },
+          "revised_from": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Revised From"
+          },
+          "difference": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Difference"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "report_id",
+          "label",
+          "value_text",
+          "unit_symbol",
+          "period_label",
+          "source_ids",
+          "lane",
+          "revised_from",
+          "difference"
+        ],
+        "title": "Card"
+      },
       "Claim": {
         "properties": {
           "id": {
@@ -768,6 +896,65 @@
           "note"
         ],
         "title": "ClaimRecord"
+      },
+      "ComparisonDisplay": {
+        "properties": {
+          "cards": {
+            "items": {
+              "$ref": "#/components/schemas/Card"
+            },
+            "type": "array",
+            "title": "Cards"
+          },
+          "range": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Range"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "notes": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Notes"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "cards",
+          "range",
+          "notes"
+        ],
+        "title": "ComparisonDisplay"
+      },
+      "ComparisonSet": {
+        "properties": {
+          "set_id": {
+            "type": "string",
+            "title": "Set Id"
+          },
+          "definition_version": {
+            "type": "string",
+            "title": "Definition Version"
+          },
+          "display": {
+            "$ref": "#/components/schemas/ComparisonDisplay"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "set_id",
+          "definition_version",
+          "display"
+        ],
+        "title": "ComparisonSet"
       },
       "Decision": {
         "properties": {
@@ -1681,6 +1868,35 @@
           "reason"
         ],
         "title": "ProposalRequest"
+      },
+      "Range": {
+        "properties": {
+          "low": {
+            "type": "string",
+            "title": "Low"
+          },
+          "high": {
+            "type": "string",
+            "title": "High"
+          },
+          "n": {
+            "type": "integer",
+            "title": "N"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          }
+        },
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "low",
+          "high",
+          "n",
+          "label"
+        ],
+        "title": "Range"
       },
       "ReadingPrompt": {
         "properties": {

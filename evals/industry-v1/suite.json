@@ -1,0 +1,678 @@
+{
+  "suite_id": "industry-v1",
+  "version": "1",
+  "release_id": "nx-norm-2026-09-24",
+  "cases": [
+    {
+      "id": "Q01",
+      "answer_class": "supported",
+      "required_claims": [
+        "C07",
+        "C08",
+        "C09"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "S01",
+        "S04"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "combined",
+        "20%"
+      ],
+      "prohibited_assertions": [
+        "each hold 40%",
+        "each has 40%"
+      ],
+      "expected_entities": [
+        "organization/citic-metal",
+        "organization/gold-mountains-international-mining",
+        "organization/trafigura-asia-trading"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "The 80% is a combined share for CITIC and Gold Mountains; the remaining 20% is Trafigura Asia. No equal split is inferred. FINDING: C09 states 20% but its retained S04 excerpt is only 'with Trafigura Asia Trading Pte Ltd.'; the figure is unanchored (copper audit)."
+    },
+    {
+      "id": "Q02",
+      "answer_class": "partial",
+      "required_claims": [
+        "C10",
+        "C16",
+        "C17"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "S06",
+        "S09"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "lot"
+      ],
+      "prohibited_assertions": [
+        "confirms the same lot",
+        "proves the same lot"
+      ],
+      "expected_entities": [
+        "organization/aurubis-group",
+        "organization/prysmian-group"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "A dated network of disclosed relationships via Trafigura and Aurubis; no evidence the same material lot reached Prysmian."
+    },
+    {
+      "id": "Q03",
+      "answer_class": "unknown",
+      "required_claims": [],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [
+        "C10"
+      ],
+      "required_qualifiers": [],
+      "prohibited_assertions": [
+        "hamburg",
+        "lünen",
+        "olen",
+        "pirdop"
+      ],
+      "expected_entities": [
+        "organization/aurubis-group"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Europe is stated; no refinery is named. Guessing a named Aurubis site is the failure to catch."
+    },
+    {
+      "id": "Q04",
+      "answer_class": "partial",
+      "required_claims": [
+        "C02"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "S02",
+        "S03"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "Kakula"
+      ],
+      "prohibited_assertions": [
+        "the entire complex stopped",
+        "the whole complex stopped"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Kakula is a mine within the complex; its disruption is not the whole complex's. Oracle draft: the expected answer is a denial and needs the source dates checked by the user."
+    },
+    {
+      "id": "Q05",
+      "answer_class": "partial",
+      "required_claims": [
+        "C05"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "S02",
+        "S05"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "forecast"
+      ],
+      "prohibited_assertions": [
+        "confirmed that the smelter operated in october"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "ORACLE CORRECTED (proposed): the stored expected answer never answers the question. Proposed: the corpus has no evidence of anode production in October 2025; S02 only forecast first anode for October, and first anodes were reported produced on 2025-12-29 (C05). Needs S02, which no claim cites."
+    },
+    {
+      "id": "Q06",
+      "answer_class": "supported",
+      "required_claims": [
+        "C10",
+        "C11",
+        "C12",
+        "C13"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "S06",
+        "S08"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "Kolwezi",
+        "planned"
+      ],
+      "prohibited_assertions": [
+        "arrived at the aurubis refinery",
+        "delivery to europe was completed"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "February: cargo at Kolwezi, rail to Lobito planned. Q1 2026: first shipment reached Lobito (C13). April: European arrival still expected (May)."
+    },
+    {
+      "id": "Q07",
+      "answer_class": "unknown",
+      "required_claims": [],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [],
+      "required_qualifiers": [],
+      "prohibited_assertions": [
+        "% of prysmian output"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "The corpus has no dependence shares, inventory, substitutes or attributable production effect. The question's premise (output was lost) is unsupported."
+    },
+    {
+      "id": "Q08",
+      "answer_class": "supported",
+      "required_claims": [
+        "C10"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "S06",
+        "S07"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "origin"
+      ],
+      "prohibited_assertions": [
+        "two independent sources",
+        "independent corroboration is confirmed"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "S06 (English) and S07 (Portuguese) are related participant announcements of one transaction; group by origin, keep language."
+    },
+    {
+      "id": "Q09",
+      "answer_class": "supported",
+      "required_claims": [
+        "C05",
+        "C14",
+        "C15",
+        "C18"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "S05",
+        "S12",
+        "S13"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "cathode"
+      ],
+      "prohibited_assertions": [
+        "wire rod is the same as anode",
+        "wire rod is anode"
+      ],
+      "expected_entities": [
+        "material/copper-anodes",
+        "material/copper-wire-rod"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Anodes are produced at Kamoa (C05). Wire rod is made from cathodes at Aurubis (C14, C15) and is a cable precursor (C18)."
+    },
+    {
+      "id": "Q10",
+      "answer_class": "unknown",
+      "required_claims": [],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [
+        "C10"
+      ],
+      "required_qualifiers": [],
+      "prohibited_assertions": [
+        "zoom to the hamburg",
+        "coordinates of the receiving refinery"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "The receiving refinery is unresolved and no geocoding has been validated."
+    },
+    {
+      "id": "Q11",
+      "answer_class": "supported",
+      "required_claims": [
+        "C05",
+        "C07",
+        "C08"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "S01",
+        "S05"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "production"
+      ],
+      "prohibited_assertions": [
+        "proves january production",
+        "confirms january smelter output"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Contract announcements (C07, C08) and physical production (C05: first anodes 2025-12-29) are separate states."
+    },
+    {
+      "id": "Q12",
+      "answer_class": "unknown",
+      "required_claims": [],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [],
+      "required_qualifiers": [
+        "publication",
+        "September 2026"
+      ],
+      "prohibited_assertions": [
+        "replay what the app knew"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Only publication-time reconstruction is possible; the app recorded these documents in September 2026. Unknown class, but the limitation must be stated."
+    },
+    {
+      "id": "O-Q01",
+      "answer_class": "supported",
+      "required_claims": [
+        "O-C02"
+      ],
+      "required_measurements": [
+        "oil-system-2025q3-2026q2:O-M01:1",
+        "oil-system-2025q3-2026q2:O-M01:3"
+      ],
+      "required_sources": [
+        "O-S01"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "estimate"
+      ],
+      "prohibited_assertions": [
+        "exact measurement of",
+        "confirmed tanker counts"
+      ],
+      "expected_entities": [
+        "place/strait-of-hormuz"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "The answer cites 21.6 (2025-Q4) but claim O-C02 only holds 4.9; the earlier value comes from metric O-M01, so O-M01 is required. Both are revision-prone EIA estimates. FINDING: O-C02 and O-M01 cite O-S01, whose retained excerpt is only the AIS caveat; the values are in the replacement version O-S21 (M0), which the metric group and claim do not yet cite until the M0 proposals are accepted and M4 binds points to passages."
+    },
+    {
+      "id": "O-Q02",
+      "answer_class": "partial",
+      "required_claims": [
+        "O-C02",
+        "O-C03"
+      ],
+      "required_measurements": [
+        "oil-system-2025q3-2026q2:O-M01:3",
+        "oil-system-2025q3-2026q2:O-M02:3"
+      ],
+      "required_sources": [
+        "O-S01"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "cargo"
+      ],
+      "prohibited_assertions": [
+        "proves the displaced barrels",
+        "confirms rerouting of the same"
+      ],
+      "expected_entities": [
+        "place/strait-of-hormuz",
+        "place/bab-el-mandeb"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Class partial: the honest answer is 'unknown' plus the two quarterly estimates. Aggregate flows cannot establish cargo identity."
+    },
+    {
+      "id": "O-Q03",
+      "answer_class": "partial",
+      "required_claims": [
+        "O-C04",
+        "O-C05",
+        "O-C14"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "O-S10"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "capacity"
+      ],
+      "prohibited_assertions": [
+        "fully bypass",
+        "completely bypass"
+      ],
+      "expected_entities": [
+        "place/saudi-arabia",
+        "infrastructure/saudi-east-west-pipeline"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Partly: the pipeline exports via Yanbu, but nameplate capacity is not actual throughput and does not remove other route constraints."
+    },
+    {
+      "id": "O-Q04",
+      "answer_class": "partial",
+      "required_claims": [
+        "O-C06",
+        "O-C15"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "O-S10"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "capacity"
+      ],
+      "prohibited_assertions": [
+        "spare capacity of",
+        "unused capacity of"
+      ],
+      "expected_entities": [
+        "place/united-arab-emirates",
+        "infrastructure/abu-dhabi-crude-oil-pipeline"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Infrastructure capability exists; actual period throughput and spare capacity are not established."
+    },
+    {
+      "id": "O-Q05",
+      "answer_class": "partial",
+      "required_claims": [
+        "O-C07",
+        "O-C08",
+        "O-C09"
+      ],
+      "required_measurements": [
+        "oil-system-2025q3-2026q2:O-M04:2"
+      ],
+      "required_sources": [
+        "O-S05",
+        "O-S06"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "processing"
+      ],
+      "prohibited_assertions": [
+        "consumption of 8.1",
+        "consumed 8.1"
+      ],
+      "expected_entities": [
+        "place/china",
+        "industry/china-refining-system"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "ORACLE FLAG: the stored answer says NBS reported 'lower' June refinery processing; O-C08 and its excerpt give only 51.24 million tonnes and no comparison, so 'lower' is unsupported in the corpus. Import, processing and consumption stay distinct measures."
+    },
+    {
+      "id": "O-Q06",
+      "answer_class": "partial",
+      "required_claims": [
+        "O-C10",
+        "O-C11",
+        "O-C12"
+      ],
+      "required_measurements": [
+        "oil-system-2025q3-2026q2:O-M05:0",
+        "oil-system-2025q3-2026q2:O-M05:1",
+        "oil-system-2025q3-2026q2:O-M05:2"
+      ],
+      "required_sources": [
+        "O-S07",
+        "O-S08"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "forecast"
+      ],
+      "prohibited_assertions": [
+        "fully replaced",
+        "replaced all"
+      ],
+      "expected_entities": [
+        "place/united-states"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Not supported: production (estimate), exports (crude plus products) and a forecast are different measures and no substitution accounting exists. FINDING: the 13.8 full-year forecast (O-M05:2, caveat of O-C10) is in no retained excerpt; O-S26 anchors only the 13.7 first-half figure."
+    },
+    {
+      "id": "O-Q07",
+      "answer_class": "unknown",
+      "required_claims": [],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [
+        "O-C13"
+      ],
+      "required_qualifiers": [],
+      "prohibited_assertions": [
+        "produced at the announced level",
+        "complied with the october"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "A required-production decision is not measured output or conformity."
+    },
+    {
+      "id": "O-Q08",
+      "answer_class": "unknown",
+      "required_claims": [],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [],
+      "required_qualifiers": [],
+      "prohibited_assertions": [
+        "entire brent price change was caused",
+        "single cause of the brent"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "The sources describe several contributing conditions; no causal share is identified. No claim covers Brent. FINDING: the only Brent record is event O-E05 (August average $91 per barrel) and source O-S02, which is script-rendered and unreadable; the stored answer's 'several contributing conditions' is not anchored in any retained excerpt, and events are not yet in the evaluation corpus."
+    },
+    {
+      "id": "O-Q09",
+      "answer_class": "unknown",
+      "required_claims": [],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [
+        "O-C07",
+        "O-C08",
+        "O-C09"
+      ],
+      "required_qualifiers": [],
+      "prohibited_assertions": [
+        "received by",
+        "the refinery that received"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Country-level customs and processing data do not identify a receiving refinery."
+    },
+    {
+      "id": "O-Q10",
+      "answer_class": "partial",
+      "required_claims": [
+        "O-C02",
+        "O-C07",
+        "O-C10",
+        "O-C13"
+      ],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [],
+      "required_qualifiers": [
+        "June"
+      ],
+      "prohibited_assertions": [
+        "observed in september"
+      ],
+      "expected_entities": [],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "ORACLE CHECK: 'June 2026 is the latest common observed endpoint' comes from the pack README and metric periods, not from any claim or source passage."
+    },
+    {
+      "id": "O-Q11",
+      "answer_class": "supported",
+      "required_claims": [
+        "O-C19",
+        "O-C20",
+        "O-C21",
+        "O-C22"
+      ],
+      "required_measurements": [],
+      "required_sources": [
+        "O-S12",
+        "O-S13"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "capacity"
+      ],
+      "prohibited_assertions": [
+        "spare capacity of",
+        "diverted volume of"
+      ],
+      "expected_entities": [
+        "place/sunda-strait",
+        "place/lombok-strait",
+        "infrastructure/myanmar-china-crude-pipeline",
+        "place/cape-of-good-hope-route"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Alternatives are identified; spare capacity and actual use are not established."
+    },
+    {
+      "id": "O-Q12",
+      "answer_class": "partial",
+      "required_claims": [
+        "O-C23"
+      ],
+      "required_measurements": [
+        "oil-system-2025q3-2026q2:O-M07:0",
+        "oil-system-2025q3-2026q2:O-M07:1",
+        "oil-system-2025q3-2026q2:O-M07:2"
+      ],
+      "required_sources": [
+        "O-S14",
+        "O-S15",
+        "O-S16"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "snapshot"
+      ],
+      "prohibited_assertions": [
+        "stocks were low throughout"
+      ],
+      "expected_entities": [
+        "place/united-states"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "ORACLE FLAG: the stored answer gives 7% below (June 19), 6% below (July 17) and 1% above (September 11). O-S16 supports 6% and O-S14 supports 1%; the 7% is in no retained excerpt (O-S15 states 412.1 million barrels without the percentage). Needs a retained passage."
+    },
+    {
+      "id": "O-Q13",
+      "answer_class": "supported",
+      "required_claims": [
+        "O-C26"
+      ],
+      "required_measurements": [
+        "oil-system-2025q3-2026q2:O-M11:0",
+        "oil-system-2025q3-2026q2:O-M11:1",
+        "oil-system-2025q3-2026q2:O-M11:2",
+        "oil-system-2025q3-2026q2:O-M11:3"
+      ],
+      "required_sources": [
+        "O-S20"
+      ],
+      "context_claims": [],
+      "required_qualifiers": [
+        "IEA"
+      ],
+      "prohibited_assertions": [
+        "opec reported",
+        "opec's figures show"
+      ],
+      "expected_entities": [
+        "place/saudi-arabia",
+        "place/iraq",
+        "place/russia",
+        "place/iran"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "ORACLE FLAG: O-C26 covers only Iraq (3.86). Russia (8.36), Saudi Arabia (5.97) and Iran (2.16) are pack metric points whose retained excerpts (O-S20 and its replacement O-S23) stop at the Iraq row, so those three values are unanchored. All four are IEA single-month estimates."
+    },
+    {
+      "id": "O-Q14",
+      "answer_class": "unknown",
+      "required_claims": [],
+      "required_measurements": [],
+      "required_sources": [],
+      "context_claims": [
+        "O-C25",
+        "O-C07"
+      ],
+      "required_qualifiers": [
+        "comparable"
+      ],
+      "prohibited_assertions": [
+        "india's demand is higher",
+        "india's demand is lower",
+        "china's demand is higher",
+        "china's demand is lower"
+      ],
+      "expected_entities": [
+        "place/india",
+        "place/china"
+      ],
+      "oracle_review_status": "assistant_draft",
+      "split": "development",
+      "notes": "Unlike units (million tonnes vs million b/d) and periods (Indian fiscal year vs calendar quarter); no conversion exists. Imports are also not demand."
+    }
+  ]
+}

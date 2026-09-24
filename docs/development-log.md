@@ -2,6 +2,30 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-24, provider adapters, cross-check and source survey
+
+Uncommitted. Built `backend/app/acquisition/providers/` (eia, jodi, compare, crosscheck, observation), URL and error redaction in `policy.py` and `fetch.py`, `scripts/crosscheck.py`, `docs/crosscheck-report.md`, and the survey in `docs/acquisition-providers.md`. Verified: the key appears nowhere in 166 files, the stored objects or the database; the real cross-check gave 7 equal, 8 no observation, 0 differing; JODI has no Iraq, Russia or Iran crude production for 2026. Five response objects are under `.local/objects/` (git-ignored). **Next actions:** the user answers the open decisions in `docs/acquisition-providers.md` (register provider series as sources, next adapters, GDELT, China); then either continue data sources or start M5.
+
+## 2026-09-24, M4 built and applied
+
+**Applied after the user's approval:** providers EIA and JODI; every source `store`; EIA key saved in `.local/eia-api-key.txt` (git-ignored, never printed); migration 010 applied to the real database (backup `.local/backups/nexus-20260924-064804-f1f23b.dump`, recorded history identical, no acquisition rows yet). M3 is applied (migration 009). The M3 files were staged for the user's commit; M4 files are unstaged.
+
+- Plan: `docs/superpowers/plans/2026-09-24-m4-acquisition-pipeline.md` (with an "As built" section).
+- Built: `backend/app/acquisition/` (policy, fetch, snapshots, extraction, verification, proposals), `backend/app/storage/migrations/010_acquisition.sql`, `backend/app/storage/acquisition.py`, `scripts/acquire.py`, `snapshot_policy` in `licences/source-rights.json` and the licence gate, `docs/acquisition-providers.md`.
+- Verified: 382 backend tests (none uses the network), ruff, licence gate; migration 010 rehearsed on `nexus_rehearsal_m4` with two real fetches, recorded history identical, no object files written.
+- Found: raw byte hashes of two EIA pages matched in 1 of 4 comparisons while extracted-text hashes matched in 4 of 4; providers sampled (EIA needs a key, JODI CSV is keyless with terms unread).
+- **Next actions:** the user decides providers, storage policy per publisher and terms, then back up and apply migration 010 to the real database. The 13 M0 proposals still await a reviewer and the eval oracles await confirmation. After M4 the roadmap moves to the UI track (M5) or M6 data work. Scratch databases `nexus_rehearsal_m0`, `m2`, `m3`, `m4` can be dropped.
+
+## 2026-09-24, M3 done and applied
+
+**Applied after the user's approval:** backup `.local/backups/nexus-20260924-061617-b23ae7.dump`, migration 009 applied, recorded history and normalisation hashes identical, `/api/comparisons` returns `[]`. The classes and the comparability rules are approved; no oracle is marked `user_confirmed` yet. Nothing is committed since the four commits.
+
+- Plan: `docs/superpowers/plans/2026-09-24-m3-evaluation-and-comparability.md` (with an "As built" section).
+- Built: `backend/app/evaluation/` (cases, figures, corpus, retrieval, answers, oracle), `backend/app/comparability/` (model, display, reports), `backend/app/storage/migrations/009_comparability.sql`, `backend/app/storage/comparisons.py`, two read endpoints, `scripts/evaluate.py`, `evals/industry-v1/suite.json`, `docs/evaluation-oracle-review.md`. OpenAPI and types regenerated (additions only).
+- Verified: 273 backend tests, ruff, `tsc`, prettier, 8 of 8 browser workflows; migration 009 rehearsed on `nexus_rehearsal_m3`; the evaluation run is deterministic.
+- Found: eight oracle findings (`docs/evaluation-oracle-review.md`, F1 to F8), mostly stored values with no retained passage.
+- **Next actions:** the user confirms the 26 expected answers and classes, approves the comparability rules and confirms they are the only reviewer. Then back up and apply migration 009 to the real database, mark confirmed cases `user_confirmed` in the suite (and update the count test), and decide whether to fix F1 (Q05) and F2 (O-Q05) as corrections. Scratch databases `nexus_rehearsal_m0`, `m2` and `m3` can be dropped. Then M4 (acquisition), which repairs the unanchored values.
+
 ## 2026-09-24, M2 done: release accepted
 
 **Applied after the user's approval:** backup `.local/backups/nexus-20260924-055016-8c76d4.dump`, migration 008 applied, release `nx-norm-2026-09-24` recorded and accepted (reviewer `farrellsid`, recorded from the user's chat approval). Recorded history unchanged (57 proposals, 0 decisions, 0 versions). Nothing is committed. The entries below describe the build. M0 is applied (see the entry below) and its 13 proposals await a reviewer.

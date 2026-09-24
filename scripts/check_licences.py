@@ -37,6 +37,13 @@ def _needs_verification(mode: str) -> str:
     return "error" if mode == "release" else "note"
 
 
+SNAPSHOT_POLICIES = {
+    "store",
+    "hash_only",
+    "none",
+}  # whether fetched bytes may be kept locally
+
+
 def evaluate_sources(
     sources: list[dict], rights: dict[str, dict], mode: str
 ) -> list[Finding]:
@@ -53,6 +60,14 @@ def evaluate_sources(
                 )
             )
             continue
+        if entry.get("snapshot_policy") not in SNAPSHOT_POLICIES:
+            findings.append(
+                Finding(
+                    "error",
+                    "source-bad-snapshot-policy",
+                    f"{source['id']} snapshot_policy must be one of {sorted(SNAPSHOT_POLICIES)}",
+                )
+            )
         status, release = entry["redistribution"], entry["release_excerpt"]
         if status == "blocked" and release == "include":
             findings.append(

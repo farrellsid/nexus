@@ -54,6 +54,9 @@ npm --prefix apps/web run dev
 .\.venv\Scripts\python -m ruff format --check backend scripts
 .\.venv\Scripts\python scripts/check_licences.py --mode dev
 .\.venv\Scripts\python scripts/normalise.py check
+(cd backend; $env:PYTHONPATH='.'; ..\.venv\Scripts\python ..\scripts\evaluate.py check)
+(cd backend; $env:PYTHONPATH='.'; ..\.venv\Scripts\python ..\scripts\acquire.py fetch O-S24)   # dry run; add --confirm to fetch once
+(cd backend; $env:PYTHONPATH='.'; ..\.venv\Scripts\python ..\scripts\crosscheck.py)   # dry run; add --confirm to fetch once
 npm --prefix apps/web run format:check
 npm --prefix apps/web run build
 npm --prefix apps/web run test:e2e

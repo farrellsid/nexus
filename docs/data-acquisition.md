@@ -31,6 +31,12 @@ One run against the live pages: 17 sources were HTML and fetchable, and **7 of 1
 
 The LLM stays non-deterministic where it proposes and is never trusted where things are recorded.
 
+## Status, 2026-09-24: what is built and what is still proposed
+
+Built (M4, `docs/roadmap.md`): the acquire step (safe fetch, hashing, an attempt log, a rights-controlled local object store) and the extract step's deterministic half (text extraction, exact passage location, mechanical proposal gates). A three-state verifier compares a fresh fetch with a named baseline. The only network path is `scripts/acquire.py`, dry run by default.
+
+Still proposed: structured provider adapters (sampled in `docs/acquisition-providers.md`, waiting for the user's approval and any API key), PDF and OCR extraction, browser rendering, any model-assisted extraction, and any refresh, startup or scheduled fetching. None of those is authorised.
+
 ## Open questions
 
 - **Rights.** `Source.rights` limits some sources to short anchors. Government works (EIA) can be stored in full; for publisher pages the repository would keep the hash and a local-only copy.

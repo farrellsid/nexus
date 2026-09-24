@@ -13,6 +13,7 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 from app.investigation import Investigation, load_investigations
 from app.knowledge import Neighborhood, neighborhood
 from app.normalisation.release import EntityRecord, MeasurementRecord
+from app.normalisation.vocabulary import load_vocabulary
 from app.review import (
     DecisionRequest,
     ProposalRequest,
@@ -21,11 +22,13 @@ from app.review import (
     ReviewHistory,
     ReviewService,
 )
+from app.storage.comparisons import ComparisonSet, PostgresComparisons
 from app.storage.database import Database, configured_url
 from app.storage.normalisation import ClaimProjection, PostgresNormalisation
 from app.storage.reviews import PostgresReviews
 
 INVESTIGATIONS = Path(__file__).resolve().parents[2] / "investigations"
+VOCABULARY = Path(__file__).resolve().parents[2] / "normalisation" / "vocabulary-v1.json"
 PILOT = INVESTIGATIONS / "01-kamoa-to-cables"
 DEFAULT_CASE = "kamoa-to-cables"
 
@@ -35,6 +38,7 @@ def create_app(
     repository: PostgresReviews | None = None,
     review_origins: set[str] | None = None,
     normalisation: PostgresNormalisation | None = None,
+    comparisons: PostgresComparisons | None = None,
 ) -> FastAPI:
     if investigation is None:
         loaded = load_investigations(INVESTIGATIONS)
@@ -59,11 +63,15 @@ def create_app(
                 storage.initialize(item)
             application.state.reviews = storage
             application.state.normalisation = PostgresNormalisation(database)
+            application.state.comparisons = PostgresComparisons(
+                database, application.state.normalisation
+            )
         yield
 
     app = FastAPI(title="Nexus evidence workbench", version="0.2.0", lifespan=lifespan)
     app.state.reviews = repository
     app.state.normalisation = normalisation
+    app.state.comparisons = comparisons
     app.add_middleware(
         TrustedHostMiddleware, allowed_hosts=["127.0.0.1", "localhost", "testserver"]
     )
@@ -113,6 +121,13 @@ def create_app(
                 status_code=503, detail="PostgreSQL normalisation storage is not configured"
             )
         return app.state.normalisation
+
+    def compared() -> PostgresComparisons:
+        if app.state.comparisons is None:
+            raise HTTPException(
+                status_code=503, detail="PostgreSQL comparison storage is not configured"
+            )
+        return app.state.comparisons
 
     def current_investigation(case_id: str) -> Investigation:
         if case_id not in investigations:
@@ -179,6 +194,17 @@ def create_app(
     @app.get("/api/measurements", response_model=list[MeasurementRecord])
     def measurements(entity: str | None = None) -> list[MeasurementRecord]:
         return normalised().measurements(entity)
+
+    @app.get("/api/comparisons", response_model=list[ComparisonSet])
+    def list_comparisons() -> list[ComparisonSet]:
+        return compared().displays(loaded, load_vocabulary(VOCABULARY))
+
+    @app.get("/api/comparisons/{set_id}", response_model=ComparisonSet)
+    def get_comparison(set_id: str) -> ComparisonSet:
+        shown = compared().display(set_id, loaded, load_vocabulary(VOCABULARY))
+        if shown is None:
+            raise HTTPException(status_code=404, detail="Comparison set not found")
+        return shown
 
     @app.get("/api/claims/{claim_id}/history", response_model=ReviewHistory)
     def history(claim_id: str) -> ReviewHistory:

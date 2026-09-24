@@ -22,6 +22,10 @@ The copper research fixture and acceptance-case files were not edited. The oil f
 
 - Normalisation foundations (M2, accepted 2026-09-24): closed vocabulary v1, a validated release mapping all 44 claims, 41 sources, 45 entities and 37 metric points, append-only storage (migration `008_normalisation.sql`), read endpoints (`/api/normalisation/status`, `/api/claims/{id}/projection`, `/api/entities/resolve`, `/api/measurements`) and `scripts/normalise.py`. The release is accepted, so the reads serve it.
 
+- Evaluation and comparability foundations (M3, applied 2026-09-24; expected answers still drafts): a 26-case eval suite, a deterministic lexical retriever, an answer-contract checker, an oracle audit, comparability rules with side-by-side display data, append-only comparison tables (migration `009_comparability.sql`) and `/api/comparisons` reads. Expected answers are drafts until confirmed.
+
+- Acquisition foundations (M4, built and rehearsed, not yet applied): safe fetch, hash-addressed object store with a rights guard, deterministic extraction, three-state verification, proposal gates, append-only log tables (migration `010_acquisition.sql`) and `scripts/acquire.py`. Opt-in only; nothing fetches at startup or on a schedule.
+
 ## Validation performed
 
 - 36 backend tests passed. These include oil schema/reference and geography checks, fresh-database additive migration behavior, published-brief isolation prevention, multi-investigation isolation, real PostgreSQL concurrency, rollback, idempotency, rejection, immutable history and native backup/restore checks using disposable schemas/databases.

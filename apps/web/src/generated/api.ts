@@ -140,6 +140,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/comparisons": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** List Comparisons */
+        get: operations["list_comparisons_api_comparisons_get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/comparisons/{set_id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** Get Comparison */
+        get: operations["get_comparison_api_comparisons__set_id__get"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/claims/{claim_id}/history": {
         parameters: {
             query?: never;
@@ -242,6 +276,27 @@ export interface components {
             /** Metrics */
             metrics: components["schemas"]["MetricSeries"][];
         };
+        /** Card */
+        Card: {
+            /** Report Id */
+            report_id: string;
+            /** Label */
+            label: string;
+            /** Value Text */
+            value_text: string;
+            /** Unit Symbol */
+            unit_symbol: string;
+            /** Period Label */
+            period_label: string;
+            /** Source Ids */
+            source_ids: string[];
+            /** Lane */
+            lane: string;
+            /** Revised From */
+            revised_from: string[];
+            /** Difference */
+            difference: string | null;
+        };
         /** Claim */
         Claim: {
             /** Id */
@@ -312,6 +367,22 @@ export interface components {
             needs_semantic_review: boolean;
             /** Note */
             note: string | null;
+        };
+        /** ComparisonDisplay */
+        ComparisonDisplay: {
+            /** Cards */
+            cards: components["schemas"]["Card"][];
+            range: components["schemas"]["Range"] | null;
+            /** Notes */
+            notes: string[];
+        };
+        /** ComparisonSet */
+        ComparisonSet: {
+            /** Set Id */
+            set_id: string;
+            /** Definition Version */
+            definition_version: string;
+            display: components["schemas"]["ComparisonDisplay"];
         };
         /** Decision */
         Decision: {
@@ -656,6 +727,17 @@ export interface components {
             /** Reason */
             reason: string;
         };
+        /** Range */
+        Range: {
+            /** Low */
+            low: string;
+            /** High */
+            high: string;
+            /** N */
+            n: number;
+            /** Label */
+            label: string;
+        };
         /** ReadingPrompt */
         ReadingPrompt: {
             /** Id */
@@ -978,6 +1060,57 @@ export interface operations {
                 };
                 content: {
                     "application/json": components["schemas"]["MeasurementRecord"][];
+                };
+            };
+            /** @description Validation Error */
+            422: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["HTTPValidationError"];
+                };
+            };
+        };
+    };
+    list_comparisons_api_comparisons_get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ComparisonSet"][];
+                };
+            };
+        };
+    };
+    get_comparison_api_comparisons__set_id__get: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                set_id: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Successful Response */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["ComparisonSet"];
                 };
             };
             /** @description Validation Error */
