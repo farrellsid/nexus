@@ -5,7 +5,7 @@
 // flights, satellites, earthquakes, traffic. The registry has since grown to
 // sixteen. The original reconcile walked the LIVE registry and forced every
 // layer absent from the shot to off, so a recipe that never had an opinion
-// about CCTV, vessels, fires, radio, cables, dams or datacenters silently tore
+// about CCTV, vessels, fires, radio, dams or datacenters silently tore
 // them down — and nothing puts them back, because playback has no restore pass.
 //
 // A shot's layer map is an assertion about the layers it NAMES, not a claim of
