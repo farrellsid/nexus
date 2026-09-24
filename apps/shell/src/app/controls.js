@@ -15,12 +15,8 @@ export function createApplicationControls({
   const styleManager = new Controls(viewer, {
     services: {
       ...services,
-      ...operations.surface.controlServices,
       searchAndFlyTo: operations.searchAndFlyTo,
-      fetchRegionalBrief: (...args) =>
-        operations.requests.regional.getBrief(...args),
     },
-    requestServices: operations.requests,
     mapStackController,
     placeSearch,
   });

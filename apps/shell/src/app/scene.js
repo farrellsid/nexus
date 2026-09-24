@@ -1,4 +1,4 @@
-import { createApplicationOperations } from './operations.js';
+import { searchAndFlyTo } from '../locations.js';
 import * as Cesium from 'cesium';
 import {
   createApplicationViewer,
@@ -17,7 +17,6 @@ import { describeError } from './errors.js';
 
 /** Construct the application globe using the caller's local configuration. */
 export async function createApplicationScene({
-  requestServices,
   googleApiKey,
   cesiumToken,
   credits,
@@ -27,9 +26,15 @@ export async function createApplicationScene({
   signal,
   defer,
 }) {
-  const operations = createApplicationOperations({
-    requests: requestServices,
-    signal,
+  const operations = Object.freeze({
+    searchAndFlyTo: (viewer, query, options = {}) =>
+      searchAndFlyTo(viewer, query, {
+        ...options,
+        signal:
+          signal && options.signal
+            ? AbortSignal.any([signal, options.signal])
+            : signal || options.signal,
+      }),
   });
   defer(initLogoGaze());
   const previousKey = window.__GOOGLE_MAPS_API_KEY__;

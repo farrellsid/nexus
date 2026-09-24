@@ -44,7 +44,7 @@ export class StyleManager extends ShellFacade {
    */
   constructor(
     viewer,
-    { mapStackController = null, placeSearch, services, requestServices } = {},
+    { mapStackController = null, placeSearch, services } = {},
   ) {
     super();
     const { IntelHUD, ShareLinkManager, CelestialRing, initWorldOverlay } =

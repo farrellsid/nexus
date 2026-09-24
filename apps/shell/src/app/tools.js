@@ -1,6 +1,4 @@
 import { SceneDirector } from '../scenes/director.js';
-import { initAnnotations } from '../annotations/index.js';
-import { initDrawTool } from '../annotations/drawTool.js';
 import { installScopeMask, destroyScopeMask } from '../scopeMask.js';
 import {
   installRenderGovernor,
@@ -16,7 +14,6 @@ export function createApplicationTools({
   controls,
   data,
   loadingScreen,
-  placeSearch,
   startChrome,
   onSceneDirector,
   sceneDataPacks,
@@ -36,21 +33,6 @@ export function createApplicationTools({
     ?.module.attachSceneController(sceneDirector);
   defer(() => sceneDirector.destroy());
   onSceneDirector?.(sceneDirector);
-  const annotations = initAnnotations({
-    viewer,
-    tileset,
-    placeSearch,
-    resolver: operations.annotationResolver,
-  });
-  defer(() => {
-    if (window.__gevAnnotations === annotations) delete window.__gevAnnotations;
-    annotations.destroy();
-  });
-  // DISPLAY ▸ Draw: the same whiteboard, drawn by hand. It claims the pointer
-  // while a session is open, so its teardown belongs to the application
-  // lifetime rather than to whoever last pressed the button.
-  const drawTool = initDrawTool({ viewer, annotations });
-  defer(() => drawTool?.destroy());
   if (startChrome)
     defer(startChrome({ loadingScreen, styleManager, dataManager, signal }));
   // Idle render governor: flips the scene into requestRenderMode whenever
@@ -104,14 +86,12 @@ export function createApplicationTools({
     dataManager,
     sceneDirector,
     mapStackController,
-    annotations,
     getRenderGovernorDiagnostics,
-    surfaceServices: operations.surface,
     requestRender: governorRequestRender,
   };
   const debug = window.__godsEyeView;
   defer(() => {
     if (window.__godsEyeView === debug) delete window.__godsEyeView;
   });
-  return { sceneDirector, annotations };
+  return { sceneDirector };
 }

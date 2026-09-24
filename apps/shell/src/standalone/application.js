@@ -33,7 +33,6 @@ export function createStandaloneApplication({
         // so it stays free of application state.
         presets: CITY_POIS,
         ...geospatial,
-        resolveApiKey: () => googleApiKey,
         signal: context.signal,
       });
       const scene = await createStandaloneScene({
@@ -42,16 +41,7 @@ export function createStandaloneApplication({
         cesiumToken,
         loaderStatus,
       });
-      catalog = createStandaloneCatalog({
-        nepalBoundaryResolver: (signal) =>
-          scene.operations.annotationResolver.resolveRegionRingForQuery(
-            'Nepal',
-            signal,
-            placeSearch,
-          ),
-        signal: context.signal,
-        surface: scene.operations.surface,
-      });
+      catalog = createStandaloneCatalog({ signal: context.signal });
       return scene;
     },
     createControls: (context) =>

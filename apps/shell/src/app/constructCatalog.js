@@ -1,6 +1,5 @@
 import { createLayerCatalog } from './catalog.js';
 import { LAYER_STATE_REGISTRY } from '../data/layerState.js';
-import { createApplicationDirections } from './layers/directions.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
 import { localGeoJsonServices } from './localGeojsonServices.js';
 import { createBhoteKoshiEventLayer } from '../data/bhoteKoshiEvent.js';
@@ -10,7 +9,6 @@ import { createBhoteKoshiLocatorLayer } from '../data/bhoteKoshiLocator.js';
  * Layers have this app's lifetime; the manager owns their destruction.
  */
 export function createApplicationCatalog({
-  surface,
   signal,
   metadata = LAYER_STATE_REGISTRY,
   nepalBoundaryResolver,
@@ -18,8 +16,6 @@ export function createApplicationCatalog({
   if (!signal?.addEventListener)
     throw new TypeError('An application lifetime signal is required');
   signal.throwIfAborted();
-  if (!surface?.groundFloor || !surface?.terrain)
-    throw new TypeError('Application surface services are required');
 
   const catalog = createLayerCatalog(
     [
@@ -27,10 +23,9 @@ export function createApplicationCatalog({
       createBhoteKoshiLocatorLayer({
         boundaryResolver: nepalBoundaryResolver,
       }),
-      createApplicationDirections(),
       ...createInfrastructureLayers(localGeoJsonServices),
     ],
     metadata,
   );
-  return Object.freeze({ ...catalog, surface });
+  return Object.freeze(catalog);
 }

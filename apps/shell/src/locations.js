@@ -1,10 +1,4 @@
-import { createOverpassFeatureSource } from './sources/overpassFeatures.js';
-import { applicationServices } from './services/application.js';
 import * as Cesium from 'cesium';
-import {
-  viewportBias,
-  placesNearViewRecovery,
-} from './annotations/annotationResolver.js';
 import { unavailablePlaceSearch } from './search/placeSearch.js';
 
 /**
@@ -782,39 +776,15 @@ export async function searchAndFlyTo(viewer, query, options = {}) {
     typeof options.beforeFly === 'function' ? options.beforeFly : null;
   const mayFly = () =>
     !signal?.aborted && (beforeFly === null || beforeFly() !== false);
-  const outcome = await placeSearch.geocode(query, {
-    bias: viewportBias(viewer),
-    signal,
-  });
+  const outcome = await placeSearch.geocode(query, { signal });
   signal?.throwIfAborted();
   const result = outcome.place;
-  let lat = result?.lat;
-  let lng = result?.lng;
-  let label = result?.label || query;
-  let types = result?.types || [];
-  let viewport = result?.viewport || null;
+  const { lat, lng } = result;
+  const label = result.label || query;
+  const types = result.types || [];
+  const viewport = result.viewport || null;
 
-  // Nearby landmark recovery retains precedence over a fallback geocoder hit,
-  // but never over an exact answer. Recovery exists to rescue a name that a
-  // geocoder read too broadly; a typed coordinate or a bundled name has no
-  // ambiguity to rescue, and letting a nearby Places hit win would send an
-  // operator who typed "43.1731, -79.0384" to whatever is closest instead.
-  const recovered = result?.exact
-    ? null
-    : await (options.recoverNearView || placesNearViewRecovery)(
-        viewer,
-        query,
-        result && !outcome.fallbackUsed ? { lat, lon: lng } : null,
-        signal,
-      );
-  signal?.throwIfAborted();
-  if (recovered) {
-    lat = recovered.lat;
-    lng = recovered.lon;
-    label = recovered.label || label;
-    types = recovered.types || [];
-    viewport = placesViewportToBounds(recovered.viewport) || viewport;
-  } else if (!result) return null;
+  if (!result) return null;
 
   const requestedRange = finitePositive(options.range);
   const duration = finitePositive(options.duration) || 3.0;
@@ -890,39 +860,18 @@ export async function searchAndFlyTo(viewer, query, options = {}) {
     }
   }
 
-  const shouldResolveBuilding = navigationMode === 'precise-place';
-  const buildingBounds = shouldResolveBuilding
-    ? await resolveBuildingBounds(
-        lat,
-        lng,
-        query,
-        options.features ??
-          (options.boundaries
-            ? createOverpassFeatureSource({
-                boundarySource: options.boundaries,
-              })
-            : undefined),
-        options.signal,
-      )
-    : null;
   const range = requestedRange || defaultRangeForNavigationMode(navigationMode);
   if (!mayFly()) return CANCELLED_SEARCH;
-  const flight = flyToLandmark(
-    viewer,
-    buildingBounds?.lat ?? lat,
-    buildingBounds?.lon ?? lng,
-    {
-      range,
-      pitch: buildingPitch(buildingBounds),
-      heading: 30,
-      buildingHeight: 30,
-      buildingBounds,
-      duration,
-      onStart: options.onStart,
-      onComplete: options.onComplete,
-      onCancel: options.onCancel,
-    },
-  );
+  const flight = flyToLandmark(viewer, lat, lng, {
+    range,
+    pitch: -25,
+    heading: 30,
+    buildingHeight: 30,
+    duration,
+    onStart: options.onStart,
+    onComplete: options.onComplete,
+    onCancel: options.onCancel,
+  });
   return {
     label,
     navigationMode: requestedRange
@@ -931,23 +880,6 @@ export async function searchAndFlyTo(viewer, query, options = {}) {
         ? navigationMode.replace('-overview', '-close')
         : navigationMode,
     rangeM: Math.round(flight.range),
-  };
-}
-
-/** Places {low,high} viewport → the geocode {southwest,northeast} bounds shape
- *  flyToViewportBounds consumes (used when the Places recovery replaces a geocode). */
-function placesViewportToBounds(vp) {
-  const low = vp?.low;
-  const high = vp?.high;
-  if (
-    ![low?.latitude, low?.longitude, high?.latitude, high?.longitude].every(
-      Number.isFinite,
-    )
-  )
-    return null;
-  return {
-    southwest: { lat: low.latitude, lng: low.longitude },
-    northeast: { lat: high.latitude, lng: high.longitude },
   };
 }
 
@@ -1336,159 +1268,6 @@ function rangeForBoundingSphere(viewer, radius) {
   const occupiedViewportFraction = 0.57;
   const desiredAngularRadius = (limitingFov * occupiedViewportFraction) / 2;
   return (radius / Math.sin(desiredAngularRadius)) * 1.05;
-}
-
-function buildingPitch(bounds) {
-  if (!bounds) return -25;
-  const footprint = Math.max(bounds.width, bounds.depth);
-  const ratio = bounds.height / Math.max(footprint, 1);
-  if (ratio >= 2.5) return -12;
-  if (ratio >= 1.2) return -22;
-  if (ratio <= 0.35) return -45;
-  return -32;
-}
-
-async function resolveBuildingBounds(
-  lat,
-  lon,
-  query,
-  features = applicationServices.features,
-  signal,
-) {
-  try {
-    const candidates = await features.getFocusFootprints(
-      { lat, lon },
-      { signal },
-    );
-    return selectBuildingBounds(
-      Array.isArray(candidates) ? candidates : [],
-      lat,
-      lon,
-      query,
-    );
-  } catch {
-    return null;
-  }
-}
-
-function selectBuildingBounds(elements, targetLat, targetLon, query) {
-  const queryWords = normalizedWords(query);
-  const candidates = [];
-  for (const element of elements) {
-    const coordinates = element.coordinates;
-    if (coordinates.length < 3) continue;
-    const bounds = coordinateBounds(coordinates, targetLat);
-    if (!bounds || bounds.width < 2 || bounds.depth < 2) continue;
-    const names = element.names;
-    const center = element.center || averageCoordinate(coordinates);
-    const distanceM = approximateDistanceM(
-      targetLat,
-      targetLon,
-      center.lat,
-      center.lon,
-    );
-    const nameWords = normalizedWords(
-      [names.primary, names.english, names.official, names.alternate]
-        .filter(Boolean)
-        .join(' '),
-    );
-    const nameScore = wordOverlap(queryWords, nameWords);
-    const containsTarget = pointInPolygon(targetLon, targetLat, coordinates);
-    const height =
-      element.heightM ??
-      Math.max(12, Math.min(80, Math.max(bounds.width, bounds.depth) * 0.8));
-    candidates.push({
-      lat: center.lat,
-      lon: center.lon,
-      height,
-      width: bounds.width,
-      depth: bounds.depth,
-      osmName: names.primary || names.english || null,
-      osmType: element.provenance?.type,
-      osmId: element.provenance?.id,
-      score: nameScore * 1000 + (containsTarget ? 500 : 0) - distanceM,
-    });
-  }
-  if (!candidates.length) return null;
-  candidates.sort((a, b) => b.score - a.score);
-  const { score, ...best } = candidates[0];
-  return best;
-}
-
-function coordinateBounds(coordinates, latitude) {
-  const latitudes = coordinates.map((point) => point.lat);
-  const longitudes = coordinates.map((point) => point.lon);
-  const south = Math.min(...latitudes);
-  const north = Math.max(...latitudes);
-  const west = Math.min(...longitudes);
-  const east = Math.max(...longitudes);
-  return {
-    width: approximateDistanceM(latitude, west, latitude, east),
-    depth: approximateDistanceM(south, west, north, west),
-  };
-}
-
-function averageCoordinate(coordinates) {
-  const total = coordinates.reduce(
-    (sum, point) => ({
-      lat: sum.lat + point.lat,
-      lon: sum.lon + point.lon,
-    }),
-    { lat: 0, lon: 0 },
-  );
-  return {
-    lat: total.lat / coordinates.length,
-    lon: total.lon / coordinates.length,
-  };
-}
-
-function normalizedWords(value) {
-  return new Set(
-    String(value || '')
-      .toLowerCase()
-      .normalize('NFKD')
-      .replace(/[^a-z0-9]+/g, ' ')
-      .trim()
-      .split(/\s+/)
-      .filter((word) => word.length > 2),
-  );
-}
-
-function wordOverlap(left, right) {
-  let matches = 0;
-  for (const word of left) {
-    if (right.has(word)) matches++;
-  }
-  return matches;
-}
-
-function pointInPolygon(lon, lat, coordinates) {
-  let inside = false;
-  for (
-    let index = 0, previous = coordinates.length - 1;
-    index < coordinates.length;
-    previous = index++
-  ) {
-    const a = coordinates[index];
-    const b = coordinates[previous];
-    const intersects =
-      a.lat > lat !== b.lat > lat &&
-      lon <
-        ((b.lon - a.lon) * (lat - a.lat)) / (b.lat - a.lat || Number.EPSILON) +
-          a.lon;
-    if (intersects) inside = !inside;
-  }
-  return inside;
-}
-
-function approximateDistanceM(latA, lonA, latB, lonB) {
-  const latitudeScale = 111320;
-  const longitudeScale =
-    latitudeScale * Math.cos(Cesium.Math.toRadians((latA + latB) / 2));
-  return Math.hypot(
-    (latB - latA) * latitudeScale,
-    (lonB - lonA) * longitudeScale,
-  );
 }
 
 function finitePositive(value) {

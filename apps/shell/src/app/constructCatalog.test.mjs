@@ -1,4 +1,3 @@
-import { createSurfaceServices } from './surfaceServices.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createApplicationCatalog } from './constructCatalog.js';
@@ -13,13 +12,11 @@ test('catalogs construct distinct layer instances', (t) => {
   });
   const first = createApplicationCatalog({
     signal: a.signal,
-    surface: fixtureSurface(a.signal),
   });
   const second = createApplicationCatalog({
     signal: b.signal,
-    surface: fixtureSurface(b.signal),
   });
-  assert.equal(first.layers.length, 5);
+  assert.equal(first.layers.length, 4);
   assert.ok(first.get('bhote-koshi-2026'));
   assert.ok(first.get('bhote-koshi-locator'));
   const lifecycle = registerAll(first.layers);
@@ -34,7 +31,7 @@ test('catalogs construct distinct layer instances', (t) => {
     assert.equal(typeof first.get(id).setParams, 'function');
   }
   assert.equal(
-    rows.find((row) => row.id === 'directions')?.showInTogglePanel,
+    rows.find((row) => row.id === 'local-dams')?.showInTogglePanel,
     true,
     'ordinary data layer entries remain visible',
   );
@@ -53,7 +50,6 @@ test('an already cancelled construction fails before any layer is built', () => 
     () =>
       createApplicationCatalog({
         signal: lifetime.signal,
-        surface: fixtureSurface(lifetime.signal),
       }),
     { name: 'AbortError' },
   );
@@ -63,12 +59,4 @@ function registerAll(layers) {
   const lifecycle = new LayerLifecycle({});
   for (const layer of layers) lifecycle.register(layer);
   return lifecycle;
-}
-
-function fixtureSurface(signal) {
-  return createSurfaceServices({
-    terrainSource: { getHeights: async () => [] },
-    signal,
-    eventTarget: null,
-  });
 }

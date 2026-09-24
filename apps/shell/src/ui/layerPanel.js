@@ -15,20 +15,8 @@ const FEED_STATE_LABELS = Object.freeze({
 // Presentation order is independent of catalog registration and startup order.
 const PANEL_GROUPS = [
   {
-    label: 'Movement',
-    ids: ['satellites', 'flights', 'military', 'ais-live-vessels'],
-  },
-  {
     label: 'Infrastructure',
-    ids: ['military-installations', 'local-datacenters', 'local-dams'],
-  },
-  {
-    label: 'Events',
-    ids: ['rocket-launches', 'local-firms'],
-  },
-  {
-    label: 'Utilities',
-    ids: ['directions'],
+    ids: ['local-datacenters', 'local-dams'],
   },
 ];
 const PANEL_ORDER = PANEL_GROUPS.flatMap(({ label, ids }) =>
@@ -38,9 +26,7 @@ const PANEL_POSITIONS = new Map(
   PANEL_ORDER.map(({ id }, index) => [id, index]),
 );
 const PANEL_LABELS = {
-  'ais-live-vessels': 'Live Vessels',
   'local-datacenters': 'Data Centers',
-  'local-firms': 'Active Fires',
 };
 
 function panelLabel(layer) {

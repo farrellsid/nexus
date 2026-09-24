@@ -100,22 +100,6 @@ function bindings(t) {
   return { owner, manager, events };
 }
 
-test('manager replacement releases Directions even when the new manager has no route layer', (t) => {
-  const { owner, manager, events } = bindings(t);
-  owner.attachDataManager(manager('old'));
-  owner.attachDataManager(manager('new', false));
-  assert.deepEqual(events, [
-    ['old', 'subscribe'], ['old', 'attach'], ['old', 'unsubscribe'],
-    ['new', 'subscribe'], ['old', 'detach'],
-  ]);
-  owner.stop(); owner.disconnect();
-  assert.deepEqual(events.at(-1), ['new', 'unsubscribe']);
-  const count = events.length;
-  owner.attachDataManager(manager('late'));
-  owner.stop(); owner.disconnect();
-  assert.equal(events.length, count);
-});
-
 test('camera-entry listeners are removed before any asynchronous layer cleanup', (t) => {
   const { owner } = bindings(t);
   let changes = 0;

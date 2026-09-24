@@ -1,14 +1,8 @@
 {
   "modules": [
-    "src/app/sourceSlot.js",
-    "src/data/directionText.js",
-    "src/data/groundSnap.js",
     "src/data/localGeojson.js",
     "src/data/manager.js",
-    "src/data/meshFloorSampler.js",
-    "src/data/terrainHeightsProxy.js",
     "src/search/index.js",
-    "src/sources/overpass.js",
     "src/testSupport/readLayerSource.mjs",
     "src/testSupport/readShellSource.mjs",
     "src/testSupport/readStylesheet.mjs",

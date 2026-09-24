@@ -70,7 +70,6 @@
     "./build/vite": {
       "node": "./build/vite.js"
     },
-    "./sources/terrain": "./src/data/terrainHeightsProxy.js",
     "./search": "./src/search/index.js",
     "./ui/panels": "./src/ui/panelDisclosure.js",
     "./ui/surfaces": "./src/ui/surfaceKeyboard.js",
@@ -87,9 +86,6 @@
     "./ui/shell": "./src/ui/applicationShell.js",
     "./director": "./src/director/playback.js",
     "./scenes": "./src/scenes/director.js",
-    "./layers/directions": "./src/layers/directions/index.js",
-    "./geography/natural-earth": "./src/data/naturalEarthRegions.js",
-    "./geography/neighborhoods": "./src/data/neighborhoodPolygons.js",
     "./maps/controller": "./src/maps/controller.js",
     "./maps/catalog": "./src/maps/catalog.js",
     "./maps/imagery": "./src/maps/imagery.js",
@@ -101,13 +97,10 @@
     "./application/data": "./src/app/data.js",
     "./application/tools": "./src/app/tools.js",
     "./application/chrome": "./src/app/startupChrome.js",
-    "./application/services": "./src/services/application.js",
-    "./application/requests": "./src/services/requests.js",
     "./application/errors": "./src/app/errors.js",
     "./ui/composition": "./src/ui/composition.js",
     "./ui/hud": "./src/hud.js",
     "./standalone/settings": "./src/keySetup.js",
-    "./annotations": "./src/annotations/index.js",
     "./context": "./src/data/contextStore.js",
     "./build/html": {
       "node": "./build/application-html.js"
@@ -115,17 +108,10 @@
     "./application/catalog": "./src/app/catalog.js",
     "./standalone/catalog": "./src/standalone/catalog.js",
     "./application/layers": "./src/app/constructCatalog.js",
-    "./application/operations": "./src/app/operations.js",
     "./data/lifecycle": "./src/data/lifecycle.js",
     "./ui/navigation": "./src/ui/navigationController.js",
     "./ui/share-restoration": "./src/ui/shareRestoration.js",
     "./ui/visual-settings": "./src/ui/visualSettings.js",
-    "./ui/panel-chrome": "./src/ui/panelChrome.js",
-    "./sources/regional": "./src/data/regionalModel.js",
-    "./sources/http-body": "./src/sources/httpBody.js",
-    "./sources/overpass": "./src/sources/overpass.js",
-    "./search/nominatim": "./src/search/nominatim.js",
-    "./sources/nominatim": "./src/sources/nominatim.js",
-    "./sources/map-features": "./src/sources/overpassFeatures.js"
+    "./ui/panel-chrome": "./src/ui/panelChrome.js"
   }
 }

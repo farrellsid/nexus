@@ -17,14 +17,6 @@ export class ShellFacade {
     this._layerBindings._dataManager = value;
   }
 
-  get _directionsShellModule() {
-    return this._layerBindings?._directionsShellModule;
-  }
-
-  set _directionsShellModule(value) {
-    this._layerBindings._directionsShellModule = value;
-  }
-
   get _worldRequestFocusHandler() {
     return this._layerBindings?._worldRequestFocusHandler;
   }
@@ -406,18 +398,6 @@ export class ShellFacade {
   /** Final authority check and release immediately before a delayed flight. */
   _reassertNavigationHandoff(generation) {
     return this._navigation._reassertNavigationHandoff(...arguments);
-  }
-
-  /**
-   * Hand the Directions layer the camera seams its FLY chip needs: the same
-   * immediate-navigation facade voice route flights go through, so there is
-   * one camera owner rather than a second one inside a data layer, the shared
-   * ground-floor read/warm the route dolly flies over, and the app's own toast
-   * so the layer can speak where the rest of the UI speaks.
-   * @returns {void}
-   */
-  _connectDirectionsCamera(...args) {
-    return this._layerBindings._connectDirectionsCamera(...args);
   }
 
   /**

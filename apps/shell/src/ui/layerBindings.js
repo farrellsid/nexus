@@ -19,7 +19,6 @@ export class LayerBindings {
     );
     this._disposed = false;
     this._dataManager = null;
-    this._directionsShellModule = null;
     this._worldRequestFocusHandler = null;
     this._removeWorldRequestFocusListener = null;
     this._removeNavigationAuthorityListener = null;
@@ -54,29 +53,6 @@ export class LayerBindings {
         });
       });
   }
-  _connectDirectionsCamera() {
-    if (!this._dataManager) {
-      // Detaching: the layer outlives this shell, so it must not keep calling
-      // a facade whose viewer is going away.
-      this._directionsShellModule?.attachShellServices?.(null);
-      this._directionsShellModule = null;
-      return;
-    }
-    const directions = this._dataManager.layers?.get('directions')?.module;
-    if (this._directionsShellModule !== directions) {
-      this._directionsShellModule?.attachShellServices?.(null);
-      this._directionsShellModule = null;
-    }
-    if (typeof directions?.attachShellServices !== 'function') return;
-    this._directionsShellModule = directions;
-    directions.attachShellServices({
-      runNavigation: (navigate) =>
-        this.runImmediateNavigation('route', navigate),
-      floorFn: (lat, lon) => this.services.cachedGroundFloor(lat, lon),
-      warmFn: (cells) => this.services.warmGroundFloor(cells),
-      showToast: (message) => this._showToast(message),
-    });
-  }
 
   attachDataManager(dataManager) {
     if (this._disposed) return;
@@ -92,7 +68,6 @@ export class LayerBindings {
       });
     }
     this._updateGlobalLoadingFeedback(performance.now());
-    this._connectDirectionsCamera();
     this._shareRestoration.connect(this._dataManager);
   }
   stop() {
@@ -109,8 +84,6 @@ export class LayerBindings {
   disconnect() {
     this._dataManagerUnsubscribe?.();
     this._dataManagerUnsubscribe = null;
-    this._directionsShellModule?.attachShellServices?.(null);
-    this._directionsShellModule = null;
     this._dataManager = null;
   }
 }

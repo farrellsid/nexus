@@ -37,11 +37,6 @@ import {
   getScopeTerminusOverride,
   clampScopeTerminusPct,
 } from '../scopeMask.js';
-import {
-  fetchRegionalBrief,
-  regionalDistanceM,
-  weatherCodeLabel,
-} from '../data/regionalBrief.js';
 
 export class StyleManager extends ApplicationShell {
   constructor(viewer, options = {}) {
@@ -74,9 +69,6 @@ export class StyleManager extends ApplicationShell {
         setScopeTerminusOverride,
         getScopeTerminusOverride,
         clampScopeTerminusPct,
-        fetchRegionalBrief,
-        regionalDistanceM,
-        weatherCodeLabel,
         LocationSearch,
         ...options.services,
       },
