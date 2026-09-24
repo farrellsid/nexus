@@ -4,7 +4,6 @@ import {
   createAisStreamSource,
 } from '../sources/live/standalone.js';
 import { createCctvSource } from '../layers/cctv/source.js';
-import { createRadioSource } from '../layers/radio/source.js';
 import { createInstallationSource } from '../layers/installations/source.js';
 import { createSatelliteSource } from '../layers/satellites/source.js';
 import { createLaunchSource } from '../layers/launches/source.js';
@@ -20,7 +19,6 @@ export function createStandaloneLayerSources() {
       apiUrl: import.meta.env?.VITE_AIS_LIVE_API_URL || '/api/ais-live',
     }),
     cctv: createCctvSource(),
-    radio: createRadioSource(),
     installations: createInstallationSource(),
     satellites: createSatelliteSource(),
     launches: createLaunchSource(),

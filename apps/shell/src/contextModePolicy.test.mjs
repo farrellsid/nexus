@@ -279,32 +279,14 @@ test('manually disabling a mode dependency exits that Context bundle', () => {
   }), true);
 });
 
-test('Radio remains an independent companion across Context transitions', () => {
-  for (const contextMode of ['flights', 'space-missions']) {
-    for (const enabled of [true, false]) {
-      assert.equal(shouldExitContextForLayerChange({
-        contextMode,
-        globalContextEnabled: true,
-        change: { type: 'visibility', origin: 'user', layerId: 'radio', enabled },
-      }), false);
-    }
-    assert.equal(contextAllowedLayerIds(contextMode).has('radio'), true);
-  }
-  assert.equal(contextLayerEnableBlockReason({
-    contextMode: 'space-missions',
-    change: { type: 'visibility', origin: 'user', layerId: 'radio', enabled: true },
-    layerName: 'Radio',
-  }), null);
-});
-
 test('each Context mode exposes only its shell and dependencies', () => {
   assert.deepEqual(
     [...contextAllowedLayerIds(null)],
-    ['military-awareness', 'radio'],
+    ['military-awareness'],
   );
   assert.deepEqual(
     [...contextAllowedLayerIds('space-missions')],
-    ['rocket-launches', 'satellites', 'radio'],
+    ['rocket-launches', 'satellites'],
   );
 });
 
@@ -327,33 +309,6 @@ test('Context restoration honors an explicit companion disable', () => {
     })],
     ['flights', 'earthquakes'],
   );
-});
-
-test('the latest explicit Radio state wins across a Context session', () => {
-  for (const effectiveContextMode of [null, 'flights', 'space-missions']) {
-    for (const origin of ['user', 'voice']) {
-      const snapshot = { userAdded: new Set(), userRemoved: new Set() };
-      const record = (enabled) => recordContextSessionUserChange({
-        snapshot,
-        change: { type: 'visibility', origin, layerId: 'radio', enabled },
-        effectiveContextMode,
-      });
-
-      assert.equal(record(true), true);
-      assert.deepEqual([...snapshot.userAdded], ['radio']);
-      assert.deepEqual([...snapshot.userRemoved], []);
-
-      assert.equal(record(false), true);
-      assert.deepEqual([...snapshot.userAdded], []);
-      assert.deepEqual([...snapshot.userRemoved], ['radio']);
-      assert.equal(contextRestoreLayerIds(snapshot).has('radio'), false);
-
-      assert.equal(record(true), true);
-      assert.deepEqual([...snapshot.userAdded], ['radio']);
-      assert.deepEqual([...snapshot.userRemoved], []);
-      assert.equal(contextRestoreLayerIds(snapshot).has('radio'), true);
-    }
-  }
 });
 
 test('only direct UI and voice origins count as explicit Context intent', () => {

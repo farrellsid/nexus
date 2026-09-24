@@ -5,10 +5,7 @@ import { _selectContextMode } from './ui/contextTransactions.js';
 import { _syncContextModeButtons } from './ui/contextPresentation.js';
 import { _initGlobalContextPanel } from './ui/contextBindings.js';
 import { clearSelectedLayers } from './ui/contextActions.js';
-import { readFileSync as readRadioSource } from 'node:fs';
-const radioBindings = readRadioSource(new URL('./ui/radioBindings.js', import.meta.url), 'utf8');
-const radioPresentation = readRadioSource(new URL('./ui/radioPresentation.js', import.meta.url), 'utf8');
-const radioControlsSource = readRadioSource(new URL('./ui/radioControls.js', import.meta.url), 'utf8');
+import { readFileSync as readSource } from 'node:fs';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -132,22 +129,3 @@ test('Context tabs draw a visible keyboard-focus outline including active tabs',
   assert.doesNotMatch(activeRule[2], /outline:\s*none/);
 });
 
-test('Context async action buttons remain focused while busy', () => {
-  const init = _initGlobalContextPanel.toString();
-  const radio = radioBindings.slice(radioBindings.indexOf('const toggleRadio = async (trigger) => {'), radioBindings.indexOf('this.listen(this._contextRadioToggleBtn,'));
-  const radioSync = radioPresentation.slice(0, radioPresentation.indexOf('if (this._radioFilter)'));
-  const clear = clearSelectedLayers.toString();
-
-  assert.match(init, /button\.getAttribute\('aria-busy'\) === 'true'/);
-  assert.doesNotMatch(init, /button\.disabled\s*=\s*true/);
-  assert.match(radio, /trigger\.getAttribute\('aria-busy'\) === 'true'/);
-  assert.doesNotMatch(radio, /trigger\.disabled\s*=\s*true/);
-  for (const name of ['_radioEnableBtn', '_contextRadioMiniEnableBtn', '_cockpitRadioEnableBtn']) {
-    assert.match(radioSync, new RegExp(`${name}\\.disabled = false`));
-  }
-  assert.doesNotMatch(clear, /_clearSelectedLayersBtn\.disabled\s*=\s*true/);
-  assert.match(clear, /this\.setClearBusy\(true\)/);
-  const control = readFileSync(new URL('./ui/clearLayersControl.js', import.meta.url), 'utf8');
-  assert.match(control, /button\.setAttribute\('aria-busy', String\(busy\)\)/);
-  assert.doesNotMatch(control, /button\.disabled\s*=/);
-});

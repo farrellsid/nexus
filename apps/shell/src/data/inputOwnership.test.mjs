@@ -124,7 +124,6 @@ test('every scene click handler consults ownership before it picks', () => {
       'viewer.scene.pick(click.position)',
     ],
     ['src/layers/launches/lifecycle.js', 'drillPick(movement.position'],
-    ['src/layers/radio/interaction.js', 'pickedRadioStationAt(click.position)'],
     [
       'src/layers/satellites/interaction.js',
       'viewer.scene.pick(click.position)',

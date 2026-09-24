@@ -942,18 +942,6 @@ export class ShellFacade {
     return this._radioControls?._setCockpitDisclosure?.(...args);
   }
 
-  _setRadioDisclosure(...args) {
-    return this._radioControls?._setRadioDisclosure?.(...args);
-  }
-
-  _syncContextRadioLauncherState(...args) {
-    return this._radioControls?._syncContextRadioLauncherState?.(...args);
-  }
-
-  _renderRadioState(...args) {
-    return this._radioControls?._renderRadioState?.(...args);
-  }
-
   /**
    * Returns the versioned localStorage key for a panel's saved position.
    * @param {string} panelId - DOM id of the panel.

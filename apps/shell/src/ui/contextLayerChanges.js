@@ -9,17 +9,6 @@ import {
 
 export function _handleContextLayerChange(change) {
   if (this.destroyed) return;
-  if (
-    change?.layerId === 'radio' &&
-    [
-      'visibility-transition',
-      'visibility',
-      'visibility-cancelled',
-      'visibility-failed',
-    ].includes(change.type)
-  ) {
-    this.actions.refreshRadio();
-  }
   if (change?.type === 'visibility-transition') return;
   // The effective mode must be read BEFORE the entering flag is cleared:
   // the entry layer's own enable event is the one that clears it, and the

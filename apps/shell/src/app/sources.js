@@ -3,7 +3,6 @@ import military from '../data/militaryFlights.js';
 import vessels from '../data/aisLiveVessels.js';
 import { configureAlprSource } from '../data/alprCameras.js';
 import { configureCctvSource } from '../data/cctv.js';
-import { configureRadioSource } from '../data/radio.js';
 import { configureInstallationSource } from '../data/militaryInstallations.js';
 import { configureSatelliteSource } from '../data/satellites.js';
 import { configureLaunchSource } from '../data/rocketLaunches.js';
@@ -12,7 +11,6 @@ import { configureMilitaryRegistrySource } from '../data/militaryRegistry.js';
 const configure = {
   alpr: configureAlprSource,
   cctv: configureCctvSource,
-  radio: configureRadioSource,
   installations: configureInstallationSource,
   satellites: configureSatelliteSource,
   launches: configureLaunchSource,

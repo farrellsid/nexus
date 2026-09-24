@@ -165,7 +165,6 @@ test('desktop panel lanes use per-panel allocations and presentation-only auto-c
     /panel\.id === preferredPanelId[\s\S]*?\[\s*preferredExpandedPanel,\s*\.\.\.expandedPanelsInDomOrder/,
     'the latest explicitly opened right panel must receive primary allocation',
   );
-  assert.match(ui, /panelId === 'radio-panel'[\s\S]*?document\.getElementById\('global-context-panel'\)/);
   assert.match(rightRail, /focusedExpandedPanel = expandedPanelsInDomOrder\.find\(\s*\(panel\) =>\s*panel\.contains\(documentRef\.activeElement\),?\s*\)/);
   assert.match(ui, /setAttribute\('aria-expanded', String\(!collapsed\)\)/);
   assert.match(leftRail, /--left-panel-allocated-height/);

@@ -14,7 +14,6 @@ import { readShellElements } from './shellElements.js';
 import { CockpitCoordinator } from './cockpitCoordinator.js';
 import { ContextControls } from './context.js';
 import { CctvControls } from './cctv.js';
-import { RadioControls } from './radio.js';
 import { LocationNavigation } from './locationNavigation.js';
 import { bindClearLayersControl } from './layers.js';
 import { bindCameraOrientationControls } from './cameraOrientationControls.js';
@@ -82,19 +81,14 @@ export class StyleManager extends ShellFacade {
     Object.assign(this, readShellElements());
     this._panelChrome = new PanelChrome({
       elements: {
-        _contextRadioDetailsBtn: this._contextRadioDetailsBtn,
-        _contextRadioDock: this._contextRadioDock,
         _leftPanelStack: this._leftPanelStack,
         _locationSearch: this._locationSearch,
         _ppToggles: this._ppToggles,
         _rightPanelStack: this._rightPanelStack,
       },
       operations: {
-        _setRadioDisclosure: (...args) => this._setRadioDisclosure(...args),
         _syncCctvPanelViewport: (...args) =>
           this._syncCctvPanelViewport(...args),
-        _syncContextRadioLauncherState: (...args) =>
-          this._syncContextRadioLauncherState(...args),
         _showToast: (...args) => this._showToast(...args),
       },
       readHud: () => this.hud,
@@ -235,7 +229,6 @@ export class StyleManager extends ShellFacade {
         hud: this.hud,
         _contextControls: this._contextControls,
         _cctvControls: this._cctvControls,
-        _radioControls: this._radioControls,
       }),
       operations: {
         _updateGlobalLoadingFeedback: (...args) =>
@@ -349,8 +342,6 @@ export class StyleManager extends ShellFacade {
           this.getAircraftTrackingTarget(...args),
         _scheduleRightPanelLayout: (...args) =>
           this._scheduleRightPanelLayout(...args),
-        _syncContextRadioLauncherState: (...args) =>
-          this._syncContextRadioLauncherState(...args),
       },
       readDataManager: () => this._dataManager,
       readContext: () => this.getContextModeState(),
@@ -519,7 +510,6 @@ export class StyleManager extends ShellFacade {
     this._initPanelChrome();
     this._initLeftPanelAdaptiveLayout();
     this._initRightPanelAdaptiveLayout();
-    this._initRadioPanel();
     this._initCctvPanel();
     this._initGlobalContextPanel();
     this._initLocationBar();
@@ -738,7 +728,7 @@ export class StyleManager extends ShellFacade {
   }
 
   _initGlobalContextPanel() {
-    const { radioLayer, militaryInstallationsLayer } = this.services;
+    const { militaryInstallationsLayer } = this.services;
     this._contextControls = new ContextControls({
       elements: {
         _globalContextPanel: document.getElementById('global-context-panel'),
@@ -752,7 +742,6 @@ export class StyleManager extends ShellFacade {
       installations: militaryInstallationsLayer,
       actions: {
         getCockpit: () => this.cockpitView,
-        refreshRadio: () => this._renderRadioState(radioLayer.getUIState()),
         claimVisualAuthority: () =>
           this.shareLinkManager?.claimRestoreLane?.('visual'),
         syncDetection: () => this._syncContactsDetection(),
@@ -764,84 +753,6 @@ export class StyleManager extends ShellFacade {
         setClearBusy: (busy) => {
           if (!this._disposed) this._clearLayersControl?.setBusy(busy);
         },
-      },
-    });
-  }
-
-  /** Wire the independent Radio companion controls. */
-  _initRadioPanel() {
-    const { radioLayer } = this.services;
-    this._radioControls?.destroy();
-    this._radioControls = new RadioControls({
-      elements: {
-        _cockpitDisplayPanel: this._cockpitDisplayPanel,
-        _cockpitDisplayToggleBtn: this._cockpitDisplayToggleBtn,
-        _cockpitRadioEnableBtn: this._cockpitRadioEnableBtn,
-        _cockpitRadioNextBtn: this._cockpitRadioNextBtn,
-        _cockpitRadioPanel: this._cockpitRadioPanel,
-        _cockpitRadioPlayBtn: this._cockpitRadioPlayBtn,
-        _cockpitRadioPrevBtn: this._cockpitRadioPrevBtn,
-        _cockpitRadioStation: this._cockpitRadioStation,
-        _cockpitRadioToggleBtn: this._cockpitRadioToggleBtn,
-        _cockpitRadioVolume: this._cockpitRadioVolume,
-        _cockpitRadioVolumeValue: this._cockpitRadioVolumeValue,
-        _cockpitUtilityControls: this._cockpitUtilityControls,
-        _contextRadioDetailsBtn: this._contextRadioDetailsBtn,
-        _contextRadioDock: this._contextRadioDock,
-        _contextRadioMini: this._contextRadioMini,
-        _contextRadioMiniCloseBtn: this._contextRadioMiniCloseBtn,
-        _contextRadioMiniEnableBtn: this._contextRadioMiniEnableBtn,
-        _contextRadioMiniNextBtn: this._contextRadioMiniNextBtn,
-        _contextRadioMiniPlayBtn: this._contextRadioMiniPlayBtn,
-        _contextRadioMiniPrevBtn: this._contextRadioMiniPrevBtn,
-        _contextRadioMiniStation: this._contextRadioMiniStation,
-        _contextRadioMiniVolume: this._contextRadioMiniVolume,
-        _contextRadioMiniVolumeValue: this._contextRadioMiniVolumeValue,
-        _contextRadioToggleBtn: this._contextRadioToggleBtn,
-        _radioEnableBtn: this._radioEnableBtn,
-        _radioFilter: this._radioFilter,
-        _radioLayerState: this._radioLayerState,
-        _radioNextBtn: this._radioNextBtn,
-        _radioPanel: this._radioPanel,
-        _radioPlayBtn: this._radioPlayBtn,
-        _radioPlaybackState: this._radioPlaybackState,
-        _radioPrevBtn: this._radioPrevBtn,
-        _radioStationHomepage: this._radioStationHomepage,
-        _radioStationMeta: this._radioStationMeta,
-        _radioStationName: this._radioStationName,
-        _radioStationTags: this._radioStationTags,
-        _radioStopBtn: this._radioStopBtn,
-        _radioTuner: this._radioTuner,
-        _radioTunerBandLabel: this._radioTunerBandLabel,
-        _radioTunerNeedle: this._radioTunerNeedle,
-        _radioTunerSlider: this._radioTunerSlider,
-        _radioTunerStation: this._radioTunerStation,
-        _radioTunerValue: this._radioTunerValue,
-        _radioVolume: this._radioVolume,
-        _radioVolumeValue: this._radioVolumeValue,
-      },
-      radio: radioLayer,
-      canvas: this.viewer?.canvas,
-      actions: {
-        isRegistered: () => this._dataManager?.layers?.has('radio'),
-        isEnabled: () => this._dataManager?.isEnabled('radio'),
-        setEnabled: (enabled, options) =>
-          this._dataManager.setEnabled('radio', enabled, options),
-        setParams: (params, options) =>
-          this._dataManager?.setLayerParams('radio', params, options),
-        getLifecycle: () =>
-          this._dataManager?.getLayerLifecycleState?.('radio'),
-        runUserAction: (...args) => this._runUserFacingContextAction(...args),
-        setPanelCollapsed: (...args) => this.setPanelCollapsed(...args),
-        revealStyleParameters: () => this._revealCockpitStyleParameters(),
-        setSignalCollapsed: (value) =>
-          this.cockpitView?.setSignalCollapsed(value),
-        isCockpitActive: () => this.cockpitView?.active,
-        signalUserCollapsed: () => this.cockpitView?.signalUserCollapsed,
-        layoutCockpit: () => this.cockpitView?.scheduleContextLayout(),
-        preservePanelStateDuringClear: () =>
-          this._preservePanelStateDuringLayerClear,
-        scheduleLayout: () => this._scheduleRightPanelLayout(),
       },
     });
   }
@@ -1456,7 +1367,6 @@ export class StyleManager extends ShellFacade {
     this._cameraOrientationControls?.destroy();
     this._clearLayersControl?.destroy();
     this._cctvControls?.destroy();
-    this._radioControls?.destroy();
     this._cockpitCoordinator.stop();
     this._visualSettings.stop();
     this.shareLinkManager?.destroy();

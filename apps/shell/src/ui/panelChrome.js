@@ -11,7 +11,6 @@ const SHARE_PANEL_STATE_SPECS = Object.freeze([
   { id: 'location-bar', pinnable: true },
   { id: 'data-panel' },
   { id: 'cctv-panel' },
-  { id: 'radio-panel' },
   { id: 'scene-panel' },
   { id: 'global-context-panel' },
   { id: 'pp-toggles' },
@@ -24,7 +23,6 @@ const COCKPIT_ENTRY_COLLAPSE_PANEL_IDS = Object.freeze([
   'scene-panel',
   'pp-toggles',
   'global-context-panel',
-  'radio-panel',
 ]);
 
 /** Own panel disclosure, docking, persistence and Cockpit rail restoration. */
@@ -302,11 +300,6 @@ export class PanelChrome {
         const action = collapsed ? 'Expand' : 'Collapse';
         btn.title = `${action} ${panelName}`;
         btn.setAttribute('aria-label', `${action} ${panelName}`);
-        if (panelEl.id === 'radio-panel') {
-          const action = collapsed ? 'Expand' : 'Collapse';
-          btn.title = `${action} Radio`;
-          btn.setAttribute('aria-label', `${action} Radio section`);
-        }
       });
     const dockToggle = panelEl.querySelector(
       `[data-dock-toggle-target="${panelEl.id}"]`,
@@ -320,15 +313,6 @@ export class PanelChrome {
       dockToggle.setAttribute('aria-expanded', String(!collapsed));
       dockToggle.setAttribute('aria-label', `${action} ${panelName}`);
       dockToggle.title = `${action} ${panelName}`;
-    }
-    if (panelEl.id === 'radio-panel' && this._contextRadioDetailsBtn) {
-      this._contextRadioDetailsBtn.setAttribute(
-        'aria-expanded',
-        String(!collapsed),
-      );
-    }
-    if (panelEl.id === 'radio-panel' || panelEl.id === 'global-context-panel') {
-      this._syncContextRadioLauncherState();
     }
   }
 
@@ -397,12 +381,9 @@ export class PanelChrome {
     const leftOwnerPanel = this._leftPanelStack?.contains(panelEl)
       ? panelEl
       : null;
-    const rightOwnerPanel =
-      panelId === 'radio-panel'
-        ? document.getElementById('global-context-panel')
-        : this._rightPanelStack?.contains(panelEl)
-          ? panelEl
-          : null;
+    const rightOwnerPanel = this._rightPanelStack?.contains(panelEl)
+      ? panelEl
+      : null;
     const priorLeftOwner = this._panelLayout._leftStackPreferredPanelId;
     const priorRightOwner = this._panelLayout._rightStackPreferredPanelId;
     if (explicit && !restore && !nextCollapsed && leftOwnerPanel) {
@@ -449,26 +430,6 @@ export class PanelChrome {
       if (this._cockpitContextCollapsedForDataPanel) {
         this.cockpitView.setContextCollapsed(true);
       }
-    }
-    if (
-      !nextCollapsed &&
-      panelId === 'global-context-panel' &&
-      this._contextRadioDock?.classList.contains('disclosure-open')
-    ) {
-      this._setRadioDisclosure?.(false);
-    }
-    if (
-      !nextCollapsed &&
-      panelId === 'radio-panel' &&
-      document
-        .getElementById('global-context-panel')
-        ?.classList.contains('collapsed')
-    ) {
-      this.setPanelCollapsed('global-context-panel', false, {
-        restore,
-        persist,
-        syncShare,
-      });
     }
     if (!nextCollapsed && !restore && panelId === 'location-bar') {
       const otherPanel = document.getElementById('control-panel');

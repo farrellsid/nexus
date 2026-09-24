@@ -5,7 +5,6 @@ import { createApplicationFlights } from './layers/flights.js';
 import { createApplicationMilitary } from './layers/militaryFlights.js';
 import { createApplicationVessels } from './layers/aisLiveVessels.js';
 import { createApplicationCctv } from './layers/cctv.js';
-import { createApplicationRadio } from './layers/radio.js';
 import { createApplicationDirections } from './layers/directions.js';
 import { createApplicationInstallations } from './layers/militaryInstallations.js';
 import { createApplicationSatellites } from './layers/satellites.js';
@@ -23,7 +22,6 @@ const SOURCE_METHODS = Object.freeze({
   military: ['getSnapshot'],
   vessels: ['getSnapshot'],
   cctv: ['getCatalog', 'getHealth', 'getFrameUrl', 'getMediaUrl'],
-  radio: ['getDirectory', 'recordClick'],
   installations: ['getMappedSites', 'searchNearby'],
   satellites: ['readGroup'],
   launches: ['getLaunches', 'getActiveTle'],
@@ -99,7 +97,6 @@ export function createApplicationCatalog({
         satellites,
         createApplicationLaunches({ source: sources.launches, satellites }),
         createApplicationCctv({ surface, source: sources.cctv }),
-        createApplicationRadio({ surface, source: sources.radio }),
         createApplicationDirections(),
         vessels,
         installations,

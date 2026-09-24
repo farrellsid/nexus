@@ -100,9 +100,8 @@ test('share-link serialization emits the current celestial state', () => {
 test('generated links are v2 and include deterministic layers, options, style params, and panels', () => {
   const manager = makeManager();
   const layers = createDefaultLayerState();
-  layers.enabledLayerIds = ['cctv', 'radio'];
+  layers.enabledLayerIds = ['cctv', 'local-dams'];
   layers.options.cctv = { coverageMode: 'viewshed', showProjection: false, autoHop: true };
-  layers.options.radio = { filter: 'news', volume: 0.45 };
   manager.setLayerStateProvider(() => layers);
   manager.setPanelStateProvider(() => ({ specs: [
     { id: 'control-panel', collapsed: false, pinned: true },
@@ -116,7 +115,7 @@ test('generated links are v2 and include deterministic layers, options, style pa
   manager._updateHash();
   const params = new URLSearchParams(window.location.hash.slice(1));
   assert.equal(params.get('v'), '2');
-  assert.equal(params.get('l'), 'c.r');
+  assert.equal(params.get('l'), 'c.q');
   assert.equal(params.get('sp'), 's.82_b.37_m.100_p.260_a.100');
   assert.equal(params.get('ui'), 'c.c.0_c.p.1_m.c.1');
 });
