@@ -16,7 +16,6 @@ import { createApplicationLaunches } from './layers/rocketLaunches.js';
 import { createApplicationAlpr } from './layers/alprCameras.js';
 import { createApplicationAwareness } from './layers/militaryAwareness.js';
 import { createApplicationFirms } from './layers/firms.js';
-import { createApplicationEarthquakes } from './layers/earthquakes.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
 import { localGeoJsonServices } from './localGeojsonServices.js';
 import { createBhoteKoshiEventLayer } from '../data/bhoteKoshiEvent.js';
@@ -41,7 +40,6 @@ const SOURCE_METHODS = Object.freeze({
   launches: ['getLaunches', 'getActiveTle'],
   alpr: ['fetch'],
   firms: ['getSnapshot'],
-  earthquakes: ['getSnapshot'],
 });
 
 /** Construct the current catalog without choosing any source provider.
@@ -108,7 +106,6 @@ export function createApplicationCatalog({
         }),
         flights,
         military,
-        createApplicationEarthquakes({ source: sources.earthquakes }),
         createApplicationAlpr({ surface, source: sources.alpr }),
         satellites,
         createApplicationLaunches({ source: sources.launches, satellites }),

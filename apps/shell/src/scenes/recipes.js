@@ -600,7 +600,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: true,
       satellites: false,
-      earthquakes: false,
       traffic: false,
     },
     post: {
@@ -670,7 +669,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: false,
       satellites: true,
-      earthquakes: false,
       traffic: false,
     },
     post: {
@@ -748,7 +746,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: false,
       satellites: false,
-      earthquakes: true,
       traffic: false,
     },
     post: {
@@ -816,7 +813,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: true,
       satellites: true,
-      earthquakes: false,
       traffic: true,
     },
     post: {
@@ -894,7 +890,6 @@ const PUBLIC_SCENE_RECIPES = [
     layers: {
       flights: true,
       satellites: true,
-      earthquakes: true,
       traffic: true,
     },
     post: {

@@ -158,8 +158,8 @@ function encode(state) {
 
 test('production registry is exact, canonical, and rejects incomplete contracts', async () => {
   assert.equal(validateLayerStateRegistry(), true);
-  assert.equal(REGISTERED_LAYER_IDS.length, 20);
-  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 20);
+  assert.equal(REGISTERED_LAYER_IDS.length, 19);
+  assert.equal(new Set(REGISTERED_LAYER_IDS).size, 19);
   assert.ok(REGISTERED_LAYER_IDS.includes('transit'));
   assert.deepEqual(REGISTERED_LAYER_IDS, [...REGISTERED_LAYER_IDS].sort());
   assert.throws(
@@ -168,22 +168,22 @@ test('production registry is exact, canonical, and rejects incomplete contracts'
   );
 
   const manager = new DataLayerManager({});
-  manager.register(fakeLayer('earthquakes'));
-  assert.throws(() => manager.register(fakeLayer('earthquakes')), /Duplicate data-layer id/);
-  await assert.rejects(manager.restoreLayerState('earthquakes', { enabled: true }), /finalized/);
+  manager.register(fakeLayer('local-dams'));
+  assert.throws(() => manager.register(fakeLayer('local-dams')), /Duplicate data-layer id/);
+  await assert.rejects(manager.restoreLayerState('local-dams', { enabled: true }), /finalized/);
   assert.throws(() => manager.finalizeRegistrations([]), /registry mismatch/);
   assert.throws(
-    () => manager.finalizeRegistrations([{ id: 'earthquakes', disposition: 'default' }]),
+    () => manager.finalizeRegistrations([{ id: 'local-dams', disposition: 'default' }]),
     /Invalid layer serialization disposition/,
   );
   assert.equal(manager.finalizeRegistrations([
-    { id: 'earthquakes', disposition: 'enabled-only' },
+    { id: 'local-dams', disposition: 'enabled-only' },
   ]), true);
   assert.throws(() => manager.register(fakeLayer('radio')), /finalized/);
   assert.throws(() => manager.registerForQa(fakeLayer('radio')), /not authorized/);
   const qaManager = new DataLayerManager({}, { allowQaRegistration: true });
-  qaManager.register(fakeLayer('earthquakes'));
-  qaManager.finalizeRegistrations([{ id: 'earthquakes', disposition: 'enabled-only' }]);
+  qaManager.register(fakeLayer('local-dams'));
+  qaManager.finalizeRegistrations([{ id: 'local-dams', disposition: 'enabled-only' }]);
   qaManager.registerForQa(fakeLayer('radio'));
   assert.equal(qaManager.layers.has('radio'), true);
   assert.equal(await qaManager.unregisterForQa('radio'), true);
@@ -205,7 +205,7 @@ test('v2 codec distinguishes absent from empty and keeps canonical deterministic
   });
 
   const first = normalizeLayerState({
-    enabledLayerIds: ['traffic', 'cctv', 'earthquakes', 'cctv'],
+    enabledLayerIds: ['traffic', 'cctv', 'local-dams', 'cctv'],
     options: {
       radio: { volume: 0.37, filter: 'news' },
       cctv: { autoHop: true, coverageMode: 'viewshed', showProjection: false },
@@ -214,7 +214,7 @@ test('v2 codec distinguishes absent from empty and keeps canonical deterministic
     },
   });
   const second = normalizeLayerState({
-    enabledLayerIds: ['earthquakes', 'cctv', 'traffic'],
+    enabledLayerIds: ['local-dams', 'cctv', 'traffic'],
     options: {
       satellites: { catalog: 'dense' },
       flights: { models3d: true, models3dMode: 'all' },
@@ -239,9 +239,9 @@ test('Nepal event and locator have distinct enabled-only share tokens', () => {
 
 test('unknown and forbidden option fields are ignored while missing options use codec defaults', () => {
   const decoded = decodeLayerStateParams(new URLSearchParams(
-    'v=2&l=c.e&lo=c.c.v_c.z.1_z.c.1_f.e.1_f.m.a_r.f.n_r.v.35',
+    'v=2&l=c.q&lo=c.c.v_c.z.1_z.c.1_f.e.1_f.m.a_r.f.n_r.v.35',
   ));
-  assert.deepEqual(decoded.enabledLayerIds, ['cctv', 'earthquakes']);
+  assert.deepEqual(decoded.enabledLayerIds, ['cctv', 'local-dams']);
   assert.deepEqual(decoded.options.cctv, {
     coverageMode: 'viewshed',
     showProjection: true,
@@ -665,17 +665,17 @@ test('share payload wins over local, passive restore writes nothing, and explici
   assert.deepEqual(storage.writes, []);
   assert.equal(share.provider().enabledLayerIds.length, 0);
 
-  await manager.setEnabled('earthquakes', true, { origin: 'user' });
-  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['earthquakes']);
+  await manager.setEnabled('local-dams', true, { origin: 'user' });
+  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams']);
   assert.equal(storage.writes.length, 1);
 
   await manager.setEnabled('traffic', true, { origin: 'scene' });
   assert.equal(storage.writes.length, 1);
-  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['earthquakes']);
+  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams']);
 
   await manager.setEnabled('traffic', true, { origin: 'tool' });
   assert.equal(storage.writes.length, 2);
-  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['earthquakes', 'traffic']);
+  assert.deepEqual(coordinator.getDurableState().enabledLayerIds, ['local-dams', 'traffic']);
 
   manager.setLayerParams('cctv', { selectedCameraId: 'private-camera' }, { origin: 'user' });
   assert.equal(storage.writes.length, 2);
@@ -697,14 +697,14 @@ test('share payload wins over local, passive restore writes nothing, and explici
 
 test('absent share payload restores local state without rewriting it', async () => {
   const local = createDefaultLayerState();
-  local.enabledLayerIds = ['earthquakes', 'radio'];
+  local.enabledLayerIds = ['local-dams', 'radio'];
   local.options.radio = { filter: 'talk', volume: 0.42 };
   const storage = memoryStorage(serializeStoredLayerState(local));
   const manager = productionManager();
   const coordinator = new LayerStateCoordinator(manager, shareSink(), { storage });
   const results = await coordinator.start();
   assert.equal(coordinator.source, 'local');
-  assert.equal(manager.isEnabled('earthquakes'), true);
+  assert.equal(manager.isEnabled('local-dams'), true);
   assert.equal(manager.isEnabled('radio'), true);
   assert.deepEqual(manager.getLayerParams('radio'), {
     filter: 'talk',
@@ -737,17 +737,17 @@ test('one layer failure is isolated from sibling restoration', async () => {
     cctv: { init: () => { throw new Error('missing key'); } },
   });
   const state = createDefaultLayerState();
-  state.enabledLayerIds = ['cctv', 'earthquakes'];
+  state.enabledLayerIds = ['cctv', 'local-dams'];
   const coordinator = new LayerStateCoordinator(manager, shareSink(), { storage: memoryStorage() });
   const results = await coordinator.start({ shareLayerState: state });
   assert.equal(manager.isEnabled('cctv'), false);
-  assert.equal(manager.isEnabled('earthquakes'), true);
+  assert.equal(manager.isEnabled('local-dams'), true);
   const failed = results.find((result) => result.layerId === 'cctv');
   assert.equal(failed.succeeded, false);
   assert.equal(failed.phase, 'init');
   assert.equal(failed.errorClass, 'Error');
   assert.equal(failed.error, 'missing key');
-  assert.equal(results.find((result) => result.layerId === 'earthquakes').succeeded, true);
+  assert.equal(results.find((result) => result.layerId === 'local-dams').succeeded, true);
   coordinator.destroy();
 });
 
@@ -756,7 +756,7 @@ test('later explicit visibility during delayed restore wins for that layer only'
   const manager = productionManager();
   const storage = memoryStorage();
   const state = createDefaultLayerState();
-  state.enabledLayerIds = ['radio', 'earthquakes'];
+  state.enabledLayerIds = ['radio', 'local-dams'];
   const coordinator = new LayerStateCoordinator(manager, shareSink(), {
     storage,
     restoreGate: gate.promise,
@@ -766,7 +766,7 @@ test('later explicit visibility during delayed restore wins for that layer only'
   gate.resolve();
   const results = await restore;
   assert.equal(manager.isEnabled('radio'), false);
-  assert.equal(manager.isEnabled('earthquakes'), true);
+  assert.equal(manager.isEnabled('local-dams'), true);
   assert.equal(results.find((result) => result.layerId === 'radio').cancellationReason, 'superseded');
   assert.equal(storage.writes.length, 1);
   coordinator.destroy();

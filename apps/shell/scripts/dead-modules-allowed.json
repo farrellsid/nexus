@@ -10,7 +10,6 @@
     "src/data/bikeshare.js",
     "src/data/cctv.js",
     "src/data/directionText.js",
-    "src/data/earthquakes.js",
     "src/data/fireAnchors.js",
     "src/data/firmsCsv.js",
     "src/data/firmsHeatmap.js",

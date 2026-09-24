@@ -74,10 +74,6 @@ export const DATA_CREDITS = [
       '(API documentation and rate limits)',
   },
   {
-    key: 'usgs',
-    html: 'Earthquakes: Data courtesy of the U.S. Geological Survey',
-  },
-  {
     key: 'overpass',
     html:
       'Road geometry (traffic): ' +
