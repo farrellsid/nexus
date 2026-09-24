@@ -3731,7 +3731,6 @@ test('transit polls the supplied source and cancels it when disabled', async (t)
   assert.equal(calls.length, before);
 });
 
-
 for (const jump of ['setView', 'flyTo']) {
   test(`${jump} recovers a cold hidden vehicle within one visibility interval`, async (t) => {
     const app = harness(t, { floorAt: () => undefined });

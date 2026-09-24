@@ -19,7 +19,6 @@ const DOCUMENTED_KEYS = [
   ['docs/CURRENT-STATE.md', 'godsEyeView.{layout}.panelCollapsed.<panel-id>'],
 ];
 
-
 test('the documented outcomes hold: default, stored open, stored shut, and a shared view', async () => {
   // The instructions promise two different outcomes; both are exercised here
   // against the code that decides them.

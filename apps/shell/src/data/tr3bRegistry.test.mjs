@@ -31,7 +31,6 @@ import militaryFlightsLayer, {
   mapAnalystRecord as mapMilitaryAnalystRecord,
 } from './militaryFlights.js';
 import { findCompatibleHistoryIndex } from './militaryAwareness.js';
-import { ANALYST_LAYERS, createAnalystEngine } from './analystEngine.js';
 
 /** Strip block and line comments so source pins scan CODE, not prose. */
 function stripComments(source) {
@@ -348,54 +347,6 @@ test('analyst records report the class the contact RENDERS as, in both layers', 
 
   assert.equal(tr3bAircraftClass('a1b2c3', 'airliner'), 'airliner');
   assert.equal(tr3bAircraftClass('a1b2c3'), null, 'default fallback is null');
-  clearTr3bRegistry();
-});
-
-test('the analyst engine filters and aggregates a tr3b class without choking', async () => {
-  clearTr3bRegistry();
-  setTr3b('a1b2c3', true);
-  const records = [
-    mapFlightAnalystRecord('a1b2c3', {
-      callsign: 'SWA696', klass: 'airliner', rawLat: 30.20, rawLon: -97.70,
-      altitude: 10_000, velocity: 200,
-    }),
-    mapFlightAnalystRecord('deadbe', {
-      callsign: 'AAL100', klass: 'airliner', rawLat: 30.21, rawLon: -97.71,
-      altitude: 11_000, velocity: 240,
-    }),
-  ];
-  const engine = createAnalystEngine({
-    getRecords: (key) => (key === 'flights' ? records : []),
-    resolveRegionRing: async () => null,
-    getViewContext: () => ({ lat: 30.2, lon: -97.7, viewRadiusKm: 150 }),
-  });
-
-  // aircraftClass is a declared free-text field, so 'tr3b' is just another value.
-  assert.equal(ANALYST_LAYERS.flights.text.includes('aircraftClass'), true);
-
-  const hits = await engine.query({
-    layers: ['flights'], scope: { kind: 'anywhere' },
-    filters: [{ field: 'aircraftClass', op: 'eq', value: 'tr3b' }], limit: 50,
-  });
-  assert.equal(hits.ok, true);
-  assert.equal(hits.count, 1, 'filtering for TR-3B finds the converted contact');
-  assert.equal(hits.items[0].icao24, 'a1b2c3');
-
-  // The ordinary contact is still reachable by its real class.
-  const airliners = await engine.query({
-    layers: ['flights'], scope: { kind: 'anywhere' },
-    filters: [{ field: 'aircraftClass', op: 'eq', value: 'airliner' }], limit: 50,
-  });
-  assert.equal(airliners.count, 1, 'the converted contact no longer answers to airliner');
-
-  // A numeric sort/summary still runs over the mixed set — aircraftClass is
-  // free text, so there is no enum lookup an unknown value could break.
-  const fastest = await engine.query({
-    layers: ['flights'], scope: { kind: 'anywhere' }, sortBy: 'speedMps', limit: 5,
-  });
-  assert.equal(fastest.ok, true);
-  assert.equal(fastest.count, 2);
-  assert.equal(fastest.summary.speedMpsMax, 240);
   clearTr3bRegistry();
 });
 

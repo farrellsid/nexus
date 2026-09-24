@@ -51,13 +51,11 @@
     "src/sources/transitService.js",
     "src/standalone/ui.js",
     "src/testSupport/readLayerSource.mjs",
-    "src/testSupport/readRealtimeSource.mjs",
     "src/testSupport/readShellSource.mjs",
     "src/testSupport/readStylesheet.mjs",
     "src/tooling/fixtureRoot.mjs",
     "src/ui.js",
-    "src/ui/styles.js",
-    "src/voice/actionSchemas.js"
+    "src/ui/styles.js"
   ],
   "dangling": [
     "src/tooling/packageBoundaries.test.mjs imports ./startup.js"

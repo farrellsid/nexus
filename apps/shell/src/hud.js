@@ -1,4 +1,3 @@
-import { applicationServices } from './services/application.js';
 /**
  * @module hud
  * @description Intelligence HUD Overlay — NRO/NGA Satellite Aesthetic.
@@ -23,8 +22,6 @@ import {
   ensureGeoidReady,
   geoidHeight,
 } from './data/geoid.js';
-import { getBasemapLabelContext } from './voice/gevActions.js';
-import { isHudSummaryUnconfigured } from './hudSummaryResponse.js';
 
 /** Color palettes keyed by shader mode; applied as CSS custom properties. */
 const HUD_COLORS = {
@@ -55,7 +52,6 @@ const MILITARY_STYLES = new Set(['retro', 'surveillance', 'thermal']);
 
 /** Allowed HUD layout variants. */
 const HUD_VARIANTS = new Set(['tactical', 'operator', 'minimal']);
-const HUD_SUMMARY_INTERVAL_MS = 15000;
 
 /**
  * Cell size (degrees) for the ALT readout's geoid-undulation cache. N changes
@@ -87,19 +83,7 @@ export class IntelHUD {
    * @param {Cesium.Viewer} viewer - The Cesium Viewer instance used for
    *   camera telemetry and coordinate derivation.
    */
-  constructor(
-    viewer,
-    {
-      placeSearch,
-      summaryPolicy = {},
-      basemapContext = {},
-      summaryService = applicationServices.summary,
-    } = {},
-  ) {
-    this.summaryService = summaryService;
-    this.summaryPolicy = summaryPolicy;
-    this.basemapContext = basemapContext;
-    this.placeSearch = placeSearch;
+  constructor(viewer) {
     this.viewer = viewer;
     this._visible = false;
     this._autoMode = true; // auto show/hide based on style
@@ -110,21 +94,9 @@ export class IntelHUD {
     this._updateInterval = null;
     this._recBlinkInterval = null;
     this._timestampInterval = null;
-    this._summaryInterval = null;
-    this._summaryTypingInterval = null;
     this._latestMetrics = null;
-    this._dataManager = null;
-    this._dataManagerUnsubscribe = null;
-    this._summaryDirty = true;
-    this._summaryRequest = null;
-    this._lastSummarySignature = '';
-    this._summaryRevision = 0;
-    // One-shot guards so the very first summary lands immediately instead of
-    // waiting for the 15s interval tick: B) swap the "Awaiting telemetry..."
-    // placeholder for the deterministic line as soon as metrics exist, then
-    // A) kick a real AI summary once the intro fly-to settles.
+    // Swap the "Awaiting telemetry..." placeholder for the summary line as soon as metrics exist.
     this._firstMetricsShown = false;
-    this._firstSummaryKicked = false;
     // ALT readout datum: the camera height Cesium reports is ELLIPSOIDAL, the
     // number a viewer reads is MSL. N comes from the same lazy ~2.7 MB EGM96
     // chunk the flight layers use — requested on the first telemetry tick of a
@@ -140,20 +112,11 @@ export class IntelHUD {
     // together when it does (see the repaint in _updateCameraData).
     this._geoidCorrectionApplied = false;
     this._onCameraMoveEnd = () => {
-      this._markSummaryDirty();
-      // The 250 ms telemetry timer and 15 s semantic-summary timer must not
-      // leave the prior city on-screen after a long CCTV focus flight.
-      // Refresh deterministic camera context synchronously on settle; the AI
-      // summary can still upgrade it on its normal cadence.
+      // The 250 ms telemetry timer must not leave the prior city on-screen after a long
+      // focus flight, so refresh the camera context synchronously on settle.
       if (this._visible) {
         this._updateCameraData();
-        this._setSummaryText(this._composeSummary(), false);
-      }
-      // First settled view: request the AI summary now rather than waiting for
-      // the periodic tick (saves up to ~15s of "Awaiting telemetry...").
-      if (!this._firstSummaryKicked && this._visible && this._latestMetrics) {
-        this._firstSummaryKicked = true;
-        void this._updateSummary(true, true);
+        this._setSummaryText(this._composeSummary());
       }
     };
 
@@ -242,7 +205,7 @@ export class IntelHUD {
 
   /**
    * Start all periodic update timers (timestamp, REC blink, camera
-   * telemetry, semantic summary). Timers run independently at different
+   * telemetry). Timers run independently at different
    * cadences and are cleaned up in {@link destroy}.
    */
   _startTimers() {
@@ -265,12 +228,6 @@ export class IntelHUD {
       if (!this._visible) return;
       this._updateCameraData();
     }, 250);
-
-    // Semantic summary refresh cadence
-    this._summaryInterval = setInterval(() => {
-      if (!this._visible) return;
-      void this._updateSummary(true);
-    }, HUD_SUMMARY_INTERVAL_MS);
   }
 
   /**
@@ -415,27 +372,19 @@ export class IntelHUD {
     };
 
     // First time we have real telemetry: replace the "Awaiting telemetry..."
-    // placeholder with the deterministic summary line instantly (no network),
-    // so there's always meaningful context on screen. The AI summary upgrades
-    // this within a second via the moveEnd kick / periodic refresh.
+    // placeholder with the summary line instantly, so there's always meaningful
+    // context on screen.
     if (!this._firstMetricsShown) {
       this._firstMetricsShown = true;
-      this._setSummaryText(this._composeSummary(), false);
+      this._setSummaryText(this._composeSummary());
     }
 
-    // The EGM96 grid lands mid-session, and the corner readout picks it up on
-    // the very next telemetry tick. The summary line has no such cadence — it
-    // repaints on camera settle or its own 15 s retry — so without this the
-    // corner reads `ALT: 17m` beside a summary still reading `ALT -15M`, for
-    // up to fifteen seconds. Repaint the deterministic line in the SAME tick
-    // the correction turns on (or off, if a lookup starts failing), and mark
-    // the summary dirty so the AI line refreshes on its normal cadence —
-    // exactly what a camera settle already does.
+    // The EGM96 grid lands mid-session and the corner readout picks it up on the next tick;
+    // repaint the summary line in the same tick so the two altitudes never disagree.
     const geoidCorrectionApplied = Number.isFinite(geoidN);
     if (geoidCorrectionApplied !== this._geoidCorrectionApplied) {
       this._geoidCorrectionApplied = geoidCorrectionApplied;
-      this._markSummaryDirty();
-      this._setSummaryText(this._composeSummary(), false);
+      this._setSummaryText(this._composeSummary());
     }
   }
 
@@ -652,135 +601,9 @@ export class IntelHUD {
     return `${modeLabel} ${band} ${localityTag} | ${region} | ALT ${altTag} | WINDOW ${winTag} | SUN ${m.sunEl.toFixed(0)}° | ONA ${m.ona.toFixed(0)}° | ${localTag}`;
   }
 
-  /**
-   * Animate the summary text into the DOM using a typewriter effect
-   * (2 characters every 24ms).
-   * @param {string} text - Full summary string to type out.
-   */
-  _typeSummary(text) {
-    const el = document.getElementById('hud-summary');
-    if (!el) return;
-    clearInterval(this._summaryTypingInterval);
-    let index = 0;
-    el.textContent = '';
-    this._summaryTypingInterval = setInterval(() => {
-      index += 2;
-      if (index >= text.length) {
-        el.textContent = text;
-        clearInterval(this._summaryTypingInterval);
-        this._summaryTypingInterval = null;
-        return;
-      }
-      el.textContent = text.slice(0, index);
-    }, 24);
-  }
-
-  /**
-   * Refresh the summary readout. Optionally animates the text via typewriter.
-   * @param {boolean} [animate=false] - If true, types the summary character
-   *   by character; otherwise sets it instantly.
-   */
-  async _updateSummary(animate = false, force = false) {
-    const fallbackText = this._composeSummary();
-    if (!this._latestMetrics) {
-      this._setSummaryText(fallbackText, animate);
-      return;
-    }
-    if (!force && !this._summaryDirty) return;
-    if (this.summaryPolicy.canRequest?.() === false) return;
-
-    const revision = this._summaryRevision;
-    // Every caller invokes this as `void this._updateSummary(...)`, so nothing
-    // owns the returned promise — a rejection escaping from here lands as an
-    // unhandled rejection in the console. Building the context walks the live
-    // scene (the view-target pick, the layer roster), so it belongs INSIDE a
-    // guard rather than in front of one. A summary we cannot build is a
-    // fallback line, not a crash.
-    let context;
-    try {
-      context = await this._summaryContext();
-    } catch (error) {
-      console.warn('[HUD] summary context unavailable:', error);
-      // Left dirty on purpose: the next periodic tick retries instead of
-      // sticking on the fallback line for the rest of the session.
-      this._setSummaryText(fallbackText, animate);
-      return;
-    }
-    if (revision !== this._summaryRevision) return;
-    const signature = JSON.stringify(context);
-    if (!force && signature === this._lastSummarySignature) {
-      this._summaryDirty = false;
-      return;
-    }
-    if (this._summaryRequest) return;
-
-    if (force) this._setSummaryText(fallbackText, false);
-    this._summaryDirty = false;
-    this._lastSummarySignature = signature;
-    const controller = new AbortController();
-    const timeout = window.setTimeout(() => controller.abort(), 5000);
-    this._summaryRequest = controller;
-    try {
-      this.summaryPolicy.onRequest?.();
-      const response = await this.summaryService.summarize(context, {
-        signal: controller.signal,
-      });
-      const data = response.data;
-      if (revision !== this._summaryRevision) return;
-      if (isHudSummaryUnconfigured(response.status, data)) {
-        this._setSummaryText(fallbackText, animate);
-        return;
-      }
-      if (!response.ok || !data?.summary) {
-        throw new Error(data?.error || `HTTP ${response.status}`);
-      }
-      this._setSummaryText(data.summary, animate);
-    } catch (error) {
-      if (error?.name !== 'AbortError') {
-        console.warn('[HUD] AI summary unavailable:', error);
-        // Invalidate the committed signature so the next periodic tick
-        // retries instead of sticking on the fallback line forever.
-        this._lastSummarySignature = null;
-        this._summaryDirty = true;
-      }
-      this._setSummaryText(fallbackText, animate);
-    } finally {
-      window.clearTimeout(timeout);
-      if (this._summaryRequest === controller) this._summaryRequest = null;
-    }
-  }
-
-  _setSummaryText(text, animate) {
-    if (animate) {
-      this._typeSummary(text);
-      return;
-    }
+  _setSummaryText(text) {
     const el = document.getElementById('hud-summary');
     if (el) el.textContent = text;
-  }
-
-  async _summaryContext() {
-    const labels = await getBasemapLabelContext(
-      this.viewer,
-      this.placeSearch,
-      this.basemapContext,
-    );
-    const enabledLayers =
-      this._dataManager
-        ?.getAll?.()
-        ?.filter((layer) => layer.enabled)
-        .map((layer) => layer.name) || [];
-    return {
-      placeLabels: labels.placeLabels,
-      streetLabels: labels.streetLabels,
-      nearbyPlaceLabels: labels.nearbyPlaceLabels,
-      enabledLayerLabels: enabledLayers,
-    };
-  }
-
-  _markSummaryDirty() {
-    this._summaryDirty = true;
-    this._summaryRevision++;
   }
 
   // ── Public API ──────────────────────────
@@ -824,8 +647,7 @@ export class IntelHUD {
     this._visible = true;
     if (this._el) this._el.classList.add('active');
     this._updateCameraData(); // immediate update
-    this._markSummaryDirty();
-    void this._updateSummary(false, true);
+    this._setSummaryText(this._composeSummary());
   }
 
   /** Hide the HUD overlay. */
@@ -896,29 +718,11 @@ export class IntelHUD {
     return this._visible;
   }
 
-  attachDataManager(dataManager) {
-    if (this._dataManagerUnsubscribe) {
-      this._dataManagerUnsubscribe();
-      this._dataManagerUnsubscribe = null;
-    }
-    this._dataManager = dataManager || null;
-    if (typeof this._dataManager?.subscribe === 'function') {
-      this._dataManagerUnsubscribe = this._dataManager.subscribe((change) => {
-        if (change?.type === 'visibility') this._markSummaryDirty();
-      });
-    }
-    this._markSummaryDirty();
-  }
-
   /** Tear down all running intervals. Call when discarding the HUD instance. */
   destroy() {
     clearInterval(this._updateInterval);
     clearInterval(this._recBlinkInterval);
     clearInterval(this._timestampInterval);
-    clearInterval(this._summaryInterval);
-    clearInterval(this._summaryTypingInterval);
     this.viewer.camera.moveEnd.removeEventListener(this._onCameraMoveEnd);
-    this._dataManagerUnsubscribe?.();
-    this._summaryRequest?.abort();
   }
 }

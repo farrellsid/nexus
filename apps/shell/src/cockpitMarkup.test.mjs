@@ -34,7 +34,6 @@ const css = readStylesheet(path.join(ROOT, 'style.css'));
 const sceneDirector = fs.readFileSync(path.join(ROOT, 'src', 'scenes', 'director.js'), 'utf8');
 const manager = fs.readFileSync(path.join(ROOT, 'src', 'data', 'lifecycle.js'), 'utf8');
 const contextLayer = readLayerSource(path.join(ROOT, 'src', 'data', 'militaryAwareness.js'), 'utf8');
-const voiceActions = fs.readFileSync(path.join(ROOT, 'src', 'voice', 'gevActions.js'), 'utf8');
 
 test('Cockpit has one reset action beside its bottom exit path', () => {
   assert.doesNotMatch(html, /id="cockpit-quick-entry"/);
@@ -510,7 +509,6 @@ test('Location navigation releases immediate routes before flight and deferred r
   const releaseStart = ui.indexOf('  _releaseFollowCamera(');
   const locationFlight = ui.indexOf('_flyWithTransition(cityChanged, flyAction)');
   const search = ui.indexOf('searchAndFlyTo(this.viewer, query, {');
-  const voiceStart = voiceActions.indexOf('beginDeferredLocationNavigation');
 
   assert.ok(releaseStart >= 0, 'shared Location camera handoff is missing');
   assert.match(
@@ -529,8 +527,6 @@ test('Location navigation releases immediate routes before flight and deferred r
   assert.match(ui.slice(search, search + 180), /\.\.\.options/);
   const lookup = fs.readFileSync(path.join(ROOT, 'src', 'ui', 'locationSearch.js'), 'utf8');
   assert.match(lookup, /beforeFly: \(\) => current\(\) && this\.beforeFly\(authority\)/);
-  assert.ok(voiceStart >= 0, 'voice Location must use the same handoff');
-  assert.match(voiceActions, /styleManager\.reassertDeferredLocationNavigation\(generation\)/);
 });
 
 test('Cockpit Radio station changes preserve first-person camera ownership', () => {

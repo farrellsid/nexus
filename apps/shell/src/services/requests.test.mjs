@@ -6,7 +6,7 @@ test('independent compatible endpoints receive normalized requests without chang
   const requests = [];
   const original = globalThis.fetch;
   const services = createApplicationRequestServices({
-    endpoints: { regional: '/custom/region', terrain: '/custom/floors', summary: '/custom/summary' },
+    endpoints: { regional: '/custom/region', terrain: '/custom/floors' },
     fetchImpl: async (url, init) => {
       requests.push({ url, init });
       return Response.json({ results: [{ ellipsoid: 10 }], summary: 'fixture' });
@@ -15,10 +15,7 @@ test('independent compatible endpoints receive normalized requests without chang
   await services.regional.getBrief(30, -97);
   assert.match(requests[0].url, /^\/custom\/region\?latitude=30.00000&longitude=-97.00000$/);
   assert.deepEqual(await services.terrain.getHeights([{ lat: 30, lon: -97 }]), [{ ellipsoid: 10 }]);
-  const result = await services.summary.summarize({ place: 'fixture' });
-  assert.equal(result.data.summary, 'fixture');
-  assert.equal(requests[2].init.body, '{"place":"fixture"}');
-  assert.equal(requests[2].init.redirect, 'error');
+  assert.equal(requests[1].init.redirect, 'error');
   assert.equal(globalThis.fetch, original);
 });
 
