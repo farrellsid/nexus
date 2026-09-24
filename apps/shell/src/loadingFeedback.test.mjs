@@ -8,38 +8,12 @@ import { readFileSync } from 'node:fs';
 const retrySite = (stats = {}) => ({ id: 'military-installations', name: 'Mapped Installations', enabled: true,
   stats: { status: 'unavailable', error: 'Unavailable', retryAt: Date.now() + 30000, ...stats } });
 
-test('installation retry remains visible after failure dwell without a false spinner', () => {
-  const summary = aggregateLayerLoading([retrySite()]);
-  const view = presentLoadingFeedback(createLoadingFeedbackState(), summary, 100);
-  assert.equal(view.state, 'retry');
-  assert.equal(view.label, 'OVERPASS TEMPORARILY UNAVAILABLE');
-  assert.match(view.detail, /retrying in 30s/);
-  assert.equal(presentLoadingFeedback(createLoadingFeedbackState(), aggregateLayerLoading([{ ...retrySite(), enabled: false }]), 100), null);
-});
 test('an installation retry never conceals another participant failure', () => {
   const state = { visible: true, phase: 'terminal', terminal: 'error', activeIds: ['military-installations', 'flights'] };
   const summary = aggregateLayerLoading([retrySite(), { id: 'flights', enabled: true, stats: { error: 'Failed' } }]);
   assert.equal(presentLoadingFeedback(state, summary, 100).label, 'LOAD FAILED');
   const healthyNow = aggregateLayerLoading([retrySite()]);
   assert.equal(presentLoadingFeedback({ ...state, failedEventIds: ['flights'] }, healthyNow, 100).label, 'LOAD FAILED');
-});
-test('a fresh installation retry can finish successfully without inheriting the old error', () => {
-  let state = { ...createLoadingFeedbackState(), phase: 'terminal', terminal: 'error', visible: true, activeIds: ['military-installations'] };
-  const loading = aggregateLayerLoading([retrySite({ status: 'loading', error: null, loading: true, retryAt: 0, retrying: true })]);
-  state = reduceLoadingFeedback(state, loading, 1000);
-  state = reduceLoadingFeedback(state, loading, 1200);
-  assert.equal(presentLoadingFeedback(state, loading, 1200).label, 'RETRYING MAPPED SITES');
-  const done = aggregateLayerLoading([retrySite({ status: 'ready', error: null, loading: false, retryAt: 0, retrying: false, count: 3 })]);
-  state = reduceLoadingFeedback(state, done, 1500);
-  assert.equal(presentLoadingFeedback(state, done, 1500).label, 'MAPPED SITES LOADED');
-});
-test('turning off a retrying installation layer does not report the old fetch failure as a disable failure', () => {
-  const stopping = aggregateLayerLoading([{ ...retrySite(), lifecycleState: 'disabling' }]);
-  let state = reduceLoadingFeedback(createLoadingFeedbackState(), stopping, 1000);
-  state = reduceLoadingFeedback(state, stopping, 1200);
-  const off = aggregateLayerLoading([{ ...retrySite({ status: 'idle', error: null, retryAt: 0 }), enabled: false }]);
-  state = reduceLoadingFeedback(state, off, 1400);
-  assert.equal(presentLoadingFeedback(state, off, 1400).label, 'LIVE DATA OFF');
 });
 import {
   aggregateLayerLoading,
@@ -531,20 +505,6 @@ test('the loading ticker never runs hidden and stops after loading and notices s
     /document\.removeEventListener\(\s*'visibilitychange',\s*this\._loadingVisibilityHandler,?\s*\);/,
     'the resample handler must be removed on teardown',
   );
-});
-
-test('a guidance status such as zoom-in never counts as a participant failure', () => {
-  const zoomIn = { id: 'military-installations', name: 'Mapped Installations', enabled: true,
-    stats: { status: 'zoom-in', error: 'Zoom in to load mapped installation context', loading: true, count: 0 } };
-  const loading = aggregateLayerLoading([zoomIn]);
-  assert.equal(loading.records[0].error, null);
-  assert.equal(loading.records[0].degraded, false);
-  let state = reduceLoadingFeedback(createLoadingFeedbackState(), loading, 1000);
-  state = reduceLoadingFeedback(state, loading, 1200);
-  const settled = aggregateLayerLoading([{ ...zoomIn, stats: { ...zoomIn.stats, loading: false } }]);
-  state = reduceLoadingFeedback(state, settled, 1500);
-  assert.equal(state.terminal, 'complete');
-  assert.equal(presentLoadingFeedback(state, settled, 1500).label, 'MAPPED SITES LOADED');
 });
 
 

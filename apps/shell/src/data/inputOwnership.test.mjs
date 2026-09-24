@@ -114,19 +114,7 @@ test('every scene click handler consults ownership before it picks', () => {
   // find and edit each of these. If a layer grows a click handler it has to
   // appear here too.
   const guarded = [
-    ['src/data/trackingClickGesture.js', 'onClick(click, gesture);'],
     ['src/data/localGeojsonCore.js', 'viewer.scene.pick(click.position)'],
-    ['src/layers/firms/selection.js', 'scene.pick(click.position)'],
-    [
-      'src/layers/installations/selection.js',
-      'viewer.scene.pick(click.position)',
-    ],
-    ['src/layers/launches/lifecycle.js', 'drillPick(movement.position'],
-    [
-      'src/layers/satellites/interaction.js',
-      'viewer.scene.pick(click.position)',
-    ],
-    ['src/layers/vessels/selection.js', 'viewer.scene.pick(click.position)'],
   ];
   for (const [file, firstPick] of guarded) {
     const source = read(file);
@@ -152,12 +140,7 @@ test('every scene click handler consults ownership before it picks', () => {
 test('ambient selection handlers never claim the pointer themselves', () => {
   // Claiming from a selection handler would deadlock every other layer the
   // moment a user clicked anything. Only tools claim.
-  for (const file of [
-    'src/data/trackingClickGesture.js',
-    'src/data/localGeojsonCore.js',
-    'src/layers/vessels/selection.js',
-    'src/layers/satellites/interaction.js',
-  ]) {
+  for (const file of ['src/data/localGeojsonCore.js']) {
     assert.doesNotMatch(
       read(file),
       /claimPointer\(/,

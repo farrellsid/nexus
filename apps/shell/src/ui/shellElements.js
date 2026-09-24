@@ -17,22 +17,6 @@ export function readShellElements(document = globalThis.document) {
     _hudBtn: document.getElementById('hud-toggle'),
     _hudLayoutRow: document.getElementById('hud-layout-row'),
     _hudLayoutSelect: document.getElementById('hud-layout-select'),
-    _detectionSliderRow: document.getElementById('detection-slider-row'),
-    _detectionDensitySlider: document.getElementById(
-      'detection-density-slider',
-    ),
-    _detectionDensityValue: document.getElementById('detection-density-value'),
-    _detectionAllocationRow: document.getElementById(
-      'detection-allocation-row',
-    ),
-    _detectionFadeRow: document.getElementById('detection-fade-row'),
-    _detectionFadeSlider: document.getElementById('detection-fade-slider'),
-    _detectionFadeValue: document.getElementById('detection-fade-value'),
-    _detectionOpacityRow: document.getElementById('detection-opacity-row'),
-    _detectionOpacitySlider: document.getElementById(
-      'detection-opacity-slider',
-    ),
-    _detectionOpacityValue: document.getElementById('detection-opacity-value'),
     _celestialBtn: document.getElementById('celestial-toggle'),
     _scopeBtn: document.getElementById('scope-toggle'),
     _scopeFeatherSlider: document.getElementById('scope-feather-slider'),
@@ -43,25 +27,6 @@ export function readShellElements(document = globalThis.document) {
     _cleanViewExitBtn: document.getElementById('clean-view-exit'),
     _dataPanel: document.getElementById('data-panel'),
     _scenePanel: document.getElementById('scene-panel'),
-    _cockpitUtilityControls: document.getElementById(
-      'cockpit-utility-controls',
-    ),
-    _cockpitDisplayToggleBtn: document.getElementById(
-      'cockpit-display-toggle-btn',
-    ),
-    _cockpitDisplayPanel: document.getElementById('cockpit-display-panel'),
-    _globalContextFlightsBtn: document.getElementById(
-      'global-context-flights-btn',
-    ),
-    _globalContextMissionsBtn: document.getElementById(
-      'global-context-missions-btn',
-    ),
-    _contextModeStandby: document.getElementById('context-mode-standby'),
-    _contextFlightsView: document.getElementById('context-flights-view'),
-    _contextMissionsView: document.getElementById('context-missions-view'),
-    _installationsSearchBtn: document.getElementById(
-      'installations-search-btn',
-    ),
     _leftPanelStack: document.getElementById('left-panel-stack'),
     _shareBtn: document.getElementById('share-btn'),
     _tiltMapBtn: document.getElementById('tilt-map-view'),
@@ -71,7 +36,6 @@ export function readShellElements(document = globalThis.document) {
     _globalLoadingLabel: document.getElementById('global-loading-label'),
     _globalLoadingDetail: document.getElementById('global-loading-detail'),
     _resetGlobeBtn: document.getElementById('reset-globe-view'),
-    _cockpitResetGlobeBtn: document.getElementById('cockpit-reset-globe'),
     _styleButtons: document.getElementById('style-buttons'),
     _toast: document.getElementById('toast'),
     _locationSearch: document.getElementById('location-search'),
@@ -84,8 +48,5 @@ export function readShellElements(document = globalThis.document) {
     _locationMiniPoi: document.getElementById('location-mini-poi'),
     _safeFrameOverlay: document.getElementById('safe-frame-overlay'),
     _safeFrameBox: document.getElementById('safe-frame-box'),
-    _detectionBtn: document.getElementById('detection-toggle'),
-    _models3dBtn: document.getElementById('models3d-toggle'),
-    _models3dModeRow: document.getElementById('models3d-mode-row'),
   };
 }

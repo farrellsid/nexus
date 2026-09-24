@@ -4,7 +4,6 @@ import { VisualEffects } from './visualEffects.js';
 import {
   GLOBAL_POST_DEFAULTS,
   STYLE_PRESET_DEFAULTS,
-  MILITARY_DETECTION_PRESET,
 } from './visualPresets.js';
 
 function fixture() {
@@ -233,17 +232,7 @@ test('destroying one instance does not remove another pipeline or clock', () => 
   b.effects.destroy();
 });
 
-test('existing baseline and military presets keep one detection default', () => {
-  assert.equal(GLOBAL_POST_DEFAULTS.detectionMode, 'DENSE');
-  assert.equal(GLOBAL_POST_DEFAULTS.detectionDensity, 75);
+test('the baseline carries the sharpen default and Normal has no preset', () => {
   assert.equal(GLOBAL_POST_DEFAULTS.sharpen.intensity, 49);
-  assert.equal(GLOBAL_POST_DEFAULTS.detectionFadePct, 7);
-  assert.equal(GLOBAL_POST_DEFAULTS.detectionOutsideOpacityPct, 1);
-  for (const name of ['retro', 'surveillance', 'thermal']) {
-    assert.equal(
-      STYLE_PRESET_DEFAULTS[name].detection,
-      MILITARY_DETECTION_PRESET,
-    );
-  }
   assert.equal(STYLE_PRESET_DEFAULTS.normal, undefined);
 });

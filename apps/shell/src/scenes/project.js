@@ -156,10 +156,6 @@ export function recipeToScene(recipe) {
           visible: hudVisible,
           variant: hudVariant,
         },
-        detection: {
-          mode: post.detectionMode || 'OFF',
-          density: 35,
-        },
         ...(SCENE_MAP_STACK_IDS.has(mapStack) ? { mapStack } : {}),
         styleParams,
       },
@@ -221,7 +217,6 @@ export function normalizeShot(
   const bloom = visual.bloom || {};
   const sharpen = visual.sharpen || {};
   const hud = visual.hud || {};
-  const detection = visual.detection || {};
 
   return {
     id: rawShot?.id || uid('shot'),
@@ -279,27 +274,6 @@ export function normalizeShot(
       hud: {
         visible: typeof hud.visible === 'boolean' ? hud.visible : true,
         variant: typeof hud.variant === 'string' ? hud.variant : 'tactical',
-      },
-      detection: {
-        ...(typeof detection.allocation === 'string'
-          ? { allocation: detection.allocation }
-          : {}),
-        ...(Number.isFinite(Number(detection.fadePct))
-          ? { fadePct: Number(detection.fadePct) }
-          : {}),
-        ...(Number.isFinite(Number(detection.outsideOpacityPct))
-          ? { outsideOpacityPct: Number(detection.outsideOpacityPct) }
-          : {}),
-        mode: typeof detection.mode === 'string' ? detection.mode : 'OFF',
-        density: Math.max(
-          0,
-          Math.min(
-            100,
-            Number.isFinite(Number(detection.density))
-              ? Number(detection.density)
-              : 35,
-          ),
-        ),
       },
       ...(visual.scope && typeof visual.scope === 'object'
         ? { scope: deepClone(visual.scope) }

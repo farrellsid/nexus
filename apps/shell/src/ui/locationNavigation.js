@@ -10,12 +10,11 @@ export class LocationNavigation {
     services,
     elements,
     navigation,
-    readCockpit,
     operations,
   }) {
     Object.assign(
       this,
-      { viewer, placeSearch, services, navigation, readCockpit },
+      { viewer, placeSearch, services, navigation },
       elements,
       operations,
     );
@@ -39,9 +38,6 @@ export class LocationNavigation {
       ({ state, change }) => this._handleLocationSearchState(state, change),
       { emitCurrent: false },
     );
-  }
-  get cockpitView() {
-    return this.readCockpit();
   }
   get _navigationGeneration() {
     return this.navigation._navigationGeneration;
@@ -129,7 +125,7 @@ export class LocationNavigation {
         divider: this._locationBarDivider,
         search: this._locationSearch,
         searchToggle: this._searchToggle,
-        resetButtons: [this._resetGlobeBtn, this._cockpitResetGlobeBtn],
+        resetButtons: [this._resetGlobeBtn],
         statusCity: this._locationMiniCity,
         statusPoi: this._locationMiniPoi,
       },
@@ -143,18 +139,14 @@ export class LocationNavigation {
   }
 
   _beginWorldJumpTransition() {
-    const { suspendDetection } = this.services;
     clearTimeout(this._worldJumpTimer);
     this._worldJumpActive = true;
-    suspendDetection('intercity');
   }
 
   _endWorldJumpTransition() {
-    const { resumeDetection } = this.services;
     clearTimeout(this._worldJumpTimer);
     this._worldJumpActive = false;
     this._worldJumpTimer = null;
-    resumeDetection();
   }
 
   _flyWithTransition(cityChanged, flyAction) {
@@ -290,17 +282,7 @@ export class LocationNavigation {
   }
 
   resetToGlobeView() {
-    const {
-      GLOBE_VIEW,
-      flyToGlobeView,
-      interruptCameraMotion,
-      flightsLayer,
-      militaryFlightsLayer,
-      satellitesLayer,
-      aisLiveVesselsLayer,
-      militaryAwarenessLayer,
-      rocketLaunchesLayer,
-    } = this.services;
+    const { GLOBE_VIEW, flyToGlobeView, interruptCameraMotion } = this.services;
     if (this._disposed)
       return Promise.resolve({
         ok: false,
@@ -311,37 +293,6 @@ export class LocationNavigation {
     this._stampNavigation();
     interruptCameraMotion('reset-globe');
     this._stopOrbit();
-    this.cockpitView?.exit({ restoreTracking: false });
-    try {
-      militaryAwarenessLayer.releaseCameraOwnership?.({ origin: 'tool' });
-    } catch {
-      // Keep reset available if Context has not initialized completely.
-      try {
-        flightsLayer.stopTracking?.({ origin: 'tool' });
-      } catch {
-        /* best-effort release */
-      }
-      try {
-        militaryFlightsLayer.stopTracking?.({ origin: 'tool' });
-      } catch {
-        /* best-effort release */
-      }
-      try {
-        aisLiveVesselsLayer.clearSelection?.();
-      } catch {
-        /* best-effort release */
-      }
-    }
-    try {
-      satellitesLayer.stopTracking?.({ origin: 'tool' });
-    } catch {
-      /* best-effort release */
-    }
-    try {
-      rocketLaunchesLayer.releaseCameraOwnership?.();
-    } catch {
-      /* best-effort release */
-    }
     this.viewer.trackedEntity = undefined;
     this.viewer.camera.cancelFlight();
     this.viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
@@ -374,10 +325,6 @@ export class LocationNavigation {
         'aria-label',
         'Reset to full globe view',
       );
-      this._cockpitResetGlobeBtn?.setAttribute(
-        'aria-label',
-        'Reset cockpit to full globe view',
-      );
       this._globeResetPromise = null;
       this._cancelGlobeReset = null;
       resolveReset(result);
@@ -393,10 +340,6 @@ export class LocationNavigation {
     this._resetGlobeBtn?.setAttribute(
       'aria-label',
       'Resetting to full globe view',
-    );
-    this._cockpitResetGlobeBtn?.setAttribute(
-      'aria-label',
-      'Resetting cockpit to full globe view',
     );
     const target = flyToGlobeView(this.viewer, {
       onComplete: () => finish(false),

@@ -11,25 +11,16 @@ const SHARE_PANEL_STATE_SPECS = Object.freeze([
   { id: 'location-bar', pinnable: true },
   { id: 'data-panel' },
   { id: 'scene-panel' },
-  { id: 'global-context-panel' },
   { id: 'pp-toggles' },
   { id: 'param-slider-panel' },
 ]);
-/** Standard map-view panels cleared out of the way on a fresh Cockpit entry. */
-const COCKPIT_ENTRY_COLLAPSE_PANEL_IDS = Object.freeze([
-  'data-panel',
-  'scene-panel',
-  'pp-toggles',
-  'global-context-panel',
-]);
 
-/** Own panel disclosure, docking, persistence and Cockpit rail restoration. */
+/** Own panel disclosure, docking and persistence. */
 export class PanelChrome {
   constructor({
     elements,
     operations,
     readHud,
-    readCockpit,
     readShareLinks,
     readInitialShare,
     readScrollRestoreOwner,
@@ -37,7 +28,6 @@ export class PanelChrome {
   }) {
     Object.assign(this, elements, operations, {
       readHud,
-      readCockpit,
       readShareLinks,
       readInitialShare,
       readScrollRestoreOwner,
@@ -45,8 +35,6 @@ export class PanelChrome {
     });
     this._disposed = false;
     this._lifetime = new UiLifetime();
-    this._cockpitPanelRestore = null;
-    this._cockpitContextCollapsedForDataPanel = false;
     this._panelPosition = new PanelPositionControls({
       syncPanelCollapseButton: (panel) => this._syncPanelCollapseButton(panel),
       layoutRightPanels: () => this._layoutRightPanels(),
@@ -57,7 +45,6 @@ export class PanelChrome {
         visible: this.hud.visible,
         variant: this.hud.getVariant(),
       }),
-      scheduleCockpitLayout: () => this.cockpitView?.scheduleContextLayout(),
       syncPanelCollapseButton: (panel) => this._syncPanelCollapseButton(panel),
       readDisplayScrollTop: () =>
         this._displayPortalScrollRestoreOwner === 'standard'
@@ -67,9 +54,6 @@ export class PanelChrome {
   }
   get hud() {
     return this.readHud();
-  }
-  get cockpitView() {
-    return this.readCockpit();
   }
   get shareLinkManager() {
     return this.readShareLinks();
@@ -273,9 +257,7 @@ export class PanelChrome {
   }
 
   _syncPanelCollapseButton(panelEl) {
-    const isRightRail = ['pp-toggles', 'global-context-panel'].includes(
-      panelEl?.id,
-    );
+    const isRightRail = ['pp-toggles'].includes(panelEl?.id);
     const collapsed = panelEl.classList.contains('collapsed');
     panelEl
       .querySelectorAll('.panel-collapse-btn[data-collapse-target]')
@@ -415,17 +397,6 @@ export class PanelChrome {
       return;
     }
     panelEl.classList.remove('layout-auto-collapsed');
-    if (
-      !nextCollapsed &&
-      this.cockpitView?.active &&
-      panelId === 'data-panel'
-    ) {
-      this._cockpitContextCollapsedForDataPanel =
-        !this.cockpitView.contextCollapsed;
-      if (this._cockpitContextCollapsedForDataPanel) {
-        this.cockpitView.setContextCollapsed(true);
-      }
-    }
     if (!nextCollapsed && !restore && panelId === 'location-bar') {
       const otherPanel = document.getElementById('control-panel');
       if (otherPanel && !otherPanel.classList.contains('dock-pinned')) {
@@ -446,15 +417,6 @@ export class PanelChrome {
       }
     }
     panelEl.classList.toggle('collapsed', nextCollapsed);
-    if (
-      nextCollapsed &&
-      this.cockpitView?.active &&
-      panelId === 'data-panel' &&
-      this._cockpitContextCollapsedForDataPanel
-    ) {
-      this._cockpitContextCollapsedForDataPanel = false;
-      this.cockpitView.setContextCollapsed(false);
-    }
     this._syncPanelCollapseButton(panelEl);
     if (persist !== false)
       this._savePanelCollapsedState(panelId, nextCollapsed);
@@ -473,40 +435,6 @@ export class PanelChrome {
 
   _layoutRightPanels() {
     this._scheduleRightPanelLayout();
-  }
-  enterCockpit() {
-    // A new Cockpit session owns both side rails. Clear standard map-view
-    // panels once on entry; NEXT/PREVIOUS never reaches this callback, so
-    // panels the operator opens while already inside remain untouched.
-    this._cockpitPanelRestore = new Map();
-    this._cockpitContextCollapsedForDataPanel = false;
-    for (const panelId of COCKPIT_ENTRY_COLLAPSE_PANEL_IDS) {
-      const panel = document.getElementById(panelId);
-      if (panel) {
-        this._cockpitPanelRestore.set(
-          panelId,
-          panel.classList.contains('collapsed'),
-        );
-      }
-      this.setPanelCollapsed(panelId, true, {
-        persist: false,
-        syncShare: false,
-      });
-    }
-    this.cockpitView?.setContextCollapsed(false);
-    this.cockpitView?.setSignalCollapsed(false, { user: true });
-  }
-  exitCockpit() {
-    const restore = this._cockpitPanelRestore;
-    this._cockpitPanelRestore = null;
-    this._cockpitContextCollapsedForDataPanel = false;
-    if (!restore) return;
-    for (const [panelId, wasCollapsed] of restore) {
-      this.setPanelCollapsed(panelId, wasCollapsed, {
-        persist: false,
-        syncShare: false,
-      });
-    }
   }
   destroy() {
     if (this._disposed) return;

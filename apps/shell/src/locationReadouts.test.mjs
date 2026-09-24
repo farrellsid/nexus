@@ -64,25 +64,6 @@ test('selecting a preset location clears the superseded search label', () => {
   assert.match(body, /if \(locationId\) this\._searchedLocationLabel = null;/);
 });
 
-test('any other camera destination clears the search label too', () => {
-  // Voice navigation, the globe reset, camera takeover and entity selection
-  // all funnel through _stampNavigation; without a clear there, a searched
-  // label outlives the place it named.
-  const start = ui.indexOf('  _stampNavigation(');
-  assert.ok(start > 0, '_stampNavigation is missing');
-  assert.match(shellMethod('_stampNavigation').toString(), /if \(clearSearchedLocation\) this\.clearLocation\(\);/);
-
-  // The shared funnel is what the reset and voice seams actually reach.
-  for (const seam of ['resetToGlobeView() {', 'beginLocationNavigation() {', '_runExplicitNavigation(']) {
-    const at = ui.indexOf(seam);
-    assert.ok(at > 0, `missing navigation seam "${seam}"`);
-    assert.match(shellMethod(seam.match(/^(\w+)/)[1]).toString(), /_stampNavigation\(/, `"${seam}" must stamp navigation`);
-  }
-
-  // Public seam, so a camera owner that flies on its own can invalidate it.
-  assert.match(ui, /\n {2}clearSearchedLocation\(\) \{\n[\s\S]{0,240}?this\._searchedLocationLabel = null;/);
-});
-
 test('a deferred lookup that never flies leaves the readout standing', () => {
   // A geocode stamps navigation on the way OUT and resolves later. Clearing at
   // the stamp blanked a still-true readout whenever the lookup failed, was

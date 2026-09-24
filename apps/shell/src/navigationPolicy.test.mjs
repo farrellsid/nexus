@@ -121,29 +121,11 @@ test('the accepted intent hands its stamp to the flight', () => {
   assert.equal(seen, 42, 'a deferred flight needs its stamp to recheck later');
 });
 
-test('cockpit refuses without stamping or releasing anything', () => {
-  // Releasing under cockpit destroys its hidden aircraft entity and the rig
-  // silently exits on the next update — the refusal must come first.
-  for (const noun of ['location', 'camera', 'vessel', 'fire']) {
-    const s = spy();
-    const result = runExplicitNavigation({ cockpitActive: true, noun, ...s });
-    assert.equal(result, false);
-    assert.deepEqual(s.log, [`toast:Exit cockpit to fly to a ${noun}`]);
-  }
-});
-
 test('disposed navigation is inert before any camera or UI mutation', () => {
   const s = spy();
   const result = runExplicitNavigation({ disposed: true, cockpitActive: true, ...s });
   assert.equal(result, false);
   assert.deepEqual(s.log, []);
-});
-
-test('the refusal is a strict false, distinguishable from a flight result', () => {
-  const refused = runExplicitNavigation({ cockpitActive: true, showToast() {} });
-  assert.strictEqual(refused, false);
-  // A navigate() that legitimately returns undefined is not a refusal.
-  assert.strictEqual(runExplicitNavigation({ navigate: () => undefined }), undefined);
 });
 
 test('deferred handoff: the current request re-releases, then proceeds', () => {
@@ -182,15 +164,6 @@ test('deferred handoff: a superseded request neither flies nor releases', () => 
   const ok = reassertNavigationHandoff({ generation: 3, currentGeneration: 4, ...s });
   assert.equal(ok, false);
   assert.deepEqual(s.log, [], 'a stale flight must be completely inert');
-});
-
-test('deferred handoff: cockpit taken mid-flight refuses and explains', () => {
-  const s = spy();
-  const ok = reassertNavigationHandoff({
-    generation: 4, currentGeneration: 4, cockpitActive: true, ...s,
-  });
-  assert.equal(ok, false);
-  assert.deepEqual(s.log, ['toast:Exit cockpit to fly to a location']);
 });
 
 test('deferred handoff: supersession is checked before cockpit, so it stays silent', () => {

@@ -1,9 +1,4 @@
 import * as Cesium from 'cesium';
-import { getOverlayPaintRect } from '../overlays/worldOverlay.js';
-import {
-  getActiveTrackedReadoutId,
-  TRACKED_OVERLAY_SOURCE_ID,
-} from '../data/trackedReadout.js';
 
 /**
  * Screen-space annotation renderer (Direction B — the "whiteboard" aesthetic).
@@ -51,13 +46,7 @@ function markScale(h) {
   return 1 - t * (1 - MARK_SCALE_MIN);
 }
 
-export function createScreenAnnotationRenderer(
-  viewer,
-  {
-    overlayPaintRect = getOverlayPaintRect,
-    activeTrackedReadoutId = getActiveTrackedReadoutId,
-  } = {},
-) {
+export function createScreenAnnotationRenderer(viewer) {
   injectStyles();
   const { layer, svg, defs } = buildOverlay();
   document.body.appendChild(layer);
@@ -375,17 +364,12 @@ export function createScreenAnnotationRenderer(
     const t = (dist - nfs.near) / (nfs.far - nfs.near);
     return nfs.nearValue + t * (nfs.farValue - nfs.nearValue);
   }
-  // Tracked-subject screen footprint, or null when neither host card nor native
-  // tracked graphic painted. The host rectangle is authoritative for the card.
+  // Tracked-subject screen footprint, or null when nothing tracked painted.
   function trackedEntityRect() {
-    const trackedId = activeTrackedReadoutId();
-    const painted = trackedId
-      ? overlayPaintRect(TRACKED_OVERLAY_SOURCE_ID, trackedId)
-      : null;
-    let left = painted?.x;
-    let right = painted ? painted.x + painted.w : undefined;
-    let top = painted?.y;
-    let bottom = painted ? painted.y + painted.h : undefined;
+    let left;
+    let right;
+    let top;
+    let bottom;
 
     const ent = viewer.trackedEntity;
     const now = Cesium.JulianDate.now();

@@ -54,31 +54,16 @@ test('destroyed and replaced controls cannot issue stale actions', () => {
   assert.equal(newCalls, 1);
 });
 
-test('style, allocation and model choices retain their current data attributes', () => {
+test('style choices retain their data attribute', () => {
   const style = element();
-  const allocation = element();
-  const mode = element();
   style.dataset.style = 'thermal';
-  allocation.dataset.allocation = 'balanced';
-  mode.dataset.mode = 'all';
   const calls = [];
   const control = bindDisplayControls({
-    elements: {
-      styleButtons: [style],
-      allocationButtons: [allocation],
-      modelModeButtons: [mode],
-    },
-    actions: {
-      setStyle: (value) => calls.push(value),
-      setAllocation: (value) => calls.push(value),
-      setModelsMode: (value) => calls.push(value),
-    },
+    elements: { styleButtons: [style] },
+    actions: { setStyle: (value) => calls.push(value) },
   });
-  for (const el of [style, allocation, mode])
-    el.dispatchEvent(new Event('click'));
-  mode.dataset.mode = 'unknown';
-  mode.dispatchEvent(new Event('click'));
-  assert.deepEqual(calls, ['thermal', 'balanced', 'all', 'proximity']);
+  style.dispatchEvent(new Event('click'));
+  assert.deepEqual(calls, ['thermal']);
   control.destroy();
 });
 
@@ -86,17 +71,19 @@ test('optional controls are absent safely and subscriptions stay instance-owned'
   const calls = [];
   const a = element();
   const b = element();
+  a.dataset.style = 'a';
+  b.dataset.style = 'b';
   const one = bindDisplayControls({
-    elements: { fadeSliders: [null, a] },
-    actions: { setFade: () => calls.push('a') },
+    elements: { styleButtons: [null, a] },
+    actions: { setStyle: (value) => calls.push(value) },
   });
   const two = bindDisplayControls({
-    elements: { fadeSliders: [b] },
-    actions: { setFade: () => calls.push('b') },
+    elements: { styleButtons: [b] },
+    actions: { setStyle: (value) => calls.push(value) },
   });
   one.destroy();
-  a.dispatchEvent(new Event('input'));
-  b.dispatchEvent(new Event('input'));
+  a.dispatchEvent(new Event('click'));
+  b.dispatchEvent(new Event('click'));
   assert.deepEqual(calls, ['b']);
   two.destroy();
 });

@@ -105,39 +105,3 @@ test('share teardown settles its promise, removes gestures and rejects a retaine
   assert.equal(stamps, 1);
   assert.equal(applies, 0);
 });
-
-test('visual teardown restores owned fog and aircraft sensor state once', async (t) => {
-  const { VisualSettings } = await import('./visualSettings.js');
-  const priorDocument = globalThis.document;
-  globalThis.document = {
-    documentElement: { dataset: {} },
-    getElementById: () => null,
-  };
-  t.after(() => {
-    globalThis.document = priorDocument;
-  });
-  const calls = [];
-  const viewer = { scene: { fog: { enabled: false } } };
-  const owner = new VisualSettings({
-    viewer,
-    elements: {},
-    operations: {},
-    services: {
-      governorRequestRender() {},
-      holdContinuousRender() {},
-      releaseContinuousRender() {},
-    },
-    readDataManager: () => ({ setLayerParams: (...args) => calls.push(args) }),
-  });
-  owner._irBoostActive = true;
-  owner._irFogWasEnabled = true;
-  owner.releaseIrBoost();
-  owner.releaseIrBoost();
-  assert.equal(viewer.scene.fog.enabled, true);
-  assert.deepEqual(calls, [
-    ['flights', { irBoost: false }],
-    ['military', { irBoost: false }],
-  ]);
-  assert.equal(owner._irBoostActive, false);
-  owner.destroy();
-});

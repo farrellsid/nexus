@@ -134,28 +134,3 @@ test('document byte, nesting, collection, finite-number and string bounds are en
     /256/,
   );
 });
-
-test('captured scope and extended detection edits survive migration', () => {
-  const project = fixture();
-  project.scenes[0].shots[0].visual = {
-    scope: { enabled: true, featherPct: 11 },
-    detection: {
-      mode: 'DENSE',
-      density: 75,
-      allocation: 'ELASTIC',
-      fadePct: 7,
-      outsideOpacityPct: 1,
-    },
-  };
-  const migrated = normalizeProject(
-    parseSceneDocument(JSON.stringify(project)),
-  );
-  assert.deepEqual(
-    migrated.scenes[0].shots[0].visual.scope,
-    project.scenes[0].shots[0].visual.scope,
-  );
-  assert.deepEqual(
-    migrated.scenes[0].shots[0].visual.detection,
-    project.scenes[0].shots[0].visual.detection,
-  );
-});

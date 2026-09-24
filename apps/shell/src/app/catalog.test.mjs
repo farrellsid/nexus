@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createLayerCatalog, catalogControlServices } from './catalog.js';
+import { createLayerCatalog } from './catalog.js';
 import { createApplicationData } from './data.js';
 
 const metadata = (layers) =>
@@ -77,26 +77,4 @@ test('data setup seals the caller catalog before controls can restore and drains
   assert.throws(() => dataManager.register({ id: 'late' }), /finalized/);
   for (const release of releases.reverse()) await release();
   assert.equal(dataManager.layers.size, 0);
-});
-
-test('controls bind catalog instances rather than similarly named defaults', () => {
-  const ids = [
-    'flights',
-    'military',
-    'satellites',
-    'ais-live-vessels',
-    'military-awareness',
-    'military-installations',
-    'rocket-launches',
-  ];
-  const layers = ids.map((id) => ({ id }));
-  const catalog = createLayerCatalog(layers, metadata(layers));
-  const services = catalogControlServices(catalog);
-  assert.equal(services.flightsLayer, layers[0]);
-  assert.equal(services.aisLiveVesselsLayer, layers[3]);
-  assert.equal(new Set(Object.values(services)).size, layers.length);
-  assert.throws(
-    () => catalogControlServices(createLayerCatalog([], [])),
-    /Control layer missing/,
-  );
 });

@@ -24,7 +24,7 @@ export function createApplicationTools({
   defer,
 }) {
   const { viewer, tileset, mapStackController, operations } = scene;
-  const { styleManager, weatherEffects, cockpitCloudEffects } = controls;
+  const { styleManager } = controls;
   const { dataManager } = data;
   const sceneDirector = new SceneDirector(viewer, styleManager, dataManager, {
     dataPacks: sceneDataPacks,
@@ -79,7 +79,6 @@ export function createApplicationTools({
   const syncVisibilitySuspension = () => {
     const hidden = document.hidden;
     viewer.useDefaultRenderLoop = !hidden;
-    cockpitCloudEffects?.setSuspended?.(hidden);
     if (!hidden) {
       data.presentation.flushVisible();
       governorRequestRender('visibility-restore');
@@ -106,8 +105,6 @@ export function createApplicationTools({
     sceneDirector,
     mapStackController,
     annotations,
-    weatherEffects,
-    cockpitCloudEffects,
     getRenderGovernorDiagnostics,
     surfaceServices: operations.surface,
     requestRender: governorRequestRender,

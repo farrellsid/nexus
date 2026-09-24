@@ -6,14 +6,12 @@ import {
   runExplicitNavigation,
 } from '../navigationPolicy.js';
 
-/** Own camera authority generations, pending search UI and tracking handoff. */
+/** Own camera authority generations, pending search UI and camera release. */
 export class NavigationController {
   constructor({
     viewer,
-    tracking,
     searchInput,
     interruptCameraMotion,
-    isCockpitActive,
     clearLocation,
     cancelShareSelection,
     getDataManager,
@@ -23,10 +21,8 @@ export class NavigationController {
   }) {
     Object.assign(this, {
       viewer,
-      tracking,
       searchInput,
       interruptCameraMotion,
-      isCockpitActive,
       clearLocation,
       cancelShareSelection,
       getDataManager,
@@ -46,8 +42,6 @@ export class NavigationController {
     clearSearchedLocation = true,
   } = {}) {
     this.cancelOrientation();
-    const { flightsLayer, militaryFlightsLayer, satellitesLayer } =
-      this.tracking;
     this._navigationGeneration += 1;
     this._cameraHandoffs?.publish();
     // A newer destination owns the camera, so the last free-text search is no
@@ -55,59 +49,7 @@ export class NavigationController {
     // reassert seam instead: a geocode that never resolves moves no camera, and
     // a lookup that fails must not blank a readout that is still true.
     if (clearSearchedLocation) this.clearLocation();
-    if (cancelPendingSelection) {
-      const passivelyClearedShareSelection = this.cancelShareSelection();
-      try {
-        flightsLayer.cancelPendingTrackingRestore?.();
-      } catch {
-        /* best effort */
-      }
-      try {
-        militaryFlightsLayer.cancelPendingTrackingRestore?.();
-      } catch {
-        /* best effort */
-      }
-      try {
-        satellitesLayer.cancelPendingTrackingRestore?.();
-      } catch {
-        /* best effort */
-      }
-      // A deliberate destination supersedes share-selected entities that have
-      // not arrived yet. Active owners publish their clear when released.
-      if (!passivelyClearedShareSelection && !flightsLayer.getTrackedInfo?.()) {
-        this.getDataManager()?.setLayerParams(
-          'flights',
-          {
-            selectedFlightsTrackingId: null,
-          },
-          { origin: 'tool' },
-        );
-      }
-      if (
-        !passivelyClearedShareSelection &&
-        !militaryFlightsLayer.getTrackedInfo?.()
-      ) {
-        this.getDataManager()?.setLayerParams(
-          'military',
-          {
-            selectedMilitaryTrackingId: null,
-          },
-          { origin: 'tool' },
-        );
-      }
-      if (
-        !passivelyClearedShareSelection &&
-        !satellitesLayer.getTrackedInfo?.()
-      ) {
-        this.getDataManager()?.setLayerParams(
-          'satellites',
-          {
-            selectedSatTrackingId: null,
-          },
-          { origin: 'tool' },
-        );
-      }
-    }
+    if (cancelPendingSelection) this.cancelShareSelection();
     if (this._activeLocationSearchGeneration !== null) {
       this._settleLocationSearchUi(this._activeLocationSearchGeneration);
     }
@@ -122,56 +64,7 @@ export class NavigationController {
     this.searchInput?.blur();
   }
 
-  _releaseFollowCamera({
-    preserveVesselSelection = true,
-    preserveCameraFlight = false,
-    trackingOrigin = 'tool',
-  } = {}) {
-    const {
-      flightsLayer,
-      militaryFlightsLayer,
-      satellitesLayer,
-      aisLiveVesselsLayer,
-      militaryAwarenessLayer,
-      rocketLaunchesLayer,
-    } = this.tracking;
-    let contactSelected = false;
-    try {
-      contactSelected = Boolean(
-        militaryAwarenessLayer.releaseCameraOwnership?.({
-          preserveVesselSelection,
-          origin: trackingOrigin,
-        }),
-      );
-    } catch {
-      try {
-        flightsLayer.stopTracking?.({ origin: trackingOrigin });
-      } catch {
-        /* best-effort release */
-      }
-      try {
-        militaryFlightsLayer.stopTracking?.({ origin: trackingOrigin });
-      } catch {
-        /* best-effort release */
-      }
-      if (!preserveVesselSelection) {
-        try {
-          aisLiveVesselsLayer.clearSelection?.();
-        } catch {
-          /* best-effort release */
-        }
-      }
-    }
-    try {
-      satellitesLayer.stopTracking?.({ origin: trackingOrigin });
-    } catch {
-      /* best-effort release */
-    }
-    try {
-      rocketLaunchesLayer.releaseCameraOwnership?.();
-    } catch {
-      /* best-effort release */
-    }
+  _releaseFollowCamera({ preserveCameraFlight = false } = {}) {
     this.viewer.trackedEntity = undefined;
     this.interruptCameraMotion('explicit-navigation');
     this.stopOrbit();
@@ -181,15 +74,12 @@ export class NavigationController {
     } catch {
       /* teardown race */
     }
-    return contactSelected;
+    return false;
   }
 
   _runExplicitNavigation(noun, navigate, releaseOptions = undefined) {
     return runExplicitNavigation({
       disposed: this._disposed,
-      cockpitActive: this.isCockpitActive(),
-      noun,
-      showToast: (text) => this.showToast(text),
       stamp: () => this._stampNavigation(),
       release: () => this._releaseFollowCamera(releaseOptions),
       navigate,
@@ -200,9 +90,6 @@ export class NavigationController {
   runOrientation(noun, navigate) {
     return runExplicitNavigation({
       disposed: this._disposed,
-      cockpitActive: this.isCockpitActive(),
-      noun,
-      showToast: (text) => this.showToast(text),
       stamp: () =>
         this._stampNavigation({
           cancelPendingSelection: false,
@@ -223,9 +110,6 @@ export class NavigationController {
   ) {
     return beginDeferredNavigation({
       disposed: this._disposed,
-      cockpitActive: this.isCockpitActive(),
-      noun,
-      showToast: (text) => this.showToast(text),
       // The searched-location readout survives the STAMP; only a flight that
       // actually starts invalidates it (see the release hook below).
       stamp: () =>
@@ -240,12 +124,10 @@ export class NavigationController {
     return reassertNavigationHandoff({
       generation,
       currentGeneration: this._navigationGeneration,
-      cockpitActive: this.isCockpitActive(),
       disposed: this._disposed,
-      showToast: (text) => this.showToast(text),
       // Reached only once the handoff is granted, immediately before the
-      // deferred flight starts — so a lookup that failed, was superseded, or
-      // was refused by the cockpit leaves the old readout standing.
+      // deferred flight starts — so a lookup that failed or was superseded
+      // leaves the old readout standing.
       release: () => {
         this.clearLocation();
         return this._releaseFollowCamera();

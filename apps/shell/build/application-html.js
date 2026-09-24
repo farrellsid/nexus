@@ -2,11 +2,9 @@ import { readFileSync } from 'node:fs';
 
 export const APPLICATION_TEMPLATES = Object.freeze([
   'scene-chrome',
-  'cockpit',
   'display-controls',
   'command-dock',
   'layer-panels',
-  'context',
   'provider-settings',
   'hud-loading',
 ]);

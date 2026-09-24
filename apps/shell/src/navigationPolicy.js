@@ -1,10 +1,9 @@
 /**
  * Camera-ownership policy for explicit and deferred navigation.
  *
- * Immediate destinations refuse Cockpit before mutation, then stamp, release,
- * and fly. Deferred destinations stamp without releasing; after resolution
- * they must recheck the stamp and Cockpit immediately before releasing and
- * flying.
+ * Immediate destinations stamp, release, and fly. Deferred destinations stamp
+ * without releasing; after resolution they must recheck the stamp immediately
+ * before releasing and flying.
  */
 
 export const NAVIGATION_AUTHORITY_EVENT = 'gev:navigation-authority-taken';
@@ -12,12 +11,12 @@ export const NAVIGATION_AUTHORITY_EVENT = 'gev:navigation-authority-taken';
 /**
  * Announce that a layer-owned camera flight is taking navigation authority.
  *
- * Aircraft focus reaches the stamp for free: it assigns `viewer.trackedEntity`,
- * and the UI stamps on `trackedEntityChanged`. Vessel and installation focus
- * fly the camera WITHOUT ever setting a tracked entity, so they have no such
- * seam — an earlier deferred geocode would still match the generation it
- * captured and could resolve on top of the new Context focus. This is that
- * missing seam, kept explicit so the flight and the stamp cannot drift apart.
+ * Following a tracked entity reaches the stamp for free: it assigns
+ * `viewer.trackedEntity`, and the UI stamps on `trackedEntityChanged`. A layer
+ * that flies the camera WITHOUT setting a tracked entity has no such seam — an
+ * earlier deferred geocode would still match the generation it captured and
+ * could resolve on top of the new focus. This is that missing seam, kept
+ * explicit so the flight and the stamp cannot drift apart.
  * @param {string} reason Diagnostic label for the taking path.
  * @param {object} [options] Authority options.
  * @param {EventTarget} [options.eventTarget=globalThis.window] Dispatch target.
@@ -77,22 +76,15 @@ export function stampInitialShareGesture(stamp) {
 /**
  * Run an immediate explicit camera navigation.
  * @param {Object} options
- * @returns {*} Navigation result, or false when disposed or Cockpit refuses.
+ * @returns {*} Navigation result, or false when disposed.
  */
 export function runExplicitNavigation({
   disposed = false,
-  cockpitActive = false,
-  noun = 'target',
-  showToast,
   stamp,
   release,
   navigate,
 } = {}) {
   if (disposed) return false;
-  if (cockpitActive) {
-    showToast?.(`Exit cockpit to fly to a ${noun}`);
-    return false;
-  }
   const generation = stamp?.();
   release?.();
   return navigate?.(generation);
@@ -101,20 +93,10 @@ export function runExplicitNavigation({
 /**
  * Accept a deferred navigation intent without releasing the current owner.
  * @param {Object} options
- * @returns {number|false} Generation stamp, or false when disposed or Cockpit refuses.
+ * @returns {number|false} Generation stamp, or false when disposed.
  */
-export function beginDeferredNavigation({
-  disposed = false,
-  cockpitActive = false,
-  noun = 'location',
-  showToast,
-  stamp,
-} = {}) {
+export function beginDeferredNavigation({ disposed = false, stamp } = {}) {
   if (disposed) return false;
-  if (cockpitActive) {
-    showToast?.(`Exit cockpit to fly to a ${noun}`);
-    return false;
-  }
   return stamp?.();
 }
 
@@ -126,16 +108,10 @@ export function beginDeferredNavigation({
 export function reassertNavigationHandoff({
   generation,
   currentGeneration,
-  cockpitActive = false,
   disposed = false,
-  showToast,
   release,
 } = {}) {
   if (disposed || generation !== currentGeneration) return false;
-  if (cockpitActive) {
-    showToast?.('Exit cockpit to fly to a location');
-    return false;
-  }
   release?.();
   return true;
 }

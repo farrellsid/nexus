@@ -16,7 +16,6 @@ import fs from 'node:fs';
 import test from 'node:test';
 
 import { SceneDirector } from './director.js';
-import { SCENE_TRACKING_PARAM_KEYS } from './scenePolicy.js';
 import { SCENE_RECIPES, getSceneAppendRecipeById } from './recipes.js';
 
 const NEPAL_ORIGINAL_SHOT_TITLES = [
@@ -972,94 +971,6 @@ test('the director reconciles only the layers a shot declares', async () => {
     );
   } finally {
     restore();
-  }
-});
-
-test('a shot captured while tracking never re-establishes tracking on playback', async () => {
-  // Two writers on the camera is the documented jitter failure mode: the scene
-  // claims the camera, then a captured tracking id hands it straight back to
-  // the follow loop. Playback drops those keys on the way to the layer.
-  const { director, dataManager, restore } = makeDirector();
-  try {
-    await director._applyLayerStates({
-      flights: { enabled: true, params: { models3d: true, selectedFlightsTrackingId: 'a835af' } },
-      military: { enabled: true, params: { selectedMilitaryTrackingId: 'ae1460' } },
-      satellites: { enabled: true, params: { catalog: 'dense', selectedSatTrackingId: 25544 } },
-    });
-
-    const pushed = Object.fromEntries(dataManager.setParamsCalls.map((call) => [call.id, call.params]));
-    assert.deepEqual(pushed.flights, { models3d: true });
-    assert.deepEqual(pushed.satellites, { catalog: 'dense' });
-    // Nothing survived military's params, so nothing is pushed at all.
-    assert.equal(Object.hasOwn(pushed, 'military'), false);
-    for (const call of dataManager.setParamsCalls) {
-      for (const key of SCENE_TRACKING_PARAM_KEYS) {
-        assert.equal(Object.hasOwn(call.params, key), false, `${call.id} leaked ${key}`);
-      }
-    }
-  } finally {
-    restore();
-  }
-});
-
-test('a dirty Space Missions state is exited before a recipe applies its layers', async () => {
-  // Space Missions refuses every enable outside its own replay bundle. The old
-  // full-registry walk dismantled it by accident; the sparse policy never does,
-  // so all four Flights Radar enables were refused and reported as success.
-  const style = { contextMode: 'space-missions' };
-  const holder = {};
-  const data = {
-    refuse: (id, on) => on
-      && holder.styleManager?.contextMode === 'space-missions'
-      && !SPACE_MISSIONS_ALLOWED.has(id),
-  };
-  const { director, styleManager, dataManager, restore } = makeDirector({ style, data });
-  holder.styleManager = styleManager;
-  try {
-    const result = await director._applyLayerStates(recipeLayers('flights-radar'));
-
-    assert.deepEqual(styleManager.contextExits, ['off']);
-    assert.equal(styleManager.contextMode, null);
-    assert.deepEqual(result.refused, []);
-    assert.ok(result.applied.includes('flights'));
-    assert.deepEqual(
-      dataManager.setEnabledCalls.filter((call) => call.enabled).map((call) => call.id),
-      ['flights'],
-    );
-  } finally {
-    restore();
-  }
-});
-
-test('Orbital Watch does not compose over a Space Missions replay', async () => {
-  // Orbital Watch declares satellites, which the guard permits — so nothing is
-  // refused and a refusal-only check would pass while rocket-launches stayed
-  // on screen. Playback leaves an isolating mode whether or not it refuses.
-  const { director, styleManager, dataManager, restore } = makeDirector({
-    style: { contextMode: 'space-missions' },
-  });
-  try {
-    await director._applyLayerStates(recipeLayers('orbital-watch'));
-    assert.deepEqual(styleManager.contextExits, ['off']);
-    assert.equal(
-      dataManager.setEnabledCalls.some((call) => call.id === 'rocket-launches'),
-      false,
-      'the recipe never declares rocket-launches; exiting the mode is what clears it',
-    );
-  } finally {
-    restore();
-  }
-});
-
-test('a non-isolating context mode is left alone', async () => {
-  for (const contextMode of [null, 'flights']) {
-    const { director, styleManager, restore } = makeDirector({ style: { contextMode } });
-    try {
-      await director._applyLayerStates({ flights: { enabled: true } });
-      assert.deepEqual(styleManager.contextExits, [], `${contextMode} must not be exited`);
-    } finally {
-      restore();
-    }
   }
 });
 

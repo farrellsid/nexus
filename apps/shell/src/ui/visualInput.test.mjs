@@ -57,7 +57,6 @@ function shortcuts() {
     'toggleOrbit',
     'toggleCleanView',
     'toggleLayers',
-    'cycleDetection',
   ];
   const actions = Object.fromEntries(
     names.map((name) => [name, (...args) => calls.push([name, ...args])]),
@@ -86,24 +85,19 @@ test('number keys retain the seven style mappings', () => {
 
 test('letter shortcuts retain uppercase handling and existing actions', () => {
   const f = shortcuts();
-  for (const key of ['H', 'o', 'V', 'f', 'D']) f.press(key);
+  for (const key of ['H', 'o', 'V', 'f']) f.press(key);
   assert.deepEqual(
     f.calls,
-    [
-      'toggleHud',
-      'toggleOrbit',
-      'toggleCleanView',
-      'toggleLayers',
-      'cycleDetection',
-    ].map((name) => [name]),
+    ['toggleHud', 'toggleOrbit', 'toggleCleanView', 'toggleLayers'].map(
+      (name) => [name],
+    ),
   );
 });
 
 for (const tag of ['INPUT', 'SELECT', 'TEXTAREA']) {
   test(`${tag} retains native editing, while Escape reaches search dismissal`, () => {
     const f = shortcuts();
-    for (const key of ['1', 'h', 'o', 'v', 'f', 'd'])
-      f.press(key, new Element(tag));
+    for (const key of ['1', 'h', 'o', 'v', 'f']) f.press(key, new Element(tag));
     assert.deepEqual(f.calls, []);
     f.press('Escape', new Element(tag));
     assert.deepEqual(f.calls, [['dismissSearch']]);

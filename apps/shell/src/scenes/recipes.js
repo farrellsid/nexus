@@ -18,7 +18,6 @@ const BHOTE_KOSHI_NEPAL_BASE_RECIPE = Object.freeze({
   post: {
     bloom: 0,
     sharpen: true,
-    detectionMode: 'OFF',
     mapStack: 'photoreal',
   },
   legacySceneBootstrap: {
@@ -604,7 +603,6 @@ const PUBLIC_SCENE_RECIPES = [
     post: {
       bloom: 62,
       sharpen: true,
-      detectionMode: 'OFF',
     },
     cameraPath: [
       {
@@ -672,7 +670,6 @@ const PUBLIC_SCENE_RECIPES = [
     post: {
       bloom: 58,
       sharpen: false,
-      detectionMode: 'SPARSE',
       styleParams: {
         surveillance: {
           gain: 0.62,
@@ -748,7 +745,6 @@ const PUBLIC_SCENE_RECIPES = [
     post: {
       bloom: 72,
       sharpen: true,
-      detectionMode: 'OFF',
       styleParams: {
         thermal: {
           sensitivity: 0.84,
@@ -814,7 +810,6 @@ const PUBLIC_SCENE_RECIPES = [
     post: {
       bloom: 65,
       sharpen: true,
-      detectionMode: 'PANOPTIC',
       styleParams: {
         surveillance: {
           gain: 0.68,
@@ -890,7 +885,6 @@ const PUBLIC_SCENE_RECIPES = [
     post: {
       bloom: 68,
       sharpen: true,
-      detectionMode: 'SPARSE',
       styleParams: {
         retro: {
           pixelation: 4.4,

@@ -55,7 +55,7 @@ test('shell disposal settles a pending globe reset once and revokes its timeout'
   t.mock.timers.tick(10000);
   owner.destroy();
   assert.deepEqual(calls, after);
-  assert.equal(calls.filter(c => c === 'resume').length, 1);
+  assert.equal(owner._worldJumpActive, false);
   assert.equal((await owner.resetToGlobeView()).cancelled, true);
 });
 
@@ -70,7 +70,7 @@ test('world jump completion cannot revive navigation after shell disposal', (t) 
   complete();
   t.mock.timers.tick(10000);
   assert.deepEqual(calls, after);
-  assert.equal(calls.filter(c => c === 'resume').length, 1);
+  assert.equal(owner._worldJumpActive, false);
 });
 
 function bindings(t) {

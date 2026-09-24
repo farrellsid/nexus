@@ -20,27 +20,9 @@ import {
   setKeyholeFadeTuning,
 } from '../celestialRing.js';
 import {
-  destroyTrackedReadout,
-  initTrackedReadout,
-} from '../data/trackedReadout.js';
-import {
   destroyWorldOverlay,
   initWorldOverlay,
 } from '../overlays/worldOverlay.js';
-import {
-  destroyDetection,
-  initDetection,
-  cycleMode as cycleDetectionMode,
-  getDetectionDiagnostics as readDetectionDiagnostics,
-  getDetectionTuning,
-  getMode as getDetectionMode,
-  setMode as setDetectionModeByLabel,
-  suspendDetection,
-  resumeDetection,
-  setDetectionStyle,
-  setDetectionTuning,
-} from '../data/detection.js';
-import { isTr3b, toggleTr3b } from '../data/tr3bRegistry.js';
 import {
   holdContinuousRender,
   releaseContinuousRender,
@@ -80,23 +62,8 @@ export class StyleManager extends ApplicationShell {
         getKeyholeFadeTuning,
         isCelestialRingStyleSupported,
         setKeyholeFadeTuning,
-        destroyTrackedReadout,
-        initTrackedReadout,
         destroyWorldOverlay,
         initWorldOverlay,
-        destroyDetection,
-        initDetection,
-        cycleDetectionMode,
-        readDetectionDiagnostics,
-        getDetectionTuning,
-        getDetectionMode,
-        setDetectionModeByLabel,
-        suspendDetection,
-        resumeDetection,
-        setDetectionStyle,
-        setDetectionTuning,
-        isTr3b,
-        toggleTr3b,
         holdContinuousRender,
         releaseContinuousRender,
         governorRequestRender,

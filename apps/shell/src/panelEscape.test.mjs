@@ -1,5 +1,4 @@
 import { readShellSource } from './testSupport/readShellSource.mjs';
-import { onKeyDown as cockpitKeyDown } from './ui/cockpitInput.js';
 import { readFileSync as readSource } from 'node:fs';
 import { bindPanelDisclosure, collapsePanelOnEscape } from './ui/panelDisclosure.js';
 import assert from 'node:assert/strict';
@@ -135,25 +134,6 @@ test('panel chrome wires Escape for every declared collapse target', () => {
   assert.match(init, /for \(const \[targetId, buttons\] of targets\)/);
   assert.match(init, /bindPanelDisclosure\(\{[\s\S]*?onEscape: \(event\) => this\._collapsePanelOnEscape\(event, targetId\)/);
   assert.match(source, /createHoverDisclosure\(\{[\s\S]*?onEscape: \(event\) => this\._collapsePanelOnEscape\(event, panelId\)/);
-});
-
-test('Cockpit Escape collapses Contact or Live Signals before exiting Cockpit', () => {
-  const onKeyDown = cockpitKeyDown.toString();
-  assert.match(
-    onKeyDown,
-    /event\.target\?\.closest\?\.\('\.cesium-credit-lightbox'\)[\s\S]*?return;/,
-    'the focused attribution lightbox keeps ownership of Escape before Cockpit',
-  );
-  assert.match(
-    onKeyDown,
-    /this\.context\?\.contains\(event\.target\)[\s\S]*?setContextCollapsed\(true\)[\s\S]*?event\.target === this\.contextToggle[\s\S]*?contextToggle\?\.blur[\s\S]*?contextToggle\?\.focus/,
-  );
-  assert.match(
-    onKeyDown,
-    /this\.signalStream\?\.contains\(event\.target\)[\s\S]*?setSignalCollapsed\(true, \{ user: true \}\)[\s\S]*?event\.target === this\.signalToggle[\s\S]*?signalToggle\?\.blur[\s\S]*?signalToggle\?\.focus/,
-  );
-  assert.ok(onKeyDown.indexOf('setContextCollapsed(true)') < onKeyDown.indexOf('this.exit()'));
-  assert.ok(onKeyDown.indexOf('setSignalCollapsed(true') < onKeyDown.indexOf('this.exit()'));
 });
 
 

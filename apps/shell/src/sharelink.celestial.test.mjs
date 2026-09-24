@@ -3,8 +3,6 @@ import { LocationNavigation } from './ui/locationNavigation.js';
 import { VisualSettings } from './ui/visualSettings.js';
 import { readShellSource, shellMethod } from './testSupport/readShellSource.mjs';
 import { StyleManager } from './ui/applicationShell.js';
-import { _claimContextVisualAuthority, setContextMode } from './ui/contextActions.js';
-import { _initGlobalContextPanel } from './ui/contextBindings.js';
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -258,47 +256,6 @@ test('clipboard rejection leaves both live URL and restore suppression untouched
   assert.equal(manager._initialRestorePending, true);
 });
 
-test('legacy Panoptic and Sparse hashes migrate to canonical profiles', () => {
-  const panoptic = makeManager('#lat=10&lon=20&dm=PANOPTIC&dd=0').parseInitialHash();
-  assert.equal(panoptic.detectionMode, 'DENSE');
-  assert.equal(panoptic.detectionDensity, 75);
-  const sparse = makeManager('#lat=10&lon=20&dm=SPARSE&dd=100').parseInitialHash();
-  assert.equal(sparse.detectionMode, 'SPARSE');
-  assert.equal(sparse.detectionDensity, 25);
-});
-
-test('allocation strategy defaults to Elastic and round-trips Weighted', () => {
-  assert.equal(makeManager('#lat=10&lon=20').parseInitialHash().detectionAllocation, 'ELASTIC');
-  assert.equal(makeManager('#lat=10&lon=20&da=weighted').parseInitialHash().detectionAllocation, 'WEIGHTED');
-
-  const manager = makeManager();
-  manager.onToggleChange(false, false, { detectionAllocation: 'WEIGHTED' });
-  clearTimeout(manager._debounceTimer);
-  manager._updateHash();
-  assert.equal(new URLSearchParams(window.location.hash.slice(1)).get('da'), 'weighted');
-});
-
-test('keyhole fade controls default and round-trip as normalized percentages', () => {
-  const defaults = makeManager('#lat=10&lon=20').parseInitialHash();
-  assert.equal(defaults.detectionFadePct, 16);
-  assert.equal(defaults.detectionOutsideOpacityPct, 5);
-
-  const restored = makeManager('#lat=10&lon=20&kf=28&ko=35').parseInitialHash();
-  assert.equal(restored.detectionFadePct, 28);
-  assert.equal(restored.detectionOutsideOpacityPct, 35);
-
-  const manager = makeManager();
-  manager.onToggleChange(false, false, {
-    detectionFadePct: 22,
-    detectionOutsideOpacityPct: 30,
-  });
-  clearTimeout(manager._debounceTimer);
-  manager._updateHash();
-  const params = new URLSearchParams(window.location.hash.slice(1));
-  assert.equal(params.get('kf'), '22');
-  assert.equal(params.get('ko'), '30');
-});
-
 // ── `sce` is a BAND, not a free number (review round 2) ───────────────────────
 //
 // The terminus is documented and supported as 94..100. Parsing clamped to
@@ -432,7 +389,6 @@ test('every explicit visual UI gesture claims restore authority before it mutate
   const initUi = sourceBlock('  _initUI() {', '  _initMapStackControl() {');
   const gestureRoutes = [
     ['toggleHud: () => {', 'toggleOrbit: () =>', 'this.hud.toggle()', 'HUD hotkey'],
-    ['cycleDetection: () => {', 'this._syncShareState();', 'cycleDetectionMode()', 'detection hotkey'],
     ['toggleBloom:', 'setBloomIntensity:', 'this._setBloomEnabled(', 'toggleBloom control'],
     ['setBloomIntensity:', 'toggleSharpen:', 'this._setBloomIntensity(', 'setBloomIntensity control'],
     ['toggleSharpen:', 'toggleScope:', 'this._setSharpenEnabled(', 'toggleSharpen control'],
@@ -440,9 +396,6 @@ test('every explicit visual UI gesture claims restore authority before it mutate
     ['setScopeFeather:', 'setSharpenIntensity:', 'setScopeMaskFeather(', 'setScopeFeather control'],
     ['setSharpenIntensity:', 'setHudLayout:', 'this._applySharpenIntensity(', 'setSharpenIntensity control'],
     ['setHudLayout:', 'toggleCleanView:', 'this._setHudVariant(', 'setHudLayout control'],
-    ['setDensity:', 'setAllocation:', 'this._applyDetectionDensityFromUi()', 'setDensity control'],
-    ['setAllocation:', 'setFade:', 'this._setDetectionAllocation(', 'setAllocation control'],
-    ['setFade:', 'toggleCelestial:', 'this._applyDetectionFadeFromUi()', 'setFade control'],
   ];
   for (const [start, end, mutation, label] of gestureRoutes) {
     const startIndex = initUi.indexOf(start);
@@ -452,158 +405,8 @@ test('every explicit visual UI gesture claims restore authority before it mutate
   }
 
   const displayActions = initUi.slice(initUi.indexOf('this._displayControls ='));
-  assertClaimsBefore(displayActions.slice(displayActions.indexOf('toggleHud:'), displayActions.indexOf('cycleDetection:')), 'this.hud.toggle()', 'HUD button');
-  assertClaimsBefore(displayActions.slice(displayActions.indexOf('cycleDetection:'), displayActions.indexOf('toggleModels:')), 'cycleDetectionMode()', 'detection button');
+  assertClaimsBefore(displayActions.slice(displayActions.indexOf('toggleHud:')), 'this.hud.toggle()', 'HUD button');
 
-});
-
-// Contacts OWNS detection while it is active (forced Dense @ 75%). That makes
-// an explicit Context transition a visual-lane gesture exactly like the HUD or
-// detection controls: without a claim, the share restore that lands 1.5 s into
-// startup re-applies the link's `dm`/`dd` straight over the forced preset and
-// Contacts silently loses its own overlay. The sweep above enumerates routes
-// explicitly, so a missing Context route was simply invisible to it.
-test('explicit Context transitions claim the visual restore lane before transitioning', () => {
-  // The named helper IS the claim; its body is pinned to the real lane call
-  // immediately below, so routes may use either spelling.
-  const assertContextClaimsBefore = (block, mutation, label) => {
-    const claimIndex = Math.min(
-      ...['_claimContextVisualAuthority()', "claimRestoreLane?.('visual')"]
-        .map((marker) => block.indexOf(marker))
-        .filter((index) => index >= 0),
-    );
-    const mutationIndex = block.indexOf(mutation);
-    assert.ok(Number.isFinite(claimIndex), `${label} must claim the visual restore lane`);
-    assert.ok(mutationIndex >= 0, `${label} mutation marker is missing`);
-    assert.ok(claimIndex < mutationIndex, `${label} must claim before mutation`);
-  };
-
-  const helper = _claimContextVisualAuthority.toString();
-  assert.ok(
-    helper.includes('this.actions.claimVisualAuthority()'),
-    'the Context authority helper must claim the visual lane',
-  );
-
-  assert.match(uiSource, /claimVisualAuthority: \(\) =>\s*this\.shareLinkManager\?\.claimRestoreLane\?\.\('visual'\)/);
-  const contextPanel = _initGlobalContextPanel.toString();
-  for (const [start, end, label] of [
-    ["this.listen(this._globalContextFlightsBtn, 'click'", "this.listen(this._globalContextMissionsBtn, 'click'", 'Contacts tab'],
-    ["this.listen(this._globalContextMissionsBtn, 'click'", 'CONTEXT_PANEL_END', 'Space Missions tab'],
-  ]) {
-    const startIndex = contextPanel.indexOf(start);
-    const endIndex = end === 'CONTEXT_PANEL_END'
-      ? contextPanel.length
-      : contextPanel.indexOf(end, startIndex + start.length);
-    assert.ok(startIndex >= 0 && endIndex > startIndex, `${label} route is missing`);
-    assertContextClaimsBefore(contextPanel.slice(startIndex, endIndex), 'this._selectContextMode(', label);
-  }
-
-  // The voice/tool facade validates the mode first, then transitions.
-  const facade = setContextMode.toString();
-  assertContextClaimsBefore(facade, 'this._selectContextMode(', 'setContextMode facade');
-  // Authority is taken per validated branch, never ahead of validation. The
-  // OFF branch is validated by its own guard; the named-mode branch must claim
-  // only AFTER the unknown-mode rejection, so a rejected request takes nothing.
-  const offGuardIndex = facade.indexOf("if (!mode || mode === 'off')");
-  const rejectIndex = facade.indexOf('Unknown context mode');
-  assert.ok(offGuardIndex >= 0, 'setContextMode must keep its OFF guard');
-  assert.ok(rejectIndex > offGuardIndex, 'setContextMode must still reject unknown modes');
-
-  const offBranchClaim = facade.indexOf('_claimContextVisualAuthority()', offGuardIndex);
-  assert.ok(
-    offBranchClaim > offGuardIndex && offBranchClaim < rejectIndex,
-    'the OFF transition must claim inside its own validated branch',
-  );
-  const namedBranchClaim = facade.indexOf('_claimContextVisualAuthority()', rejectIndex);
-  assert.ok(
-    namedBranchClaim > rejectIndex,
-    'a named Context mode must claim only after the unknown-mode rejection',
-  );
-  assert.ok(
-    namedBranchClaim < facade.indexOf('this._selectContextMode(', rejectIndex),
-    'the named-mode claim must precede its transition',
-  );
-});
-
-// Claiming the lane must NOT masquerade as the operator hand-editing
-// detection: `_detectionUserOverridden` is what suppresses the military-style
-// auto-enable for the rest of the session. Contacts entry is not that.
-test('Context lane claims never set the session detection-override flag', () => {
-  const contextPanel = _initGlobalContextPanel.toString();
-  const facade = setContextMode.toString();
-  for (const [block, label] of [
-    [contextPanel, 'Context panel'],
-    [facade, 'setContextMode facade'],
-  ]) {
-    assert.ok(
-      !block.includes('_detectionUserOverridden = true'),
-      `${label} must not flag the operator as having overridden detection`,
-    );
-  }
-});
-
-test('every explicit visual control facade claims restore authority before mutation', () => {
-  const facadeRoutes = [
-    ['  setHudVisible(mode) {', '  setHudLayout(variantName) {', 'this.hud.setMode(', 'setHudVisible'],
-    ['  setHudLayout(variantName) {', '  getDetectionState() {', 'this._setHudVariant(', 'setHudLayout'],
-    ['  setDetection({ enabled, mode, densityPct, allocationStrategy, fadePct, outsideOpacityPct } = {}) {', '  async setMapStack(stackId) {', 'this._setDetectionAllocation(', 'setDetection'],
-    ['  setBloom({ enabled, intensityPct } = {}) {', '  setSharpen({ enabled, intensityPct } = {}) {', 'this._setBloomIntensity(', 'setBloom'],
-    ['  setSharpen({ enabled, intensityPct } = {}) {', '  get celestialRingEnabled() {', 'this._applySharpenIntensity(', 'setSharpen'],
-    ['  setCelestialRingEnabled(enabled, { syncShare = true, focus = false } = {}) {', '  setOrbit(enabled) {', 'this.celestialRing?.setEnabled(', 'setCelestialRingEnabled'],
-  ];
-  for (const [start, end, mutation, label] of facadeRoutes) {
-    assertClaimsBefore(sourceBlock(start, end), mutation, label);
-  }
-
-  const style = sourceBlock('  setStyle(styleName, {', '  _startTransition(styleName, fromValue, toValue) {');
-  assertClaimsBefore(style, 'this.activeStyle = styleName', 'setStyle');
-  const sliders = sourceBlock('  _updateSliderPanel(styleName, { reveal = false } = {}) {', '  _revealStyleParameters() {');
-  assertClaimsBefore(sliders, 'this.stages[styleName].uniforms[uName] = val', 'style parameter slider');
-});
-
-test('public visual facades reject the complete invalid request before authority or mutation', () => {
-  const cases = [
-    {
-      label: 'setDetection',
-      block: sourceBlock(
-        '  setDetection({ enabled, mode, densityPct, allocationStrategy, fadePct, outsideOpacityPct } = {}) {',
-        '  async setMapStack(stackId) {',
-      ),
-      validations: ['enabled !== undefined', 'Invalid outside opacity'],
-    },
-    {
-      label: 'setBloom',
-      block: sourceBlock('  setBloom({ enabled, intensityPct } = {}) {', '  setSharpen({ enabled, intensityPct } = {}) {'),
-      validations: ['Invalid bloom enabled value', 'Invalid bloom intensity'],
-    },
-    {
-      label: 'setSharpen',
-      block: sourceBlock('  setSharpen({ enabled, intensityPct } = {}) {', '  get celestialRingEnabled() {'),
-      validations: ['Invalid sharpen enabled value', 'Invalid sharpen intensity'],
-    },
-    {
-      label: 'setCelestialRingEnabled',
-      block: sourceBlock(
-        '  setCelestialRingEnabled(enabled, { syncShare = true, focus = false } = {}) {',
-        '  setOrbit(enabled) {',
-      ),
-      validations: [
-        'Invalid celestial ring enabled value',
-        'Celestial ring options must be boolean',
-        'Celestial ring is available only in Normal style',
-      ],
-    },
-  ];
-  for (const { label, block, validations } of cases) {
-    const claimIndex = block.indexOf("claimRestoreLane?.('visual')");
-    assert.ok(claimIndex >= 0, `${label} claim is missing`);
-    for (const validation of validations) {
-      const validationIndex = block.indexOf(validation);
-      assert.ok(validationIndex >= 0, `${label} validation is missing: ${validation}`);
-      assert.ok(validationIndex < claimIndex, `${label} must validate ${validation} before claiming`);
-    }
-  }
-  assert.doesNotMatch(cases.at(-1).block, /!!enabled/);
 });
 
 test('share apply completion waits for both callback work and camera settlement', async () => {
@@ -696,20 +499,3 @@ test('destroy cancels only a still-owned share flight and ignores delayed comple
 });
 
 
-test('visual input listeners are revoked before asynchronous UI teardown', () => {
-  const disposal = uiSource.slice(uiSource.indexOf('  async dispose() {'));
-  const firstAwait = disposal.indexOf('await ');
-  assert.ok(firstAwait > 0);
-  const synchronous = disposal.slice(0, firstAwait);
-  assert.match(synchronous, /this\._displayBindings\.destroy\(\)/);
-  assert.match(synchronous, /this\._visualSettings\.stop\(\)/);
-  assert.match(synchronous, /this\._mapSourceControls\?\.destroy\(\)/);
-  assert.match(synchronous, /this\._clearLayersControl\?\.destroy\(\)/);
-  assert.match(synchronous, /this\._locationNavigation\.destroy\(\)/);
-  assert.match(LocationNavigation.prototype.destroy.toString(), /this\._locationControls\?\.destroy\(\)/);
-  assert.match(LocationNavigation.prototype.destroy.toString(), /this\._locationLookup\?\.destroy\(\)/);
-  assert.match(DisplayBindings.prototype.destroy.toString(), /this\._displayControls\?\.destroy\(\)/);
-  assert.match(DisplayBindings.prototype.destroy.toString(), /this\._applicationShortcuts\?\.destroy\(\)/);
-  assert.match(VisualSettings.prototype.stop.toString(), /this\._styleParameters\?\.destroy\(\)/);
-  assert.match(VisualSettings.prototype.stop.toString(), /this\._visualEffects\.stop\(\)/);
-});

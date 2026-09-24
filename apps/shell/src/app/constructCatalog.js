@@ -1,41 +1,18 @@
 import { createLayerCatalog } from './catalog.js';
 import { LAYER_STATE_REGISTRY } from '../data/layerState.js';
-import { createMilitaryRegistry } from '../layers/aircraft/classification.js';
-import { createApplicationFlights } from './layers/flights.js';
-import { createApplicationMilitary } from './layers/militaryFlights.js';
-import { createApplicationVessels } from './layers/aisLiveVessels.js';
 import { createApplicationDirections } from './layers/directions.js';
-import { createApplicationInstallations } from './layers/militaryInstallations.js';
-import { createApplicationSatellites } from './layers/satellites.js';
-import { createApplicationLaunches } from './layers/rocketLaunches.js';
-import { createApplicationAwareness } from './layers/militaryAwareness.js';
-import { createApplicationFirms } from './layers/firms.js';
 import { createInfrastructureLayers } from '../data/infrastructure.js';
 import { localGeoJsonServices } from './localGeojsonServices.js';
 import { createBhoteKoshiEventLayer } from '../data/bhoteKoshiEvent.js';
 import { createBhoteKoshiLocatorLayer } from '../data/bhoteKoshiLocator.js';
 
-const SOURCE_METHODS = Object.freeze({
-  flights: ['getSnapshot'],
-  military: ['getSnapshot'],
-  vessels: ['getSnapshot'],
-  installations: ['getMappedSites', 'searchNearby'],
-  satellites: ['readGroup'],
-  launches: ['getLaunches', 'getActiveTle'],
-  firms: ['getSnapshot'],
-});
-
 /** Construct the current catalog without choosing any source provider.
- * Scene engines remain page-owned; layers and classification have this app's lifetime.
- * The manager owns layer destruction, while abort releases classification even if startup fails.
+ * Layers have this app's lifetime; the manager owns their destruction.
  */
 export function createApplicationCatalog({
   surface,
-  sources,
   signal,
   metadata = LAYER_STATE_REGISTRY,
-  vesselOptions,
-  resolveAsset,
   nepalBoundaryResolver,
 }) {
   if (!signal?.addEventListener)
@@ -44,77 +21,16 @@ export function createApplicationCatalog({
   if (!surface?.groundFloor || !surface?.terrain)
     throw new TypeError('Application surface services are required');
 
-  for (const [name, methods] of Object.entries(SOURCE_METHODS)) {
-    if (
-      methods.some((method) => typeof sources?.[name]?.[method] !== 'function')
-    )
-      throw new TypeError(`Invalid catalog source: ${name}`);
-  }
-  const militaryRegistry = createMilitaryRegistry();
-  const dispose = () => {
-    signal.removeEventListener('abort', dispose);
-    militaryRegistry.dispose();
-  };
-  signal.addEventListener('abort', dispose, { once: true });
-  try {
-    militaryRegistry.configureSource(sources.military, { signal });
-    const flights = createApplicationFlights({
-      surface,
-      source: sources.flights,
-      militaryRegistry,
-      resolveAsset,
-    });
-    const military = createApplicationMilitary({
-      surface,
-      source: sources.military,
-      militaryRegistry,
-      resolveAsset,
-    });
-    const vessels = createApplicationVessels({
-      source: sources.vessels,
-      options: vesselOptions,
-    });
-    const installations = createApplicationInstallations({
-      surface,
-      source: sources.installations,
-    });
-    const satellites = createApplicationSatellites({
-      source: sources.satellites,
-    });
-    const catalog = createLayerCatalog(
-      [
-        createBhoteKoshiEventLayer(),
-        createBhoteKoshiLocatorLayer({
-          boundaryResolver: nepalBoundaryResolver,
-        }),
-        flights,
-        military,
-        satellites,
-        createApplicationLaunches({ source: sources.launches, satellites }),
-        createApplicationDirections(),
-        vessels,
-        installations,
-        createApplicationAwareness({
-          flights,
-          military,
-          vessels,
-          installations,
-        }),
-        ...createInfrastructureLayers(localGeoJsonServices),
-        createApplicationFirms({
-          surface,
-          id: 'local-firms',
-          name: 'FIRMS Active Fires',
-          icon: '▲',
-          source: 'NASA FIRMS · LIVE',
-          feed: sources.firms,
-        }),
-      ],
-      metadata,
-    );
-    return Object.freeze({ ...catalog, militaryRegistry, surface });
-  } catch (error) {
-    dispose();
-    throw error;
-  }
+  const catalog = createLayerCatalog(
+    [
+      createBhoteKoshiEventLayer(),
+      createBhoteKoshiLocatorLayer({
+        boundaryResolver: nepalBoundaryResolver,
+      }),
+      createApplicationDirections(),
+      ...createInfrastructureLayers(localGeoJsonServices),
+    ],
+    metadata,
+  );
+  return Object.freeze({ ...catalog, surface });
 }

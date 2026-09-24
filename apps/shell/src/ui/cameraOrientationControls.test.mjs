@@ -585,50 +585,6 @@ test('orientation animation cancels on replacement and explicit cancellation', (
   assert.equal(viewer.scene.preUpdate.numberOfListeners, 0);
 });
 
-test('orientation navigation preserves follow and selection; new navigation cancels animation', () => {
-  const calls = [];
-  const entity = {};
-  const viewer = {
-    trackedEntity: entity,
-    camera: { cancelFlight: () => calls.push('cancel-flight') },
-  };
-  let cockpit = false;
-  const navigation = new NavigationController({
-    viewer,
-    tracking: {},
-    isCockpitActive: () => cockpit,
-    cancelOrientation: () => calls.push('cancel-orientation'),
-    clearLocation: () => calls.push('clear-location'),
-    cancelShareSelection: () => calls.push('clear-selection'),
-    interruptCameraMotion: () => calls.push('interrupt-motion'),
-    stopOrbit: () => calls.push('stop-orbit'),
-    showToast: () => calls.push('toast'),
-  });
-  assert.equal(
-    navigation.runOrientation('camera', () => 'animated'),
-    'animated',
-  );
-  assert.equal(viewer.trackedEntity, entity);
-  assert.deepEqual(calls, [
-    'cancel-orientation',
-    'interrupt-motion',
-    'stop-orbit',
-    'cancel-flight',
-  ]);
-  calls.length = 0;
-  navigation._stampNavigation({ cancelPendingSelection: false });
-  assert.deepEqual(calls, ['cancel-orientation', 'clear-location']);
-  calls.length = 0;
-  cockpit = true;
-  assert.equal(
-    navigation.runOrientation('camera', () =>
-      assert.fail('cockpit should refuse'),
-    ),
-    false,
-  );
-  assert.deepEqual(calls, ['toast']);
-});
-
 test('rapid tilt presses reverse direction and north-up keeps the requested tilt', (t) => {
   let time = 0;
   t.mock.method(performance, 'now', () => time);
