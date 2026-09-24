@@ -2,6 +2,10 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-24, EIA registered and the other adapters
+
+Uncommitted. Registered EIA series O-S28 to O-S30 (migration 011, release r2 accepted by `farrellsid` on the user's direction, baselines, verified), added JSON extraction, key injection for the EIA host only, StatCan, Sodir and GDELT parsers, `scripts/collect.py` and the results in `docs/acquisition-providers.md`. 446 backend tests, ruff, licence gate (dev and release) and `normalise.py check` pass. Backup before the migration: `.local/backups/nexus-20260924-071615-950804.dump`. **Next actions:** the user directed that we work with the data we have and target gaps later; binding measurements to O-S28 to O-S30 is deferred for consideration. Everything from this session's data-source work was staged for the user's commit. Next: M5 (visual shell) or another priority the user names.
+
 ## 2026-09-24, provider adapters, cross-check and source survey
 
 Uncommitted. Built `backend/app/acquisition/providers/` (eia, jodi, compare, crosscheck, observation), URL and error redaction in `policy.py` and `fetch.py`, `scripts/crosscheck.py`, `docs/crosscheck-report.md`, and the survey in `docs/acquisition-providers.md`. Verified: the key appears nowhere in 166 files, the stored objects or the database; the real cross-check gave 7 equal, 8 no observation, 0 differing; JODI has no Iraq, Russia or Iran crude production for 2026. Five response objects are under `.local/objects/` (git-ignored). **Next actions:** the user answers the open decisions in `docs/acquisition-providers.md` (register provider series as sources, next adapters, GDELT, China); then either continue data sources or start M5.

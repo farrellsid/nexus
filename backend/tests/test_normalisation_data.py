@@ -12,7 +12,7 @@ from app.normalisation.release import Release, validate_release
 from app.normalisation.vocabulary import load_vocabulary
 
 ROOT = Path(__file__).resolve().parents[2]
-RELEASE = ROOT / "normalisation" / "releases" / "2026-09-24.json"
+RELEASE = ROOT / "normalisation" / "releases" / "2026-09-24-r2.json"
 
 
 def test_original_decimal_text_is_preserved(tmp_path):
@@ -66,7 +66,7 @@ def test_the_release_has_the_expected_record_counts(release):
         len(release.sources),
         sum(len(e.aliases) for e in release.entities),
         len(release.measurements),
-    ) == (44, 41, 43, 37)
+    ) == (44, 44, 43, 37)
 
 
 @pytestmark_release
@@ -99,3 +99,17 @@ def test_russia_and_iran_are_registry_entities_and_link_their_measurements(relea
     assert registry["place/russia"].aliases == [] and registry["place/iran"].aliases == []
     linked = {m.original_label: m.entity for m in release.measurements if m.metric_id == "O-M11"}
     assert linked["Russia"] == "place/russia" and linked["Iran"] == "place/iran"
+
+
+@pytestmark_release
+def test_release_r2_adds_only_the_three_registered_eia_sources_to_the_accepted_release(release):
+    accepted = Release.model_validate_json(
+        (ROOT / "normalisation" / "releases" / "2026-09-24.json").read_text("utf-8")
+    )
+    assert release.release_id == "nx-norm-2026-09-24-r2"
+    assert release.entities == accepted.entities
+    assert release.claims == accepted.claims
+    assert release.measurements == accepted.measurements
+    added = [s for s in release.sources if s not in accepted.sources]
+    assert [s.source_id for s in added] == ["O-S28", "O-S29", "O-S30"]
+    assert all(s.legacy_reported_method is None for s in added)

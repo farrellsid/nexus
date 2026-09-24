@@ -410,6 +410,36 @@
       "checked_at": "2026-09-23",
       "attribution": "Source: U.S. Energy Information Administration (None)",
       "snapshot_policy": "store"
+    },
+    "O-S28": {
+      "publisher": "U.S. Energy Information Administration",
+      "redistribution": "allowed",
+      "release_excerpt": "include",
+      "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Structured API view (series registered 2026-09-24); the excerpt is canonical JSON rows.",
+      "evidence_url": "https://www.eia.gov/opendata/documentation.php",
+      "checked_at": "2026-09-24",
+      "attribution": "Source: U.S. Energy Information Administration (2026-09-16)",
+      "snapshot_policy": "store"
+    },
+    "O-S29": {
+      "publisher": "U.S. Energy Information Administration",
+      "redistribution": "allowed",
+      "release_excerpt": "include",
+      "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Structured API view (series registered 2026-09-24); the excerpt is canonical JSON rows.",
+      "evidence_url": "https://www.eia.gov/opendata/documentation.php",
+      "checked_at": "2026-09-24",
+      "attribution": "Source: U.S. Energy Information Administration (2026-09-16)",
+      "snapshot_policy": "store"
+    },
+    "O-S30": {
+      "publisher": "U.S. Energy Information Administration",
+      "redistribution": "allowed",
+      "release_excerpt": "include",
+      "basis": "U.S. government publications are in the public domain and not subject to copyright. An acknowledgement including the publication date is requested, and text quoted from EIA should be identified as EIA content. Third-party material EIA hosts may be protected; a page-level check has not been done. Structured API view (series registered 2026-09-24); the excerpt is canonical JSON rows.",
+      "evidence_url": "https://www.eia.gov/opendata/documentation.php",
+      "checked_at": "2026-09-24",
+      "attribution": "Source: U.S. Energy Information Administration (2026-09-16)",
+      "snapshot_policy": "store"
     }
   },
   "_comment_snapshot_policy": "snapshot_policy says whether fetched bytes may be kept in the local object store: store, hash_only (keep the hash, size and headers, discard the bytes) or none. Set to store for every source on 2026-09-24 at the user's direction: private, local-only research use under fair use, with publication filtered later by the release gate (`check_licences.py --mode release`). The object store is git-ignored (.local/) and is never published."

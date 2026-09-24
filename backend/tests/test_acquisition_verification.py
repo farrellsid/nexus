@@ -88,3 +88,21 @@ def test_reasons_never_say_the_site_is_offline():
         verify(baseline(), attempt(outcome="network_error"), []).reason,
     ]
     assert not any("offline" in reason for reason in reasons)
+
+
+def test_a_json_response_can_be_verified_like_a_page():
+    from app.acquisition.extraction import extract_json_rows
+
+    body = (
+        '{"response":{"data":[{"period":"2026-06-19","series":"S",'
+        '"value":"412134","units":"MBBL"}]}}'
+    )
+    extraction = extract_json_rows(body)
+    row = '{"period":"2026-06-19","series":"S","units":"MBBL","value":"412134"}'
+    baseline = Baseline(sha256="a", text_sha256=extraction.text_sha256, basis="first snapshot")
+    attempt = Attempt(
+        outcome="ok", sha256="b", extraction=extraction, media_type="application/json"
+    )
+    result = verify(baseline, attempt, [row])
+    assert (result.state, result.text_match) == ("matches", True)
+    assert result.passages[0].found is True

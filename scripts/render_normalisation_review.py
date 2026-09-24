@@ -7,11 +7,23 @@ preserved when the sheet is regenerated.
 """
 
 import json
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_RELEASE = ROOT / "normalisation" / "releases" / "2026-09-24.json"
+RELEASES = ROOT / "normalisation" / "releases"
+
+
+def _latest() -> Path:
+    def order(path: Path):
+        match = re.match(r"(\d{4}-\d{2}-\d{2})(?:-r(\d+))?$", path.stem)
+        return (match.group(1), int(match.group(2) or 1)) if match else ("", 0)
+
+    return max(RELEASES.glob("*.json"), key=order)
+
+
+DEFAULT_RELEASE = _latest()
 SHEET = ROOT / "docs" / "normalisation-review.md"
 MARKER = (
     "<!-- assistant analysis: hand-written below this line; kept on regeneration -->"

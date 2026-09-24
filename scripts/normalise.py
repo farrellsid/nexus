@@ -11,11 +11,25 @@ decision. Back up the database before the first `record`.
 
 import argparse
 import json
+import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_RELEASE = ROOT / "normalisation" / "releases" / "2026-09-24.json"
+RELEASES = ROOT / "normalisation" / "releases"
+
+
+def latest_release() -> Path:
+    """The newest release file: by date, then by revision (`-r2` follows the bare date)."""
+
+    def order(path: Path):
+        match = re.match(r"(\d{4}-\d{2}-\d{2})(?:-r(\d+))?$", path.stem)
+        return (match.group(1), int(match.group(2) or 1)) if match else ("", 0)
+
+    return max(RELEASES.glob("*.json"), key=order)
+
+
+DEFAULT_RELEASE = latest_release()
 VOCABULARY = ROOT / "normalisation" / "vocabulary-v1.json"
 
 

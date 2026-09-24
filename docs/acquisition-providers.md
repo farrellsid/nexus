@@ -115,12 +115,33 @@ Requests came from this machine with a browser-like user agent and no keys. "Rea
 
 **Other large producers' governments**, from what was reachable: the U.S. (EIA, done), Canada (StatCan CSV, ready to adapt), Norway (Sodir, endpoint to find), Brazil (ANP, endpoints to find), the UK (NSTA). Saudi Arabia, Russia, Iraq and Iran mostly reach the world through JODI and secondary sources; JODI carries Saudi Arabia but none of Iraq, Russia or Iran for 2026. Government portals for Russia and the Gulf states either were not reachable or exposed no dataset I could find; that is a finding about this survey, not about whether such data exist.
 
+## EIA series registered as sources (2026-09-24)
+
+At the user's direction ("EIA is pretty reliable") the three cross-checked API series became `evidence_sources` records through migration `011_register_eia_series.sql` (backup `.local/backups/nexus-20260924-071615-950804.dump`): **O-S28** stocks (`WCESTUS1`, metric O-M07), **O-S29** refinery utilization (`WPULEUS3`, O-M09) and **O-S30** operable distillation capacity (`8_NA_8D0_NUS_4`, O-M08). Each source URL has no key; `acquire.py` adds it at request time for the EIA host only. The excerpt is canonical JSON rows produced by the new `nexus-json-data/1` extractor (sorted keys, descriptive fields and response metadata removed, so an API version bump is not a data change). Normalisation release `nx-norm-2026-09-24-r2` (release r1 is untouched) classifies them and was accepted with reviewer `farrellsid`. Each series was fetched through the pipeline, baselined (basis: a first structured snapshot, not a reconstruction of anything earlier) and re-fetched: **all three verified as `matches`, and the raw response bytes were identical across fetches**, unlike EIA's HTML pages. Recorded history (proposals, decisions, versions, claims) was unchanged. The measurement-level binding of O-M07 to O-M09 and O-M08 to these sources is not yet in a release; it is the next normalisation step.
+
+## Collection run for the other providers (2026-09-24)
+
+`scripts/collect.py`, one request each, honest user agent, no retries around a block, no certificate bypass. Bytes are under `.local/objects/` and request hashes are in `.local/collect-manifest.json`.
+
+| Provider | Result |
+|---|---|
+| Statistics Canada 25-10-0081-01 | Fetched and parsed: 136,890 observations, 2019-01 to 2026-06. **It contains no crude oil products** (refined products and liquids only), so it does not fill a crude-production gap. |
+| Norway, Sodir national total (`field_production_totalt_NCS_month__DisplayAllRows`) | Fetched and parsed: 662 monthly rows, 1971-06 to 2026-07; oil, gas, NGL, condensate, oil equivalent and produced water as separate measures. **This works and is complete.** |
+| Norway, Sodir by field | The plain export is capped at 300 rows and four fields. Not the full history; an all-rows variant returned HTTP 500. |
+| GDELT DOC API | **Rate limited (HTTP 429) on both requests**: the first, and one retry after a 150-second back-off. It was not retried again. The earlier keyless sample worked, so the limit looks aggressive for this address; GDELT states no explicit limit, and the adapter and command are built but unproven at volume. |
+| OPEC monthly report page | HTTP 403 (refused). Left for a manual download. |
+| Energy Institute data page | HTTP 403 (refused). Left for a manual download. |
+| GEM oil infrastructure tracker | Page fetched (97 KB); the data itself is behind a download request form. |
+| China NBS (English) | **Certificate verification failed** on this network (a self-signed certificate is presented), the same behaviour that left O-S06 unreachable earlier. This looks like interference on this machine's network path rather than an outage; the check was not disabled. It may work from your network. |
+| China customs (GACC), English | The English release pages respond, but its "coverage of major imports and exports" tables are annual Excel files for 2022 to 2024 only, not current monthly crude figures; reading them needs an `.xls` parser (`xlrd`, a new dependency). The statistics query site returned HTTP 412 to a script. **No current Chinese monthly crude import or production figure was obtained.** |
+| Brazil ANP | Page fetched. Production by well is published as monthly zips of semicolon-separated CSVs with multi-line Portuguese headers; a parser is not built yet. |
+
 ## Decisions still open
 
-1. **Register provider series as sources?** The cross-check shows seven pack values agree with EIA. To make that provenance part of the evidence (measurement-level source bindings, logged attempts, a baseline for each series), each provider series would become an `evidence_sources` record through a reviewed release. Do that for the seven verified series first?
-2. **Next adapters:** Statistics Canada (ready), then Sodir and ANP once their endpoints are found; a browser-like fetch for OPEC and the Energy Institute; and a manual-download path for GEM.
-3. **GDELT:** use it as a discovery tool only, after the adapters above?
-4. **China:** try NBS and customs from your network first (an adapter I cannot test from here), or start with manual exports?
+1. **Bind measurements to the new sources** (O-M07 to O-S28, O-M09 to O-S29, O-M08 to O-S30) in a normalisation release, so agreement with EIA is part of each measurement's evidence? *The user's answer, 2026-09-24: to be taken into consideration; deferred, not built.*
+2. **Manual downloads** for OPEC and the Energy Institute (refused to scripts) and GEM (request form): drop files into a folder and I will parse them. **China:** try `scripts/collect.py probe --confirm` from your network, and say if you want the `.xls` parser dependency for GACC's tables.
+3. **Next parsers:** Brazil ANP well production (multi-line headers), and whether Norway's national total should replace prose anchors for Norwegian production claims.
+4. **GDELT:** the adapter and the `collect.py gdelt` command exist and stay discovery-only; queries are one at a time, at least six seconds apart, and a 429 is not retried automatically. Which topics should it watch, and by hand or only when you ask?
 
 ## Earlier decisions for reference (roadmap M4 [U])
 

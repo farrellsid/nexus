@@ -84,6 +84,18 @@ Approved as direction, with the details still to be designed:
 - **A cross-check is not a verdict.** Agreement with a provider does not show the pack cited it.
 - **Provider series are not yet `evidence_sources`,** so cross-checks write a manifest of hashes and redacted URLs instead of database attempts. Registering them is an open decision.
 
+## 2026-09-24, EIA registered; other adapters (the user's direction)
+
+- **Three EIA API series are registered sources (O-S28 to O-S30)** with baselines, in normalisation release r2. EIA is treated as reliable for these series; agreement is still not independence, and the origin group is recorded as one EIA API view of the surveys the pack already cites.
+- **An API response's canonical text is its data rows only,** so metadata changes are not data changes.
+- **A blocked request is recorded, not worked around.** A 403, 412, a certificate failure or a 429 ends that request; no user-agent spoofing, no certificate bypass, no automatic retry. Refused sources go to a manual-download path.
+- **GDELT is discovery-only,** cited as the GDELT Project with a link, one query at a time.
+
+## 2026-09-24, working with what we have (the user's direction)
+
+- **Data-source work stops here for now.** The remaining gaps (China's monthly crude figures, OPEC and Energy Institute files, GEM, ANP, GDELT volume, O-M11's August values) are targeted later, if they appear or the information turns out to be incomplete.
+- **Measurement-level source bindings to O-S28 to O-S30 are deferred,** to be taken into consideration later.
+
 ## Consequences to keep in view
 
 - **Nothing is publishable yet.** Published tours need accepted evidence, and the local database holds zero accepted versions and zero decisions (44 assertions, 44 candidate proposals, checked 2026-09-23). Claims must be reviewed and accepted first, and known defects (O-C26 is unsupported by its retained excerpt; the oil pack's cutoff label is wrong) must be repaired before acceptance.

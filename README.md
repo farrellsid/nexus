@@ -57,6 +57,7 @@ npm --prefix apps/web run dev
 (cd backend; $env:PYTHONPATH='.'; ..\.venv\Scripts\python ..\scripts\evaluate.py check)
 (cd backend; $env:PYTHONPATH='.'; ..\.venv\Scripts\python ..\scripts\acquire.py fetch O-S24)   # dry run; add --confirm to fetch once
 (cd backend; $env:PYTHONPATH='.'; ..\.venv\Scripts\python ..\scripts\crosscheck.py)   # dry run; add --confirm to fetch once
+(cd backend; $env:PYTHONPATH='.'; ..\.venv\Scripts\python ..\scripts\collect.py probe)   # dry run; add --confirm to make one request each
 npm --prefix apps/web run format:check
 npm --prefix apps/web run build
 npm --prefix apps/web run test:e2e

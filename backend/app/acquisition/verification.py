@@ -55,7 +55,8 @@ def verify(baseline: Baseline | None, attempt: Attempt, phrases: list[str]) -> V
         return _unreachable("baseline_missing")
     if attempt.outcome in FAILED_FETCH:
         return _unreachable(attempt.outcome)
-    if "html" not in (attempt.media_type or "").lower() or attempt.extraction is None:
+    media = (attempt.media_type or "").lower()
+    if not ("html" in media or "json" in media) or attempt.extraction is None:
         return _unreachable("unsupported_format")
     if not attempt.extraction.readable:
         return _unreachable("render_failed")

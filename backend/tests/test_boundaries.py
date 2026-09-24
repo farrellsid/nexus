@@ -37,6 +37,9 @@ DOMAIN_IMPORTS = {
     "acquisition/providers/eia": {"acquisition.providers.observation", "knowledge"},
     "acquisition/providers/jodi": {"acquisition.providers.observation"},
     "acquisition/providers/compare": {"knowledge"},
+    "acquisition/providers/statcan": {"acquisition.providers.observation"},
+    "acquisition/providers/sodir": {"acquisition.providers.observation"},
+    "acquisition/providers/gdelt": {"knowledge"},
     "acquisition/providers/crosscheck": {
         "acquisition.providers.compare",
         "acquisition.providers.observation",

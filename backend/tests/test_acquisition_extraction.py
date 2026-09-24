@@ -67,3 +67,54 @@ def test_a_passage_with_a_different_dash_or_case_is_not_found():
     assert find_passage(text, "2Q26 - about 32% less") is None  # hyphen, not the page's en dash
     assert find_passage(text, "china imported just 8.1") is None  # case differs
     assert find_passage(text, "not on the page") is None
+
+
+class TestJsonRows:
+    BODY = (
+        '{"response":{"total":"2","data":['
+        '{"period":"2026-06-19","duoarea":"NUS","area-name":"U.S.","series":"WCESTUS1",'
+        '"series-description":"U.S. Ending Stocks","value":"412134","units":"MBBL"},'
+        '{"period":"2026-06-26","duoarea":"NUS","area-name":"U.S.","series":"WCESTUS1",'
+        '"series-description":"U.S. Ending Stocks","value":"408359","units":"MBBL"}'
+        ']},"request":{"command":"/v2/x"},"apiVersion":"2.1.11"}'
+    )
+
+    def test_rows_become_compact_canonical_text_without_descriptive_fields(self):
+        from app.acquisition.extraction import JSON_EXTRACTOR, extract_json_rows
+
+        extraction = extract_json_rows(self.BODY)
+        assert extraction.extractor == JSON_EXTRACTOR and extraction.readable
+        assert extraction.text == (
+            '[{"duoarea":"NUS","period":"2026-06-19","series":"WCESTUS1","units":"MBBL",'
+            '"value":"412134"},{"duoarea":"NUS","period":"2026-06-26","series":"WCESTUS1",'
+            '"units":"MBBL","value":"408359"}]'
+        )
+
+    def test_volatile_response_metadata_does_not_change_the_hash(self):
+        from app.acquisition.extraction import extract_json_rows
+
+        other = self.BODY.replace("2.1.11", "2.1.12").replace('"/v2/x"', '"/v2/y"')
+        assert extract_json_rows(other).text_sha256 == extract_json_rows(self.BODY).text_sha256
+
+    def test_a_row_changing_its_value_changes_the_hash(self):
+        from app.acquisition.extraction import extract_json_rows
+
+        other = self.BODY.replace("412134", "412135")
+        assert extract_json_rows(other).text_sha256 != extract_json_rows(self.BODY).text_sha256
+
+    def test_a_passage_is_an_exact_row_span(self):
+        from app.acquisition.extraction import extract_json_rows, find_passage
+
+        text = extract_json_rows(self.BODY).text
+        row = (
+            '{"duoarea":"NUS","period":"2026-06-19","series":"WCESTUS1",'
+            '"units":"MBBL","value":"412134"}'
+        )
+        assert find_passage(text, row) is not None
+
+    def test_an_error_or_empty_document_is_not_readable(self):
+        from app.acquisition.extraction import extract_json_rows
+
+        assert extract_json_rows('{"error":{"code":"API_KEY_MISSING"}}').readable is False
+        assert extract_json_rows('{"response":{"data":[]}}').readable is False
+        assert extract_json_rows("not json").readable is False

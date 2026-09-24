@@ -20,6 +20,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 RIGHTS = ROOT / "licences" / "source-rights.json"
 OBJECTS = ROOT / ".local"
+KEY_FILE = ROOT / ".local" / "eia-api-key.txt"
+EIA_API_HOST = "api.eia.gov"
 
 
 @dataclass(frozen=True)
@@ -40,19 +42,35 @@ def load_source(source_id: str) -> SourceInfo:
     raise SystemExit(f"Unknown source {source_id}")
 
 
+def with_credentials(url: str) -> tuple[str, list[str]]:
+    """The URL to request and the secrets it carries. Only the EIA API host receives the key."""
+    from urllib.parse import urlsplit
+
+    if urlsplit(url).hostname == EIA_API_HOST and "api_key=" not in url:
+        key = KEY_FILE.read_text("utf-8").strip()
+        return f"{url}{'&' if '?' in url else '?'}api_key={key}", [key]
+    return url, []
+
+
 def _fetch_and_log(source, acquisition, store, transport, resolve):
     """One fetch, one logged attempt; bytes are kept only when the policy says so."""
-    from app.acquisition.extraction import extract_text
+    from app.acquisition.extraction import extract_json_rows, extract_text
     from app.acquisition.fetch import fetch
 
-    result = fetch(source.url, transport, resolve)
+    url, secrets = with_credentials(source.url)
+    result = fetch(url, transport, resolve)
+    leaked = any(secret.encode() in result.body for secret in secrets)
     stored = (
-        result.outcome == "ok" and store.put(result.body, source.policy) is not None
+        result.outcome == "ok"
+        and not leaked
+        and store.put(result.body, source.policy) is not None
     )
     attempt_id = acquisition.log_attempt(source.id, result, stored)
     extraction = None
-    if result.outcome == "ok" and "html" in (result.content_type or "").lower():
-        extraction = extract_text(result.body.decode("utf-8", "replace"))
+    kind = (result.content_type or "").lower()
+    if result.outcome == "ok" and ("html" in kind or "json" in kind):
+        text = result.body.decode("utf-8", "replace")
+        extraction = extract_json_rows(text) if "json" in kind else extract_text(text)
         acquisition.record_extraction(result.sha256, extraction)
     return attempt_id, result, extraction
 

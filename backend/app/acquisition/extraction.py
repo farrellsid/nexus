@@ -6,12 +6,16 @@ match.
 """
 
 import hashlib
+import json
 import re
 from html.parser import HTMLParser
 
 from app.knowledge import Record
 
 EXTRACTOR = "nexus-html-text/1"
+JSON_EXTRACTOR = "nexus-json-data/1"
+# Fields that describe a row rather than identify or measure it are left out of the canonical text.
+DESCRIPTIVE = re.compile(r"(-name|-description|Name|Description)$")
 MIN_READABLE = 200  # characters of visible text below which a page is a shell, not content
 SKIPPED_TAGS = {"script", "style", "noscript", "template"}
 BLOCK_TAGS = {
@@ -69,6 +73,42 @@ def extract_text(markup: str) -> TextExtraction:
         text_sha256=hashlib.sha256(text.encode("utf-8")).hexdigest(),
         extractor=EXTRACTOR,
         readable=len(text) >= MIN_READABLE,
+    )
+
+
+def extract_json_rows(body: str) -> TextExtraction:
+    """Canonical text for an API response: its data rows only, sorted keys, no whitespace.
+
+    Response metadata (request echo, API version) is excluded, so a version bump does not look like
+    a change in the data. An error body, empty data or invalid JSON is not readable.
+    """
+    try:
+        rows = json.loads(body).get("response", {}).get("data", [])
+    except (ValueError, AttributeError):
+        rows = []
+    if not isinstance(rows, list):
+        rows = []
+    text = (
+        "["
+        + ",".join(
+            json.dumps(
+                {
+                    k: v
+                    for k, v in sorted(row.items())
+                    if v is not None and not DESCRIPTIVE.search(k)
+                },
+                separators=(",", ":"),
+                ensure_ascii=False,
+            )
+            for row in rows
+        )
+        + "]"
+    )
+    return TextExtraction(
+        text=text,
+        text_sha256=hashlib.sha256(text.encode("utf-8")).hexdigest(),
+        extractor=JSON_EXTRACTOR,
+        readable=bool(rows),
     )
 
 
