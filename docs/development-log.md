@@ -2,6 +2,16 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-24, M5 phase B in progress on branch m5-shell
+
+Commits so far: B1 (Node server, Pinokio, QA scripts), A1c (correction, see below), B2 (voice and the HUD's AI summary), B3.1 cables, B3.2 first-run launcher (moved forward from B14), B3.3 earthquakes, B3.4 bikeshare, street traffic and transit. Layer count 21 to 16; unit tests 3600 to 2945, all passing; smoke passes with an empty `known-errors.json`. `apps/shell/UPSTREAM.md` has one row per step.
+
+**Correction found in B2:** `.gitignore` excluded all of `src/data/`, which also holds 236 source and test files, so A1 never put them in history. Narrowed to `src/data/local_data/` and `src/data/fixtures/` and tracked the code (row A1c). The untouched reference remains `.local/references/gods-eye-view` at `f01b6a5`.
+
+**Method that works:** delete a layer's directories and data modules, run `node scripts/nexus-dead-modules.mjs` (it lists dangling imports, which are exactly the consumers to edit), then `grep` for the layer's string ids and role names, then fix tests. `scripts/nexus-prune-config.mjs` removes names of deleted modules from `package.json` exports, `package-boundaries.json` and `format-scope.json`. Step verification: unit tests, dead-module baseline (`--record` after reviewing new unreachables), boundaries, one `@cesium/engine`, `vite build`, Playwright smoke.
+
+**Remaining order (dependency-driven):** radio, directions, ALPR, CCTV, satellites and launches, awareness, installations and FIRMS (FIRMS's `anchors` service is used by installations, so installations go first), vessels, military and flights with the aircraft cockpit, then B11 to B16. Layer-registry tests use surviving ids (`local-dams`, `local-datacenters`, `radio`) as stand-ins and need those swapped as layers go; B13 removes the last real layers and those tests get Nexus ids. **Not yet done:** phase C (TypeScript additions) and phase D (`check_shell.py`, licence components, user check in Edge).
+
 ## 2026-09-24, M5 phase A done on branch m5-shell
 
 Branch `m5-shell` (three commits so far: A1, A1b to A4, A5), never `master`, per the user's answer. `apps/shell/UPSTREAM.md` is the step log. Imported the God's Eye reference (`f01b6a5`) as code only; its datasets, models and event media are on disk but gitignored so they never enter history. **Baseline:** 4168 upstream tests, 4158 pass, 0 fail, 10 skipped (identical to the untouched clone, after I corrected my own mistake of excluding `build/`, which is source, and `docs/*.md`, which 23 tests read); one `@cesium/engine` (22.3.0); `vite build` 423 files, 31.2 MB. **Step checks added:** `npm run check:step` (tests, dead-module checker with a recorded baseline, one-engine check, Playwright smoke with a shrink-only known-errors list and an allowed-hosts list). **A5:** removed the Google Fonts and Material Symbols CDN dependency (189 KB of local woff2, OFL and Apache-2.0); the look was checked by screenshot against the baseline and one cascade-order difference (smaller arrows) was found and fixed. The page now contacts only localhost, Esri imagery and the Re:Earth terrain service. **Next:** phase B, the strip steps B1 to B16.
