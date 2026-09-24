@@ -18,7 +18,6 @@ function navigation() {
     viewer: { camera: { cancelFlight() {}, lookAtTransform() {} } },
     tracking,
     searchInput: null,
-    interruptCameraMotion() {},
     isCockpitActive: () => false,
     clearLocation() {},
     cancelShareSelection: () => false,

@@ -735,32 +735,6 @@ function poiNameTokens(s) {
   );
 }
 
-/**
- * Find a curated preset POI whose name the query fully names, so a voice "fly to the Texas State
- * Capitol" reuses its hand-tuned camera pose (same framing as the LOCATIONS-panel button) instead
- * of generic geocode framing. Match is order-free word-set CONTAINMENT (the POI name's words must
- * all appear in the query — so "Frost Bank Tower" matches "frost tower bank", and extra words like
- * a trailing city are fine), and the POI name must be ≥2 words so a single shared token ("Texas",
- * "Tower") can't grab the wrong landmark. Returns { cityId, index } or null.
- * @param {string} query
- * @returns {{cityId: string, index: number} | null}
- */
-export function findPoiByName(query) {
-  const q = poiNameTokens(query);
-  if (q.size === 0) return null;
-  let best = null;
-  for (const [cityId, city] of Object.entries(CITY_POIS)) {
-    city.pois.forEach((poi, index) => {
-      const name = poiNameTokens(poi.name);
-      if (name.size < 2) return; // single-word POI names are too ambiguous to match loosely
-      const fullyNamed = [...name].every((w) => q.has(w));
-      if (fullyNamed && (!best || name.size > best.size))
-        best = { cityId, index, size: name.size };
-    });
-  }
-  return best ? { cityId: best.cityId, index: best.index } : null;
-}
-
 /** Distinguishes an authority veto from a genuine not-found result. */
 export const CANCELLED_SEARCH = Object.freeze({ cancelled: true });
 

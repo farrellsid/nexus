@@ -6,7 +6,6 @@ import { NavigationController } from './navigationController.js';
 import { ShareRestoration } from './shareRestoration.js';
 import { DisplayBindings } from './displayBindings.js';
 import { createStateChannel } from '../app/stateChannel.js';
-import { setSplitFlapText } from '../splitFlap.js';
 import { UiLifetime } from './uiLifetime.js';
 import { RecordingControls } from './recordingControls.js';
 import { readShellElements } from './shellElements.js';
@@ -80,9 +79,7 @@ export class StyleManager extends ShellFacade {
     this._navigation = new NavigationController({
       viewer,
       searchInput: this._locationSearch,
-      interruptCameraMotion: services.interruptCameraMotion,
       clearLocation: () => this.clearSearchedLocation(),
-      cancelShareSelection: () => this._shareRestoration.cancelSelection(),
       getDataManager: () => this._dataManager,
       stopOrbit: () => this._stopOrbit(),
       cancelOrientation: () => this._cameraOrientationControls?.cancel(),
@@ -92,10 +89,7 @@ export class StyleManager extends ShellFacade {
       viewer,
       navigation: this._navigation,
       syncShareState: () => this._syncShareState(),
-      showStatus: (message, options) =>
-        this._showGlobalStatusNotice(message, options),
       feedback: this._feedback,
-      updateFeedback: () => this._updateGlobalLoadingFeedback(),
     });
 
     this._visualSettings = new VisualSettings({
@@ -193,7 +187,6 @@ export class StyleManager extends ShellFacade {
         flyToPOI: services.flyToPOI,
         GLOBE_VIEW: services.GLOBE_VIEW,
         flyToGlobeView: services.flyToGlobeView,
-        interruptCameraMotion: services.interruptCameraMotion,
       },
       elements: {
         _locationPills: this._locationPills,

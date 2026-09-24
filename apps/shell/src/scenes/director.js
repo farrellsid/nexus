@@ -1546,7 +1546,7 @@ export class SceneDirector {
    * Claim camera ownership for a scene flight through the shared navigation
    * policy, releasing any tracked contact, voice orbit, or in-flight tween
    * first. Two writers on the camera is the documented jitter failure mode
-   * (see src/data/trackedCamera.js and the orbit refusal in src/cameraVerbs.js),
+   * (a tracked-entity follow camera and a scene flight both writing the frame),
    * and the policy is also where the camera can be refused.
    * @returns {boolean} False when the camera is unavailable (disposed).
    */

@@ -1,6 +1,5 @@
 import { readShellSource } from '../testSupport/readShellSource.mjs';
 import { expandApplicationHtml } from '../../build/application-html.js';
-import { readLayerSource } from '../testSupport/readLayerSource.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
@@ -10,7 +9,6 @@ import {
   LAYER_STATE_STORAGE_KEY,
   LayerStateCoordinator,
   REGISTERED_LAYER_IDS,
-  SHARE_TRACKING_RESTORE_POLICIES,
   createDefaultLayerState,
   decodeLayerStateParams,
   encodeLayerStateParams,

@@ -11,9 +11,7 @@ export class NavigationController {
   constructor({
     viewer,
     searchInput,
-    interruptCameraMotion,
     clearLocation,
-    cancelShareSelection,
     getDataManager,
     stopOrbit,
     showToast,
@@ -22,9 +20,7 @@ export class NavigationController {
     Object.assign(this, {
       viewer,
       searchInput,
-      interruptCameraMotion,
       clearLocation,
-      cancelShareSelection,
       getDataManager,
       stopOrbit,
       showToast,
@@ -49,7 +45,6 @@ export class NavigationController {
     // reassert seam instead: a geocode that never resolves moves no camera, and
     // a lookup that fails must not blank a readout that is still true.
     if (clearSearchedLocation) this.clearLocation();
-    if (cancelPendingSelection) this.cancelShareSelection();
     if (this._activeLocationSearchGeneration !== null) {
       this._settleLocationSearchUi(this._activeLocationSearchGeneration);
     }
@@ -66,7 +61,6 @@ export class NavigationController {
 
   _releaseFollowCamera({ preserveCameraFlight = false } = {}) {
     this.viewer.trackedEntity = undefined;
-    this.interruptCameraMotion('explicit-navigation');
     this.stopOrbit();
     if (!preserveCameraFlight) this.viewer.camera.cancelFlight();
     try {
@@ -96,7 +90,6 @@ export class NavigationController {
           clearSearchedLocation: false,
         }),
       release: () => {
-        this.interruptCameraMotion('camera-orientation');
         this.stopOrbit();
         this.viewer.camera.cancelFlight();
       },

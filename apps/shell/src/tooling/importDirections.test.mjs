@@ -120,15 +120,6 @@ for (const [name, files, pattern] of [
     /Provider imports application/,
   ],
   [
-    'voice controls reach protocol indirectly',
-    {
-      'src/voice/sessionCommands.js': "import './helper.js';",
-      'src/voice/helper.js': "import './realtimeSession.js';",
-      'src/voice/realtimeSession.js': '',
-    },
-    /Common voice controls import protocol/,
-  ],
-  [
     'dynamic import cannot evade direction',
     { 'src/app/demo.js': "const target = './module.js'; import(target);" },
     /Computed/,

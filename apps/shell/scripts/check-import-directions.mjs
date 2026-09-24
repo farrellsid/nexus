@@ -34,12 +34,7 @@ const portableExport = (key) =>
   /^\.\/layers\/(?:flights|military|vessels)\/(?:records|ingestion)$/.test(
     key,
   ) ||
-  [
-    './director',
-    './voice/action-schemas',
-    './voice/session',
-    './data/lifecycle',
-  ].includes(key);
+  ['./director', './data/lifecycle'].includes(key);
 
 /** Check every runtime file, plus transitive portable/source graphs, independently of bundler reachability. */
 export function checkImportDirections(root) {
@@ -144,19 +139,6 @@ export function checkImportDirections(root) {
         report(file, `Reusable module imports standalone setup: ${to}`);
       if (source(file) && renderer(to))
         report(file, `Source imports rendering/application: ${to}`);
-      if (file === 'src/voice/gevActions.js' && to === 'src/data/manager.js')
-        report(
-          file,
-          'Actions must consume feed state without the manager facade',
-        );
-      if (
-        file === 'src/app/constructCatalog.js' &&
-        to === 'src/data/localGeojson.js'
-      )
-        report(
-          file,
-          'Catalog must use the services owner without compatibility layer construction',
-        );
     }
     return record;
   }
@@ -221,20 +203,6 @@ export function checkImportDirections(root) {
     }
     visit(start);
   }
-  // Common voice controls may use their DOM view, but never a protocol implementation.
-  const voiceSeen = new Set();
-  function voice(file) {
-    if (voiceSeen.has(file)) return;
-    voiceSeen.add(file);
-    const info = load(file);
-    for (const to of info?.edges || []) {
-      if (/^src\/voice\/realtime/.test(to))
-        report(file, `Common voice controls import protocol: ${to}`);
-      else if (code.test(to)) voice(to);
-    }
-  }
-  if (existsSync(path.join(root, 'src/voice/sessionCommands.js')))
-    voice('src/voice/sessionCommands.js');
   if (errors.size) throw new Error([...errors].join('\n'));
   return { modules: files.length, portableEntries: roots.size };
 }

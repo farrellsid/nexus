@@ -43,10 +43,7 @@ function isExplicitLayerIntentOrigin(origin) {
 function cancelPendingLayerRestore(entry, origin, reason) {
   if (!isExplicitLayerIntentOrigin(origin)) return;
   try {
-    (
-      entry.module?.cancelPendingRestore ||
-      entry.module?.cancelPendingTrackingRestore
-    )?.({ origin, reason });
+    entry.module?.cancelPendingRestore?.({ origin, reason });
   } catch (error) {
     console.warn(
       `[Data] ${entry.module?.id || 'layer'} pending restore cancellation error:`,
@@ -405,111 +402,6 @@ export class LayerLifecycle {
     }
 
     return this._runPeriodicUpdate(layerId, entry, { signal });
-  }
-
-  /**
-   * Refresh one enabled tracked layer at the destination, then let that layer
-   * decide whether the requested ID was present in an authoritative snapshot.
-   * Lifecycle success alone is deliberately insufficient for this decision.
-   */
-  async resolveLayerTrackingTarget(
-    layerId,
-    targetId,
-    { signal = null, origin = 'share-restore' } = {},
-  ) {
-    const entry = this.layers.get(layerId);
-    const base = {
-      layerId,
-      targetId,
-      origin,
-      refreshSucceeded: false,
-    };
-    if (!entry || !entry.enabled || entry.destroying) {
-      return { ...base, status: 'unavailable', reason: 'layer-unavailable' };
-    }
-    if (typeof entry.module?.resolveTrackingRestoreTarget !== 'function') {
-      return {
-        ...base,
-        status: 'unsupported',
-        reason: 'tracking-restore-unsupported',
-      };
-    }
-    if (signal?.aborted) {
-      return {
-        ...base,
-        status: 'cancelled',
-        reason: String(signal.reason || 'aborted'),
-      };
-    }
-
-    const refreshSucceeded = await this.refreshLayer(layerId, { signal });
-    if (signal?.aborted) {
-      return {
-        ...base,
-        refreshSucceeded,
-        status: 'cancelled',
-        reason: String(signal.reason || 'aborted'),
-      };
-    }
-    if (
-      this.layers.get(layerId) !== entry ||
-      entry.destroying ||
-      !entry.enabled
-    ) {
-      return {
-        ...base,
-        refreshSucceeded,
-        status: 'destroyed',
-        reason: 'layer-destroyed',
-      };
-    }
-
-    try {
-      const resolution = await entry.module.resolveTrackingRestoreTarget(
-        targetId,
-        {
-          signal,
-          origin,
-          refreshSucceeded,
-        },
-      );
-      if (signal?.aborted) {
-        return {
-          ...base,
-          refreshSucceeded,
-          status: 'cancelled',
-          reason: String(signal.reason || 'aborted'),
-        };
-      }
-      const status = [
-        'found',
-        'missing',
-        'source-unavailable',
-        'cancelled',
-        'superseded',
-        'destroyed',
-      ].includes(resolution?.status)
-        ? resolution.status
-        : 'source-unavailable';
-      return { ...base, refreshSucceeded, ...resolution, status };
-    } catch (error) {
-      if (signal?.aborted || isAbortError(error)) {
-        return {
-          ...base,
-          refreshSucceeded,
-          status: 'cancelled',
-          reason: String(signal?.reason || error?.message || 'aborted'),
-          errorClass: 'AbortError',
-        };
-      }
-      return {
-        ...base,
-        refreshSucceeded,
-        status: 'source-unavailable',
-        reason: String(error?.message || error),
-        errorClass: error?.name || 'Error',
-      };
-    }
   }
 
   _armUpdateLoop(layerId, entry) {
@@ -1848,9 +1740,7 @@ export class LayerLifecycle {
     { origin = 'programmatic', reason = 'cancelled' } = {},
   ) {
     const entry = this.layers.get(layerId);
-    const cancel =
-      entry?.module?.cancelPendingRestore ||
-      entry?.module?.cancelPendingTrackingRestore;
+    const cancel = entry?.module?.cancelPendingRestore;
     if (typeof cancel !== 'function') return false;
     try {
       cancel.call(entry.module, { origin, reason });

@@ -201,22 +201,6 @@ export class ShellFacade {
     this._navigation._activeLocationSearchGeneration = value;
   }
 
-  get _shareTrackingAcquiringKey() {
-    return this._shareRestoration._shareTrackingAcquiringKey;
-  }
-
-  set _shareTrackingAcquiringKey(value) {
-    this._shareRestoration._shareTrackingAcquiringKey = value;
-  }
-
-  get _shareTrackingNoticeGeneration() {
-    return this._shareRestoration._shareTrackingNoticeGeneration;
-  }
-
-  set _shareTrackingNoticeGeneration(value) {
-    this._shareRestoration._shareTrackingNoticeGeneration = value;
-  }
-
   get _initialShareState() {
     return this._shareRestoration._initialShareState;
   }
@@ -279,14 +263,6 @@ export class ShellFacade {
 
   set _hasShareState(value) {
     this._shareRestoration._hasShareState = value;
-  }
-
-  get _initialShareSelectionSuperseded() {
-    return this._shareRestoration._initialShareSelectionSuperseded;
-  }
-
-  set _initialShareSelectionSuperseded(value) {
-    this._shareRestoration._initialShareSelectionSuperseded = value;
   }
 
   get _initialShareGestureHandler() {
@@ -641,12 +617,6 @@ export class ShellFacade {
    */
   attachDataManager(...args) {
     return this._layerBindings.attachDataManager(...args);
-  }
-
-  _handleShareTrackingRestoreStatus(result) {
-    return this._shareRestoration._handleShareTrackingRestoreStatus(
-      ...arguments,
-    );
   }
 
   /**

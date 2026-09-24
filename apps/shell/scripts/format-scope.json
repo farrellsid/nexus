@@ -110,7 +110,6 @@
   "src/ui/styles/command-dock-compact.css",
   "src/app/stateChannel.js",
   "src/app/stateChannel.test.mjs",
-  "src/testSupport/readLayerSource.mjs",
   "src/ui/frameRateMonitor.js",
   "src/ui/frameRateMonitor.test.mjs",
   "src/data/dataCredits.test.mjs",

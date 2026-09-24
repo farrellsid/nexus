@@ -282,7 +282,7 @@ export class LocationNavigation {
   }
 
   resetToGlobeView() {
-    const { GLOBE_VIEW, flyToGlobeView, interruptCameraMotion } = this.services;
+    const { GLOBE_VIEW, flyToGlobeView } = this.services;
     if (this._disposed)
       return Promise.resolve({
         ok: false,
@@ -291,7 +291,6 @@ export class LocationNavigation {
       });
     if (this._globeResetPromise) return this._globeResetPromise;
     this._stampNavigation();
-    interruptCameraMotion('reset-globe');
     this._stopOrbit();
     this.viewer.trackedEntity = undefined;
     this.viewer.camera.cancelFlight();

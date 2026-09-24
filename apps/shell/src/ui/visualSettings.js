@@ -7,7 +7,6 @@ import {
   STYLE_PRESET_DEFAULTS,
 } from './effects.js';
 import { createStyleParameters } from './visualInput.js';
-import * as Cesium from 'cesium';
 import {
   BLOOM_SCALE_VERSION,
   clampBloomIntensity,

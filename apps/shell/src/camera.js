@@ -32,21 +32,6 @@ export const CAMERA_PRESETS = {
 };
 
 /**
- * Fly the camera to a preset location with a smooth animation.
- */
-export function flyToPreset(viewer, presetName, duration = 3.0) {
-  const preset = CAMERA_PRESETS[presetName];
-  if (!preset) return;
-
-  viewer.camera.flyTo({
-    destination: preset.destination,
-    orientation: preset.orientation,
-    duration,
-    easingFunction: Cesium.EasingFunction.CUBIC_IN_OUT,
-  });
-}
-
-/**
  * Set camera to Austin on load with a cinematic fly-in.
  * @returns {Function} Cancels the pending or active startup flight.
  */

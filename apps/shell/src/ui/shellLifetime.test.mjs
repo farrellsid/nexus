@@ -26,7 +26,6 @@ function location(t) {
       OrbitController: class { stop() { calls.push('orbit-stop'); } },
       GLOBE_VIEW: { heightM: 20000000 },
       flyToGlobeView(_viewer, callbacks) { hooks = callbacks; return {}; },
-      interruptCameraMotion() {},
       militaryAwarenessLayer: {}, satellitesLayer: {}, rocketLaunchesLayer: {},
       trafficLayer: {
         beginWorldJump() { calls.push('begin'); },

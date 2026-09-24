@@ -2,7 +2,6 @@
   "modules": [
     "src/data/manager.js",
     "src/search/index.js",
-    "src/testSupport/readLayerSource.mjs",
     "src/testSupport/readShellSource.mjs",
     "src/testSupport/readStylesheet.mjs",
     "src/tooling/fixtureRoot.mjs"

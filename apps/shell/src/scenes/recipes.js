@@ -15,10 +15,6 @@ export const SCENE_RECIPES = createSceneRecipes();
 /** Recipes that append shots to an existing project. None ship yet. */
 export const SCENE_APPEND_RECIPES = [];
 
-export function getSceneRecipeById(id) {
-  return SCENE_RECIPES.find((recipe) => recipe.id === id) || null;
-}
-
 export function getSceneAppendRecipeById(id) {
   return SCENE_APPEND_RECIPES.find((recipe) => recipe.id === id) || null;
 }
