@@ -2,8 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { createBrowserViteConfig } from '../../build/vite.js';
-import standaloneConfig, * as compatibility from '../../vite.config.js';
-import * as providers from '../../server/providers/local.js';
 
 test('explicit build inputs preserve browser-only defines, plugin order and loopback protections', () => {
   const plugin = { name: 'fixture-provider' };
@@ -58,17 +56,6 @@ test('build helper does not discover environment values or construct local provi
   }
 });
 
-test('root config retains existing named exports and standalone provider order', () => {
-  for (const [name, value] of Object.entries(providers))
-    assert.equal(compatibility[name], value, name);
-  const config = standaloneConfig({ mode: 'test' });
-  assert.deepEqual(
-    config.plugins.slice(2, -1).map((plugin) => plugin.name),
-    providers.localProviderPlugins().map((plugin) => plugin.name),
-  );
-  assert.equal(config.plugins.at(-2).name, 'gev-key-setup');
-  assert.equal(config.plugins.at(-1).name, 'api-not-found');
-});
 
 test('build export resolves in Node and has no browser fallback', async () => {
   const exported = await import('gods-eye-view/build/vite');

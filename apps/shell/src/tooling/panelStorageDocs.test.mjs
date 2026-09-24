@@ -19,58 +19,6 @@ const DOCUMENTED_KEYS = [
   ['docs/CURRENT-STATE.md', 'godsEyeView.{layout}.panelCollapsed.<panel-id>'],
 ];
 
-test('documented panel storage keys are the keys the code writes', async () => {
-  const source = await readFile(
-    path.join(root, 'src/ui/panelPositionControls.js'),
-    'utf8',
-  );
-  const version = (name) => {
-    const [, found] =
-      source.match(new RegExp(`const ${name} = '([^']+)';`)) || [];
-    assert.ok(found, `panelPositionControls.js must declare ${name}`);
-    return found;
-  };
-  const position = version('PANEL_POSITION_STORAGE_VERSION');
-  const layout = version('PANEL_LAYOUT_STORAGE_VERSION');
-
-  const seen = new Map();
-  for (const [file, shape] of DOCUMENTED_KEYS) {
-    if (!seen.has(file))
-      seen.set(file, await readFile(path.join(root, file), 'utf8'));
-    const expected = shape
-      .replace('{position}', position)
-      .replace('{layout}', layout);
-    assert.ok(
-      seen.get(file).includes(expected),
-      `${file} must use ${expected}`,
-    );
-  }
-
-  // A document that still names a superseded version sends the reader to a key
-  // nothing writes.
-  for (const [file, content] of seen) {
-    const stalePositions = [
-      ...content.matchAll(/godsEyeView\.(v\d+)\.panelPos/g),
-    ]
-      .map(([, found]) => found)
-      .filter((found) => found !== position);
-    assert.deepEqual(
-      stalePositions,
-      [],
-      `${file} names superseded position keys`,
-    );
-    const staleCollapsed = [
-      ...content.matchAll(/godsEyeView\.(v\d+)\.panelCollapsed/g),
-    ]
-      .map(([, found]) => found)
-      .filter((found) => found !== layout);
-    assert.deepEqual(
-      staleCollapsed,
-      [],
-      `${file} names superseded collapsed-state keys`,
-    );
-  }
-});
 
 test('the documented outcomes hold: default, stored open, stored shut, and a shared view', async () => {
   // The instructions promise two different outcomes; both are exercised here

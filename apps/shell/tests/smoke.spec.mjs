@@ -22,7 +22,12 @@ test('the shell renders and is no noisier than its recorded baseline', async ({ 
   await page.waitForSelector('canvas', { timeout: 60_000 });
   await page.waitForTimeout(10_000);
 
-  const screenshot = await page.screenshot();
+  // Imagery arrives over the network, so wait for a rendered frame rather than a fixed delay.
+  let screenshot = await page.screenshot();
+  for (let attempt = 0; attempt < 12 && screenshot.length <= 60_000; attempt++) {
+    await page.waitForTimeout(5_000);
+    screenshot = await page.screenshot();
+  }
   mkdirSync('test-results', { recursive: true });
   writeFileSync('test-results/smoke.png', screenshot);
   writeFileSync(

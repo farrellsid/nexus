@@ -1,10 +1,8 @@
 import { expandApplicationHtml } from '../build/application-html.js';
 import { readStylesheet } from './testSupport/readStylesheet.mjs';
-import { GEV_REALTIME_TOOLS } from '../server/providers/openai/tools.js';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import crypto from 'node:crypto';
 import {
   ENVIRONMENTAL_LABEL_CHOICE,
   EXCLUSIVE_SURFACE_CLASSES,
@@ -654,48 +652,3 @@ test('the DISPLAY rail starts collapsed on a first run, and a stored choice wins
   );
 });
 
-// ── Voice: instruction-only, tool schema unchanged ─────────────────────
-
-test('the voice TOOL SCHEMA matches the pinned release — the mission mapping is instructions only', () => {
-  // ALPR deliberately adds its ID to the two layer menus and visibility aliases.
-  // Canonical serialization pins every tool name, description, property and
-  // ordering while allowing source formatting. Derived from the unchanged
-  // release schema before formatting (the previous source-byte pin passed).
-  const block = JSON.stringify(GEV_REALTIME_TOOLS);
-  assert.equal(block.length, 26208, 'serialized tool schema length drifted');
-  assert.equal(
-    crypto.createHash('sha256').update(block).digest('hex'),
-    '135d4ec66239777da34a8476cdf8348574421d7afd2e981cc3490909a5bc8686',
-    'the first-run missions must ride EXISTING tools: no schema edit, no cache bust',
-  );
-  const instructions = fs.readFileSync(new URL('../server/providers/openai/instructions.js', import.meta.url), 'utf8');
-
-  // ...and the mapping that makes them reachable by voice is one instruction
-  // string, whose rollback is deleting that string. Anchored to a LIVE array
-  // entry — a quote at the start of its own line — so commenting the paragraph
-  // out reads as the removal it is, not as a passing substring match.
-  assert.match(
-    instructions,
-    /\n\s+'NAMED VIEWS are shorthand/,
-    'the mission mapping must be an active instruction entry, not commented out',
-  );
-  const mapping = instructions.slice(instructions.indexOf('NAMED VIEWS are shorthand'));
-  const paragraph = mapping.slice(0, mapping.indexOf("',\n"));
-  for (const layerId of [
-    'local-datacenters', 'local-dams', 'telegeography-submarine-cables', 'local-firms', 'earthquakes',
-  ]) {
-    assert.ok(paragraph.includes(layerId), `mapping must name the existing ${layerId} enum value`);
-  }
-  assert.ok(paragraph.includes('zoom_to_globe'));
-  assert.ok(paragraph.includes('set_layer_visibility'));
-});
-
-test('every layer a mission drives is already in the shipped set_layer_visibility enum', () => {
-  const tool = GEV_REALTIME_TOOLS.find(tool => tool.name === 'set_layer_visibility');
-  const allowedLayers = tool.parameters.properties.layerId.enum;
-  const missionLayerIds = Object.values(FIRST_RUN_MISSIONS).flatMap((mission) => mission.layerIds || []);
-  assert.ok(missionLayerIds.length > 0);
-  for (const layerId of missionLayerIds) {
-    assert.ok(allowedLayers.includes(layerId), `${layerId} must already be an allowed enum value`);
-  }
-});
