@@ -1,0 +1,66 @@
+{
+  "O-S02": {
+    "status": "unreadable",
+    "reason": "The page is script-rendered; a plain HTTP fetch returns almost no text.",
+    "declared": "2026-09-24"
+  },
+  "O-S03": {
+    "status": "changed",
+    "reason": "A mutable 'latest update' landing page. It now reports a newer update month than the stored excerpt, and no snapshot exists of the earlier state.",
+    "declared": "2026-09-24"
+  },
+  "O-S05": {
+    "status": "changed",
+    "reason": "Superseded by O-S24, a verbatim replacement version. The old record is retained because source records are append-only.",
+    "declared": "2026-09-24",
+    "superseded_by": "O-S24"
+  },
+  "O-S06": {
+    "status": "unreachable",
+    "reason": "The host did not answer a plain HTTP request on 2026-09-24 (URLError). May be transient or network-specific.",
+    "declared": "2026-09-24"
+  },
+  "O-S07": {
+    "status": "changed",
+    "reason": "Superseded by O-S25, a verbatim replacement version. The old record is retained because source records are append-only.",
+    "declared": "2026-09-24",
+    "superseded_by": "O-S25"
+  },
+  "O-S08": {
+    "status": "changed",
+    "reason": "Superseded by O-S26, a verbatim replacement version. The old record is retained because source records are append-only.",
+    "declared": "2026-09-24",
+    "superseded_by": "O-S26"
+  },
+  "O-S09": {
+    "status": "changed",
+    "reason": "A plain HTTP fetch returns only site navigation; the article body is not present in the page text.",
+    "declared": "2026-09-24"
+  },
+  "O-S10": {
+    "status": "changed",
+    "reason": "Superseded by O-S27, a verbatim replacement version. The old record is retained because source records are append-only.",
+    "declared": "2026-09-24",
+    "superseded_by": "O-S27"
+  },
+  "O-S14": {
+    "status": "unreadable",
+    "reason": "A PDF whose URL is overwritten weekly. Needs a PDF text extractor and a snapshot (milestone M4).",
+    "declared": "2026-09-24"
+  },
+  "O-S19": {
+    "status": "unreadable",
+    "reason": "An image-based PDF, read by page vision; a substring check cannot verify it. Needs OCR with recorded confidence (milestone M4).",
+    "declared": "2026-09-24"
+  },
+  "S03": {
+    "status": "unreadable",
+    "reason": "A PDF; needs a PDF text extractor (milestone M4). Copper is audited when its data is expanded.",
+    "declared": "2026-09-24"
+  },
+  "S10": {
+    "status": "unreadable",
+    "reason": "A PDF; needs a PDF text extractor (milestone M4). Copper is audited when its data is expanded.",
+    "declared": "2026-09-24"
+  }
+}

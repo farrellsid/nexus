@@ -2,7 +2,7 @@
 
 Research cutoff: 2026-09-22. User selected oil as Nexus's first full industry brief.
 
-The observed briefing window is 2025-Q3 through 2026-Q2. June 2026 is the latest common endpoint across the selected EIA quarterly analysis, JODI update and China NBS release. Selected developments continue through 2026-09-10, with estimates, forecasts and policy announcements labelled separately.
+The observed briefing window is 2025-Q3 through 2026-Q2. June 2026 is the latest common endpoint across the selected EIA quarterly analysis, JODI update and China NBS release. Selected developments continue through 2026-09-16, with estimates, forecasts and policy announcements labelled separately.
 
 This first pack focuses on the explanatory spine: global supply, Hormuz, alternate routes through Saudi and UAE infrastructure, Bab el-Mandeb, Suez/SUMED and the Cape route, alternatives around Malacca, China's import/refining response, U.S. production/exports and an OPEC+ decision. It does not trace individual cargoes, establish a single cause for prices, convert tonnes to barrels without an explicit conversion basis, or treat production requirements as actual output. A later addition deepened the baseline with U.S. commercial crude stocks, U.S. refining capacity/utilization, India's crude oil imports and country-level OPEC+ production (Saudi Arabia, Iraq, Russia, Iran).
 

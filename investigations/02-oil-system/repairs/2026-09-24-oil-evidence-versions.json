@@ -1,0 +1,98 @@
+{
+  "id": "2026-09-24-oil-evidence-versions",
+  "case_id": "oil-system-2025q3-2026q2",
+  "description": "Replacement source versions for four non-verbatim excerpts, and retained evidence for five figures whose stored anchors did not contain them. Every anchor was verified as a verbatim span of the fetched page text on 2026-09-24. Nothing here asserts a figure is correct; it makes retained evidence match what the claims say.",
+  "corrections": [
+    {
+      "claim_id": "O-C02",
+      "add": [
+        "O-S21"
+      ],
+      "why": "Evidence repair, 2026-09-24. The 4.9 million b/d figure is in Table 2 of the cited page (Strait of Hormuz, 2Q26), but the retained anchor covered only the AIS-reliability caveat. The claim's statement and caveat are unchanged; the earlier source stays cited."
+    },
+    {
+      "claim_id": "O-C03",
+      "add": [
+        "O-S21"
+      ],
+      "why": "Evidence repair, 2026-09-24. The 8.1 million b/d figure is in Table 2 of the cited page (Bab el-Mandeb, 2Q26), but the retained anchor covered only the AIS-reliability caveat. The claim's statement and caveat are unchanged; the earlier source stays cited."
+    },
+    {
+      "claim_id": "O-C16",
+      "replace": {
+        "O-S11": "O-S22"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the old anchor was about China's import share and did not contain the 23.2 million b/d figure). O-S22 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C26",
+      "add": [
+        "O-S23"
+      ],
+      "why": "Evidence repair, 2026-09-24. The IEA table's columns are Jul 2026 Supply and Aug 2026 Supply; Iraq's 3.86 is the August value. The retained anchor was about global production and did not contain the figure. The claim's statement and caveat are unchanged; the earlier source stays cited."
+    },
+    {
+      "claim_id": "O-C07",
+      "replace": {
+        "O-S05": "O-S24"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page reads 'barrels per day (b/d)' and the anchor dropped the parenthetical). O-S24 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C12",
+      "replace": {
+        "O-S07": "O-S25"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page reads 'barrels per day (b/d)' and the anchor dropped the parenthetical). O-S25 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C10",
+      "replace": {
+        "O-S08": "O-S26"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page abbreviates the unit to 'b/d' and the anchor spelled it out). O-S26 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C11",
+      "replace": {
+        "O-S08": "O-S26"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page abbreviates the unit to 'b/d' and the anchor spelled it out). O-S26 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C04",
+      "replace": {
+        "O-S10": "O-S27"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page abbreviates the unit to 'b/d' and the anchor spelled it out). O-S27 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C05",
+      "replace": {
+        "O-S10": "O-S27"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page abbreviates the unit to 'b/d' and the anchor spelled it out). O-S27 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C06",
+      "replace": {
+        "O-S10": "O-S27"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page abbreviates the unit to 'b/d' and the anchor spelled it out). O-S27 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C14",
+      "replace": {
+        "O-S10": "O-S27"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page abbreviates the unit to 'b/d' and the anchor spelled it out). O-S27 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    },
+    {
+      "claim_id": "O-C15",
+      "replace": {
+        "O-S10": "O-S27"
+      },
+      "why": "Evidence repair, 2026-09-24. The stored anchor was not a verbatim span of the cited page (the page abbreviates the unit to 'b/d' and the anchor spelled it out). O-S27 retains the verbatim span from the same page. The claim's statement and caveat are unchanged."
+    }
+  ]
+}

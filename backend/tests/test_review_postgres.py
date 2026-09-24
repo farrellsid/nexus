@@ -270,3 +270,59 @@ def test_native_backup_restores_evidence_decisions_and_versions(store):
         with psycopg.connect(store.database.url, autocommit=True) as connection:
             connection.execute(sql.SQL("DROP DATABASE {}").format(sql.Identifier(restored_name)))
         archive.unlink(missing_ok=True)
+
+
+def test_evidence_repair_proposals_stay_pending_and_leave_the_displayed_claim_unchanged(store):
+    import importlib.util
+    import json
+
+    script = ROOT / "scripts" / "propose_evidence_repairs.py"
+    spec = importlib.util.spec_from_file_location("propose_evidence_repairs", script)
+    repairs = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(repairs)
+
+    oil = next(
+        item
+        for item in load_investigations(INVESTIGATIONS)
+        if item.pack.case_id == "oil-system-2025q3-2026q2"
+    )
+    store.initialize(oil)
+    mapping = json.loads(
+        (
+            ROOT / "investigations/02-oil-system/repairs/2026-09-24-oil-evidence-versions.json"
+        ).read_text(encoding="utf-8")
+    )
+    claims = {claim.id: claim for claim in oil.pack.claims}
+    plan = repairs.plan_corrections(
+        {claim_id: claim.evidence_ids for claim_id, claim in claims.items()},
+        mapping["corrections"],
+        {source.id for source in oil.pack.sources},
+    )
+    displayed_before = {
+        claim.id: claim for claim in store.current_claims([p.claim_id for p in plan])
+    }
+    service = ReviewService(oil.pack, store)
+    for item in plan:
+        claim = claims[item.claim_id]
+        service.propose(
+            item.claim_id,
+            ProposalRequest(
+                request_id=uuid4(),
+                base_revision=store.history(item.claim_id).current_revision,
+                statement=claim.statement,
+                caveat=claim.caveat,
+                evidence_ids=item.after,
+                valid_from=claim.valid_from,
+                valid_to=claim.valid_to,
+                author=repairs.AUTHOR,
+                reason=item.why,
+            ),
+        )
+    for item in plan:
+        history = store.history(item.claim_id)
+        assert history.versions == []
+        assert history.proposals[-1].claim.evidence_ids == item.after
+    displayed_after = {
+        claim.id: claim for claim in store.current_claims([p.claim_id for p in plan])
+    }
+    assert displayed_after == displayed_before
