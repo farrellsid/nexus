@@ -8,6 +8,8 @@ Commits after phase B: B16a (leftover removal), B16b/C4 (branding, honest HUD, o
 
 **Things to know:** the scene director's `startScene` settles when the whole run ends, so `playTour` reads `director.running`; the smoke tests wait for the opening flight (camera at 12,000 km) before acting or it takes the camera back; Playwright uses the Edge channel; the dev server for manual looks runs on 4173 (`npm run dev` in `apps/shell`). Fonts and Esri/OSM imagery are the only third-party runtime items; full font licence texts are still to be bundled before any release.
 
+**User feedback from the Edge check (2026-09-25):** smooth and good-looking; keep the effects. Idea, not yet planned: move the visual presets into a separate settings screen reached from a menu, since Nexus will show much more information later, and decide what else belongs in that menu. The user also asked for visible credit to God's Eye View and Bilawal Sidhu (done: title bar, loading screen, credits popover, fallback page, READMEs); the title stays "Nexus" pending, if wanted, his agreement to a joint name.
+
 **Next actions:** the user opens the shell in Edge (D3) and decides which effects stay; then merge `m5-shell` (the user's call), move the panels onto the action layer when chat exists, and begin M6 (the shell on real backend data). Not done in M5: Nexus entity search, a Nexus selection card, public-build imagery (Natural Earth only), font licence texts.
 
 ## 2026-09-24, M5 phase B in progress on branch m5-shell
