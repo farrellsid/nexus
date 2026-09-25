@@ -102,6 +102,23 @@ Approved as direction, with the details still to be designed:
 - **Retained upstream modules stay JavaScript; new Nexus code is strict TypeScript;** React comes in M6 as mounted panels.
 - **Local development keeps Esri and OSM imagery; the public build uses Natural Earth** through one flag.
 
+## 2026-09-25, M5 shell: assistant proposals awaiting the user
+
+These were made while building `apps/shell`, are recorded in `apps/shell/UPSTREAM.md`, and stand unless the user objects.
+
+- **The shell shows no invented instrument data.** Classification banners, mission, sensor and orbit ids, GSD and NIIRS, collection time and the REC light were removed from the HUD; what remains is measured from the camera or the clock.
+- **The mark and icons are drawn for Nexus** (`nexus-mark.svg` and three small icons), because the upstream logo is another project's identity and its icons have no provenance. They can be replaced by a designed mark at any time.
+- **Upstream's documentation (650 KB) was deleted** from `apps/shell`; it described removed features and would mislead later work. The import commit in git history keeps it.
+- **The action layer's verbs are camera, layer and tour operations only** and cannot make a request or write evidence; the mouse and panels do not use it yet.
+- **The shell opens on the Indian Ocean** and its location presets are the six oil stops in two groups (Gulf and Red Sea; Southeast Asian straits).
+- **Share-link input is range-checked and clamped;** unknown names fall back to defaults.
+- **The 2D fallback replaces the whole page** when WebGL is missing, startup fails, or `?view=2d` is given.
+- **Still open for the user (D3):** which visual effects stay, frame rate on their hardware, and reduced motion.
+
+## 2026-09-25, live tracking requested back (undecided)
+
+After the M5 check the user said planes and boats add a lot and should be added to the milestones. The earlier decision stripped live tracking, so this is recorded as an open request, not a reversal: feeds, terms, keys, cost and the local-only versus public question must be settled first (see the M5 feedback in `docs/roadmap.md`).
+
 ## Consequences to keep in view
 
 - **Nothing is publishable yet.** Published tours need accepted evidence, and the local database holds zero accepted versions and zero decisions (44 assertions, 44 candidate proposals, checked 2026-09-23). Claims must be reviewed and accepted first, and known defects (O-C26 is unsupported by its retained excerpt; the oil pack's cutoff label is wrong) must be repaired before acceptance.

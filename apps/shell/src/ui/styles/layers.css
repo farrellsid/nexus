@@ -1,0 +1,223 @@
+/* ── Data Layer Toggle Panel ─────────────────── */
+#left-panel-stack {
+  position: fixed;
+  top: var(--left-stack-safe-top, var(--left-stack-top));
+  bottom: var(--left-stack-safe-bottom, 4vh);
+  left: var(--left-stack-x);
+  z-index: 100;
+  width: 360px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  pointer-events: none;
+  transition:
+    top var(--transition-fast),
+    bottom var(--transition-fast);
+}
+
+#data-panel {
+  --panel-expanded-width: 280px;
+  position: fixed;
+  top: calc(var(--left-stack-top) + var(--left-stack-gap));
+  left: var(--left-stack-x);
+  right: auto;
+  bottom: auto;
+  z-index: 100;
+  width: var(--panel-expanded-width);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity var(--transition-smooth),
+    visibility var(--transition-smooth),
+    transform var(--transition-smooth);
+}
+
+#data-panel.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#data-panel .panel-glow {
+  position: absolute;
+  inset: -20px;
+  background: radial-gradient(
+    ellipse at center,
+    var(--accent-dim) 0%,
+    transparent 60%
+  );
+  filter: blur(20px);
+  opacity: 0.25;
+  pointer-events: none;
+}
+
+.data-panel-inner {
+  position: relative;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--panel-radius);
+  padding: 14px 16px 12px;
+  backdrop-filter: blur(24px) saturate(1.4);
+  -webkit-backdrop-filter: blur(24px) saturate(1.4);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+    0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  max-height: min(
+    620px,
+    calc(100vh - var(--left-stack-top) - var(--left-stack-gap) - 36px)
+  );
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.data-toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 212, 255, 0.5) rgba(255, 255, 255, 0.04);
+  scrollbar-gutter: stable;
+}
+
+.data-toggle-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.data-toggle-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+}
+
+.data-toggle-list::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(0, 212, 255, 0.65),
+    rgba(0, 212, 255, 0.2)
+  );
+  border-radius: 999px;
+}
+
+.data-layer-group-heading {
+  margin: 8px 10px 2px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+}
+
+.data-layer-group-heading:first-child {
+  margin-top: 0;
+  padding-top: 4px;
+  border-top: 0;
+}
+
+.data-toggle-row {
+  padding: 8px 10px 6px;
+  border-radius: 8px;
+  transition: background var(--transition-fast);
+}
+
+.data-toggle-row:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+/* Selected-only, provenance-first proximity results. This is intentionally a
+   contextual panel, not a radar/engagement display. */
+
+#right-context-rail {
+  --right-display-collapsed-width: var(--left-collapsed-width);
+  --right-context-collapsed-width: var(--left-collapsed-width);
+  position: fixed;
+  z-index: 110;
+  top: var(--right-stack-safe-top, 26vh);
+  right: var(--right-rail-x);
+  width: 330px;
+  max-height: var(--right-stack-max-height, 70vh);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: none;
+  transition:
+    top var(--transition-fast),
+    max-height var(--transition-fast);
+}
+#right-context-rail > #pp-toggles {
+  position: relative;
+  inset: auto;
+  flex: 0 0 auto;
+  pointer-events: auto;
+}
+
+#right-context-rail > #pp-toggles.collapsed {
+  width: var(--right-display-collapsed-width);
+  margin-left: auto;
+}
+#right-context-rail > #pp-toggles.collapsed .pp-header-row {
+  width: 100%;
+}
+#right-context-rail > #pp-toggles.collapsed .pp-header-row {
+  height: 50px;
+  min-height: 50px;
+  box-sizing: border-box;
+}
+
+#right-context-rail.layout-focus {
+  height: var(--right-stack-max-height);
+}
+#right-context-rail.layout-exclusive > [data-panel-id].collapsed {
+  display: none;
+}
+#right-context-rail.layout-focus > [data-panel-id].collapsed {
+  display: block;
+  flex: 0 0 auto;
+}
+#right-context-rail.layout-focus.layout-exclusive > [data-panel-id].collapsed {
+  display: none;
+}
+#right-context-rail.layout-focus > #pp-toggles:not(.collapsed) {
+  flex: 0 1 var(--right-panel-allocated-height);
+  height: var(--right-panel-allocated-height);
+  min-height: 0;
+  max-height: var(--right-panel-allocated-height);
+}
+#right-context-rail.layout-focus > #pp-toggles:not(.collapsed) {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 212, 255, 0.4) transparent;
+}
+
+/* TR-3B reclassify toggle rides an `auto` trailing column so the chip never
+   resizes the COCKPIT / SEARCH buttons beside it. */
+
+/* Keep focus distinct when the selected tab owns the accent colors. */
+
+/* ALPR keeps its nearby count in the legend while a wider status chip is shown. */
+.data-toggle-row[data-layer-id='alpr-cameras']
+  .data-toggle-right:has(
+    .data-toggle-btn:is(
+      .feed-loading,
+      .feed-degraded,
+      .feed-stale,
+      .feed-partial,
+      .feed-fallback,
+      .feed-unavailable
+    )
+  )
+  .data-count {
+  display: none;
+}

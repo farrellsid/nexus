@@ -1,0 +1,76 @@
+import { searchAndFlyTo } from '../locations.js';
+import {
+  createApplicationViewer,
+  installTrackpadPinchZoom,
+} from '../app/viewer.js';
+import { registerDataCredits } from '../data/dataCredits.js';
+import { configureCreditKeyboardAccess } from '../creditKeyboard.js';
+import { MapStackController } from '../mapStackController.js';
+import { initLogoGaze } from '../logoGaze.js';
+import {
+  uninstallRenderGovernor,
+  governorRequestRender,
+} from '../renderGovernor.js';
+
+/** Construct the application globe using the caller's local configuration. */
+export async function createApplicationScene({
+  credits,
+  MapController = MapStackController,
+  mapOptions = {},
+  loaderStatus,
+  signal,
+  defer,
+}) {
+  const operations = Object.freeze({
+    searchAndFlyTo: (viewer, query, options = {}) =>
+      searchAndFlyTo(viewer, query, {
+        ...options,
+        signal:
+          signal && options.signal
+            ? AbortSignal.any([signal, options.signal])
+            : signal || options.signal,
+      }),
+  });
+  defer(initLogoGaze());
+  loaderStatus.textContent = 'Configuring viewer...';
+  // Provider attribution stays visible, including clean-view and recording.
+  const creditContainer = document.createElement('div');
+  creditContainer.id = 'cesium-credits';
+  document.body.appendChild(creditContainer);
+  defer(() => creditContainer.remove());
+  const viewer = createApplicationViewer({
+    container: 'cesiumContainer',
+    creditContainer,
+  });
+  defer(() => {
+    uninstallRenderGovernor(viewer);
+    if (!viewer.isDestroyed()) viewer.destroy();
+  });
+  defer(installTrackpadPinchZoom(viewer));
+  registerDataCredits(viewer, credits);
+  configureCreditKeyboardAccess(document);
+  viewer.scene.globe.show = true;
+
+  loaderStatus.textContent = 'Initializing systems...';
+
+  const mapStackController = new MapController(viewer, {
+    requestRender: governorRequestRender,
+    ...mapOptions,
+    initialStack: 'esri-imagery',
+    // Rebroadcast stack changes as a window CustomEvent so the UI can react
+    // without coupling MapStackController to it. Fires on
+    // 'switching'/'ready'/'error'; listeners read live scene state, so
+    // intermediate emissions are harmless.
+    onChange: (state) => {
+      window.dispatchEvent(
+        new CustomEvent('gev:map-stack-changed', { detail: state }),
+      );
+    },
+    onError: (message) => console.warn('[MapStack]', message),
+  });
+  defer(() => mapStackController.destroy());
+  await mapStackController.setStack('esri-imagery', { silent: true });
+
+  signal.throwIfAborted();
+  return { viewer, mapStackController, operations };
+}

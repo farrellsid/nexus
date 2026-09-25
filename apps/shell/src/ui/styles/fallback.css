@@ -1,0 +1,137 @@
+/* The 2D fallback (src/nexus/fallbackMap.ts). It replaces the whole shell, so it hides the shell's
+   own elements while it is up. */
+body.nexus-fallback-active > *:not(#nexus-fallback) {
+  display: none !important;
+}
+
+.nexus-fallback {
+  box-sizing: border-box;
+  min-height: 100vh;
+  padding: 24px clamp(16px, 4vw, 48px) 32px;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+}
+
+.nexus-fallback h1 {
+  margin: 0 0 8px;
+  font-size: 22px;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  color: var(--accent);
+}
+
+.nexus-fallback-notice {
+  margin: 0 0 16px;
+  max-width: 70ch;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.nexus-fallback-map {
+  display: block;
+  width: 100%;
+  max-width: 960px;
+  height: auto;
+}
+
+.nexus-fallback-ocean {
+  fill: #0b1a24;
+}
+
+.nexus-fallback-graticule {
+  fill: none;
+  stroke: rgba(0, 212, 255, 0.12);
+  stroke-width: 0.5;
+}
+
+.nexus-fallback-land {
+  fill: #1f2c33;
+  stroke: rgba(232, 234, 237, 0.25);
+  stroke-width: 0.5;
+}
+
+.nexus-fallback-route {
+  fill: none;
+  stroke: #4ec9e0;
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+  cursor: pointer;
+}
+
+.nexus-fallback-route.active {
+  stroke-width: 3.5;
+}
+
+.nexus-fallback-stop {
+  cursor: pointer;
+}
+
+.nexus-fallback-stop circle {
+  fill: #f2c14e;
+  stroke: #0a0a0f;
+  stroke-width: 1.5;
+}
+
+.nexus-fallback-stop.active circle {
+  fill: #fff;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+}
+
+.nexus-fallback-number {
+  fill: #0a0a0f;
+  font-size: 10px;
+  font-weight: 700;
+  text-anchor: middle;
+  pointer-events: none;
+}
+
+.nexus-fallback-route:focus-visible,
+.nexus-fallback-stop:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.nexus-fallback-readouts {
+  margin: 16px 0;
+  color: var(--accent);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  line-height: 1.7;
+}
+
+.nexus-fallback-card {
+  max-width: 70ch;
+  padding: 16px 20px;
+  border: 1px solid var(--accent-dim);
+  border-radius: var(--panel-radius);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.nexus-fallback-card h2 {
+  margin: 0 0 4px;
+  font-size: 16px;
+}
+
+.nexus-fallback-card p {
+  margin: 8px 0 0;
+}
+
+.nexus-fallback-role,
+.nexus-fallback-hint,
+.nexus-fallback-source,
+.nexus-fallback-credit {
+  color: var(--text-secondary);
+}
+
+.nexus-fallback-card a {
+  color: var(--accent);
+}
+
+.nexus-fallback-credit {
+  margin: 16px 0 0;
+  font-size: 11px;
+}

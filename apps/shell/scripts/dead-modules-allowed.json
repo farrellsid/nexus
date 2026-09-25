@@ -1,0 +1,12 @@
+{
+  "modules": [
+    "src/data/manager.js",
+    "src/search/index.js",
+    "src/testSupport/readShellSource.mjs",
+    "src/testSupport/readStylesheet.mjs",
+    "src/tooling/fixtureRoot.mjs"
+  ],
+  "dangling": [
+    "src/tooling/packageBoundaries.test.mjs imports ./startup.js"
+  ]
+}

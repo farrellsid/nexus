@@ -1,0 +1,1017 @@
+/**
+ * Compatibility API for layers, scene playback and voice commands.
+ * State and behavior live in the named owners; this class only delegates.
+ * New logic belongs with an owner, not in this forwarding surface.
+ */
+export class ShellFacade {
+  /** Observe camera ownership transfers through the navigation owner. */
+  subscribeCameraHandoff(listener) {
+    return this._navigation.subscribeCameraHandoff(listener);
+  }
+
+  get _dataManager() {
+    return this._layerBindings?._dataManager;
+  }
+
+  set _dataManager(value) {
+    this._layerBindings._dataManager = value;
+  }
+
+  get _worldRequestFocusHandler() {
+    return this._layerBindings?._worldRequestFocusHandler;
+  }
+
+  set _worldRequestFocusHandler(value) {
+    this._layerBindings._worldRequestFocusHandler = value;
+  }
+
+  get _removeWorldRequestFocusListener() {
+    return this._layerBindings?._removeWorldRequestFocusListener;
+  }
+
+  set _removeWorldRequestFocusListener(value) {
+    this._layerBindings._removeWorldRequestFocusListener = value;
+  }
+
+  get _removeNavigationAuthorityListener() {
+    return this._layerBindings?._removeNavigationAuthorityListener;
+  }
+
+  set _removeNavigationAuthorityListener(value) {
+    this._layerBindings._removeNavigationAuthorityListener = value;
+  }
+
+  get _navigationOwnerChangedRemover() {
+    return this._layerBindings?._navigationOwnerChangedRemover;
+  }
+
+  set _navigationOwnerChangedRemover(value) {
+    this._layerBindings._navigationOwnerChangedRemover = value;
+  }
+
+  get _dataManagerUnsubscribe() {
+    return this._layerBindings?._dataManagerUnsubscribe;
+  }
+
+  set _dataManagerUnsubscribe(value) {
+    this._layerBindings._dataManagerUnsubscribe = value;
+  }
+
+  get _applicationShortcuts() {
+    return this._displayBindings?._applicationShortcuts;
+  }
+
+  set _applicationShortcuts(value) {
+    this._displayBindings._applicationShortcuts = value;
+  }
+
+  get _frameRateMonitor() {
+    return this._displayBindings?._frameRateMonitor;
+  }
+
+  set _frameRateMonitor(value) {
+    this._displayBindings._frameRateMonitor = value;
+  }
+
+  get _displayControls() {
+    return this._displayBindings?._displayControls;
+  }
+
+  set _displayControls(value) {
+    this._displayBindings._displayControls = value;
+  }
+
+  get _activeLocationId() {
+    return this._locationNavigation._activeLocationId;
+  }
+
+  set _activeLocationId(value) {
+    this._locationNavigation._activeLocationId = value;
+  }
+
+  get _expandedCityId() {
+    return this._locationNavigation._expandedCityId;
+  }
+
+  set _expandedCityId(value) {
+    this._locationNavigation._expandedCityId = value;
+  }
+
+  get _activePoiIndex() {
+    return this._locationNavigation._activePoiIndex;
+  }
+
+  set _activePoiIndex(value) {
+    this._locationNavigation._activePoiIndex = value;
+  }
+
+  get _currentTarget() {
+    return this._locationNavigation._currentTarget;
+  }
+
+  set _currentTarget(value) {
+    this._locationNavigation._currentTarget = value;
+  }
+
+  get _currentPoi() {
+    return this._locationNavigation._currentPoi;
+  }
+
+  set _currentPoi(value) {
+    this._locationNavigation._currentPoi = value;
+  }
+
+  get _searchedLocationLabel() {
+    return this._locationNavigation._searchedLocationLabel;
+  }
+
+  set _searchedLocationLabel(value) {
+    this._locationNavigation._searchedLocationLabel = value;
+  }
+
+  get _locationLookup() {
+    return this._locationNavigation._locationLookup;
+  }
+
+  set _locationLookup(value) {
+    this._locationNavigation._locationLookup = value;
+  }
+
+  get _locationLookupUnsubscribe() {
+    return this._locationNavigation._locationLookupUnsubscribe;
+  }
+
+  set _locationLookupUnsubscribe(value) {
+    this._locationNavigation._locationLookupUnsubscribe = value;
+  }
+
+  get _locationControls() {
+    return this._locationNavigation._locationControls;
+  }
+
+  set _locationControls(value) {
+    this._locationNavigation._locationControls = value;
+  }
+
+  get _locationState() {
+    return this._locationNavigation._locationState;
+  }
+
+  set _locationState(value) {
+    this._locationNavigation._locationState = value;
+  }
+
+  get _globeResetPromise() {
+    return this._locationNavigation._globeResetPromise;
+  }
+
+  set _globeResetPromise(value) {
+    this._locationNavigation._globeResetPromise = value;
+  }
+
+  get orbitController() {
+    return this._locationNavigation.orbitController;
+  }
+
+  set orbitController(value) {
+    this._locationNavigation.orbitController = value;
+  }
+
+  get _orbitIndicator() {
+    return this._locationNavigation._orbitIndicator;
+  }
+
+  set _orbitIndicator(value) {
+    this._locationNavigation._orbitIndicator = value;
+  }
+
+  get _navigationGeneration() {
+    return this._navigation._navigationGeneration;
+  }
+
+  set _navigationGeneration(value) {
+    this._navigation._navigationGeneration = value;
+  }
+
+  get _activeLocationSearchGeneration() {
+    return this._navigation._activeLocationSearchGeneration;
+  }
+
+  set _activeLocationSearchGeneration(value) {
+    this._navigation._activeLocationSearchGeneration = value;
+  }
+
+  get _initialShareState() {
+    return this._shareRestoration._initialShareState;
+  }
+
+  set _initialShareState(value) {
+    this._shareRestoration._initialShareState = value;
+  }
+
+  get _initialShareNavigationGeneration() {
+    return this._shareRestoration._initialShareNavigationGeneration;
+  }
+
+  set _initialShareNavigationGeneration(value) {
+    this._shareRestoration._initialShareNavigationGeneration = value;
+  }
+
+  get _initialShareRestoreTimeout() {
+    return this._shareRestoration._initialShareRestoreTimeout;
+  }
+
+  set _initialShareRestoreTimeout(value) {
+    this._shareRestoration._initialShareRestoreTimeout = value;
+  }
+
+  get _layerStateCoordinator() {
+    return this._shareRestoration._layerStateCoordinator;
+  }
+
+  set _layerStateCoordinator(value) {
+    this._shareRestoration._layerStateCoordinator = value;
+  }
+
+  get _layerStateRestorePromise() {
+    return this._shareRestoration._layerStateRestorePromise;
+  }
+
+  set _layerStateRestorePromise(value) {
+    this._shareRestoration._layerStateRestorePromise = value;
+  }
+
+  get _initialShareRestorePromise() {
+    return this._shareRestoration._initialShareRestorePromise;
+  }
+
+  set _initialShareRestorePromise(value) {
+    this._shareRestoration._initialShareRestorePromise = value;
+  }
+
+  get _resolveInitialShareRestore() {
+    return this._shareRestoration._resolveInitialShareRestore;
+  }
+
+  set _resolveInitialShareRestore(value) {
+    this._shareRestoration._resolveInitialShareRestore = value;
+  }
+
+  get _hasShareState() {
+    return this._shareRestoration._hasShareState;
+  }
+
+  set _hasShareState(value) {
+    this._shareRestoration._hasShareState = value;
+  }
+
+  get _initialShareGestureHandler() {
+    return this._shareRestoration._initialShareGestureHandler;
+  }
+
+  set _initialShareGestureHandler(value) {
+    this._shareRestoration._initialShareGestureHandler = value;
+  }
+
+  get _visualEffects() {
+    return this._visualSettings._visualEffects;
+  }
+
+  set _visualEffects(value) {
+    this._visualSettings._visualEffects = value;
+  }
+
+  get activeStyle() {
+    return this._visualSettings.activeStyle;
+  }
+
+  set activeStyle(value) {
+    this._visualSettings.activeStyle = value;
+  }
+
+  get _styleParameters() {
+    return this._visualSettings._styleParameters;
+  }
+
+  set _styleParameters(value) {
+    this._visualSettings._styleParameters = value;
+  }
+
+  get _panelDisclosureControls() {
+    return this._panelChrome._panelDisclosureControls;
+  }
+
+  set _panelDisclosureControls(value) {
+    this._panelChrome._panelDisclosureControls = value;
+  }
+
+  get _hoverPanelControls() {
+    return this._panelChrome._hoverPanelControls;
+  }
+
+  set _hoverPanelControls(value) {
+    this._panelChrome._hoverPanelControls = value;
+  }
+
+  get _cancelMapSourceFocus() {
+    return this._panelChrome._cancelMapSourceFocus;
+  }
+
+  set _cancelMapSourceFocus(value) {
+    this._panelChrome._cancelMapSourceFocus = value;
+  }
+
+  get _panelPosition() {
+    return this._panelChrome._panelPosition;
+  }
+
+  set _panelPosition(value) {
+    this._panelChrome._panelPosition = value;
+  }
+
+  get _panelLayout() {
+    return this._panelChrome._panelLayout;
+  }
+
+  set _panelLayout(value) {
+    this._panelChrome._panelLayout = value;
+  }
+
+  get stages() {
+    return this._visualSettings.stages;
+  }
+
+  get transitions() {
+    return this._visualSettings.transitions;
+  }
+
+  get bloomEnabled() {
+    return this._visualSettings.bloomEnabled;
+  }
+
+  get sharpenEnabled() {
+    return this._visualSettings.sharpenEnabled;
+  }
+
+  get _bloomStage() {
+    return this._visualEffects.bloomStage;
+  }
+
+  get _sharpenStage() {
+    return this._visualEffects.sharpenStage;
+  }
+
+  /** Settle only the search generation that still owns the shared input UI. */
+  _settleLocationSearchUi(generation) {
+    return this._navigation._settleLocationSearchUi(...arguments);
+  }
+
+  /** Run one immediate destination through the shared ownership policy. */
+  _runExplicitNavigation(noun, navigate, releaseOptions = undefined) {
+    return this._navigation._runExplicitNavigation(...arguments);
+  }
+
+  /** Final authority check and release immediately before a delayed flight. */
+  _reassertNavigationHandoff(generation) {
+    return this._navigation._reassertNavigationHandoff(...arguments);
+  }
+
+  /**
+   * On window resize, keep the draggable panel on-screen — a panel positioned near an edge can fall
+   * outside a now-smaller viewport (audit U2). pp-toggles is right-pinned, so re-pin (horizontal) and
+   * clamp its top. No-op until the panel has been positioned (explicit inline top).
+   * @returns {void}
+   */
+  _reclampDraggablePanels() {
+    return this._panelPosition._reclampDraggablePanels();
+  }
+
+  /**
+   * Creates one CesiumJS PostProcessStage per visual style and registers
+   * it with the scene. Each stage starts with intensity 0 (invisible)
+   * so crossfade transitions can animate it in later.
+   * @returns {void}
+   */
+  _initStages() {
+    return this._visualSettings._initStages(...arguments);
+  }
+
+  /**
+   * Single write path for style-stage intensity: keeps `enabled` in
+   * lockstep so zero-intensity stages cost nothing (safe now that the
+   * scope is explicit — see _initStages). The stage enables on the same
+   * frame the first non-zero intensity lands, so crossfades never pop.
+   * @param {Cesium.PostProcessStage} stage - Style post-process stage.
+   * @param {number} value - Intensity in [0, 1].
+   * @returns {void}
+   */
+  _setStageIntensity(stage, value) {
+    return this._visualSettings._setStageIntensity(...arguments);
+  }
+
+  /**
+   * Re-sync every stage's `enabled` flag from its CURRENT intensity.
+   *
+   * The cockpit-vision policy helpers (src/cockpitVisionPolicy.js) are pure
+   * intensity math — they write `uniforms.intensity` directly and know
+   * nothing about the enabled/intensity lockstep _setStageIntensity owns.
+   * Without this sweep a stage the policy raised to 1 would stay DISABLED
+   * and cockpit NVG/FLIR/CRT would render nothing at all. (Inert while the
+   * chain is permanently enabled; load-bearing again once the explicit
+   * scope frees the zero-intensity stages — see _initStages.)
+   * @returns {void}
+   */
+  _syncStagesEnabledFromIntensity() {
+    return this._visualSettings._syncStagesEnabledFromIntensity(...arguments);
+  }
+
+  /**
+   * Configures Cesium's built-in bloom stage and adds a custom unsharp-mask
+   * sharpen stage to the post-process pipeline. Both start disabled.
+   * @returns {void}
+   */
+  _initBloomSharpen() {
+    return this._visualSettings._initBloomSharpen(...arguments);
+  }
+
+  /**
+   * Reads the current bloom intensity percentage from the effects controller.
+   * @returns {number} Clamped bloom intensity (0-200).
+   */
+  _getBloomIntensity() {
+    return this._visualSettings._getBloomIntensity(...arguments);
+  }
+
+  /**
+   * Enables or disables the Cesium bloom stage based on both the user toggle
+   * and whether the computed strength exceeds the perceptual threshold (0.06).
+   * @returns {void}
+   */
+  _syncBloomStageEnabled() {
+    return this._visualSettings._syncBloomStageEnabled(...arguments);
+  }
+
+  /**
+   * Maps a bloom intensity percentage to Cesium bloom stage uniforms.
+   * Uses smoothstep easing (Hermite interpolation: 3t^2 - 2t^3) to
+   * produce a perceptually linear glow ramp from zero to full strength.
+   * @param {number} intensity - Bloom intensity percentage (0-200).
+   * @returns {void}
+   */
+  _applyBloomIntensity(intensity) {
+    return this._visualSettings._applyBloomIntensity(...arguments);
+  }
+
+  /**
+   * Toggles bloom on/off, syncs button state, and reveals/hides the intensity slider row.
+   * @param {boolean} enabled - Whether bloom should be active.
+   * @returns {void}
+   */
+  _setBloomEnabled(enabled) {
+    return this._visualSettings._setBloomEnabled(...arguments);
+  }
+
+  /**
+   * Maps a normalized sharpen value (0-1) to the unsharp-mask `amount` uniform.
+   * Range: 0.1 (subtle) to 2.1 (aggressive edge enhancement).
+   * @param {number} val - Normalized sharpen intensity (0.0 to 1.0).
+   * @returns {void}
+   */
+  _applySharpenIntensity(val) {
+    return this._visualSettings._applySharpenIntensity(...arguments);
+  }
+
+  /**
+   * Toggles sharpening on/off, syncs button state, and reveals/hides the intensity slider row.
+   * @param {boolean} enabled - Whether sharpening should be active.
+   * @returns {void}
+   */
+  _setSharpenEnabled(enabled) {
+    return this._visualSettings._setSharpenEnabled(...arguments);
+  }
+
+  /**
+   * Switches the HUD layout variant (e.g. 'tactical', 'minimal') and syncs
+   * the layout dropdown if present.
+   * @param {string} variantName - HUD variant identifier.
+   * @returns {void}
+   */
+  _setHudVariant(variantName) {
+    return this._visualSettings._setHudVariant(...arguments);
+  }
+
+  /**
+   * Keeps both responsive panel lanes and Cockpit's utility strip on the same
+   * measured layout commit. HUD visibility transitions can outlive the first
+   * animation frame, so variant changes receive one bounded settling pass.
+   * @param {{settle?: boolean}} [options] Whether to remeasure after transitions.
+   * @returns {void}
+   */
+  _scheduleAdaptivePanelLayout(options0) {
+    return this._panelLayout._scheduleAdaptivePanelLayout(options0);
+  }
+
+  /**
+   * Applies preset defaults (bloom, sharpen, shader uniforms, HUD variant)
+   * when a military-class style (CRT, NVG, FLIR) is selected. Does nothing
+   * for styles without entries in STYLE_PRESET_DEFAULTS.
+   * @param {string} styleName - The style whose defaults to apply.
+   * @returns {void}
+   */
+  _applyStylePresetDefaults(styleName) {
+    return this._visualSettings._applyStylePresetDefaults(...arguments);
+  }
+
+  /**
+   * Applies the global post-processing baseline (GLOBAL_POST_DEFAULTS) at
+   * startup before any share-link restore runs. Sets bloom, sharpen, HUD,
+   * and detection to their factory defaults.
+   * @returns {void}
+   */
+  _applyGlobalPostDefaults() {
+    return this._visualSettings._applyGlobalPostDefaults(...arguments);
+  }
+
+  /** Current shareable visual preferences; subscriptions include an initial snapshot. */
+  subscribeShareState(listener, options) {
+    return this._shareState.subscribe(listener, options);
+  }
+
+  _readShareState() {
+    return this._visualSettings._readShareState(...arguments);
+  }
+
+  /**
+   * Initializes panel collapse buttons and restores persisted collapsed state.
+   * Also sets up hover-expand behavior for the style presets and location bar panels.
+   * @returns {void}
+   */
+  _initPanelChrome() {
+    return this._panelChrome._initPanelChrome(...arguments);
+  }
+
+  /**
+   * Collapses the nearest expanded panel that owns keyboard focus on Escape.
+   * Nested panels consume the event first, so one key closes one level and
+   * returns focus to that level's disclosure. If Escape was pressed on the
+   * disclosure itself, remove focus after closing so the collapsed button does
+   * not keep a stale keyboard ring.
+   * @param {KeyboardEvent} event - Candidate Escape key event.
+   * @param {string} panelId - Collapsible panel containing the listener.
+   * @returns {boolean} Whether this panel handled the key.
+   */
+  _collapsePanelOnEscape(event, panelId) {
+    return this._panelChrome._collapsePanelOnEscape(...arguments);
+  }
+
+  /**
+   * Allows either command-dock tray to remain open until explicitly unpinned.
+   * Both trays may be pinned; transient and error trays stack above them.
+   * @returns {void}
+   */
+  _initCommandDockPins() {
+    return this._panelChrome._initCommandDockPins(...arguments);
+  }
+
+  /**
+   * Tracks the live pinned-tray height so a hovered sibling can stack above it
+   * without hardcoded content dimensions.
+   * @returns {void}
+   */
+  _initCommandDockTrayMetrics() {
+    return this._panelChrome._initCommandDockTrayMetrics(...arguments);
+  }
+
+  /**
+   * Writes each pinned tray height and their combined stack height as CSS
+   * variables. The most recently pinned tray forms the upper level.
+   * @returns {void}
+   */
+  _updateCommandDockTrayStack() {
+    return this._panelChrome._updateCommandDockTrayStack(...arguments);
+  }
+
+  /**
+   * One-time toast when stored v6 panel positions are superseded by the v7
+   * layout defaults (positions reset; collapsed states are preserved).
+   * @returns {void}
+   */
+  _maybeNotifyLayoutReset() {
+    return this._panelChrome._maybeNotifyLayoutReset(...arguments);
+  }
+
+  /**
+   * Sets up drag-to-reposition for legacy floating controls. The right rail
+   * and left accordion remain fixed so their HUD alignment is deterministic.
+   * @returns {void}
+   */
+  _initPanelDrag() {
+    return this._panelPosition._initPanelDrag();
+  }
+
+  /**
+   * Connects the layer data manager for traffic sync, CCTV state subscription,
+   * and layer enable/disable operations.
+   * @param {object|null} dataManager - The DataManager instance, or null to detach.
+   * @returns {void}
+   */
+  attachDataManager(...args) {
+    return this._layerBindings.attachDataManager(...args);
+  }
+
+  /**
+   * Returns the versioned localStorage key for a panel's saved position.
+   * @param {string} panelId - DOM id of the panel.
+   * @returns {string} localStorage key.
+   */
+  _panelStorageKey(panelId) {
+    return this._panelPosition._panelStorageKey(panelId);
+  }
+
+  /**
+   * Returns the versioned localStorage key for a panel's collapsed state.
+   * @param {string} panelId - DOM id of the panel.
+   * @returns {string} localStorage key.
+   */
+  _panelCollapseStorageKey(panelId) {
+    return this._panelPosition._panelCollapseStorageKey(panelId);
+  }
+
+  /**
+   * Restores a panel's collapsed/expanded state from localStorage.
+   * Falls back to the CSS class default if no saved state exists.
+   * @param {string} panelId - DOM id of the panel.
+   * @returns {void}
+   */
+  _restorePanelCollapsedState(panelId, options1) {
+    return this._panelChrome._restorePanelCollapsedState(...arguments);
+  }
+
+  /**
+   * Persists a panel's collapsed state ('1' or '0') to localStorage.
+   * @param {string} panelId - DOM id of the panel.
+   * @param {boolean} collapsed - Whether the panel is collapsed.
+   * @returns {void}
+   */
+  _savePanelCollapsedState(panelId, collapsed) {
+    return this._panelChrome._savePanelCollapsedState(...arguments);
+  }
+
+  /**
+   * Builds one fixed right-side rail from Display, CCTV, its parameter
+   * controls, and Global Context (which owns the nested Radio companion).
+   * The rail then measures the live HUD chrome at runtime so it can stay
+   * aligned and within the available vertical corridor.
+   * @returns {void}
+   */
+  _initRightPanelAdaptiveLayout() {
+    return this._panelLayout._initRightPanelAdaptiveLayout();
+  }
+
+  _scheduleRightPanelLayout(options0) {
+    return this._panelChrome._scheduleRightPanelLayout(...arguments);
+  }
+
+  /**
+   * Places the right rail inside the visible HUD-safe corridor. When the
+   * corridor is too short, the expanded panel receives the remaining height
+   * with internal scrolling. Tactical HUD hides collapsed sibling launchers
+   * while a panel is expanded; other HUD layouts keep them visible.
+   * @returns {void}
+   */
+  _syncRightPanelAdaptiveLayout() {
+    return this._panelLayout._syncRightPanelAdaptiveLayout();
+  }
+
+  /**
+   * Initializes the adaptive left accordion. The layout engine measures the
+   * actual HUD/chrome rectangles that intersect the left lane, then decides
+   * whether collapsed sibling labels can remain visible beside the expanded
+   * panel. No decision is keyed to a specific panel or HUD variant.
+   * @returns {void}
+   */
+  _initLeftPanelAdaptiveLayout() {
+    return this._panelLayout._initLeftPanelAdaptiveLayout();
+  }
+
+  /**
+   * Batches adaptive accordion work into one animation frame.
+   * @returns {void}
+   */
+  _scheduleLeftPanelLayout(options0) {
+    return this._panelChrome._scheduleLeftPanelLayout(...arguments);
+  }
+
+  /**
+   * Measures a live obstacle-free corridor for the left accordion and toggles
+   * focus mode only when the expanded panel plus sibling labels cannot fit.
+   * Safe boundaries are written as viewport-relative CSS values.
+   * @returns {void}
+   */
+  _syncLeftPanelAdaptiveLayout() {
+    return this._panelLayout._syncLeftPanelAdaptiveLayout();
+  }
+
+  /**
+   * Updates collapse button glyphs based on panel state. Right-rail panels
+   * use directional arrows; left-stack panels use +/- symbols.
+   * @param {HTMLElement} panelEl - The panel DOM element.
+   * @returns {void}
+   */
+  _syncPanelCollapseButton(panelEl) {
+    return this._panelChrome._syncPanelCollapseButton(...arguments);
+  }
+
+  /**
+   * Converts a panel from left-positioned to right-anchored so it expands
+   * leftward on resize. Used for the right-rail parameter panel.
+   * @param {HTMLElement} panelEl - The panel to re-anchor.
+   * @returns {void}
+   */
+  _pinPanelToRight(panelEl) {
+    return this._panelPosition._pinPanelToRight(panelEl);
+  }
+
+  /**
+   * Restores a panel's top/left position from localStorage.
+   * Right-rail panels are additionally pinned to the right edge.
+   * @param {string} panelId - DOM id of the panel.
+   * @param {HTMLElement} panelEl - The panel DOM element.
+   * @returns {void}
+   */
+  _restorePanelPosition(panelId, panelEl) {
+    return this._panelPosition._restorePanelPosition(panelId, panelEl);
+  }
+
+  /**
+   * Clamp a desired left/top so the panel stays fully on-screen (6px inset), matching the drag
+   * clamp (ui.js ~1822). Width/height are position-independent, so reading the rect first is safe.
+   * @param {number} left - desired left (px)
+   * @param {number} top - desired top (px)
+   * @param {HTMLElement} panelEl - the panel element
+   * @returns {{left:number, top:number}}
+   */
+  _clampToViewport(left, top, panelEl) {
+    return this._panelPosition._clampToViewport(left, top, panelEl);
+  }
+
+  /**
+   * Persists a panel's current bounding-rect position to localStorage.
+   * @param {string} panelId - DOM id of the panel.
+   * @param {HTMLElement} panelEl - The panel DOM element.
+   * @returns {void}
+   */
+  _savePanelPosition(panelId, panelEl) {
+    return this._panelPosition._savePanelPosition(panelId, panelEl);
+  }
+
+  /**
+   * Promotes a panel to the top of the panel z band [PANEL_Z_BASE, PANEL_Z_MAX].
+   * Renormalizes all promoted panels when the band is exhausted so panels can
+   * never climb above the voice pill (150), toasts (200), or clean-view exit (300).
+   * @param {HTMLElement} panelEl - Panel to bring to front.
+   * @returns {void}
+   */
+  _promotePanelZ(panelEl) {
+    return this._panelPosition._promotePanelZ(panelEl);
+  }
+
+  _makePanelDraggable(panelId, panelEl, handleEl) {
+    return this._panelPosition._makePanelDraggable(panelId, panelEl, handleEl);
+  }
+
+  _buildSharePanelState() {
+    return this._panelChrome._buildSharePanelState(...arguments);
+  }
+
+  _restorePanelState(panelState) {
+    return this._panelChrome._restorePanelState(...arguments);
+  }
+
+  /** Whether the full-globe celestial overlay is enabled by user preference. */
+  get celestialRingEnabled() {
+    return this._visualSettings.celestialRingEnabled;
+  }
+
+  setOrbit(...args) {
+    return this._locationNavigation.setOrbit(...args);
+  }
+
+  /**
+   * Snapshots the full visual state (active style, bloom, sharpen, HUD, detection,
+   * per-style shader uniform values) for serialization or scene recipe capture.
+   * @returns {object} Serializable visual state object.
+   */
+  getVisualState() {
+    return this._visualSettings.getVisualState(...arguments);
+  }
+
+  /**
+   * Resets the safe-frame overlay to its inactive state on init.
+   * @returns {void}
+   */
+  _initRecordingOverlay() {
+    return this._recording._initRecordingOverlay();
+  }
+
+  /**
+   * Enters or exits recording mode. When active, hides UI chrome via a body class,
+   * displays a safe-frame composition overlay (16:9 or 9:16), and switches
+   * the HUD to the specified mode. Exiting restores the HUD mode and layout
+   * variant that were active before recording started.
+   * @param {boolean} enabled - Whether to enable recording mode.
+   * @param {object} [options]
+   * @param {boolean} [options.hidePanels=true] - Hide all panel chrome.
+   * @param {string} [options.hudMode='minimal'] - HUD mode while recording ('off'|'minimal'|'full'|'auto').
+   * @param {string} [options.safeFrame='16:9'] - Aspect ratio for the safe-frame overlay.
+   * @returns {void}
+   */
+  setRecordingMode(enabled, options) {
+    return this._recording.setRecordingMode(enabled, options);
+  }
+
+  /** Reveal the map-only parameter surface in the standard Display scroll owner. */
+  _revealStyleParameters() {
+    return this._visualSettings._revealStyleParameters(...arguments);
+  }
+
+  /**
+   * Enqueues a smooth intensity transition for a shader stage. The animation
+   * loop interpolates from `fromValue` to `toValue` over TRANSITION_DURATION_MS.
+   * @param {string} styleName - Name of the shader stage to transition.
+   * @param {number} fromValue - Starting intensity (typically current value).
+   * @param {number} toValue - Target intensity (0.0 to fade out, 1.0 to fade in).
+   * @returns {void}
+   */
+  _startTransition(styleName, fromValue, toValue) {
+    return this._visualSettings._startTransition(...arguments);
+  }
+
+  /**
+   * Sample the manager's layer set and paint the global loading chip.
+   * Driven by manager events AND by a ticker, because the underlying state
+   * machine is TIME-driven (reveal delay, long-load threshold, terminal
+   * dwell) — see _armLoadingFeedbackTicker.
+   * @param {number} [now] - performance.now() sample.
+   * @returns {void}
+   */
+  _updateGlobalLoadingFeedback(now) {
+    return this._feedback._updateGlobalLoadingFeedback(now);
+  }
+
+  /** Show a message in the universal top-center status banner. */
+  _showGlobalStatusNotice(message, options) {
+    return this._feedback._showGlobalStatusNotice(message, options);
+  }
+
+  /**
+   * 500 ms DOM ticker for the traffic sync chip (was per-frame). It also
+   * polls the loading chip as a safety net: a camera-driven layer can flip
+   * its own `stats.loading` without emitting a manager event, and that is
+   * the one loading start the event path cannot see.
+   */
+  _startFeedbackTicker() {
+    return this._feedback._startFeedbackTicker();
+  }
+
+  /**
+   * Self-stopping 60 ms ticker for the global loading chip.
+   *
+   * The chip used to ride the style rAF loop, which perf wave 2 made
+   * self-stopping — leaving the chip frozen mid-state whenever no crossfade
+   * or animated shader was running (it would never reveal, never cross the
+   * long-load threshold, and never dwell out). Its reducer
+   * (src/loadingFeedback.js) is time-driven, so it needs real ticks; it is
+   * also pure DOM, so it takes NO governor hold and requests no render.
+   * Armed by _updateGlobalLoadingFeedback whenever loading leaves idle or a
+   * universal notice begins, and stops once both have settled.
+   * (rebase 2026-08-16: main's loading chip vs wave 2's stopped loop)
+   * @returns {void}
+   */
+  _armLoadingFeedbackTicker() {
+    return this._feedback._armLoadingFeedbackTicker();
+  }
+
+  /** Stop the loading-chip ticker if it is running. Idempotent. */
+  _stopLoadingFeedbackTicker() {
+    return this._feedback._stopLoadingFeedbackTicker();
+  }
+
+  subscribeLocationSearch(...args) {
+    return this._locationNavigation.subscribeLocationSearch(...args);
+  }
+
+  _handleLocationSearchState(...args) {
+    return this._locationNavigation._handleLocationSearchState(...args);
+  }
+
+  _initLocationBar(...args) {
+    return this._locationNavigation._initLocationBar(...args);
+  }
+
+  _beginWorldJumpTransition(...args) {
+    return this._locationNavigation._beginWorldJumpTransition(...args);
+  }
+
+  _endWorldJumpTransition(...args) {
+    return this._locationNavigation._endWorldJumpTransition(...args);
+  }
+
+  _flyWithTransition(...args) {
+    return this._locationNavigation._flyWithTransition(...args);
+  }
+
+  _onCityPillClick(...args) {
+    return this._locationNavigation._onCityPillClick(...args);
+  }
+
+  _onPoiClick(...args) {
+    return this._locationNavigation._onPoiClick(...args);
+  }
+
+  _expandPOIRow(...args) {
+    return this._locationNavigation._expandPOIRow(...args);
+  }
+
+  _collapsePOIRow(...args) {
+    return this._locationNavigation._collapsePOIRow(...args);
+  }
+
+  _updatePoiHighlight(...args) {
+    return this._locationNavigation._updatePoiHighlight(...args);
+  }
+
+  clearSearchedLocation(...args) {
+    return this._locationNavigation.clearSearchedLocation(...args);
+  }
+
+  _setActiveLocation(...args) {
+    return this._locationNavigation._setActiveLocation(...args);
+  }
+
+  _updateLocationMiniStatus(...args) {
+    return this._locationNavigation._updateLocationMiniStatus(...args);
+  }
+
+  /**
+   * Updates the collapsed mini-status readout with the active style label.
+   * @param {string} [styleName=this.activeStyle] - Style name to display.
+   * @returns {void}
+   */
+  _updateStyleMiniStatus(styleName = this.activeStyle) {
+    return this._visualSettings._updateStyleMiniStatus(...arguments);
+  }
+
+  _initOrbit(...args) {
+    return this._locationNavigation._initOrbit(...args);
+  }
+
+  _toggleOrbit(...args) {
+    return this._locationNavigation._toggleOrbit(...args);
+  }
+
+  _stopOrbit(...args) {
+    return this._locationNavigation._stopOrbit(...args);
+  }
+
+  resetToGlobeView(...args) {
+    return this._locationNavigation.resetToGlobeView(...args);
+  }
+
+  /**
+   * Displays a temporary toast notification for 2 seconds.
+   * @param {string} message - Text to show in the toast.
+   * @returns {void}
+   */
+  _showToast(message) {
+    return this._feedback._showToast(message);
+  }
+
+  /**
+   * Syncs the HUD toggle button active class and HUD layout row visibility
+   * with the current HUD visible state.
+   * @returns {void}
+   */
+  _updateHudButtonState() {
+    return this._visualSettings._updateHudButtonState(...arguments);
+  }
+
+  /**
+   * Positions the parameter slider panel directly below the right-rail toggle
+   * panel, right-aligned to it. Clamps to viewport bounds to prevent overflow.
+   * Runs inside a rAF to batch with other layout reads.
+   * @returns {void}
+   */
+  _layoutRightPanels() {
+    return this._panelChrome._layoutRightPanels(...arguments);
+  }
+
+  /** Whether a share link was used to load the page */
+  get hasShareState() {
+    return !!this._hasShareState;
+  }
+
+  _settleInitialShareRestore(result) {
+    return this._shareRestoration._settleInitialShareRestore(...arguments);
+  }
+}

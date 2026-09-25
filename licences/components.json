@@ -5,7 +5,12 @@
       "id": "nexus-app",
       "kind": "software",
       "included": true,
-      "emitted_globs": ["index.html", "assets/**"],
+      "emitted_globs": [
+        "index.html",
+        "assets/**",
+        "fonts/README.md",
+        "fonts/manifest.json"
+      ],
       "licence": "MIT (Nexus code); npm runtime dependencies are checked separately",
       "redistribution": "allowed",
       "evidence_url": "https://opensource.org/license/mit",
@@ -16,7 +21,9 @@
       "id": "cesium-runtime",
       "kind": "software",
       "included": true,
-      "emitted_globs": ["cesium/**"],
+      "emitted_globs": [
+        "cesium/**"
+      ],
       "licence": "Apache-2.0",
       "redistribution": "allowed",
       "evidence_url": "https://raw.githubusercontent.com/CesiumGS/cesium/main/LICENSE.md",
@@ -83,46 +90,52 @@
     {
       "id": "inter-font",
       "kind": "font",
-      "included": false,
-      "emitted_globs": ["fonts/inter/**"],
+      "included": true,
+      "emitted_globs": [
+        "fonts/inter-*.woff2"
+      ],
       "licence": "OFL-1.1, copyright The Inter Project Authors",
       "redistribution": "allowed",
       "evidence_url": "https://raw.githubusercontent.com/rsms/inter/master/LICENSE.txt",
       "checked_at": "2026-09-23",
-      "note": "Planned. Self-host a pinned copy with its licence text. Mind the Reserved Font Name condition if modified."
+      "note": "Self-hosted in apps/shell/public/fonts by scripts/nexus-fetch-fonts.mjs (subsetted woff2 from Google's font API, hashes in fonts/manifest.json). Attributed in THIRD_PARTY_NOTICES.md; the full licence text still has to be bundled before release. Mind the Reserved Font Name condition if modified."
     },
     {
       "id": "jetbrains-mono-font",
       "kind": "font",
-      "included": false,
-      "emitted_globs": ["fonts/jetbrains-mono/**"],
+      "included": true,
+      "emitted_globs": [
+        "fonts/jetbrains-mono-*.woff2"
+      ],
       "licence": "OFL-1.1, copyright The JetBrains Mono Project Authors",
       "redistribution": "allowed",
       "evidence_url": "https://raw.githubusercontent.com/JetBrains/JetBrainsMono/master/OFL.txt",
       "checked_at": "2026-09-23",
-      "note": "Planned. Self-host a pinned copy with its licence text."
+      "note": "Self-hosted in apps/shell/public/fonts as for Inter. Attributed in THIRD_PARTY_NOTICES.md; the full licence text still has to be bundled before release."
     },
     {
       "id": "material-symbols",
       "kind": "icon",
-      "included": false,
-      "emitted_globs": ["fonts/material-symbols/**"],
+      "included": true,
+      "emitted_globs": [
+        "fonts/material-symbols-*.woff2"
+      ],
       "licence": "Apache-2.0",
       "redistribution": "allowed",
       "evidence_url": "https://raw.githubusercontent.com/google/material-design-icons/master/LICENSE",
       "checked_at": "2026-09-23",
-      "note": "Planned. The repository LICENSE was verified; the exact font file version to bundle is not yet chosen."
+      "note": "A subset of Material Symbols Outlined limited to the glyphs the shell names (list in apps/shell/index.html), self-hosted as above. The repository LICENSE was verified; the subset file is a derivative served by Google's font API."
     },
     {
       "id": "godseye-styles",
       "kind": "software",
-      "included": false,
+      "included": true,
       "emitted_globs": [],
       "licence": "MIT, copyright Bilawal Sidhu",
       "redistribution": "allowed",
       "evidence_url": "https://raw.githubusercontent.com/bilawalsidhu/gods-eye-view/main/LICENSE",
       "checked_at": "2026-09-23",
-      "note": "Planned. Adapt foundation, cockpit and command-dock styles only; keep the copyright and modification notice."
+      "note": "The shell's stylesheets are adapted from upstream (foundation, command dock, overlays and the rest, pruned in step B15). Keep the copyright and modification notice; apps/shell/UPSTREAM.md records the changes."
     },
     {
       "id": "godseye-loose-svgs",
@@ -133,7 +146,7 @@
       "redistribution": "unverified",
       "evidence_url": "https://github.com/bilawalsidhu/gods-eye-view/blob/main/LICENSE",
       "checked_at": "2026-09-23",
-      "note": "location.svg, visual-presets.svg, pin.svg: no per-file provenance; the MIT grant excludes third-party assets. Replace with verified icons."
+      "note": "Removed 2026-09-25: location.svg, visual-presets.svg and pin.svg had no per-file provenance. They were replaced by icons drawn for Nexus (see nexus-icons); nothing from this entry ships."
     },
     {
       "id": "godseye-third-party-material",
@@ -158,6 +171,22 @@
       "evidence_url": "https://raw.githubusercontent.com/bilawalsidhu/gods-eye-view/main/LICENSE",
       "checked_at": "2026-09-23",
       "note": "Bundled in the God's Eye repository outside its MIT grant. Must never enter the Nexus build."
+    },
+    {
+      "id": "nexus-icons",
+      "kind": "icon",
+      "included": true,
+      "emitted_globs": [
+        "nexus-mark.svg",
+        "location.svg",
+        "pin.svg",
+        "visual-presets.svg"
+      ],
+      "licence": "MIT (Nexus); drawn for this project from plain geometry",
+      "redistribution": "allowed",
+      "evidence_url": "https://opensource.org/license/mit",
+      "checked_at": "2026-09-25",
+      "note": "The Nexus mark and three small interface icons, replacing upstream's logo and unverified icons. Simple shapes (circles, lines); no third-party artwork."
     }
   ]
 }

@@ -236,18 +236,21 @@ def run(mode: str, dist: Path, root: Path = ROOT) -> list[Finding]:
     findings = evaluate_licence_files(root, mode) + evaluate_sources(
         sources, source_rights, mode
     )
-    web = root / "apps" / "web"
-    lock = web / "package-lock.json"
-    if lock.is_file() and (web / "node_modules").is_dir():
-        findings += evaluate_npm_runtime(
-            _load(lock), _npm_licence_reader(web), allowed, mode
-        )
-    else:
-        findings.append(
-            Finding(
-                "note", "npm-skipped", "no lockfile or node_modules; npm not checked"
+    for app in ("web", "shell"):
+        folder = root / "apps" / app
+        lock = folder / "package-lock.json"
+        if lock.is_file() and (folder / "node_modules").is_dir():
+            findings += evaluate_npm_runtime(
+                _load(lock), _npm_licence_reader(folder), allowed, mode
             )
-        )
+        elif app == "web":
+            findings.append(
+                Finding(
+                    "note",
+                    "npm-skipped",
+                    "no lockfile or node_modules; npm not checked",
+                )
+            )
     if dist.is_dir():
         files = [p.relative_to(dist).as_posix() for p in dist.rglob("*") if p.is_file()]
         findings += evaluate_dist(files, components, mode)

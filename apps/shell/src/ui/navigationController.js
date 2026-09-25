@@ -1,0 +1,143 @@
+import { createStateChannel } from '../app/stateChannel.js';
+import * as Cesium from 'cesium';
+import {
+  beginDeferredNavigation,
+  reassertNavigationHandoff,
+  runExplicitNavigation,
+} from '../navigationPolicy.js';
+
+/** Own camera authority generations, pending search UI and camera release. */
+export class NavigationController {
+  constructor({
+    viewer,
+    searchInput,
+    clearLocation,
+    getDataManager,
+    stopOrbit,
+    showToast,
+    cancelOrientation = () => {},
+  }) {
+    Object.assign(this, {
+      viewer,
+      searchInput,
+      clearLocation,
+      getDataManager,
+      stopOrbit,
+      showToast,
+      cancelOrientation,
+    });
+    this._navigationGeneration = 0;
+    this._cameraHandoffs = createStateChannel(() => ({
+      generation: this._navigationGeneration,
+    }));
+    this._activeLocationSearchGeneration = null;
+    this._disposed = false;
+  }
+  _stampNavigation({
+    cancelPendingSelection = true,
+    clearSearchedLocation = true,
+  } = {}) {
+    this.cancelOrientation();
+    this._navigationGeneration += 1;
+    this._cameraHandoffs?.publish();
+    // A newer destination owns the camera, so the last free-text search is no
+    // longer where we are. DEFERRED navigation opts out here and clears at the
+    // reassert seam instead: a geocode that never resolves moves no camera, and
+    // a lookup that fails must not blank a readout that is still true.
+    if (clearSearchedLocation) this.clearLocation();
+    if (this._activeLocationSearchGeneration !== null) {
+      this._settleLocationSearchUi(this._activeLocationSearchGeneration);
+    }
+    return this._navigationGeneration;
+  }
+
+  _settleLocationSearchUi(generation) {
+    if (this._activeLocationSearchGeneration !== generation) return;
+    this._activeLocationSearchGeneration = null;
+    this.searchInput?.classList.remove('searching', 'expanded');
+    if (this.searchInput) this.searchInput.value = '';
+    this.searchInput?.blur();
+  }
+
+  _releaseFollowCamera({ preserveCameraFlight = false } = {}) {
+    this.viewer.trackedEntity = undefined;
+    this.stopOrbit();
+    if (!preserveCameraFlight) this.viewer.camera.cancelFlight();
+    try {
+      this.viewer.camera.lookAtTransform(Cesium.Matrix4.IDENTITY);
+    } catch {
+      /* teardown race */
+    }
+    return false;
+  }
+
+  _runExplicitNavigation(noun, navigate, releaseOptions = undefined) {
+    return runExplicitNavigation({
+      disposed: this._disposed,
+      stamp: () => this._stampNavigation(),
+      release: () => this._releaseFollowCamera(releaseOptions),
+      navigate,
+    });
+  }
+
+  /** Change the viewing angle without clearing selection or follow ownership. */
+  runOrientation(noun, navigate) {
+    return runExplicitNavigation({
+      disposed: this._disposed,
+      stamp: () =>
+        this._stampNavigation({
+          cancelPendingSelection: false,
+          clearSearchedLocation: false,
+        }),
+      release: () => {
+        this.stopOrbit();
+        this.viewer.camera.cancelFlight();
+      },
+      navigate,
+    });
+  }
+
+  _beginDeferredNavigation(
+    noun = 'location',
+    { cancelPendingSelection = true } = {},
+  ) {
+    return beginDeferredNavigation({
+      disposed: this._disposed,
+      // The searched-location readout survives the STAMP; only a flight that
+      // actually starts invalidates it (see the release hook below).
+      stamp: () =>
+        this._stampNavigation({
+          cancelPendingSelection,
+          clearSearchedLocation: false,
+        }),
+    });
+  }
+
+  _reassertNavigationHandoff(generation) {
+    return reassertNavigationHandoff({
+      generation,
+      currentGeneration: this._navigationGeneration,
+      disposed: this._disposed,
+      // Reached only once the handoff is granted, immediately before the
+      // deferred flight starts — so a lookup that failed or was superseded
+      // leaves the old readout standing.
+      release: () => {
+        this.clearLocation();
+        return this._releaseFollowCamera();
+      },
+    });
+  }
+  /** Subscribe to ownership changes without claiming the camera or exposing mutable state. */
+  subscribeCameraHandoff(listener) {
+    return this._cameraHandoffs.subscribe(listener, { emitCurrent: false });
+  }
+  stop() {
+    this._disposed = true;
+    this._cameraHandoffs?.publish();
+    this._cameraHandoffs?.destroy();
+  }
+  destroy() {
+    this.stop();
+    this._stampNavigation();
+  }
+}
