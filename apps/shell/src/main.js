@@ -1,15 +1,30 @@
 import { createStandaloneApplication } from './standalone/application.js';
 import { describeError } from './standalone/errors.js';
+import {
+  hasUsableWebGl,
+  mountFallbackMap,
+  wantsFallback,
+} from './nexus/fallbackMap.ts';
 
-const application = createStandaloneApplication({
-  allowQaRegistration: import.meta.env.DEV,
-});
+/** Replace the shell with the flat map: same records and caveats, no WebGL needed. */
+function showFallback(reason) {
+  document.body.classList.add('nexus-fallback-active');
+  mountFallbackMap(document.body, { reason });
+}
 
-application.start().catch((error) => {
-  console.error('Nexus shell initialization failed:', error);
-  const loaderStatus = document.querySelector('#loading-screen .loader-status');
-  loaderStatus.textContent = `Error: ${describeError(error)}`;
-  loaderStatus.style.color = '#ff4444';
-});
+let application = null;
+if (wantsFallback(window.location.search)) {
+  showFallback('the 2D view was requested');
+} else if (!hasUsableWebGl()) {
+  showFallback('WebGL is not available in this browser');
+} else {
+  application = createStandaloneApplication({
+    allowQaRegistration: import.meta.env.DEV,
+  });
+  application.start().catch((error) => {
+    console.error('Nexus shell initialization failed:', error);
+    showFallback(describeError(error));
+  });
+}
 
 export { application };

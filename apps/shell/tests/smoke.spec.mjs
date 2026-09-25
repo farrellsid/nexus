@@ -170,3 +170,42 @@ test('a well-formed share hash restores its view', async ({ page }) => {
     { timeout: 30_000 },
   );
 });
+
+test('the 2D fallback shows every sourced place with its caveat, and the same readouts', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/?view=2d');
+  await expect(page.locator('#nexus-fallback')).toBeVisible();
+  expect(await page.evaluate(() => Boolean(window.__godsEyeView)), 'no globe was started').toBe(false);
+  await expect(page.locator('.nexus-fallback-stop')).toHaveCount(6);
+  await expect(page.locator('.nexus-fallback-route')).toHaveCount(2);
+  await expect(page.locator('.nexus-fallback-readouts')).toContainText('8 OF 23 ENTITIES ON MAP · 15 NOT ON MAP');
+  await expect(page.locator('.nexus-fallback-selection')).toHaveText('SELECTED: NONE');
+
+  await page.locator('.nexus-fallback-stop').first().click();
+  await expect(page.locator('.nexus-fallback-card h2')).toHaveText('Strait of Hormuz');
+  await expect(page.locator('.nexus-fallback-card')).toContainText('Caveat:');
+  await expect(page.locator('.nexus-fallback-selection')).toHaveText('SELECTED: Strait of Hormuz · REPRESENTATIVE LABEL POINT');
+
+  // Keyboard reaches the same records.
+  await page.locator('.nexus-fallback-stop').nth(1).focus();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('.nexus-fallback-card h2')).toHaveText('Bab el-Mandeb');
+  expect(errors).toEqual([]);
+  await page.screenshot({ path: 'test-results/fallback.png' });
+});
+
+test('with WebGL unavailable the shell falls back by itself', async ({ browser }) => {
+  const context = await browser.newContext();
+  const page = await context.newPage();
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    HTMLCanvasElement.prototype.getContext = function (kind, ...rest) {
+      return /webgl/.test(String(kind)) ? null : original.call(this, kind, ...rest);
+    };
+  });
+  await page.goto('/');
+  await expect(page.locator('#nexus-fallback')).toBeVisible();
+  await expect(page.locator('.nexus-fallback-notice')).toContainText('WebGL is not available');
+  await context.close();
+});
