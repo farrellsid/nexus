@@ -103,7 +103,7 @@ export function flyToLandmark(viewer, lat, lon, options = {}) {
   const sampledHeight = viewer.scene.globe?.getHeight(targetCartographic);
 
   // Use sampled height if available, otherwise fall back to pre-baked city ground elevation.
-  // Google 3D Tiles don't populate globe terrain, so first fly-to always gets the fallback.
+  // Terrain may not be loaded yet on the first fly-to, which then gets the fallback.
   const terrainHeight =
     sampledHeight != null && sampledHeight > 0
       ? sampledHeight
@@ -306,7 +306,7 @@ export async function searchAndFlyTo(viewer, query, options = {}) {
     // city, every state, every country, parks and streets — frames untouched.
     //
     // EXCEPT when the caller asked for an overview outright ("show me an overview
-    // of Hawaii", voice `viewMode: 'overview'` — gevActions.js). That is an explicit
+    // of Hawaii", `viewMode: 'overview'`). That is an explicit
     // request for the whole administrative area, so the sanity gate stands down:
     // it exists to guess what an ambiguous place name meant, and there is nothing
     // left to guess once the user has said.
@@ -469,7 +469,7 @@ function wrapLongitude(lng) {
 
 /**
  * Diagonal span (km) above which a geocode viewport is bigger than any city, so
- * the off-centre test below is worth applying. Every locality Google returns is
+ * the off-centre test below is worth applying. Every locality a geocoder returns is
  * far under this (the widest measured is Anchorage at ~135 km), so a city can
  * never be gated on span alone.
  */

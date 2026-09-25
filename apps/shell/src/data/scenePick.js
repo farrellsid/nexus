@@ -24,8 +24,8 @@
 const MIN_PICK_MAGNITUDE_M = 6_000_000;
 
 /**
- * CEILING. The highest thing this app draws is a geostationary satellite,
- * 42,164 km from the center. A million kilometres is ~24× that (and well past
+ * CEILING. The highest thing this app draws is a geostationary-orbit distance,
+ * 42,164 km from the center, the far end of the range a layer might place. A million kilometres is ~24× that (and well past
  * the Moon), so it cannot reject a real contact — but it does reject the absurd
  * finite magnitudes that overflow Cesium's geodetic iteration into NaN, which
  * throws exactly like a NaN input does.

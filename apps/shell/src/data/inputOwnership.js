@@ -3,9 +3,9 @@
  *
  * Most layers bind their own `ScreenSpaceEventHandler` to the same canvas and
  * select whatever is under a left click. That is right when nothing else is
- * going on, and wrong the moment a tool needs the pointer for itself: a draw
- * session placing a vertex on top of an aircraft must not also track the
- * aircraft, and the next such tool must not have to be added to a list inside
+ * going on, and wrong the moment a tool needs the pointer for itself: a tool
+ * placing a marker on top of an entity must not also track the
+ * entity, and the next such tool must not have to be added to a list inside
  * every layer.
  *
  * So there is one claim, held by at most one owner at a time:

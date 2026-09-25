@@ -46,6 +46,10 @@ For foreground development, run the API and frontend in separate terminals:
 npm --prefix apps/web run dev
 ```
 
+### Visual shell (`apps/shell`)
+
+The M5 prototype of the God's Eye look, in a stripped fork with Nexus's oil anchors as its only data. From this folder: `npm --prefix apps/shell ci`, then `npm --prefix apps/shell run dev` and open http://127.0.0.1:4173 (`?view=2d` for the flat fallback). See [apps/shell/README.md](apps/shell/README.md) for its checks, and `python scripts/check_shell.py` for the build gate.
+
 ## Checks
 
 ```powershell

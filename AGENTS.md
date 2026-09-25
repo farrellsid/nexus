@@ -4,7 +4,7 @@ Read `README.md`, `docs/design.md`, and `docs/technical-stack.md` before project
 
 Prioritize descriptive, evidence-backed learning. Keep observations, reported claims, inference, and attributed scenarios distinct. Preserve provenance and temporal versions. Test the analysis workbench independently of globe rendering; use explicitly marked synthetic fixtures followed by a small real evidence pilot.
 
-Current status: development authorized; the copper workbench and PostgreSQL-backed manual review/version history are implemented. Read `docs/development-status.md` for actual checks and remaining scope, `backend/README.md` for invariants, and `README.md` for setup. This is not authorization to deploy, schedule monitoring or incur costs.
+Current status: development authorized; the M5 visual shell (`apps/shell`, branch `m5-shell`, see `apps/shell/README.md` and `apps/shell/UPSTREAM.md`) is built and awaits the user's Edge check; the copper workbench and PostgreSQL-backed manual review/version history are implemented. Read `docs/development-status.md` for actual checks and remaining scope, `backend/README.md` for invariants, and `README.md` for setup. This is not authorization to deploy, schedule monitoring or incur costs.
 
 Read `docs/development-log.md` for the latest durable checkpoint and update it during multi-step work so implementation state and immediate next actions survive context limits.
 

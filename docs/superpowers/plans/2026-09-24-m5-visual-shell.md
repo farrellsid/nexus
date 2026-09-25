@@ -62,44 +62,44 @@
 
 ## Phase A: import and baseline (no removal yet)
 
-- [ ] **A1. Import unmodified.** Copy the reference (minus `node_modules`, `.git`, `build`) into `apps/shell/` at commit `f01b6a5`; write `UPSTREAM.md` with the commit and the MIT notice. Add `apps/shell` to `.gitignore` exclusions only for `node_modules`.
-- [ ] **A2. Make it run.** `npm ci` with the `@cesium/widgets` override that fixed the duplicate engine in `apps/web`; run `npm run dev` and load it. Record what fails without keys (expected: several layers and the Google pieces). *Exit:* the globe renders locally.
-- [ ] **A3. Baseline measurements.** Record the bundle size, the file count, the number of upstream tests and how many pass; record `npm ls @cesium/engine` (must be one).
-- [ ] **A4. Write the smoke test and the dead-import checker.** The smoke test loads the page and asserts no console errors and a non-blank canvas. The checker walks `import` statements and reports files nothing imports and imports of missing files. Both run after every later step.
-- [ ] **A5. Self-host fonts.** Replace the Google Fonts and Material Symbols links with local files; the smoke test asserts the page contacts no host outside `localhost` and the imagery providers.
+- [x] **A1. Import unmodified.** Copy the reference (minus `node_modules`, `.git`, `build`) into `apps/shell/` at commit `f01b6a5`; write `UPSTREAM.md` with the commit and the MIT notice. Add `apps/shell` to `.gitignore` exclusions only for `node_modules`.
+- [x] **A2. Make it run.** `npm ci` with the `@cesium/widgets` override that fixed the duplicate engine in `apps/web`; run `npm run dev` and load it. Record what fails without keys (expected: several layers and the Google pieces). *Exit:* the globe renders locally.
+- [x] **A3. Baseline measurements.** Record the bundle size, the file count, the number of upstream tests and how many pass; record `npm ls @cesium/engine` (must be one).
+- [x] **A4. Write the smoke test and the dead-import checker.** The smoke test loads the page and asserts no console errors and a non-blank canvas. The checker walks `import` statements and reports files nothing imports and imports of missing files. Both run after every later step.
+- [x] **A5. Self-host fonts.** Replace the Google Fonts and Material Symbols links with local files; the smoke test asserts the page contacts no host outside `localhost` and the imagery providers.
 
 ## Phase B: strip, one group per step (each step: remove, run tests, smoke, dead-import check, log in `UPSTREAM.md`)
 
 Order is chosen so each removal has the fewest dependants and the bisection stays cheap:
 
-- [ ] **B1. Non-app scaffolding:** `server/`, `pinokio/`, `tools/`, updater and installer scripts, `dev:secure`, dotenv and key-setup panel (keep its graceful-degradation idea).
-- [ ] **B2. Voice:** `src/voice/` and its tests, the OpenAI realtime plumbing, the microphone chrome. (Keep `actionSchemas.js` as a reference for the action-layer shape, not as code.)
-- [ ] **B3 to B10. Live layers, one per step:** flights, military flights and awareness, AIS vessels, CCTV, ALPR, radio, traffic and transit, bikeshare, satellites and launches, FIRMS, earthquakes, military installations, submarine cables. Each removal takes its layer file, its tests, its `src/data` datasets, its panel and its catalogue entry.
-- [ ] **B11. Google Maps and Places, keyless geocoder, directions.** Nexus search is entity search, not geocoding.
-- [ ] **B12. Annotations and draw tools, detection overlay, contacts roster, the 3D hangar and `public/models`.**
-- [ ] **B13. Remaining data and events:** `public/events`, leftover `src/data`, the Bhote Koshi scene CSS and other scene-specific assets.
-- [ ] **B14. First-run and key-setup screens:** keep the loading and first-run pattern, replace the copy and remove the key wizard.
-- [ ] **B15. Trim the CSS** to the design system that remains (`foundation`, `cockpit`, `controls`, command dock, status, scenes); delete the rest and check nothing references the removed selectors.
-- [ ] **B16. Final prune:** dead-import checker clean, no orphan tests, `check_shell.py` passes on the build, bundle size recorded against A3.
+- [x] **B1. Non-app scaffolding:** `server/`, `pinokio/`, `tools/`, updater and installer scripts, `dev:secure`, dotenv and key-setup panel (keep its graceful-degradation idea).
+- [x] **B2. Voice:** `src/voice/` and its tests, the OpenAI realtime plumbing, the microphone chrome. (Keep `actionSchemas.js` as a reference for the action-layer shape, not as code.)
+- [x] **B3 to B10. Live layers, one per step:** flights, military flights and awareness, AIS vessels, CCTV, ALPR, radio, traffic and transit, bikeshare, satellites and launches, FIRMS, earthquakes, military installations, submarine cables. Each removal takes its layer file, its tests, its `src/data` datasets, its panel and its catalogue entry.
+- [x] **B11. Google Maps and Places, keyless geocoder, directions.** Nexus search is entity search, not geocoding.
+- [x] **B12. Annotations and draw tools, detection overlay, contacts roster, the 3D hangar and `public/models`.**
+- [x] **B13. Remaining data and events:** `public/events`, leftover `src/data`, the Bhote Koshi scene CSS and other scene-specific assets.
+- [x] **B14. First-run and key-setup screens:** keep the loading and first-run pattern, replace the copy and remove the key wizard.
+- [x] **B15. Trim the CSS** to the design system that remains (`foundation`, `cockpit`, `controls`, command dock, status, scenes); delete the rest and check nothing references the removed selectors.
+- [x] **B16. Final prune:** dead-import checker clean, no orphan tests, `check_shell.py` passes on the build, bundle size recorded against A3.
 
 *Expected outcome:* a shell with the globe, camera, hover, HUD chrome, command dock, scene director, celestial ring, logo and readouts, and nothing that fetches live data.
 
 ## Phase C: the Nexus pieces (strict TypeScript, tested with `vitest` or the existing `node:test`, decided in step C1)
 
-- [ ] **C1. TypeScript setup for new code only:** `tsconfig` with `allowJs`, `checkJs` off for upstream, strict for `src/nexus/`; choose the test runner for TypeScript.
-- [ ] **C2. Action layer:** the verb registry with argument validation; the mouse, the scene director and (later) chat all call it. Tests: each verb rejects bad arguments, unknown verbs are refused, and no verb can issue a network request or mutate evidence.
-- [ ] **C3. Oil stops fixture:** generate `oilStops.ts` from `geography.json` with a test that the generated file matches the source (six stops, two sourced corridors); wire the scene director to fly between them.
-- [ ] **C4. Static corner readouts:** as-of date, pack version, "n entities not on map", precision of the selection; toggleable, on by default (your 2026-09-23 decision).
-- [ ] **C5. Share links:** encode and decode the shell state; a round-trip test and a test that a hostile or malformed hash is ignored, not executed.
-- [ ] **C6. 2D fallback:** port the Natural Earth map and the "no usable WebGL" detection from `CesiumGeographyMap.tsx`; the smoke test forces the fallback path.
-- [ ] **C7. Global-context mode:** stage a full view and restore the prior state on exit (an upstream pattern to keep), driven through the action layer.
+- [x] **C1. TypeScript setup for new code only:** `tsconfig` with `allowJs`, `checkJs` off for upstream, strict for `src/nexus/`; choose the test runner for TypeScript.
+- [x] **C2. Action layer:** the verb registry with argument validation; the mouse, the scene director and (later) chat all call it. Tests: each verb rejects bad arguments, unknown verbs are refused, and no verb can issue a network request or mutate evidence.
+- [x] **C3. Oil stops fixture:** generate `oilStops.ts` from `geography.json` with a test that the generated file matches the source (six stops, two sourced corridors); wire the scene director to fly between them.
+- [x] **C4. Static corner readouts:** as-of date, pack version, "n entities not on map", precision of the selection; toggleable, on by default (your 2026-09-23 decision).
+- [x] **C5. Share links:** encode and decode the shell state; a round-trip test and a test that a hostile or malformed hash is ignored, not executed.
+- [x] **C6. 2D fallback:** port the Natural Earth map and the "no usable WebGL" detection from `CesiumGeographyMap.tsx`; the smoke test forces the fallback path.
+- [x] **C7. Global-context mode:** stage a full view and restore the prior state on exit (an upstream pattern to keep), driven through the action layer.
 
 ## Phase D: verification against the roadmap exit checks
 
-- [ ] **D1. [T]** Smoke e2e green after every step (logged); `check_shell.py`: exactly one `@cesium/engine`, no datasets or models, no external hosts, emitted files match `licences/components.json`; the licence gate in release mode still has 0 errors.
-- [ ] **D2. [A]** I capture screenshots of the shell and the fallback in my browser, noting that it is a sandbox and not your GPU.
+- [x] **D1. [T]** Smoke e2e green after every step (logged); `check_shell.py`: exactly one `@cesium/engine`, no datasets or models, no external hosts, emitted files match `licences/components.json`; the licence gate in release mode still has 0 errors.
+- [x] **D2. [A]** I capture screenshots of the shell and the fallback in my browser, noting that it is a sandbox and not your GPU.
 - [ ] **D3. [U]** You open it in your real Edge: judge look and frame rate, decide which effects stay (decision 4), and check reduced-motion behaviour.
-- [ ] **D4. Docs:** `docs/roadmap.md`, `docs/decisions.md`, `docs/gods-eye-integration.md`, `docs/development-log.md`, `THIRD_PARTY_NOTICES.md`, README.
+- [x] **D4. Docs:** `docs/roadmap.md`, `docs/decisions.md`, `docs/gods-eye-integration.md`, `docs/development-log.md`, `THIRD_PARTY_NOTICES.md`, README.
 
 ## Risks and how the plan handles them
 

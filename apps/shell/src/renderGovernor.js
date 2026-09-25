@@ -11,9 +11,8 @@
  * Architecture — a binary mode driven by ref-counted holds:
  *
  * - **Continuous mode** (`requestRenderMode = false`, today's behavior)
- *   while ANY hold is registered. Every per-frame animator — fleet
- *   interpolation, traffic sim, satellite motion, tracked-entity follow,
- *   style crossfades, CCTV projection — registers a hold for exactly the
+ *   while ANY hold is registered. Every per-frame animator — entity
+ *   interpolation, tracked-entity follow, style crossfades — registers a hold for exactly the
  *   lifetime of its scene-loop listener or animation. While one is active,
  *   behavior is byte-identical to pre-governor main: the locked
  *   interpolation/tracking invariants are preserved by construction.
@@ -76,7 +75,7 @@ export function installRenderGovernor(viewer) {
  * Register a continuous-render hold. Idempotent per owner.
  * Call where the owner's per-frame work BEGINS (scene listener installed,
  * animation starts, tracking begins).
- * @param {string} ownerId Short stable id, e.g. 'flights', 'traffic'.
+ * @param {string} ownerId Short stable id, e.g. 'tracked-entity', 'style-anim'.
  * @returns {void}
  */
 export function holdContinuousRender(ownerId) {

@@ -2,6 +2,14 @@
 
 Durable checkpoints for continuing Nexus work across sessions or context limits. This records implementation state and immediate next actions; factual research remains in each investigation's evidence pack.
 
+## 2026-09-25, M5 built on branch m5-shell; waiting for the user's Edge check (D3)
+
+Commits after phase B: B16a (leftover removal), B16b/C4 (branding, honest HUD, oil start view and places, readouts), C2/C7 (action layer, global context), C5 (share links), C6 (2D fallback), D1 (shell gate and licence manifest). `apps/shell/UPSTREAM.md` has a row for each. State: 816 unit tests pass, `tsc` clean, eight smoke tests pass, `scripts/check_shell.py` and the release-mode licence gate report 0 errors, one `@cesium/engine`, build 405 files and 17 MB (baseline 423 files, 31.2 MB).
+
+**Things to know:** the scene director's `startScene` settles when the whole run ends, so `playTour` reads `director.running`; the smoke tests wait for the opening flight (camera at 12,000 km) before acting or it takes the camera back; Playwright uses the Edge channel; the dev server for manual looks runs on 4173 (`npm run dev` in `apps/shell`). Fonts and Esri/OSM imagery are the only third-party runtime items; full font licence texts are still to be bundled before any release.
+
+**Next actions:** the user opens the shell in Edge (D3) and decides which effects stay; then merge `m5-shell` (the user's call), move the panels onto the action layer when chat exists, and begin M6 (the shell on real backend data). Not done in M5: Nexus entity search, a Nexus selection card, public-build imagery (Natural Earth only), font licence texts.
+
 ## 2026-09-24, M5 phase B in progress on branch m5-shell
 
 Commits so far: B1 (Node server, Pinokio, QA scripts), A1c (correction, see below), B2 (voice and the HUD's AI summary), B3.1 cables, B3.2 first-run launcher (moved forward from B14), B3.3 earthquakes, B3.4 bikeshare, street traffic and transit, B3.5 radio, B3.6 CCTV and ALPR, B3.7 the whole live-contacts domain (all remaining live layers, the Context panel, the aircraft Cockpit, the detection overlay, tracked readout and 3D-aircraft logic). Layer registry is now five ids (two Bhote Koshi scene layers, `directions`, `local-dams`, `local-datacenters`); unit tests 3600 to 1452, all passing; smoke passes with an empty `known-errors.json`; about 80,000 lines removed in B3.7 alone. `apps/shell/UPSTREAM.md` has one row per step.
