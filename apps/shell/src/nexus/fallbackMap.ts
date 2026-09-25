@@ -227,7 +227,7 @@ export function mountFallbackMap(
   const credit = element(
     'p',
     'nexus-fallback-credit',
-    'Natural Earth · public domain',
+    "Natural Earth · public domain · Interface adapted from God's Eye View by Bilawal Sidhu (MIT)",
   );
   root.append(
     element('h1', undefined, 'NEXUS'),

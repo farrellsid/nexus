@@ -1,6 +1,6 @@
 # Nexus shell
 
-The visual shell for Nexus: a Cesium globe in a dark console look, a scene director that plays guided camera tours, and the current oil-system anchors as its only data. It is a stripped fork of [God's Eye View](https://github.com/bilawalsidhu/gods-eye-view) (MIT) and keeps that project's look. [UPSTREAM.md](UPSTREAM.md) records what was imported, what was removed and how each step was checked; [LICENSE](LICENSE) is the upstream licence.
+The visual shell for Nexus: a Cesium globe in a dark console look, a scene director that plays guided camera tours, and the current oil-system anchors as its only data. It is built on [God's Eye View](https://github.com/bilawalsidhu/gods-eye-view) by Bilawal Sidhu, a stripped fork used under its MIT licence. The look, layout, effects and much of the interface code are his work; Nexus keeps them and replaces the data and the purpose. [UPSTREAM.md](UPSTREAM.md) records what was imported, what was removed and how each step was checked; [LICENSE](LICENSE) is the upstream licence.
 
 This is a prototype of the look and the interaction model (roadmap M5). It is not the analysis workbench, which lives in `apps/web`, and it shows nothing that is not sourced in `investigations/`.
 

@@ -93,3 +93,7 @@ Current scope: see the 2026-09-21 section in [design](docs/design.md). Industry-
 ## Licence
 
 Source code: [MIT](LICENSE). Original authored text (documentation, claim wording, notes, tours): [CC BY 4.0](LICENSE-CONTENT.md). Third-party software, fonts and data keep their own licences: see [third-party notices](THIRD_PARTY_NOTICES.md) and `licences/`. Quoted source excerpts belong to their publishers. Check with `python scripts/check_licences.py --mode release`.
+
+### Built on God's Eye View
+
+The visual shell in `apps/shell` is built on [God's Eye View](https://github.com/bilawalsidhu/gods-eye-view) by **Bilawal Sidhu**, used under its MIT licence. The look and feel are his: the dark console design, the globe with its scope mask, the HUD, command dock, celestial ring, split-flap readouts, the visual effects and the scene director. Nexus adapted the code and stylesheets, removed everything to do with live tracking, and added its own evidence-first data, tour, readouts, action layer and fallback map. `apps/shell/UPSTREAM.md` records the exact commit it started from and every change. The credit appears in the app (title bar, loading screen, data-attribution popover and fallback page), in `apps/shell/README.md` and, with the full MIT notice, in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). The logo and icons are Nexus's own.

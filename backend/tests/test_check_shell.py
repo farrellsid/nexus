@@ -55,3 +55,8 @@ def test_only_hosts_off_the_allowed_list_are_reported(shell_check):
     allowed = ["127.0.0.1:5175", "services.arcgisonline.com"]
     assert shell_check.disallowed_hosts(["127.0.0.1:5175", "services.arcgisonline.com"], allowed) == []
     assert shell_check.disallowed_hosts(["127.0.0.1:5175", "tracker.example"], allowed) == ["tracker.example"]
+
+
+def test_a_link_a_person_clicks_is_not_a_request(shell_check):
+    texts = {"index.html": '<a href="https://github.com/x/y" target="_blank">credit</a><img src="https://cdn.example.org/a.png">'}
+    assert shell_check.hard_coded_hosts(texts) == {"index.html": {"cdn.example.org"}}

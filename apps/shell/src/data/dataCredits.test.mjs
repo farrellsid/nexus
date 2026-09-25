@@ -29,3 +29,19 @@ test('the oil fixture credits its coordinate source and says its anchors are not
   assert.match(credit.html, /wikidata\.org/);
   assert.match(credit.html, /not a boundary, route or vessel position/);
 });
+
+test('the interface is credited to its author, with a link to the project', () => {
+  const credit = DATA_CREDITS.find(
+    (entry) => entry.key === 'godseye-interface',
+  );
+  assert.ok(
+    credit,
+    "the look and interface come from God's Eye View and must say so",
+  );
+  assert.match(credit.html, /Bilawal Sidhu/);
+  assert.match(
+    credit.html,
+    /href="https:\/\/github\.com\/bilawalsidhu\/gods-eye-view"/,
+  );
+  assert.match(credit.html, /MIT/);
+});

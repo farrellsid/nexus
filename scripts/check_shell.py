@@ -23,6 +23,7 @@ URL = re.compile(r"""(?:https?:)?//([A-Za-z0-9.-]+\.[A-Za-z]{2,})""")
 # Text the build copies from libraries, not references the page follows. The scan reads only the
 # page and its stylesheets, so these are the few namespace and specification URLs those contain.
 NON_REQUEST_HOSTS = {"www.w3.org"}
+ANCHOR = re.compile(r"<a\b[^>]*>", re.IGNORECASE)
 
 
 def dataset_files(files: list[str]) -> list[str]:
@@ -35,9 +36,14 @@ def dataset_files(files: list[str]) -> list[str]:
 
 
 def hard_coded_hosts(texts: dict[str, str]) -> dict[str, set[str]]:
-    """Hosts named in the page or its stylesheets, per file, minus namespace URLs."""
+    """Hosts the page or its stylesheets would request, per file.
+
+    Namespace URLs and the targets of plain links (`<a href>`, followed only when a person clicks,
+    as the credit to God's Eye View is) are not requests.
+    """
     found: dict[str, set[str]] = {}
     for name, text in texts.items():
+        text = ANCHOR.sub("", text)
         hosts = {h for h in URL.findall(text) if h not in NON_REQUEST_HOSTS}
         if hosts:
             found[name] = hosts

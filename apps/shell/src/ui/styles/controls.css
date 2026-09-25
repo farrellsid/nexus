@@ -325,6 +325,18 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
+.loader-credit {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-dim);
+}
+
+.loader-credit a {
+  color: var(--text-secondary);
+}
+
 @keyframes pulse {
   0%,
   100% {

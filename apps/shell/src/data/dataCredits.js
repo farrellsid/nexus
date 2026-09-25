@@ -12,6 +12,13 @@ import * as Cesium from 'cesium';
  */
 export const DATA_CREDITS = [
   {
+    key: 'godseye-interface',
+    html:
+      'Interface, visual design and effects: adapted from ' +
+      '<a href="https://github.com/bilawalsidhu/gods-eye-view" target="_blank" rel="noopener">God\'s Eye View</a> ' +
+      'by Bilawal Sidhu (MIT)',
+  },
+  {
     key: 'reearth-terrain',
     html:
       'Terrain: <a href="https://reearth.io" target="_blank" rel="noopener">Re:Earth</a> ' +
