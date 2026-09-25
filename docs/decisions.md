@@ -115,6 +115,10 @@ These were made while building `apps/shell`, are recorded in `apps/shell/UPSTREA
 - **The 2D fallback replaces the whole page** when WebGL is missing, startup fails, or `?view=2d` is given.
 - **Still open for the user (D3):** which visual effects stay, frame rate on their hardware, and reduced motion.
 
+## 2026-09-25, live tracking requested back (undecided)
+
+After the M5 check the user said planes and boats add a lot and should be added to the milestones. The earlier decision stripped live tracking, so this is recorded as an open request, not a reversal: feeds, terms, keys, cost and the local-only versus public question must be settled first (see the M5 feedback in `docs/roadmap.md`).
+
 ## Consequences to keep in view
 
 - **Nothing is publishable yet.** Published tours need accepted evidence, and the local database holds zero accepted versions and zero decisions (44 assertions, 44 candidate proposals, checked 2026-09-23). Claims must be reviewed and accepted first, and known defects (O-C26 is unsupported by its retained excerpt; the oil pack's cutoff label is wrong) must be repaired before acceptance.
